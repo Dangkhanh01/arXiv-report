@@ -25,18 +25,19 @@ html:
 
 # Repository settings
 repository:
-  url: "https://github.com/Hireophant/arXivProject"
+  url: "https://github.com/Dangkhanh01/arXiv-report"
   path_to_book: "book"
-  branch: "master"
+  branch: "main"
 
 # Sphinx configuration extensions
 sphinx:
   extra_extensions:
     - sphinx.ext.autodoc
     - sphinx.ext.mathjax
+    - sphinxcontrib.mermaid
   config:
     html_theme_options:
-      repository_url: "https://github.com/Hireophant/arXivProject"
+      repository_url: "https://github.com/Dangkhanh01/arXiv-report"
       use_repository_button: true
       use_download_button: true
       use_fullscreen_button: true

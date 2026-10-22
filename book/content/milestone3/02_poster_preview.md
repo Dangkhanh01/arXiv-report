@@ -1,5 +1,7 @@
 # Final Dataset & Poster Presentation
 
+This section outlines the culminating deliverables for the project, including the public dataset distribution schema on Hugging Face and the academic poster session requirements.
+
 ---
 
 ## 1. Public Release: Hugging Face Parquet Dataset

@@ -55,7 +55,7 @@ GET https://api.semanticscholar.org/graph/v1/paper/ARXIV:{arxiv_id}/references?f
 
 ## 4. Reliability, Rate Limiting & Fault Tolerance
 
-```mermaid
+```{mermaid}
 sequenceDiagram
     participant Colab as Google Colab Runtime
     participant OAI as arXiv OAI-PMH

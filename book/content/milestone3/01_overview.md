@@ -1,7 +1,7 @@
 # Milestone 3 — Reference Matching Pipeline Overview
 
 > [!NOTE]
-> **Forward Compatibility Architecture**: This section establishes the structural framework for **Project Milestone 3 — Reference Matching Pipeline**, based on the course statement in [ARXIV_PROJECT_FULL.md](../../ARXIV_PROJECT_FULL.md#milestone-matching).
+> **Forward Compatibility Architecture**: This section establishes the structural framework for **Project Milestone 3 — Reference Matching Pipeline**, based on the course statement in the [HCMUS Course Specifications](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/).
 
 ---
 
@@ -15,7 +15,7 @@ The problem mimics industrial entity resolution workflows where unstructured bib
 
 ## 2. Machine Learning Pipeline Architecture
 
-```mermaid
+```{mermaid}
 graph LR
     A[Extracted BibTeX Entries] --> B[Data Preprocessing & Normalization]
     C[Crawled Reference Metadata] --> B

@@ -1,7 +1,7 @@
 # Milestone 2 — Parsing & Standardization Overview
 
 > [!NOTE]
-> **Forward Compatibility Architecture**: This section establishes the structural framework for **Project Milestone 2 — Hierarchical Parsing and Standardization**, based on the course statement in [ARXIV_PROJECT_FULL.md](../../ARXIV_PROJECT_FULL.md#milestone-parsing). Detailed empirical results, execution statistics, and parsed hierarchy distributions will be integrated here upon Milestone 2 execution.
+> **Forward Compatibility Architecture**: This section establishes the structural framework for **Project Milestone 2 — Hierarchical Parsing and Standardization**, based on the course statement in the [HCMUS Course Specifications](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/). Detailed empirical results, execution statistics, and parsed hierarchy distributions will be integrated here upon Milestone 2 execution.
 
 ---
 
@@ -15,7 +15,7 @@ The downstream reference matching pipeline in Milestone 3 relies directly on the
 
 ## 2. Core Components of the Processing Pipeline
 
-```mermaid
+```{mermaid}
 graph TD
     A[Raw .tex Sources v1..vN] --> B[Multi-File Gathering: Compilation Path]
     B --> C[LaTeX Hierarchy Parser]
