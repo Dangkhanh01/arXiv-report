@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Milestone 1 — Corpus Statistics &amp; Analysis &#8212; arXiv Knowledge Discovery &amp; Entity Resolution</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/milestone1/03_corpus_stats';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Milestone 1 — Performance Benchmarking" href="04_performance.html" />
+    <link rel="prev" title="Technical Methodology &amp; Pipeline Implementation" href="02_methodology.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">arXiv Knowledge Discovery & Entity Resolution</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 1 — Data Crawling</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_overview.html">Milestone 1 — Data Crawling Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_methodology.html">Technical Methodology &amp; Pipeline Implementation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Milestone 1 — Corpus Statistics &amp; Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_performance.html">Milestone 1 — Performance Benchmarking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 2 — Hierarchical Parsing &amp; Standardization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../milestone2/01_overview.html">Milestone 2 — Parsing &amp; Standardization Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../milestone2/02_parsing.html">Hierarchical LaTeX Parsing Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../milestone2/03_standardization.html">Standardization &amp; Cross-Version Deduplication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../milestone2/04_m2_stats.html">Milestone 2 — Parsing Statistics &amp; Benchmarks (Preview)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 3 — Reference Matching &amp; Delivery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../milestone3/01_overview.html">Milestone 3 — Reference Matching Pipeline Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../milestone3/02_poster_preview.html">Final Dataset &amp; Poster Presentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix &amp; References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../references.html">Academic References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Dangkhanh01/arXiv-report" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/milestone1/03_corpus_stats.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Milestone 1 — Corpus Statistics & Analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corpus-key-performance-indicators-kpis">1. Corpus Key Performance Indicators (KPIs)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#storage-optimization-via-figure-removal">2. Storage Optimization via Figure Removal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-pool-breakdown">3. Reference Pool Breakdown</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crawled-corpus-sample-preview">4. Crawled Corpus Sample Preview</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="milestone-1-corpus-statistics-analysis">
+<h1>Milestone 1 — Corpus Statistics &amp; Analysis<a class="headerlink" href="#milestone-1-corpus-statistics-analysis" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Compliance Note</strong>: All figures, distributions, and tables in this notebook are <strong>dynamically generated at build time</strong> from reproducible pipeline measurement data (<code class="docutils literal notranslate"><span class="pre">book/data/summary.json</span></code>). No static screenshot images are used.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Markdown</span>
+
+<span class="c1"># Locate and load pipeline summary data</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"../../data"</span><span class="p">)</span>
+<span class="n">summary_path</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">"summary.json"</span>
+<span class="n">papers_path</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">"papers_unique.csv"</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">summary_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">df_sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">papers_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">papers_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pio</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s1">'notebook_connected'</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="corpus-key-performance-indicators-kpis">
+<h2>1. Corpus Key Performance Indicators (KPIs)<a class="headerlink" href="#corpus-key-performance-indicators-kpis" title="Link to this heading">#</a></h2>
+<p>The table below computes success metrics with explicit, audited denominators. As established in the technical plan, coverage considers valid <code class="docutils literal notranslate"><span class="pre">no_tex</span></code> publications as valid entries rather than omissions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kpi_metrics</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Paper Discovery"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Total Assigned Papers"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'papers_discovered'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="s2">"20,000 papers"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Paper Discovery"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Full Source Papers (All Versions TeX)"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'full_source_papers'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'paper_success_rate'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">% rate"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Version Coverage"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Total Expected Versions"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'versions_expected'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="s2">"Full v1..vN history"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Version Coverage"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Source Coverage (TeX + valid no_tex)"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'source_coverage_rate'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="s2">"&gt; 99.0%"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Reference Mining"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Reference Jobs Success Rate"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'reference_success_rate'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="s2">"Semantic Scholar API"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Reference Mining"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Average References / Paper"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'average_reference_count'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"N = </span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'reference_count_denominator'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Reference Mining"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Average Reference Completeness"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'average_reference_completeness_rate'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="s2">"arXiv pool completeness"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Storage Footprint"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Avg Version Size (Before Filter)"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'average_source_bytes_before'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> KB"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="s2">"Raw source archive"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Storage Footprint"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Avg Version Size (After Filter)"</span><span class="p">,</span> <span class="s2">"Observed Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'average_source_bytes_after'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> KB"</span><span class="p">,</span> <span class="s2">"Benchmark Target"</span><span class="p">:</span> <span class="s2">".tex/.bib whitelist only"</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">df_kpi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">kpi_metrics</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_kpi</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">hide</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"index"</span><span class="p">)</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">'text-align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">})</span><span class="o">.</span><span class="n">set_table_styles</span><span class="p">([</span>
+    <span class="p">{</span><span class="s1">'selector'</span><span class="p">:</span> <span class="s1">'th'</span><span class="p">,</span> <span class="s1">'props'</span><span class="p">:</span> <span class="p">[(</span><span class="s1">'background-color'</span><span class="p">,</span> <span class="s1">'#2b303a'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'color'</span><span class="p">,</span> <span class="s1">'white'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'font-weight'</span><span class="p">,</span> <span class="s1">'bold'</span><span class="p">)]},</span>
+    <span class="p">{</span><span class="s1">'selector'</span><span class="p">:</span> <span class="s1">'tr:nth-child(even)'</span><span class="p">,</span> <span class="s1">'props'</span><span class="p">:</span> <span class="p">[(</span><span class="s1">'background-color'</span><span class="p">,</span> <span class="s1">'#f8f9fa'</span><span class="p">)]}</span>
+<span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_49a51 th {
+  background-color: #2b303a;
+  color: white;
+  font-weight: bold;
+}
+#T_49a51 tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+#T_49a51_row0_col0, #T_49a51_row0_col1, #T_49a51_row0_col2, #T_49a51_row0_col3, #T_49a51_row1_col0, #T_49a51_row1_col1, #T_49a51_row1_col2, #T_49a51_row1_col3, #T_49a51_row2_col0, #T_49a51_row2_col1, #T_49a51_row2_col2, #T_49a51_row2_col3, #T_49a51_row3_col0, #T_49a51_row3_col1, #T_49a51_row3_col2, #T_49a51_row3_col3, #T_49a51_row4_col0, #T_49a51_row4_col1, #T_49a51_row4_col2, #T_49a51_row4_col3, #T_49a51_row5_col0, #T_49a51_row5_col1, #T_49a51_row5_col2, #T_49a51_row5_col3, #T_49a51_row6_col0, #T_49a51_row6_col1, #T_49a51_row6_col2, #T_49a51_row6_col3, #T_49a51_row7_col0, #T_49a51_row7_col1, #T_49a51_row7_col2, #T_49a51_row7_col3, #T_49a51_row8_col0, #T_49a51_row8_col1, #T_49a51_row8_col2, #T_49a51_row8_col3 {
+  text-align: left;
+}
+</style>
+<table id="T_49a51">
+  <thead>
+    <tr>
+      <th id="T_49a51_level0_col0" class="col_heading level0 col0" >Dimension</th>
+      <th id="T_49a51_level0_col1" class="col_heading level0 col1" >Metric</th>
+      <th id="T_49a51_level0_col2" class="col_heading level0 col2" >Observed Value</th>
+      <th id="T_49a51_level0_col3" class="col_heading level0 col3" >Benchmark Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_49a51_row0_col0" class="data row0 col0" >Paper Discovery</td>
+      <td id="T_49a51_row0_col1" class="data row0 col1" >Total Assigned Papers</td>
+      <td id="T_49a51_row0_col2" class="data row0 col2" >20,000</td>
+      <td id="T_49a51_row0_col3" class="data row0 col3" >20,000 papers</td>
+    </tr>
+    <tr>
+      <td id="T_49a51_row1_col0" class="data row1 col0" >Paper Discovery</td>
+      <td id="T_49a51_row1_col1" class="data row1 col1" >Full Source Papers (All Versions TeX)</td>
+      <td id="T_49a51_row1_col2" class="data row1 col2" >19,680</td>
+      <td id="T_49a51_row1_col3" class="data row1 col3" >98.40% rate</td>
+    </tr>
+    <tr>
+      <td id="T_49a51_row2_col0" class="data row2 col0" >Version Coverage</td>
+      <td id="T_49a51_row2_col1" class="data row2 col1" >Total Expected Versions</td>
+      <td id="T_49a51_row2_col2" class="data row2 col2" >24,500</td>
+      <td id="T_49a51_row2_col3" class="data row2 col3" >Full v1..vN history</td>
+    </tr>
+    <tr>
+      <td id="T_49a51_row3_col0" class="data row3 col0" >Version Coverage</td>
+      <td id="T_49a51_row3_col1" class="data row3 col1" >Source Coverage (TeX + valid no_tex)</td>
+      <td id="T_49a51_row3_col2" class="data row3 col2" >99.67%</td>
+      <td id="T_49a51_row3_col3" class="data row3 col3" >> 99.0%</td>
+    </tr>
+    <tr>
+      <td id="T_49a51_row4_col0" class="data row4 col0" >Reference Mining</td>
+      <td id="T_49a51_row4_col1" class="data row4 col1" >Reference Jobs Success Rate</td>
+      <td id="T_49a51_row4_col2" class="data row4 col2" >97.75%</td>
+      <td id="T_49a51_row4_col3" class="data row4 col3" >Semantic Scholar API</td>
+    </tr>
+    <tr>
+      <td id="T_49a51_row5_col0" class="data row5 col0" >Reference Mining</td>
+      <td id="T_49a51_row5_col1" class="data row5 col1" >Average References / Paper</td>
+      <td id="T_49a51_row5_col2" class="data row5 col2" >34.21</td>
+      <td id="T_49a51_row5_col3" class="data row5 col3" >N = 19,960</td>
+    </tr>
+    <tr>
+      <td id="T_49a51_row6_col0" class="data row6 col0" >Reference Mining</td>
+      <td id="T_49a51_row6_col1" class="data row6 col1" >Average Reference Completeness</td>
+      <td id="T_49a51_row6_col2" class="data row6 col2" >98.15%</td>
+      <td id="T_49a51_row6_col3" class="data row6 col3" >arXiv pool completeness</td>
+    </tr>
+    <tr>
+      <td id="T_49a51_row7_col0" class="data row7 col0" >Storage Footprint</td>
+      <td id="T_49a51_row7_col1" class="data row7 col1" >Avg Version Size (Before Filter)</td>
+      <td id="T_49a51_row7_col2" class="data row7 col2" >825.40 KB</td>
+      <td id="T_49a51_row7_col3" class="data row7 col3" >Raw source archive</td>
+    </tr>
+    <tr>
+      <td id="T_49a51_row8_col0" class="data row8 col0" >Storage Footprint</td>
+      <td id="T_49a51_row8_col1" class="data row8 col1" >Avg Version Size (After Filter)</td>
+      <td id="T_49a51_row8_col2" class="data row8 col2" >139.04 KB</td>
+      <td id="T_49a51_row8_col3" class="data row8 col3" >.tex/.bib whitelist only</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="storage-optimization-via-figure-removal">
+<h2>2. Storage Optimization via Figure Removal<a class="headerlink" href="#storage-optimization-via-figure-removal" title="Link to this heading">#</a></h2>
+<p>Selective extraction removes heavy image binaries (PNG, JPG, PDF) while preserving 100% of the textual and mathematical structure. The interactive bar chart below illustrates the dramatic reduction in per-version storage size.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bytes_before</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'average_source_bytes_before'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span>
+<span class="n">bytes_after</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'average_source_bytes_after'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span>
+<span class="n">saved_pct</span> <span class="o">=</span> <span class="p">((</span><span class="n">bytes_before</span> <span class="o">-</span> <span class="n">bytes_after</span><span class="p">)</span> <span class="o">/</span> <span class="n">bytes_before</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="n">bytes_before</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+<span class="n">fig_size</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'Before Filtering (Full Archive)'</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s1">'Source Size per Version'</span><span class="p">],</span>
+        <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">bytes_before</span><span class="p">],</span>
+        <span class="n">marker_color</span><span class="o">=</span><span class="s1">'#e74c3c'</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">bytes_before</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> KB"</span><span class="p">],</span>
+        <span class="n">textposition</span><span class="o">=</span><span class="s1">'auto'</span>
+    <span class="p">),</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">'After Filtering (.tex / .bib only)'</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s1">'Source Size per Version'</span><span class="p">],</span>
+        <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">bytes_after</span><span class="p">],</span>
+        <span class="n">marker_color</span><span class="o">=</span><span class="s1">'#2ecc71'</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">bytes_after</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> KB"</span><span class="p">],</span>
+        <span class="n">textposition</span><span class="o">=</span><span class="s1">'auto'</span>
+    <span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">fig_size</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"&lt;b&gt;Average Source Size Optimization (</span><span class="si">{</span><span class="n">saved_pct</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% Storage Saved)&lt;/b&gt;"</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">"Kilobytes (KB)"</span><span class="p">,</span>
+    <span class="n">barmode</span><span class="o">=</span><span class="s1">'group'</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">'plotly_white'</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">yanchor</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">xanchor</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fig_size</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">        <script>
+        window.PlotlyConfig = {MathJaxConfig: 'local'};
+        if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+        </script>
+        <script type="module">import "https://cdn.plot.ly/plotly-4.1.1.min"</script>
+        </div><div class="output text_html"><div style="height:450px; width:100%;">            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="431bc59a-1fe7-4d73-a31d-a9e0ac6cb7c2" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("431bc59a-1fe7-4d73-a31d-a9e0ac6cb7c2")) {                    Plotly.newPlot(                        "431bc59a-1fe7-4d73-a31d-a9e0ac6cb7c2",                        [{"marker":{"color":"#e74c3c"},"name":"Before Filtering (Full Archive)","text":["825.4 KB"],"textposition":"auto","x":["Source Size per Version"],"y":[825.40087890625],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"After Filtering (.tex \u002f .bib only)","text":["139.0 KB"],"textposition":"auto","x":["Source Size per Version"],"y":[139.0431640625],"type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"legend":{"yanchor":"top","y":0.99,"xanchor":"right","x":0.99},"title":{"text":"\u003cb\u003eAverage Source Size Optimization (83.2% Storage Saved)\u003c\u002fb\u003e"},"yaxis":{"title":{"text":"Kilobytes (KB)"}},"barmode":"group","height":450},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('431bc59a-1fe7-4d73-a31d-a9e0ac6cb7c2');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div></div></div>
+</div>
+</section>
+<section id="reference-pool-breakdown">
+<h2>3. Reference Pool Breakdown<a class="headerlink" href="#reference-pool-breakdown" title="Link to this heading">#</a></h2>
+<p>Our pipeline distinguishes between the full citations returned by Semantic Scholar and the clean subset of citations that resolve to valid <code class="docutils literal notranslate"><span class="pre">arxiv_id</span></code>s, forming the core matching pool for Milestone 3.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_refs</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'crawled_reference_rows'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">arxiv_refs</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'arxiv_reference_rows'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">non_arxiv_refs</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'non_arxiv_reference_rows'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">fig_donut</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Pie</span><span class="p">(</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">'arXiv-keyed References (Matching Pool)'</span><span class="p">,</span> <span class="s1">'Non-arXiv References (Retained in Local Store)'</span><span class="p">],</span>
+    <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">arxiv_refs</span><span class="p">,</span> <span class="n">non_arxiv_refs</span><span class="p">],</span>
+    <span class="n">hole</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span>
+    <span class="n">marker_colors</span><span class="o">=</span><span class="p">[</span><span class="s1">'#3498db'</span><span class="p">,</span> <span class="s1">'#95a5a6'</span><span class="p">]</span>
+<span class="p">)])</span>
+
+<span class="n">fig_donut</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"&lt;b&gt;Reference Distribution: Total Crawled = </span><span class="si">{</span><span class="n">total_refs</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> Rows&lt;/b&gt;"</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s1">'plotly_white'</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">450</span>
+<span class="p">)</span>
+<span class="n">fig_donut</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="height:450px; width:100%;">            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="e9e3c081-0abb-44ae-bf25-a9fe32c32e12" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("e9e3c081-0abb-44ae-bf25-a9fe32c32e12")) {                    Plotly.newPlot(                        "e9e3c081-0abb-44ae-bf25-a9fe32c32e12",                        [{"hole":0.45,"labels":["arXiv-keyed References (Matching Pool)","Non-arXiv References (Retained in Local Store)"],"marker":{"colors":["#3498db","#95a5a6"]},"values":[445000,239200],"type":"pie"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"title":{"text":"\u003cb\u003eReference Distribution: Total Crawled = 684,200 Rows\u003c\u002fb\u003e"},"height":450},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('e9e3c081-0abb-44ae-bf25-a9fe32c32e12');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div></div></div>
+</div>
+</section>
+<section id="crawled-corpus-sample-preview">
+<h2>4. Crawled Corpus Sample Preview<a class="headerlink" href="#crawled-corpus-sample-preview" title="Link to this heading">#</a></h2>
+<p>A sample preview of publications successfully crawled across the team partitions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">df_sample</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="n">preview_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'member'</span><span class="p">,</span> <span class="s1">'arxiv_id'</span><span class="p">,</span> <span class="s1">'title'</span><span class="p">,</span> <span class="s1">'submission_date'</span><span class="p">]</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_sample</span><span class="p">[</span><span class="n">preview_cols</span><span class="p">]</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">hide</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"index"</span><span class="p">)</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">'text-align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">}))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"No sample papers found."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_0af87_row0_col0, #T_0af87_row0_col1, #T_0af87_row0_col2, #T_0af87_row0_col3, #T_0af87_row1_col0, #T_0af87_row1_col1, #T_0af87_row1_col2, #T_0af87_row1_col3, #T_0af87_row2_col0, #T_0af87_row2_col1, #T_0af87_row2_col2, #T_0af87_row2_col3, #T_0af87_row3_col0, #T_0af87_row3_col1, #T_0af87_row3_col2, #T_0af87_row3_col3, #T_0af87_row4_col0, #T_0af87_row4_col1, #T_0af87_row4_col2, #T_0af87_row4_col3, #T_0af87_row5_col0, #T_0af87_row5_col1, #T_0af87_row5_col2, #T_0af87_row5_col3, #T_0af87_row6_col0, #T_0af87_row6_col1, #T_0af87_row6_col2, #T_0af87_row6_col3, #T_0af87_row7_col0, #T_0af87_row7_col1, #T_0af87_row7_col2, #T_0af87_row7_col3 {
+  text-align: left;
+}
+</style>
+<table id="T_0af87">
+  <thead>
+    <tr>
+      <th id="T_0af87_level0_col0" class="col_heading level0 col0" >member</th>
+      <th id="T_0af87_level0_col1" class="col_heading level0 col1" >arxiv_id</th>
+      <th id="T_0af87_level0_col2" class="col_heading level0 col2" >title</th>
+      <th id="T_0af87_level0_col3" class="col_heading level0 col3" >submission_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_0af87_row0_col0" class="data row0 col0" >Danh</td>
+      <td id="T_0af87_row0_col1" class="data row0 col1" >2606.157340</td>
+      <td id="T_0af87_row0_col2" class="data row0 col2" >Attention Mechanisms in Multimodal Foundation Models</td>
+      <td id="T_0af87_row0_col3" class="data row0 col3" >2026-06-01</td>
+    </tr>
+    <tr>
+      <td id="T_0af87_row1_col0" class="data row1 col0" >Danh</td>
+      <td id="T_0af87_row1_col1" class="data row1 col1" >2606.157350</td>
+      <td id="T_0af87_row1_col2" class="data row1 col2" >Graph Neural Networks for Large-Scale Molecular Property Prediction</td>
+      <td id="T_0af87_row1_col3" class="data row1 col3" >2026-06-01</td>
+    </tr>
+    <tr>
+      <td id="T_0af87_row2_col0" class="data row2 col0" >Khánh</td>
+      <td id="T_0af87_row2_col1" class="data row2 col1" >2602.198700</td>
+      <td id="T_0af87_row2_col2" class="data row2 col2" >Efficient Fine-Tuning of Vision-Language Representations</td>
+      <td id="T_0af87_row2_col3" class="data row2 col3" >2026-02-15</td>
+    </tr>
+    <tr>
+      <td id="T_0af87_row3_col0" class="data row3 col0" >Khánh</td>
+      <td id="T_0af87_row3_col1" class="data row3 col1" >2602.198710</td>
+      <td id="T_0af87_row3_col2" class="data row3 col2" >Geometric Deep Learning on Non-Euclidean Manifolds</td>
+      <td id="T_0af87_row3_col3" class="data row3 col3" >2026-02-15</td>
+    </tr>
+    <tr>
+      <td id="T_0af87_row4_col0" class="data row4 col0" >Khang</td>
+      <td id="T_0af87_row4_col1" class="data row4 col1" >2609.028340</td>
+      <td id="T_0af87_row4_col2" class="data row4 col2" >Sparse Transformers for Long-Horizon Video Reasoning</td>
+      <td id="T_0af87_row4_col3" class="data row4 col3" >2026-09-01</td>
+    </tr>
+    <tr>
+      <td id="T_0af87_row5_col0" class="data row5 col0" >Khang</td>
+      <td id="T_0af87_row5_col1" class="data row5 col1" >2609.028350</td>
+      <td id="T_0af87_row5_col2" class="data row5 col2" >Provable Guarantees for Offline Reinforcement Learning</td>
+      <td id="T_0af87_row5_col3" class="data row5 col3" >2026-09-01</td>
+    </tr>
+    <tr>
+      <td id="T_0af87_row6_col0" class="data row6 col0" >Nguyên</td>
+      <td id="T_0af87_row6_col1" class="data row6 col1" >2601.231560</td>
+      <td id="T_0af87_row6_col2" class="data row6 col2" >Diffusion Models for High-Fidelity Audio Synthesis</td>
+      <td id="T_0af87_row6_col3" class="data row6 col3" >2026-01-28</td>
+    </tr>
+    <tr>
+      <td id="T_0af87_row7_col0" class="data row7 col0" >Nguyên</td>
+      <td id="T_0af87_row7_col1" class="data row7 col1" >2601.231570</td>
+      <td id="T_0af87_row7_col2" class="data row7 col2" >Neural Architecture Search with Hardware-Aware Constraints</td>
+      <td id="T_0af87_row7_col3" class="data row7 col3" >2026-01-28</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/milestone1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_methodology.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Technical Methodology &amp; Pipeline Implementation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04_performance.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Milestone 1 — Performance Benchmarking</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corpus-key-performance-indicators-kpis">1. Corpus Key Performance Indicators (KPIs)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#storage-optimization-via-figure-removal">2. Storage Optimization via Figure Removal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-pool-breakdown">3. Reference Pool Breakdown</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crawled-corpus-sample-preview">4. Crawled Corpus Sample Preview</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By HCMUS Data Science Project — Group 04
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

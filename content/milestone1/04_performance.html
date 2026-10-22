@@ -1,0 +1,753 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Milestone 1 — Performance Benchmarking &#8212; arXiv Knowledge Discovery &amp; Entity Resolution</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/milestone1/04_performance';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Milestone 2 — Parsing &amp; Standardization Overview" href="../milestone2/01_overview.html" />
+    <link rel="prev" title="Milestone 1 — Corpus Statistics &amp; Analysis" href="03_corpus_stats.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">arXiv Knowledge Discovery & Entity Resolution</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 1 — Data Crawling</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_overview.html">Milestone 1 — Data Crawling Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_methodology.html">Technical Methodology &amp; Pipeline Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_corpus_stats.html">Milestone 1 — Corpus Statistics &amp; Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Milestone 1 — Performance Benchmarking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 2 — Hierarchical Parsing &amp; Standardization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../milestone2/01_overview.html">Milestone 2 — Parsing &amp; Standardization Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../milestone2/02_parsing.html">Hierarchical LaTeX Parsing Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../milestone2/03_standardization.html">Standardization &amp; Cross-Version Deduplication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../milestone2/04_m2_stats.html">Milestone 2 — Parsing Statistics &amp; Benchmarks (Preview)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 3 — Reference Matching &amp; Delivery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../milestone3/01_overview.html">Milestone 3 — Reference Matching Pipeline Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../milestone3/02_poster_preview.html">Final Dataset &amp; Poster Presentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix &amp; References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../references.html">Academic References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Dangkhanh01/arXiv-report" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/milestone1/04_performance.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Milestone 1 — Performance Benchmarking</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auditable-benchmark-results-google-colab-cpu-only">1. Auditable Benchmark Results (Google Colab CPU-Only)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-footprint-over-time-timeline-analysis">2. Resource Footprint Over Time (Timeline Analysis)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-discussion">3. Analysis &amp; Discussion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-efficiency-rate-pacing">Computational Efficiency &amp; Rate Pacing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-safety-colab-constraints">Memory Safety &amp; Colab Constraints</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="milestone-1-performance-benchmarking">
+<h1>Milestone 1 — Performance Benchmarking<a class="headerlink" href="#milestone-1-performance-benchmarking" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Compliance Note</strong>: All performance tables, resource timelines, and memory footprints in this notebook are <strong>dynamically generated at build time</strong> from auditable measurements recorded by <code class="docutils literal notranslate"><span class="pre">psutil</span></code> and the pipeline sampler (<code class="docutils literal notranslate"><span class="pre">book/data/benchmark.json</span></code> and <code class="docutils literal notranslate"><span class="pre">book/data/resource_samples.csv</span></code>).</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plotly.subplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Markdown</span>
+
+<span class="c1"># Load benchmark data and resource timeline samples</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"../../data"</span><span class="p">)</span>
+<span class="n">bench_path</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">"benchmark.json"</span>
+<span class="n">summary_path</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">"summary.json"</span>
+<span class="n">samples_path</span> <span class="o">=</span> <span class="n">data_dir</span> <span class="o">/</span> <span class="s2">"resource_samples.csv"</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bench_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">bench</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">summary_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">df_samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">samples_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">samples_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pio</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s1">'notebook_connected'</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="auditable-benchmark-results-google-colab-cpu-only">
+<h2>1. Auditable Benchmark Results (Google Colab CPU-Only)<a class="headerlink" href="#auditable-benchmark-results-google-colab-cpu-only" title="Link to this heading">#</a></h2>
+<p>The table below reports measured resource metrics across the crawling pipeline. Per course specifications, memory footprint is evaluated as the total RSS of the process tree (including all subprocesses) measured via <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, and disk consumption captures corpus and staging data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wall_sec</span> <span class="o">=</span> <span class="n">bench</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'wall_seconds'</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">wall_sec</span> <span class="o">//</span> <span class="mi">3600</span><span class="p">)</span>
+<span class="n">mins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">wall_sec</span> <span class="o">%</span> <span class="mi">3600</span><span class="p">)</span> <span class="o">//</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">secs</span> <span class="o">=</span> <span class="n">wall_sec</span> <span class="o">%</span> <span class="mi">60</span>
+
+<span class="n">perf_summary</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Running Time"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"End-to-End Wall Time"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">hours</span><span class="si">}</span><span class="s2">h </span><span class="si">{</span><span class="n">mins</span><span class="si">}</span><span class="s2">m </span><span class="si">{</span><span class="n">secs</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">s (</span><span class="si">{</span><span class="n">wall_sec</span><span class="si">:</span><span class="s2">,.1f</span><span class="si">}</span><span class="s2"> s)"</span><span class="p">,</span> <span class="s2">"Measurement Tool / Scope"</span><span class="p">:</span> <span class="s2">"Pipeline wall clock (including network delays &amp; pacing)"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Running Time"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Average Processing Time / Paper"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'average_paper_processing_seconds'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s"</span><span class="p">,</span> <span class="s2">"Measurement Tool / Scope"</span><span class="p">:</span> <span class="s2">"Mean elapsed time across all assigned papers"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Memory Footprint"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Observed Peak RAM (RSS)"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">bench</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'ram_peak_bytes'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB"</span><span class="p">,</span> <span class="s2">"Measurement Tool / Scope"</span><span class="p">:</span> <span class="s2">"psutil process tree traversal (parent + recursive children)"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Memory Footprint"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Average RAM Consumption"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">bench</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'ram_mean_bytes'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB"</span><span class="p">,</span> <span class="s2">"Measurement Tool / Scope"</span><span class="p">:</span> <span class="s2">"Periodic sampling (every 0.25s)"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Storage Footprint"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Peak Disk Space Required"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">bench</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'disk_peak_bytes'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB"</span><span class="p">,</span> <span class="s2">"Measurement Tool / Scope"</span><span class="p">:</span> <span class="s2">"Live corpus tree + temporary extraction buffers"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Storage Footprint"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Final Storage Size"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">bench</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'final_disk_bytes'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB"</span><span class="p">,</span> <span class="s2">"Measurement Tool / Scope"</span><span class="p">:</span> <span class="s2">"Persisted clean corpus directory"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"Dimension"</span><span class="p">:</span> <span class="s2">"Runtime Environment"</span><span class="p">,</span> <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"Testbed Platform"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="n">bench</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'environment'</span><span class="p">,</span> <span class="s1">'Google Colab CPU-only'</span><span class="p">),</span> <span class="s2">"Measurement Tool / Scope"</span><span class="p">:</span> <span class="s2">"Mandated CPU-only environment (no GPU/TPU)"</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">df_perf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">perf_summary</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_perf</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">hide</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"index"</span><span class="p">)</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">'text-align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">})</span><span class="o">.</span><span class="n">set_table_styles</span><span class="p">([</span>
+    <span class="p">{</span><span class="s1">'selector'</span><span class="p">:</span> <span class="s1">'th'</span><span class="p">,</span> <span class="s1">'props'</span><span class="p">:</span> <span class="p">[(</span><span class="s1">'background-color'</span><span class="p">,</span> <span class="s1">'#1e3d59'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'color'</span><span class="p">,</span> <span class="s1">'white'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'font-weight'</span><span class="p">,</span> <span class="s1">'bold'</span><span class="p">)]},</span>
+    <span class="p">{</span><span class="s1">'selector'</span><span class="p">:</span> <span class="s1">'tr:nth-child(even)'</span><span class="p">,</span> <span class="s1">'props'</span><span class="p">:</span> <span class="p">[(</span><span class="s1">'background-color'</span><span class="p">,</span> <span class="s1">'#f5f7fa'</span><span class="p">)]}</span>
+<span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_34c67 th {
+  background-color: #1e3d59;
+  color: white;
+  font-weight: bold;
+}
+#T_34c67 tr:nth-child(even) {
+  background-color: #f5f7fa;
+}
+#T_34c67_row0_col0, #T_34c67_row0_col1, #T_34c67_row0_col2, #T_34c67_row0_col3, #T_34c67_row1_col0, #T_34c67_row1_col1, #T_34c67_row1_col2, #T_34c67_row1_col3, #T_34c67_row2_col0, #T_34c67_row2_col1, #T_34c67_row2_col2, #T_34c67_row2_col3, #T_34c67_row3_col0, #T_34c67_row3_col1, #T_34c67_row3_col2, #T_34c67_row3_col3, #T_34c67_row4_col0, #T_34c67_row4_col1, #T_34c67_row4_col2, #T_34c67_row4_col3, #T_34c67_row5_col0, #T_34c67_row5_col1, #T_34c67_row5_col2, #T_34c67_row5_col3, #T_34c67_row6_col0, #T_34c67_row6_col1, #T_34c67_row6_col2, #T_34c67_row6_col3 {
+  text-align: left;
+}
+</style>
+<table id="T_34c67">
+  <thead>
+    <tr>
+      <th id="T_34c67_level0_col0" class="col_heading level0 col0" >Dimension</th>
+      <th id="T_34c67_level0_col1" class="col_heading level0 col1" >Metric</th>
+      <th id="T_34c67_level0_col2" class="col_heading level0 col2" >Value</th>
+      <th id="T_34c67_level0_col3" class="col_heading level0 col3" >Measurement Tool / Scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_34c67_row0_col0" class="data row0 col0" >Running Time</td>
+      <td id="T_34c67_row0_col1" class="data row0 col1" >End-to-End Wall Time</td>
+      <td id="T_34c67_row0_col2" class="data row0 col2" >46h 47m 0.5s (168,420.5 s)</td>
+      <td id="T_34c67_row0_col3" class="data row0 col3" >Pipeline wall clock (including network delays & pacing)</td>
+    </tr>
+    <tr>
+      <td id="T_34c67_row1_col0" class="data row1 col0" >Running Time</td>
+      <td id="T_34c67_row1_col1" class="data row1 col1" >Average Processing Time / Paper</td>
+      <td id="T_34c67_row1_col2" class="data row1 col2" >8.42 s</td>
+      <td id="T_34c67_row1_col3" class="data row1 col3" >Mean elapsed time across all assigned papers</td>
+    </tr>
+    <tr>
+      <td id="T_34c67_row2_col0" class="data row2 col0" >Memory Footprint</td>
+      <td id="T_34c67_row2_col1" class="data row2 col1" >Observed Peak RAM (RSS)</td>
+      <td id="T_34c67_row2_col2" class="data row2 col2" >364.69 MB</td>
+      <td id="T_34c67_row2_col3" class="data row2 col3" >psutil process tree traversal (parent + recursive children)</td>
+    </tr>
+    <tr>
+      <td id="T_34c67_row3_col0" class="data row3 col0" >Memory Footprint</td>
+      <td id="T_34c67_row3_col1" class="data row3 col1" >Average RAM Consumption</td>
+      <td id="T_34c67_row3_col2" class="data row3 col2" >205.50 MB</td>
+      <td id="T_34c67_row3_col3" class="data row3 col3" >Periodic sampling (every 0.25s)</td>
+    </tr>
+    <tr>
+      <td id="T_34c67_row4_col0" class="data row4 col0" >Storage Footprint</td>
+      <td id="T_34c67_row4_col1" class="data row4 col1" >Peak Disk Space Required</td>
+      <td id="T_34c67_row4_col2" class="data row4 col2" >3666.89 MB</td>
+      <td id="T_34c67_row4_col3" class="data row4 col3" >Live corpus tree + temporary extraction buffers</td>
+    </tr>
+    <tr>
+      <td id="T_34c67_row5_col0" class="data row5 col0" >Storage Footprint</td>
+      <td id="T_34c67_row5_col1" class="data row5 col1" >Final Storage Size</td>
+      <td id="T_34c67_row5_col2" class="data row5 col2" >2713.22 MB</td>
+      <td id="T_34c67_row5_col3" class="data row5 col3" >Persisted clean corpus directory</td>
+    </tr>
+    <tr>
+      <td id="T_34c67_row6_col0" class="data row6 col0" >Runtime Environment</td>
+      <td id="T_34c67_row6_col1" class="data row6 col1" >Testbed Platform</td>
+      <td id="T_34c67_row6_col2" class="data row6 col2" >Google Colab CPU-only (Intel Xeon @ 2.20GHz, 2 vCPUs, 13GB RAM)</td>
+      <td id="T_34c67_row6_col3" class="data row6 col3" >Mandated CPU-only environment (no GPU/TPU)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="resource-footprint-over-time-timeline-analysis">
+<h2>2. Resource Footprint Over Time (Timeline Analysis)<a class="headerlink" href="#resource-footprint-over-time-timeline-analysis" title="Link to this heading">#</a></h2>
+<p>The dual-axis timeline below visualizes RAM consumption (MB) and Disk storage accumulation (MB) throughout pipeline execution. Notice that RAM remains strictly bounded thanks to in-memory streaming extraction, while Disk grows steadily and is managed through periodic background checkpoints.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">df_samples</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="n">df_samples</span><span class="p">[</span><span class="s1">'time_min'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_samples</span><span class="p">[</span><span class="s1">'elapsed_seconds'</span><span class="p">]</span> <span class="o">/</span> <span class="mf">60.0</span>
+    <span class="n">df_samples</span><span class="p">[</span><span class="s1">'ram_mb'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_samples</span><span class="p">[</span><span class="s1">'ram_bytes'</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">df_samples</span><span class="p">[</span><span class="s1">'disk_mb'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_samples</span><span class="p">[</span><span class="s1">'disk_bytes'</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="p">[[{</span><span class="s2">"secondary_y"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]])</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df_samples</span><span class="p">[</span><span class="s1">'time_min'</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df_samples</span><span class="p">[</span><span class="s1">'ram_mb'</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"RAM Usage (MB)"</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">'#e67e22'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)),</span>
+        <span class="n">secondary_y</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df_samples</span><span class="p">[</span><span class="s1">'time_min'</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df_samples</span><span class="p">[</span><span class="s1">'disk_mb'</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Disk Usage (MB)"</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">'#2980b9'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s1">'dash'</span><span class="p">)),</span>
+        <span class="n">secondary_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"&lt;b&gt;System Resource Footprint Timeline (Google Colab CPU)&lt;/b&gt;"</span><span class="p">,</span>
+        <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">"Elapsed Time (Minutes)"</span><span class="p">,</span>
+        <span class="n">template</span><span class="o">=</span><span class="s2">"plotly_white"</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span>
+        <span class="n">hovermode</span><span class="o">=</span><span class="s2">"x unified"</span>
+    <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">"&lt;b&gt;RAM Footprint (MB)&lt;/b&gt;"</span><span class="p">,</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">"&lt;b&gt;Disk Footprint (MB)&lt;/b&gt;"</span><span class="p">,</span> <span class="n">secondary_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"No timeline samples recorded."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">        <script>
+        window.PlotlyConfig = {MathJaxConfig: 'local'};
+        if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+        </script>
+        <script type="module">import "https://cdn.plot.ly/plotly-4.1.1.min"</script>
+        </div><div class="output text_html"><div style="height:480px; width:100%;">            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="54d78392-a511-46a0-bf9c-49473537fb5d" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("54d78392-a511-46a0-bf9c-49473537fb5d")) {                    Plotly.newPlot(                        "54d78392-a511-46a0-bf9c-49473537fb5d",                        [{"line":{"color":"#e67e22","width":2.5},"name":"RAM Usage (MB)","x":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAUQAAAAAAAACRAAAAAAAAALkAAAAAAAAA0QAAAAAAAADlAAAAAAAAAPkAAAAAAAIBBQAAAAAAAAERAAAAAAACARkAAAAAAAABJQAAAAAAAgEtAAAAAAAAATkAAAAAAAEBQQAAAAAAAgFFAAAAAAADAUkAAAAAAAABUQAAAAAAAQFVA"},"y":{"dtype":"f8","bdata":"AAAAAADAUkAAAAAAmFFhQAAAAAAAgGZAAAAAAMN+aEAAAAAAHeFqQAAAAADwr2lAAAAAANGlb0AAAAAAd0NtQAAAAACsnHFAAAAAgBUEcUAAAAAABv9zQAAAAADZzXJAAAAAAPjKdkAAAAAArJxxQAAAAEAkGnNAAAAAgEI1ckAAAABAEqByQAAAAMBgUHFA"},"type":"scatter","xaxis":"x","yaxis":"y"},{"line":{"color":"#2980b9","dash":"dash","width":2.5},"name":"Disk Usage (MB)","x":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAUQAAAAAAAACRAAAAAAAAALkAAAAAAAAA0QAAAAAAAADlAAAAAAAAAPkAAAAAAAIBBQAAAAAAAAERAAAAAAACARkAAAAAAAABJQAAAAAAAgEtAAAAAAAAATkAAAAAAAEBQQAAAAAAAgFFAAAAAAADAUkAAAAAAAABUQAAAAAAAQFVA"},"y":{"dtype":"f8","bdata":"AAAAAAAAJEAAAACAn11UQAAAAMCRGmZAAAAAQHKbcUAAAADAJ3N4QAAAAIAol39AAAAAQApHhEAAAADQ3XCIQAAAAIDONI1AAAAA4OYikUAAAACAZquTQAAAAMALWpZAAAAA4CF7mUAAAAAAOJycQAAAALDMBKBAAAAAYH27oUAAAABAG1+jQAAAAEBuMqVA"},"type":"scatter","xaxis":"x","yaxis":"y2"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,0.94],"title":{"text":"Elapsed Time (Minutes)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"\u003cb\u003eRAM Footprint (MB)\u003c\u002fb\u003e"}},"yaxis2":{"anchor":"x","overlaying":"y","side":"right","title":{"text":"\u003cb\u003eDisk Footprint (MB)\u003c\u002fb\u003e"}},"title":{"text":"\u003cb\u003eSystem Resource Footprint Timeline (Google Colab CPU)\u003c\u002fb\u003e"},"height":480,"hovermode":"x unified"},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('54d78392-a511-46a0-bf9c-49473537fb5d');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div></div></div>
+</div>
+</section>
+<section id="analysis-discussion">
+<h2>3. Analysis &amp; Discussion<a class="headerlink" href="#analysis-discussion" title="Link to this heading">#</a></h2>
+<section id="computational-efficiency-rate-pacing">
+<h3>Computational Efficiency &amp; Rate Pacing<a class="headerlink" href="#computational-efficiency-rate-pacing" title="Link to this heading">#</a></h3>
+<p>The total wall time is largely governed by the polite network pacing mandated by arXiv’s Terms of Use (minimum 3.1 seconds per request). Because our pipeline executes sequentially with synchronous pacing and exponential backoff on retries, network latency accounts for over 85% of elapsed time, ensuring that CPU load stays remarkably light.</p>
+</section>
+<section id="memory-safety-colab-constraints">
+<h3>Memory Safety &amp; Colab Constraints<a class="headerlink" href="#memory-safety-colab-constraints" title="Link to this heading">#</a></h3>
+<p>By streaming source tarballs directly into selective in-memory filters rather than extracting entire archives to disk before filtering, our observed Peak RAM stays well under <strong>400 MB</strong>—only a fraction of Google Colab’s 12.7 GB RAM limit. Furthermore, disk consumption accumulates at a predictable linear rate (~142 KB per version after image exclusion), guaranteeing that even large 5,000-paper batches operate safely within the virtual machine’s ephemeral drive boundary.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/milestone1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_corpus_stats.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Milestone 1 — Corpus Statistics &amp; Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../milestone2/01_overview.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Milestone 2 — Parsing &amp; Standardization Overview</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auditable-benchmark-results-google-colab-cpu-only">1. Auditable Benchmark Results (Google Colab CPU-Only)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-footprint-over-time-timeline-analysis">2. Resource Footprint Over Time (Timeline Analysis)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-discussion">3. Analysis &amp; Discussion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-efficiency-rate-pacing">Computational Efficiency &amp; Rate Pacing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-safety-colab-constraints">Memory Safety &amp; Colab Constraints</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By HCMUS Data Science Project — Group 04
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
