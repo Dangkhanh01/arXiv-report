@@ -1,0 +1,28 @@
+# Table of contents
+# https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: content/index
+parts:
+  - caption: "Milestone 1 — Data Crawling"
+    chapters:
+      - file: content/milestone1/01_overview
+      - file: content/milestone1/02_methodology
+      - file: content/milestone1/03_corpus_stats
+      - file: content/milestone1/04_performance
+
+  - caption: "Milestone 2 — Hierarchical Parsing & Standardization"
+    chapters:
+      - file: content/milestone2/01_overview
+      - file: content/milestone2/02_parsing
+      - file: content/milestone2/03_standardization
+      - file: content/milestone2/04_m2_stats
+
+  - caption: "Milestone 3 — Reference Matching & Delivery"
+    chapters:
+      - file: content/milestone3/01_overview
+      - file: content/milestone3/02_poster_preview
+
+  - caption: "Appendix & References"
+    chapters:
+      - file: content/references

@@ -1,0 +1,9 @@
+member,arxiv_id,title,submission_date,corpus_zip,receipt_path
+Danh,2606.15734,Attention Mechanisms in Multimodal Foundation Models,2026-06-01,/drive/backup/corpus_1.zip,/drive/backup/receipt_1.json
+Danh,2606.15735,Graph Neural Networks for Large-Scale Molecular Property Prediction,2026-06-01,/drive/backup/corpus_1.zip,/drive/backup/receipt_1.json
+Khánh,2602.19870,Efficient Fine-Tuning of Vision-Language Representations,2026-02-15,/drive/backup/corpus_2.zip,/drive/backup/receipt_2.json
+Khánh,2602.19871,Geometric Deep Learning on Non-Euclidean Manifolds,2026-02-15,/drive/backup/corpus_2.zip,/drive/backup/receipt_2.json
+Khang,2609.02834,Sparse Transformers for Long-Horizon Video Reasoning,2026-09-01,/drive/backup/corpus_3.zip,/drive/backup/receipt_3.json
+Khang,2609.02835,Provable Guarantees for Offline Reinforcement Learning,2026-09-01,/drive/backup/corpus_3.zip,/drive/backup/receipt_3.json
+Nguyên,2601.23156,Diffusion Models for High-Fidelity Audio Synthesis,2026-01-28,/drive/backup/corpus_4.zip,/drive/backup/receipt_4.json
+Nguyên,2601.23157,Neural Architecture Search with Hardware-Aware Constraints,2026-01-28,/drive/backup/corpus_4.zip,/drive/backup/receipt_4.json

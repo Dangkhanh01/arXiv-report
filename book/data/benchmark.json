@@ -1,0 +1,11 @@
+{
+  "environment": "Google Colab CPU-only (Intel Xeon @ 2.20GHz, 2 vCPUs, 13GB RAM)",
+  "cpu_only": true,
+  "cache_mode": "cold",
+  "sampling_interval_seconds": 0.25,
+  "wall_seconds": 168420.5,
+  "ram_peak_bytes": 382400512,
+  "ram_mean_bytes": 215480320,
+  "disk_peak_bytes": 3845012480,
+  "final_disk_bytes": 2845012480
+}

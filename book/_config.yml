@@ -1,0 +1,42 @@
+# Book configuration
+# https://jupyterbook.org/customize/config.html
+
+title: "arXiv Knowledge Discovery & Entity Resolution"
+author: "HCMUS Data Science Project — Group 04"
+copyright: "2026"
+logo: ""
+
+# Execution settings
+execute:
+  execute_notebooks: "auto"    # Run un-executed notebooks at build time to dynamically generate figures/tables
+  timeout: 300                 # Max seconds per cell execution
+  allow_errors: false          # Stop build on execution error for high quality assurance
+  stderr_output: "show"
+
+# HTML-specific settings
+html:
+  favicon: ""
+  use_issues_button: true
+  use_repository_button: true
+  home_page_in_navbar: true
+  extra_navbar: |
+    <p>HCMUS Intro to Data Science</p>
+    <p>Project Milestones Report</p>
+
+# Repository settings
+repository:
+  url: "https://github.com/Hireophant/arXivProject"
+  path_to_book: "book"
+  branch: "master"
+
+# Sphinx configuration extensions
+sphinx:
+  extra_extensions:
+    - sphinx.ext.autodoc
+    - sphinx.ext.mathjax
+  config:
+    html_theme_options:
+      repository_url: "https://github.com/Hireophant/arXivProject"
+      use_repository_button: true
+      use_download_button: true
+      use_fullscreen_button: true
