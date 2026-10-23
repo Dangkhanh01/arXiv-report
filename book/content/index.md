@@ -2,6 +2,9 @@
 
 Welcome to the comprehensive technical report for the **arXiv Knowledge Discovery and Entity Resolution Project**, conducted as part of the *Introduction to Data Science* course at VNUHCM - University of Science (HCMUS).
 
+> [!NOTE]
+> **Interim Sample Data Status (100 Papers)**: This report is currently compiled against live experimental measurements harvested from an interim smoke test batch of 100 assigned papers on Google Colab CPU (`Linux x86_64; Python 3.13.16`). All figures, KPI tables, and resource consumption timelines are generated dynamically at build time and will automatically scale to the complete 20,000-paper corpus upon final aggregation across all 4 team members.
+
 ---
 
 ## 1. Project Overview & Research Context

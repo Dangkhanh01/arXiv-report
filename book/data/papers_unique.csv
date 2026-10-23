@@ -1,9 +1,101 @@
-member,arxiv_id,title,submission_date,corpus_zip,receipt_path
-Danh,2606.15734,Attention Mechanisms in Multimodal Foundation Models,2026-06-01,/drive/backup/corpus_1.zip,/drive/backup/receipt_1.json
-Danh,2606.15735,Graph Neural Networks for Large-Scale Molecular Property Prediction,2026-06-01,/drive/backup/corpus_1.zip,/drive/backup/receipt_1.json
-Khánh,2602.19870,Efficient Fine-Tuning of Vision-Language Representations,2026-02-15,/drive/backup/corpus_2.zip,/drive/backup/receipt_2.json
-Khánh,2602.19871,Geometric Deep Learning on Non-Euclidean Manifolds,2026-02-15,/drive/backup/corpus_2.zip,/drive/backup/receipt_2.json
-Khang,2609.02834,Sparse Transformers for Long-Horizon Video Reasoning,2026-09-01,/drive/backup/corpus_3.zip,/drive/backup/receipt_3.json
-Khang,2609.02835,Provable Guarantees for Offline Reinforcement Learning,2026-09-01,/drive/backup/corpus_3.zip,/drive/backup/receipt_3.json
-Nguyên,2601.23156,Diffusion Models for High-Fidelity Audio Synthesis,2026-01-28,/drive/backup/corpus_4.zip,/drive/backup/receipt_4.json
-Nguyên,2601.23157,Neural Architecture Search with Hardware-Aware Constraints,2026-01-28,/drive/backup/corpus_4.zip,/drive/backup/receipt_4.json
+member,arxiv_id,title,submission_date
+Danh,2606.15734,Retrievable Gradients: Continual Post-Training Without Cumulative Weight Drift,2026-06-14
+Danh,2606.15735,EHRNote-ChatQA: A Benchmark for Evidence-Grounded Multi-Turn Clinical Question Answering over Longitudinal Discharge Summaries,2026-06-14
+Danh,2606.15736,Production of high-orbital kaon excited states in the $K^{-}p$ reaction,2026-06-14
+Danh,2606.15737,Interpolation and Query Rewriting,2026-06-14
+Danh,2606.15738,A remark on Kolmogorov's theorem,2026-06-14
+Danh,2606.15739,Parton wakes and field angular momentum in chiral QCD plasma,2026-06-14
+Danh,2606.15740,Axioms and Anomalies with Finite Data,2026-06-14
+Danh,2606.15741,A Self Consistency Based Reranking for Narrative Question Answering,2026-06-14
+Danh,2606.15742,Deep Learning-Based Automatic Modulation Classification Using GRU Networks,2026-06-14
+Danh,2606.15743,Unsupervised Learning for Missing Modalities in Multimodal Learning,2026-06-14
+Danh,2606.15744,Comparative Performance Analysis of NIST PQC Standards: From STM32 Software Limitations to FPGA-SoC Acceleration,2026-06-14
+Danh,2606.15745,"Purely unrectifiable sets, fractal percolation and graphs of functions",2026-06-14
+Danh,2606.15746,Age and Stability Trade-offs in Remote Monitoring Systems,2026-06-14
+Danh,2606.15747,Painleve XXXIV asymptotics for the defocusing mKdV equation with step-like initial data in transition regions,2026-06-14
+Danh,2606.15748,Estimating Demand for a New Product,2026-06-14
+Danh,2606.15749,OmniTraffic: A Controllable Generation Pipeline and Benchmark for Spatio-Temporal Traffic Reasoning,2026-06-14
+Danh,2606.15750,"Self-Consistent Closure of Fractal Dimension, Nonextensive Statistics, and Non-Markovian Dynamics in Critical Systems",2026-06-14
+Danh,2606.15751,Acoustic Prompting via Stage-wise Modulation for Few-Shot Learning in Audio Language Models,2026-06-14
+Danh,2606.15752,One Sequential Recommendation Model Pretrained from Synthetic Priors Predicts Multiple Datasets,2026-06-14
+Danh,2606.15753,RoboPIN: Grounded Embodied Reasoning via Pinned Chain-of-Thought,2026-06-14
+Danh,2606.15754,Bounding Causal Effects for Ordinal Outcomes Under Positive Dependence,2026-06-14
+Danh,2606.15755,A Multiplex Network Hawkes Model for Systemic Risk Measurement,2026-06-14
+Danh,2606.15756,From Correlation to Causation in Lane Change Prediction for Automated Driving: A Causal Explanation Framework,2026-06-14
+Danh,2606.15757,"Towards a Theory of Modular Natives: Explaining Superscaling, China's Greatest Innovation Yet",2026-06-14
+Danh,2606.15758,Non-Archimedean balanced metrics and their application to totally degenerate abelian varieties,2026-06-14
+Danh,2606.15759,A Universal Physics Defining the Radiation Spectra of Blazars and Gamma-Ray Bursts,2026-06-14
+Danh,2606.15760,The Data Manifold under the Microscope,2026-06-14
+Danh,2606.15761,Sharp bounds between the saturation number and the harmonic index,2026-06-14
+Danh,2606.15762,Snyk VulnBench JS 1.0: Can LLMs Find the Same Bugs Twice?,2026-06-14
+Danh,2606.15763,The Circumplex Degeneracy Behind the Rare-Class Limit in Affect Recognition,2026-06-14
+Danh,2606.15764,Investigation of Shock Wave Dynamics in Complex Plasma via Computational Modelling,2026-06-14
+Danh,2606.15765,Learning to Orchestrate Vision Foundation Models for Multi-Task Dense Prediction,2026-06-14
+Danh,2606.15766,Rethinking Scaffolding in LLM Tutors: The Interactional Mismatch Between Benchmarks and Real-World Deployments,2026-06-14
+Danh,2606.15767,Visualizing Uncertainty: Spatial Maps of Missing and Conflicting Evidence in Deep Learning,2026-06-14
+Danh,2606.15768,LaWAM: Latent World Action Models for Efficient Dynamics-Aware Robot Policies,2026-06-14
+Danh,2606.15769,Noise-Adaptive Predictive Dynamical Decoupling,2026-06-14
+Danh,2606.15770,ttda704 at SemEval-2026 Task 6: Structured Chain-of-Thought Prompting for Political Evasion Detection,2026-06-14
+Danh,2606.15771,A spectral condition for perfect matchings in 3-partite 3-graphs,2026-06-14
+Danh,2606.15772,Ellipse Meets Bit-Planes: A Novel Approach to RNFL based Glaucoma Detection Using Advanced Image Processing and Deep Learning,2026-06-14
+Danh,2606.15773,CKM determination from $W$ decays with jet flavor tagging at CEPC,2026-06-14
+Danh,2606.15774,Stabilizing Itinerant Electrons in a Corner-Sharing Kagom\'e Oxide Nd4Os3ZnO14,2026-06-14
+Danh,2606.15775,Uncertainty-Aware Haptic Signal Estimation for Reliable and Resource Efficient Tactile Internet,2026-06-14
+Danh,2606.15776,Spin-dependent electron transfer through a ring-wire coupled junction: Role of in-plane electric field,2026-06-14
+Danh,2606.15777,Length-constrained and length-penalised curve diffusion flows of planar curves inside cones,2026-06-14
+Danh,2606.15778,DYNA : Dynamic Episodic Memory Networks for Augmenting Large Language Models with Temporal Knowledge Graphs in Continuous Learning,2026-06-14
+Danh,2606.15779,Faithful Action-unit Causal Reasoning for Counterfactually Faithful Emotion Explanations,2026-06-14
+Danh,2606.15780,Inverse Logarithmic Coefficients and Associated Sharp Estimates for the Apple-Like Convex Subclass $\mathcal{C}_{\mathcal{AP}}$,2026-06-14
+Danh,2606.15781,Cross-Sectional and Spatio-Temporal Analysis of Seismicity Parameters in the Zagros Orogenic Belt: Insights into Crustal Stress Distribution and Seismic Hazard,2026-06-14
+Danh,2606.15782,Mitigating Visual Hallucinations in Multimodal Systems through Retrieval-Augmented Reliability-Aware Inference,2026-06-14
+Danh,2606.15783,ttda704 at SemEval-2026 Task 4: Modeling Narrative Structures via Pseudonymization and Multi-View Sentence Alignment,2026-06-14
+Danh,2606.15784,Bayesian Networks with Latent Time Embedding for Stage-Aware Causal Modeling of Alzheimer's Disease Progression,2026-06-14
+Danh,2606.15785,Quasinormal modes and excitation factors of a regular black hole with zero-point length,2026-06-14
+Danh,2606.15786,"Domain-Guided Prompting of the Segment Anything Model for Seismic Interpretation: The Role of Attributes, Visualization, and Hybrid Prompts",2026-06-14
+Danh,2606.15787,Ferronematics: integrality of the limiting interface in the strong coupling regime,2026-06-14
+Danh,2606.15788,GAS-Leak-LLM: Genetic Algorithm-Based Suffix Optimization for Black-Box LLM Jailbreaking,2026-06-14
+Danh,2606.15789,Approaching Shannon Bound with Lossless LLM Weight Compression,2026-06-14
+Danh,2606.15790,On the non-existence of symphonic maps,2026-06-14
+Danh,2606.15791,Flowing to Normality and the Fate of the Single Ring Theorem,2026-06-14
+Danh,2606.15792,Entanglement islands of 2D charged scalar-hairy black holes on the brane,2026-06-14
+Danh,2606.15793,Proximal Policy Optimization for Amortized Discrete Sampling,2026-06-14
+Danh,2606.15794,An integrable deformation of the sine(sinh)-Gordon model -- Non-Lie algebra,2026-06-14
+Danh,2606.15795,Entire area-minimizing surfaces in $\mathbf{R}^n$ of density two are quadratic or planar,2026-06-14
+Danh,2606.15796,DifFRACT: Diffusion Feature Reconstruction and Attribution for Circuit Tracing,2026-06-14
+Danh,2606.15797,Unassigned Agents in Compilation-based Multi-agent Path Finding,2026-06-14
+Danh,2606.15798,Why fluctuations of conserved charges in the confining regime above $T_{ch}$ behave as if the quarks were free?,2026-06-14
+Danh,2606.15799,Machine Learning Topological Order from Defect Partition Functions,2026-06-14
+Danh,2606.15800,Two mechanisms of backward optical forces on Rayleigh particles in structured paraxial light,2026-06-14
+Danh,2606.15801,MAPS: A Novel Multi-Axial Projective Sphere for Geometrically Visualizing Higher d-Valued Quantum State-Space of Qudits,2026-06-14
+Danh,2606.15802,CPS4: Class Prompt driven Semi-Supervised Spine Segmentation with Class-specific Consistency Constraint,2026-06-14
+Danh,2606.15803,Quantum vortex in a fluid flow: negative effective mass and a novel mechanism for turbulence formation,2026-06-14
+Danh,2606.15804,Polarization-controlled optical backflow in paraxial electromagnetic beams,2026-06-14
+Danh,2606.15805,Mean-Field Parallel Decoding for Discrete Diffusion Language Models,2026-06-14
+Danh,2606.15806,Spin-induced and orbital quantum backflow in Pauli theory,2026-06-14
+Danh,2606.15807,Continuous Cross-Domain Traffic State Prediction via Memory-Augmented Graph Liquid Time-Constant Networks,2026-06-14
+Danh,2606.15808,Trainable Quantum Channels as Computational Primitives for Quantum Learning,2026-06-14
+Danh,2606.15809,AttackonCTF: Defending Hardware Security Competition Benchmarks in the Age of LLMs,2026-06-14
+Danh,2606.15810,Let Them Steal: Trapping Large Language Model Extraction Attacks with Knowledge Honeypot,2026-06-14
+Danh,2606.15811,FuseChain: Runtime Evidence Reconstruction for Software Supply-Chain Attacks,2026-06-14
+Danh,2606.15812,Brownian Kernel Ladders,2026-06-14
+Danh,2606.15813,AdaTT: Text-Guided Instrument Timbre Transfer with Target-Adaptive Structural Control,2026-06-14
+Danh,2606.15814,Rigidity of Strain Tensors for Surfaces With Mixed Type and Applications To Shell Theory,2026-06-14
+Danh,2606.15815,On Defining Erasure Harms for NLP,2026-06-14
+Danh,2606.15816,"K\""ahler-Ricci Flow: from divisors to cusps",2026-06-14
+Danh,2606.15817,ScratchLens: Lens-Parametric Behavioral Equivalence for Scratch Programs,2026-06-14
+Danh,2606.15818,Intrinsic linewidths of confined phonons in few-layer hBN,2026-06-14
+Danh,2606.15819,SACE: Concept Erasure at the Semantic Singularity in Visual Autoregressive Models,2026-06-14
+Danh,2606.15820,Coherent structures modeling in stenotic transitional flow via resolvent analysis,2026-06-14
+Danh,2606.15821,The Truth Stays in the Family: Enhancing Contextual Grounding via Inherited Truthful Heads in Model Lineages,2026-06-14
+Danh,2606.15822,TrustedARI: Towards Trust-Native Agentic Routing Infrastructure for Agentic AI,2026-06-14
+Danh,2606.15823,Minimization of the inradius of convex bodies for prescribed diameter and circumradius in Minkowski spaces,2026-06-14
+Danh,2606.15824,From linear to nonlinear instabilities with application to plasma columns,2026-06-14
+Danh,2606.15825,Rescuing flavor-symmetry-forbidden leptogenesis within the left-right symmetric framework,2026-06-14
+Danh,2606.15826,Geometrically Constrained Decentralized Independent Vector Analysis for Distributed Microphone Arrays,2026-06-14
+Danh,2606.15827,Rigidity Estimate for Hyperbolic Shells and its Application in $\Gamma$-limit Theory,2026-06-14
+Danh,2606.15828,Configuration Smells in AGENTS.md Files: Common Mistakes in Configuring Coding Agents,2026-06-14
+Danh,2606.15829,On singular values and trace norm of signed digraphs,2026-06-14
+Danh,2606.15830,MSC-CMA-ES: Structure-Aware Restarts for CMA-ES via Cyclic Nearest-Better Basin Discovery,2026-06-14
+Danh,2606.15831,An Integrated System for Real-Time Student Assessment and Career Guidance Using Neural Networks in Computing Disciplines,2026-06-14
+Danh,2606.15832,"SILAGE: Memory-Efficient, Full-Gradient-Free Nonconvex Optimization for Nested Finite Sums",2026-06-14
+Danh,2606.15833,When Correct Edges Cannot Be Verified: A Provenance Gap in Incomplete KGQA and a Provenance-Favoring Completion Policy,2026-06-14

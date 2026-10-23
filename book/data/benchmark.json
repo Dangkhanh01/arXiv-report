@@ -1,11 +1,11 @@
 {
-  "environment": "Google Colab CPU-only (Intel Xeon @ 2.20GHz, 2 vCPUs, 13GB RAM)",
+  "environment": "Linux x86_64; Python 3.13.16; Colab",
   "cpu_only": true,
   "cache_mode": "cold",
   "sampling_interval_seconds": 0.25,
-  "wall_seconds": 168420.5,
-  "ram_peak_bytes": 382400512,
-  "ram_mean_bytes": 215480320,
-  "disk_peak_bytes": 3845012480,
-  "final_disk_bytes": 2845012480
+  "wall_seconds": 6324.64147189,
+  "ram_peak_bytes": 311746560,
+  "ram_mean_bytes": 236617294.1616881,
+  "disk_peak_bytes": 144942445,
+  "final_disk_bytes": 79196837
 }

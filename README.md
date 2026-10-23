@@ -60,28 +60,37 @@ Open the main page in your default browser:
 
 ---
 
-## 🔄 How to Ingest Real Data from Google Colab
+## 🔄 Automated Data Ingestion & Synchronization
 
-When a crawling session completes on Google Colab or when the group aggregates the full 20,000-paper corpus:
+We provide an automated synchronization script [`scripts/sync_data.py`](scripts/sync_data.py) that extracts, verifies SHA-256 hashes, and formats metrics from Google Colab backups (`Milestone1/` run trees or final 20,000-paper aggregated folders) into `book/data/`:
 
-1. Download the exported report artifacts:
-   - `summary.json` (from `metrics.summarize_corpus`)
-   - `benchmark.json` (from `metrics.summarize_benchmark`)
-   - `resource_samples.csv` (periodic RAM & Disk samples)
-   - `papers_unique.csv` (from `reports.aggregate_reports`)
-2. Overwrite the files located in `book/data/`:
-   ```text
-   book/data/
-   ├── summary.json
-   ├── benchmark.json
-   ├── resource_samples.csv
-   └── papers_unique.csv
-   ```
-3. Re-build the book:
-   ```bash
-   jupyter-book build --all book/
-   ```
-   All notebooks will automatically re-run, recalculate KPIs, and re-render the interactive charts with your real data!
+### 1. Ingest Sample or Aggregated Run Data
+```bash
+# Auto-detect Milestone1 directory from workspace
+python scripts/sync_data.py
+
+# Or specify a custom folder (e.g. from Google Drive backup)
+python scripts/sync_data.py --source /path/to/Milestone1
+
+# Sync and immediately rebuild the book:
+python scripts/sync_data.py --build
+```
+
+### 2. Manual Inspection of Updated Datasets
+The script ensures all 4 auditable files in `book/data/` are updated and hash-verified:
+```text
+book/data/
+├── summary.json           # Crawl KPI rates, version counts, reference totals
+├── benchmark.json         # Wall time, peak/mean RAM, peak disk, environment
+├── resource_samples.csv   # High-resolution RAM/Disk timeline samples (every 0.25s)
+└── papers_unique.csv      # Rich paper roster (member, arxiv_id, title, submission_date)
+```
+
+### 3. Rebuild the Book
+```bash
+jupyter-book build --all book/
+```
+All notebooks dynamically re-calculate KPIs and re-render interactive Plotly figures at build time!
 
 ---
 
