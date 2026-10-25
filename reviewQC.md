@@ -2,6 +2,8 @@
 
 Ngày review: 24/10/2026.
 
+Cập nhật đối chiếu code: 25/10/2026 — làm rõ discovery time, cơ sở đo kích thước, gán thành viên và xử lý `null`/kiểu dữ liệu ID.
+
 ## Phạm vi và kết luận
 
 Đánh giá này áp dụng cho **template báo cáo được thử bằng 100 bài đã crawl**, không phải bản nộp hoàn chỉnh của toàn bộ 20.000 bài. Không trừ điểm vì dữ liệu hiện tại mới có 100 bài. Mục tiêu QC là kiểm tra template có đáp ứng report requirements của M1, tính và diễn giải chỉ số đúng, và có thể nhận dữ liệu đầy đủ về sau mà ít phải sửa tay hay không.
@@ -51,18 +53,18 @@ Nguồn yêu cầu: [Milestone 1 — Report Requirements (Jupyter Book)](https:/
 
 **Hoàn tất khi:** Mỗi khẳng định định lượng truy ngược được đến phép tính hoặc log; phần chữ không mâu thuẫn bảng và hình.
 
-## 3. Thiếu tổng thời gian entry discovery
+## 3. Tổng thời gian entry discovery chưa đưa sang Book
 
 **Vị trí:** `book/content/milestone1/04_performance.ipynb`, bảng benchmark; bộ dữ liệu đầu vào trong `book/data/`.
 
-**Vấn đề:** Có wall time, thời gian xử lý trung bình, RAM và disk nhưng không hiển thị **tổng thời gian entry discovery**, một chỉ số được đề M1 yêu cầu rõ.
+**Vấn đề:** Book có wall time, thời gian xử lý trung bình, RAM và disk nhưng không hiển thị **tổng thời gian entry discovery**, một chỉ số được đề M1 yêu cầu rõ. Crawler đã đo và lưu giá trị này tại `manifest["discovery"]["elapsed_seconds"]`; notebook crawler `../src/notebooks/milestone1.ipynb` cũng đã hiển thị. Phần thiếu nằm ở bước xuất/đồng bộ dữ liệu và trình bày trong Book, không phải crawler chưa có phép đo.
 
 **Cần sửa:**
 
-- Mang discovery time từ log/manifest của crawler sang dữ liệu report.
+- Đọc discovery time đã có từ manifest của run đang nhập, đưa vào bộ dữ liệu Book; không cần viết lại phép đo trong crawler.
 - Thêm dòng hiển thị tổng discovery time, đơn vị và phạm vi đo.
-- Nói rõ discovery đã nằm trong end-to-end wall time hay được đo riêng; không cộng hai lần.
-- Khi chưa có phép đo, hiển thị thiếu dữ liệu thay vì tự điền 0.
+- Nêu rõ discovery đã nằm trong end-to-end wall time của pipeline; hiển thị riêng để phân tích, không cộng hai lần.
+- Với run cũ không có field hoặc giá trị `null`, hiển thị thiếu dữ liệu thay vì tự điền 0.
 
 **Hoàn tất khi:** Có thể đọc trực tiếp tổng discovery time của batch đang báo cáo và đối chiếu với dữ liệu nguồn.
 
@@ -97,13 +99,13 @@ Nguồn yêu cầu: [Milestone 1 — Report Requirements (Jupyter Book)](https:/
 - Sau lọc: khoảng **677.214 bytes/paper**.
 - Mẫu số: **92 paper**.
 
-Ngoài ra, nếu so sánh archive nén trước lọc với file giải nén sau lọc, chênh lệch không chỉ phản ánh dung lượng ảnh bị loại. Whitelist còn loại `.sty`, `.cls`, `.bbl` và các file khác.
+Theo contract `DownloadResult` trong `../src/crawling/__init__.py`, `source_bytes_before` và `source_bytes_after` **đều là dung lượng chưa nén**; `archive_bytes` là kích thước payload tải về, được lưu riêng. Với tar, `_extract_tar()` trong `../src/crawling/download.py` tính “before” bằng tổng kích thước các file thành viên, không tính tar headers hay thư mục; “after” là tổng bytes của các file được giữ lại. Vì vậy, code hiện tại không so sánh archive nén với file giải nén. Tuy nhiên, chênh lệch vẫn không chỉ phản ánh dung lượng ảnh: whitelist còn loại `.sty`, `.cls`, `.bbl` và các file khác.
 
 **Cần sửa:**
 
 - Hiển thị kích thước trung bình theo paper, ưu tiên có giá trị bytes để đối chiếu yêu cầu; giữ thống kê version làm bổ sung.
 - Giải thích mẫu số 92 và cách xử lý paper có version lỗi hoặc `no_tex`.
-- Ghi rõ trước/sau đo ở trạng thái nén hay giải nén và gồm loại file nào.
+- Ghi rõ trước/sau đều chưa nén và gồm loại file nào; phân biệt với `archive_bytes` để không gọi nhầm “before” là kích thước archive tải về.
 - Không diễn giải toàn bộ mức giảm dung lượng là dung lượng hình ảnh đã loại bỏ.
 
 **Hoàn tất khi:** Đơn vị phân tích, mẫu số và cơ sở so sánh rõ ràng; chỉ số theo paper có mặt trong report.
@@ -189,16 +191,23 @@ Ngoài ra, nếu so sánh archive nén trước lọc với file giải nén sau
 - Có receipt nhưng thiếu expected hash cũng chưa bảo đảm đã đối chiếu hash, dù script có thể in thông báo “Verified SHA-256 integrity”.
 - Nhánh aggregated copy file không thực hiện đối chiếu receipt/hash như lời mô tả chung trong README.
 - Notebook dùng nhiều giá trị mặc định 0; thiếu trường có thể bị thể hiện như kết quả thực nghiệm bằng 0 thay vì thiếu phép đo.
+- `sync_from_zip()` mặc định `member_name = "Danh"`, rồi lấy file `retry-state/member-*.json` đầu tiên có trường `member`, chưa đối chiếu với `run_id`/receipt của ZIP đang nhập. Dữ liệu của người khác có thể bị gán tên Danh hoặc thành viên không liên quan dù tổng số paper vẫn đúng.
+- Trường có giá trị JSON `null` khác với trường không tồn tại: `.get(..., 0)` vẫn trả về `None` khi field tồn tại và bằng `null`. Phép chia hoặc định dạng số trên giá trị này có thể làm notebook lỗi lúc build. Crawler chủ động dùng `None` cho phép đo chưa xác định, nên đây là đầu vào cần được xử lý.
+- Notebook thống kê đọc `papers_unique.csv` bằng `pd.read_csv()` mà chưa chỉ định kiểu cho `arxiv_id`. ID số có thể bị suy luận thành số thực, làm mất biểu diễn chính xác như `2606.15740`; ID kiểu cũ như `hep-th/9901001` cũng phải được giữ dưới dạng chuỗi.
 
 **Cần sửa:**
 
 - Kiểm tra đủ bộ file, schema, trường bắt buộc, kiểu dữ liệu và tính nhất quán trước khi thay dữ liệu report.
 - Mang run ID/provenance vào bộ dữ liệu để phát hiện trộn run.
+- Xác định thành viên từ metadata/ledger gắn đúng run và receipt; nếu không xác định được thì báo thiếu hoặc dừng, không mặc định Danh hay lấy trạng thái đầu tiên. Kiểm tra với đầu vào của nhiều thành viên.
 - Cập nhật trọn bộ sau khi kiểm tra, tránh để bộ dữ liệu dở dang hoặc lẫn file cũ.
 - Phân biệt rõ verified, unverified và failed; chỉ tuyên bố hash-verified khi có giá trị kỳ vọng để đối chiếu và đã khớp.
 - Hiển thị thiếu dữ liệu hoặc dừng với lỗi có nghĩa khi thiếu phép đo bắt buộc.
+- Xử lý riêng field thiếu và field `null` trước khi tính toán/định dạng; không biến thành số 0 thực nghiệm. Chỉ chặn `null` ở các trường mà schema thực sự bắt buộc có giá trị.
+- Đọc/ghi các cột arXiv ID dưới dạng chuỗi, ví dụ `dtype={"arxiv_id": "string"}` khi đọc roster; áp dụng tương tự cho các cột ID khác khi bổ sung bảng references/version. Không chuyển ID qua số thực.
+- Thử đầu vào có phép đo `null`, trường bị thiếu, reference rỗng, `no_tex`, nhiều thành viên và ID `2606.15740`/`hep-th/9901001`; kiểm tra dữ liệu và hiển thị giữ đúng giá trị, thành viên và trạng thái thiếu phép đo.
 
-**Hoàn tất khi:** Đầu vào thiếu/sai không thể sinh báo cáo trông hoàn chỉnh nhưng dùng lẫn dữ liệu cũ hoặc số 0 giả.
+**Hoàn tất khi:** Đầu vào thiếu/sai không thể sinh báo cáo trông hoàn chỉnh nhưng dùng lẫn dữ liệu cũ, số 0 giả hoặc thành viên sai; `null` được xử lý theo schema và các ID được giữ nguyên dạng chuỗi qua nhập/xuất/hiển thị.
 
 ## 11. Mô tả phương pháp chưa đủ để đối chiếu triển khai
 
@@ -267,7 +276,7 @@ Trạng thái “có” dưới đây chỉ xác nhận nội dung/khả năng q
 | R13 | Tỷ lệ thành công trung bình crawl reference metadata                        | Có job success `100%`; đồng thời có metadata completeness với mẫu số khác                                          | Định nghĩa rõ hai chỉ số; không coi chúng là độ bao phủ bibliography; mục 6                                                                                             |
 | R14 | Tổng thời gian xử lý một paper                                              | Có mean và batch wall time; chưa trình bày thời gian của từng paper/một paper cụ thể trong report                  | Thêm bảng per-paper end-to-end elapsed time hoặc ví dụ paper có ID, scope rõ; dùng bảng per-paper còn hỗ trợ kiểm chứng mean; bổ sung mục 4                             |
 | R15 | Thời gian trung bình xử lý các paper được yêu cầu                           | Có `59.09 s`, nhưng nhãn “all assigned” chưa đúng phạm vi sample và khác `wall/N`                                  | Giải thích phạm vi và mẫu số; mục 4                                                                                                                                     |
-| R16 | Tổng thời gian entry discovery                                              | Chưa có trong report và bộ input report hiện dùng                                                                  | Bổ sung phép đo, field và bảng; mục 3                                                                                                                                   |
+| R16 | Tổng thời gian entry discovery                                              | Crawler đã đo trong manifest và hiển thị ở notebook; chưa đưa sang bộ dữ liệu/trình bày của Book                                                                  | Đồng bộ phép đo đã có, thêm field và bảng trong Book; không cần đo lại ở crawler; mục 3                                                                                                                                   |
 | R17 | RAM tối đa trong scraping                                                   | Có peak RSS và timeline; khớp peak của CSV sample                                                                  | Ghi là peak quan sát qua sampling, phạm vi process tree; không bảo đảm bắt được mọi peak ngắn                                                                           |
 | R18 | RAM trung bình                                                              | Có mean khớp trung bình các mẫu CSV                                                                                | Nêu là sample mean; khoảng lấy mẫu thực tế không cố định chính xác 0,25 s, xem bổ sung bên dưới                                                                         |
 | R19 | Dung lượng disk tối đa cần dùng                                             | Có observed peak disk và timeline                                                                                  | Nêu các đường dẫn/loại dữ liệu được tính, gồm staging/cache/index/backup nếu thuộc hệ thống; chưa suy từ một số tổng rằng mọi thành phần đã được bao phủ                |
