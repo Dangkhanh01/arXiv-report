@@ -81,7 +81,37 @@ sequenceDiagram
     Colab->>Drive: Final dual backup (Corpus ZIP + Report ZIP)
 ```
 
-- **Pacing & Politeness**: A centralized timer enforces a strict delay of at least **3.1 seconds** before every arXiv request, fully compliant with arXiv API Terms of Use.
-- **24-Hour Verified Cache**: Metadata and reference receipts maintain an auditable SHA-256 hash and a 24-hour Time-to-Live (TTL).
-- **Background Checkpointing**: In long-running Colab CPU sessions, a background thread flushes immutable snapshots every 40 papers without blocking the crawling thread.
-- **Google Drive Dual-Backup**: Every session automatically synchronizes both `corpus.zip` and `report.zip` to Google Drive with incremental SHA-256 hash checks to guarantee zero data loss upon Colab runtime disconnection.
+### Empirical Pipeline Configuration Parameters
+
+The table below documents the strict production parameters configured across our crawling nodes:
+
+| Parameter | Operational Setting | Rationale / Specification |
+|:---|:---:|:---|
+| `ARXIV_PACING_DELAY` | `3.1 seconds` | Complies with arXiv Terms of Use (mandatory ≥ 3.0s between requests) |
+| `S2_PACING_DELAY` | `1.0 second` | Complies with Semantic Scholar Public API tier rate limits |
+| `HTTP_MAX_RETRIES` | `5 attempts` | Exponential backoff ($t = 2.0 \times 2^{\text{attempt}}$, max 60s) on HTTP 429/503 |
+| `CHECKPOINT_INTERVAL` | `40 papers` | Periodic immutable archive snapshot & SHA-256 receipt generation |
+| `CACHE_TTL` | `24 hours` | Local XML and citation response verification cache |
+| `SOURCE_WHITELIST` | `.tex, .bib, .bbl, .sty, .cls` | Excludes binary assets while preserving full LaTeX AST dependencies |
+
+---
+
+## 5. Architectural Module Mapping & Resilience Boundaries
+
+### Software Module Mapping
+Our codebase strictly modularizes core responsibilities:
+
+| Operational Dimension | Source Module / Handler | Key Responsibilities |
+|:---|:---|:---|
+| **Discovery & Metadata** | `discovery.py::OaiClient` | `GetRecord` with `arXivRaw`, version parsing, initial submission date resolution |
+| **Source Downloader** | `sources.py::SourceExtractor` | HTTP streaming, tarball in-memory traversal, selective whitelist extraction |
+| **Citation Mining** | `references.py::S2Client` | Semantic Scholar Graph API pagination, `references_all` vs `references` partitioning |
+| **Telemetry & Benchmarking**| `telemetry.py::ResourceSampler` | Background daemon sampling `psutil` process tree RSS and disk every 0.25s |
+| **Durability & Checkpoints** | `checkpoints.py::CheckpointManager` | Atomic ZIP bundling, SHA-256 digest validation, Google Drive backup receipts |
+
+### Resilience & Data Durability Boundaries
+While the dual-backup architecture is engineered for high reliability in ephemeral Google Colab environments:
+1. **Checkpoint Granularity**: Checkpoints commit in atomic increments of 40 papers. If a Colab session is preempted or terminated between checkpoints, at most 39 uncommitted papers must be re-crawled upon resumption.
+2. **Idempotent Resumption**: When resuming a run, the pipeline inspects local and Drive commit receipts, seamlessly skipping all previously validated papers and versions without generating redundant upstream requests.
+3. **Cryptographic Validation**: Every backup receipt stores exact SHA-256 digests and byte counts for both `corpus.zip` and `report.zip`, preventing archive corruption or incomplete tar stream writes.
+

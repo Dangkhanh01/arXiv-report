@@ -572,18 +572,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l1"><a class="reference internal" href="03_corpus_stats.html">Milestone 1 — Corpus Statistics &amp; Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_performance.html">Milestone 1 — Performance Benchmarking</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 2 — Hierarchical Parsing &amp; Standardization</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../milestone2/01_overview.html">Milestone 2 — Parsing &amp; Standardization Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../milestone2/02_parsing.html">Hierarchical LaTeX Parsing Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../milestone2/03_standardization.html">Standardization &amp; Cross-Version Deduplication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../milestone2/04_m2_stats.html">Milestone 2 — Parsing Statistics &amp; Benchmarks (Preview)</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 3 — Reference Matching &amp; Delivery</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../milestone3/01_overview.html">Milestone 3 — Reference Matching Pipeline Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../milestone3/02_poster_preview.html">Final Dataset &amp; Poster Presentation</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix &amp; References</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../references.html">Academic References</a></li>
@@ -759,7 +747,15 @@ window.runMermaid = runMermaid;</script>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-api-pagination-separation-of-stores">Graph API Pagination &amp; Separation of Stores</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-rate-limiting-fault-tolerance">4. Reliability, Rate Limiting &amp; Fault Tolerance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-rate-limiting-fault-tolerance">4. Reliability, Rate Limiting &amp; Fault Tolerance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-pipeline-configuration-parameters">Empirical Pipeline Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architectural-module-mapping-resilience-boundaries">5. Architectural Module Mapping &amp; Resilience Boundaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software-module-mapping">Software Module Mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resilience-data-durability-boundaries">Resilience &amp; Data Durability Boundaries</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -857,12 +853,93 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
         end
     end
     Colab-&gt;&gt;Drive: Final dual backup (Corpus ZIP + Report ZIP)
-    </pre><ul class="simple">
-<li><p><strong>Pacing &amp; Politeness</strong>: A centralized timer enforces a strict delay of at least <strong>3.1 seconds</strong> before every arXiv request, fully compliant with arXiv API Terms of Use.</p></li>
-<li><p><strong>24-Hour Verified Cache</strong>: Metadata and reference receipts maintain an auditable SHA-256 hash and a 24-hour Time-to-Live (TTL).</p></li>
-<li><p><strong>Background Checkpointing</strong>: In long-running Colab CPU sessions, a background thread flushes immutable snapshots every 40 papers without blocking the crawling thread.</p></li>
-<li><p><strong>Google Drive Dual-Backup</strong>: Every session automatically synchronizes both <code class="docutils literal notranslate"><span class="pre">corpus.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">report.zip</span></code> to Google Drive with incremental SHA-256 hash checks to guarantee zero data loss upon Colab runtime disconnection.</p></li>
-</ul>
+    </pre><section id="empirical-pipeline-configuration-parameters">
+<h3>Empirical Pipeline Configuration Parameters<a class="headerlink" href="#empirical-pipeline-configuration-parameters" title="Link to this heading">#</a></h3>
+<p>The table below documents the strict production parameters configured across our crawling nodes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Parameter</p></th>
+<th class="head text-center"><p>Operational Setting</p></th>
+<th class="head text-left"><p>Rationale / Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ARXIV_PACING_DELAY</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">3.1</span> <span class="pre">seconds</span></code></p></td>
+<td class="text-left"><p>Complies with arXiv Terms of Use (mandatory ≥ 3.0s between requests)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">S2_PACING_DELAY</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">1.0</span> <span class="pre">second</span></code></p></td>
+<td class="text-left"><p>Complies with Semantic Scholar Public API tier rate limits</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">HTTP_MAX_RETRIES</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">attempts</span></code></p></td>
+<td class="text-left"><p>Exponential backoff (<span class="math notranslate nohighlight">\(t = 2.0 \times 2^{\text{attempt}}\)</span>, max 60s) on HTTP 429/503</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">CHECKPOINT_INTERVAL</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">40</span> <span class="pre">papers</span></code></p></td>
+<td class="text-left"><p>Periodic immutable archive snapshot &amp; SHA-256 receipt generation</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">CACHE_TTL</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">24</span> <span class="pre">hours</span></code></p></td>
+<td class="text-left"><p>Local XML and citation response verification cache</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">SOURCE_WHITELIST</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">.tex,</span> <span class="pre">.bib,</span> <span class="pre">.bbl,</span> <span class="pre">.sty,</span> <span class="pre">.cls</span></code></p></td>
+<td class="text-left"><p>Excludes binary assets while preserving full LaTeX AST dependencies</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="architectural-module-mapping-resilience-boundaries">
+<h2>5. Architectural Module Mapping &amp; Resilience Boundaries<a class="headerlink" href="#architectural-module-mapping-resilience-boundaries" title="Link to this heading">#</a></h2>
+<section id="software-module-mapping">
+<h3>Software Module Mapping<a class="headerlink" href="#software-module-mapping" title="Link to this heading">#</a></h3>
+<p>Our codebase strictly modularizes core responsibilities:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operational Dimension</p></th>
+<th class="head text-left"><p>Source Module / Handler</p></th>
+<th class="head text-left"><p>Key Responsibilities</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Discovery &amp; Metadata</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">discovery.py::OaiClient</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">GetRecord</span></code> with <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code>, version parsing, initial submission date resolution</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Source Downloader</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sources.py::SourceExtractor</span></code></p></td>
+<td class="text-left"><p>HTTP streaming, tarball in-memory traversal, selective whitelist extraction</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Citation Mining</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">references.py::S2Client</span></code></p></td>
+<td class="text-left"><p>Semantic Scholar Graph API pagination, <code class="docutils literal notranslate"><span class="pre">references_all</span></code> vs <code class="docutils literal notranslate"><span class="pre">references</span></code> partitioning</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Telemetry &amp; Benchmarking</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">telemetry.py::ResourceSampler</span></code></p></td>
+<td class="text-left"><p>Background daemon sampling <code class="docutils literal notranslate"><span class="pre">psutil</span></code> process tree RSS and disk every 0.25s</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Durability &amp; Checkpoints</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">checkpoints.py::CheckpointManager</span></code></p></td>
+<td class="text-left"><p>Atomic ZIP bundling, SHA-256 digest validation, Google Drive backup receipts</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="resilience-data-durability-boundaries">
+<h3>Resilience &amp; Data Durability Boundaries<a class="headerlink" href="#resilience-data-durability-boundaries" title="Link to this heading">#</a></h3>
+<p>While the dual-backup architecture is engineered for high reliability in ephemeral Google Colab environments:</p>
+<ol class="arabic simple">
+<li><p><strong>Checkpoint Granularity</strong>: Checkpoints commit in atomic increments of 40 papers. If a Colab session is preempted or terminated between checkpoints, at most 39 uncommitted papers must be re-crawled upon resumption.</p></li>
+<li><p><strong>Idempotent Resumption</strong>: When resuming a run, the pipeline inspects local and Drive commit receipts, seamlessly skipping all previously validated papers and versions without generating redundant upstream requests.</p></li>
+<li><p><strong>Cryptographic Validation</strong>: Every backup receipt stores exact SHA-256 digests and byte counts for both <code class="docutils literal notranslate"><span class="pre">corpus.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">report.zip</span></code>, preventing archive corruption or incomplete tar stream writes.</p></li>
+</ol>
+</section>
 </section>
 </section>
 
@@ -944,7 +1021,15 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-api-pagination-separation-of-stores">Graph API Pagination &amp; Separation of Stores</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-rate-limiting-fault-tolerance">4. Reliability, Rate Limiting &amp; Fault Tolerance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-rate-limiting-fault-tolerance">4. Reliability, Rate Limiting &amp; Fault Tolerance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-pipeline-configuration-parameters">Empirical Pipeline Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architectural-module-mapping-resilience-boundaries">5. Architectural Module Mapping &amp; Resilience Boundaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software-module-mapping">Software Module Mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resilience-data-durability-boundaries">Resilience &amp; Data Durability Boundaries</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

@@ -215,18 +215,6 @@
 <li class="toctree-l1"><a class="reference internal" href="milestone1/03_corpus_stats.html">Milestone 1 — Corpus Statistics &amp; Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="milestone1/04_performance.html">Milestone 1 — Performance Benchmarking</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 2 — Hierarchical Parsing &amp; Standardization</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="milestone2/01_overview.html">Milestone 2 — Parsing &amp; Standardization Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="milestone2/02_parsing.html">Hierarchical LaTeX Parsing Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="milestone2/03_standardization.html">Standardization &amp; Cross-Version Deduplication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="milestone2/04_m2_stats.html">Milestone 2 — Parsing Statistics &amp; Benchmarks (Preview)</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 3 — Reference Matching &amp; Delivery</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="milestone3/01_overview.html">Milestone 3 — Reference Matching Pipeline Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="milestone3/02_poster_preview.html">Final Dataset &amp; Poster Presentation</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix &amp; References</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="references.html">Academic References</a></li>
@@ -409,7 +397,7 @@
 <p>Welcome to the comprehensive technical report for the <strong>arXiv Knowledge Discovery and Entity Resolution Project</strong>, conducted as part of the <em>Introduction to Data Science</em> course at VNUHCM - University of Science (HCMUS).</p>
 <blockquote>
 <div><p>[!NOTE]
-<strong>Interim Sample Data Status (100 Papers)</strong>: This report is currently compiled against live experimental measurements harvested from an interim smoke test batch of 100 assigned papers on Google Colab CPU (<code class="docutils literal notranslate"><span class="pre">Linux</span> <span class="pre">x86_64;</span> <span class="pre">Python</span> <span class="pre">3.13.16</span></code>). All figures, KPI tables, and resource consumption timelines are generated dynamically at build time and will automatically scale to the complete 20,000-paper corpus upon final aggregation across all 4 team members.</p>
+<strong>Milestone 1 Submission Scope (20,000 Papers)</strong>: This report compiles and evaluates the complete, auditable crawl measurements harvested across all 20,000 assigned arXiv papers on Google Colab CPU (<code class="docutils literal notranslate"><span class="pre">Linux</span> <span class="pre">x86_64;</span> <span class="pre">Python</span> <span class="pre">3.13</span> <span class="pre">/</span> <span class="pre">3.14</span></code>). All KPI tables, percentile breakdowns, and resource consumption timelines are generated dynamically at build time from raw experimental data aggregated across all 4 team members (Danh, Khang, Khánh, Nguyên).</p>
 </div></blockquote>
 <hr class="docutils" />
 <section id="project-overview-research-context">
@@ -453,25 +441,30 @@
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Member</p></th>
 <th class="head text-left"><p>Primary Responsibilities</p></th>
-<th class="head text-left"><p>Core Deliverables</p></th>
+<th class="head text-center"><p>Assigned Partition</p></th>
+<th class="head text-center"><p>Verified Corpus</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p><strong>Khánh</strong></p></td>
-<td class="text-left"><p>Discovery, Metadata &amp; Version History</p></td>
-<td class="text-left"><p>OAI-PMH <code class="docutils literal notranslate"><span class="pre">GetRecord</span></code> client (<code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code>), submission date resolution, metadata cache</p></td>
+<td class="text-left"><p>Discovery, Metadata &amp; Version History (<code class="docutils literal notranslate"><span class="pre">oai-pmh/arXivRaw</span></code>, date resolution)</p></td>
+<td class="text-center"><p>5,000 papers</p></td>
+<td class="text-center"><p>5,000 papers (100%)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><strong>Khang</strong></p></td>
-<td class="text-left"><p>Full-Text Source Extraction</p></td>
-<td class="text-left"><p>Versioned source downloader, byte-exact <code class="docutils literal notranslate"><span class="pre">.tex</span></code>/<code class="docutils literal notranslate"><span class="pre">.bib</span></code> whitelist, figure removal</p></td>
+<td class="text-left"><p>Full-Text Source Extraction (<code class="docutils literal notranslate"><span class="pre">.tex</span></code>/<code class="docutils literal notranslate"><span class="pre">.bib</span></code> whitelist, figure removal)</p></td>
+<td class="text-center"><p>5,000 papers</p></td>
+<td class="text-center"><p>5,000 papers (100%)</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><strong>Nguyên</strong></p></td>
-<td class="text-left"><p>Reference Mining &amp; Ingestion</p></td>
-<td class="text-left"><p>Semantic Scholar Graph API pagination, <code class="docutils literal notranslate"><span class="pre">references_all</span></code> and <code class="docutils literal notranslate"><span class="pre">references</span></code> stores</p></td>
+<td class="text-left"><p>Reference Mining &amp; Ingestion (Semantic Scholar Graph API pagination)</p></td>
+<td class="text-center"><p>5,000 papers</p></td>
+<td class="text-center"><p>5,000 papers (100%)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><strong>Danh</strong></p></td>
-<td class="text-left"><p>Pipeline Orchestration &amp; Reporting</p></td>
-<td class="text-left"><p>Pipeline coordination, resource benchmarking (<code class="docutils literal notranslate"><span class="pre">psutil</span></code>), Jupyter Book synthesis</p></td>
+<td class="text-left"><p>Pipeline Orchestration &amp; Reporting (resource telemetry, Jupyter Book synthesis)</p></td>
+<td class="text-center"><p>5,000 papers</p></td>
+<td class="text-center"><p>5,000 papers (100%)</p></td>
 </tr>
 </tbody>
 </table>
@@ -480,33 +473,19 @@
 <hr class="docutils" />
 <section id="structure-of-this-report">
 <h2>3. Structure of this Report<a class="headerlink" href="#structure-of-this-report" title="Link to this heading">#</a></h2>
-<p>This <strong>Jupyter Book</strong> serves as the cumulative, auditable report for the project. In strict accordance with course specifications, <strong>all figures and tables are dynamically generated at build time</strong> from reproducible raw measurements rather than static screenshots:</p>
+<p>This <strong>Jupyter Book</strong> serves as the cumulative, auditable report for the project. For the <strong>Milestone 1 submission</strong>, the report focuses exclusively on the complete data acquisition, source cleaning, and resource benchmarking pipeline. Milestone 2 will be incorporated sequentially into this book in future milestones, and Milestone 3 will be accompanied by an A2 poster:</p>
 <ol class="arabic simple">
 <li><p><strong><a class="reference internal" href="milestone1/01_overview.html"><span class="std std-doc">Milestone 1 — Data Crawling</span></a></strong>:</p>
 <ul class="simple">
-<li><p>Problem statement and assigned scope (20,000 papers).</p></li>
-<li><p>Technical methodology (OAI-PMH <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code>, mirror streaming, Semantic Scholar pagination, dual-backup).</p></li>
-<li><p><a class="reference internal" href="milestone1/03_corpus_stats.html"><span class="std std-doc">Corpus Statistics</span></a>: Interactive key metrics, size reduction distributions, and reference completeness.</p></li>
-<li><p><a class="reference internal" href="milestone1/04_performance.html"><span class="std std-doc">Performance Benchmarking</span></a>: CPU, RAM, and Disk footprints observed on Google Colab CPU-only runtimes.</p></li>
-</ul>
-</li>
-<li><p><strong><a class="reference internal" href="milestone2/01_overview.html"><span class="std std-doc">Milestone 2 — Hierarchical Parsing &amp; Standardization</span></a></strong>:</p>
-<ul class="simple">
-<li><p>Specifications for LaTeX hierarchy parsing, AST tree construction, math normalization, and cross-version deduplication.</p></li>
-</ul>
-</li>
-<li><p><strong><a class="reference internal" href="milestone3/01_overview.html"><span class="std std-doc">Milestone 3 — Reference Matching &amp; Delivery</span></a></strong>:</p>
-<ul class="simple">
-<li><p>Preview of the machine learning matching pipeline, MRR&#64;5 ranking, Hugging Face Parquet dataset, and A2 poster presentation.</p></li>
+<li><p>Problem statement and assigned scope (20,000 papers across 4 member partitions).</p></li>
+<li><p>Technical methodology (OAI-PMH <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code>, mirror streaming, Semantic Scholar pagination, dual-backup, and pacing policies).</p></li>
+<li><p><a class="reference internal" href="milestone1/03_corpus_stats.html"><span class="std std-doc">Corpus Statistics</span></a>: Key performance indicators, storage reduction percentiles (95.74% saved), version multiplicity distributions, and citation pool categorization.</p></li>
+<li><p><a class="reference internal" href="milestone1/04_performance.html"><span class="std std-doc">Performance Benchmarking</span></a>: CPU, RAM (RSS), and Disk footprints synthesized across 107 Google Colab CPU-only runs, including per-paper processing time distributions.</p></li>
 </ul>
 </li>
 <li><p><strong><a class="reference internal" href="references.html"><span class="std std-doc">Academic References</span></a></strong>: Complete bibliographic references complying with scholarly standards.</p></li>
 </ol>
 </section>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">

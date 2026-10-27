@@ -214,18 +214,6 @@
 <li class="toctree-l1"><a class="reference internal" href="03_corpus_stats.html">Milestone 1 — Corpus Statistics &amp; Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_performance.html">Milestone 1 — Performance Benchmarking</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 2 — Hierarchical Parsing &amp; Standardization</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../milestone2/01_overview.html">Milestone 2 — Parsing &amp; Standardization Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../milestone2/02_parsing.html">Hierarchical LaTeX Parsing Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../milestone2/03_standardization.html">Standardization &amp; Cross-Version Deduplication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../milestone2/04_m2_stats.html">Milestone 2 — Parsing Statistics &amp; Benchmarks (Preview)</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 3 — Reference Matching &amp; Delivery</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../milestone3/01_overview.html">Milestone 3 — Reference Matching Pipeline Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../milestone3/02_poster_preview.html">Final Dataset &amp; Poster Presentation</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix &amp; References</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../references.html">Academic References</a></li>
@@ -413,6 +401,10 @@
 <section id="objectives-course-context">
 <h2>1. Objectives &amp; Course Context<a class="headerlink" href="#objectives-course-context" title="Link to this heading">#</a></h2>
 <p>The primary objective of Milestone 1 is to build a robust, reproducible data acquisition pipeline that harvests the raw foundation for the downstream parsing (Milestone 2) and machine learning entity matching (Milestone 3) stages.</p>
+<blockquote>
+<div><p>[!NOTE]
+<strong>Corpus Completion Status</strong>: All four assigned ranges (totaling exactly 20,000 unique publications) have been completely harvested, validated, and consolidated with 0 overlap. The interactive statistics and performance traces in <a class="reference internal" href="03_corpus_stats.html"><span class="std std-doc">Chapter 3</span></a> and <a class="reference internal" href="04_performance.html"><span class="std std-doc">Chapter 4</span></a> reflect this full 20,000-paper corpus.</p>
+</div></blockquote>
 <p>Unlike typical web-scraping assignments that collect metadata or PDFs, our mandate requires collecting:</p>
 <ol class="arabic simple">
 <li><p><strong>Full-Text LaTeX Sources</strong>: The complete <code class="docutils literal notranslate"><span class="pre">.tex</span></code> and <code class="docutils literal notranslate"><span class="pre">.bib</span></code> source files across <strong>every single version</strong> (<span class="math notranslate nohighlight">\(v_1, v_2, \dots, v_N\)</span>) of each assigned publication.</p></li>

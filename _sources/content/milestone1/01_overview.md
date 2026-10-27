@@ -4,6 +4,9 @@
 
 The primary objective of Milestone 1 is to build a robust, reproducible data acquisition pipeline that harvests the raw foundation for the downstream parsing (Milestone 2) and machine learning entity matching (Milestone 3) stages.
 
+> [!NOTE]
+> **Corpus Completion Status**: All four assigned ranges (totaling exactly 20,000 unique publications) have been completely harvested, validated, and consolidated with 0 overlap. The interactive statistics and performance traces in [Chapter 3](03_corpus_stats.ipynb) and [Chapter 4](04_performance.ipynb) reflect this full 20,000-paper corpus.
+
 Unlike typical web-scraping assignments that collect metadata or PDFs, our mandate requires collecting:
 1. **Full-Text LaTeX Sources**: The complete `.tex` and `.bib` source files across **every single version** ($v_1, v_2, \dots, v_N$) of each assigned publication.
 2. **Comprehensive Metadata**: Accurate titles, author rosters, canonical submission dates (from $v_1$), and revision histories.
