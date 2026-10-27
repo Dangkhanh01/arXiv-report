@@ -36,8 +36,14 @@ sphinx:
     - sphinx.ext.mathjax
     - sphinxcontrib.mermaid
   config:
+    exclude_patterns:
+      - "_build"
+      - "_build/*"
+      - "content/milestone2/*"
+      - "content/milestone3/*"
     html_theme_options:
       repository_url: "https://github.com/Dangkhanh01/arXiv-report"
       use_repository_button: true
       use_download_button: true
       use_fullscreen_button: true
+

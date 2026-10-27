@@ -40,6 +40,7 @@ Text preprocessing is applied to titles and author rosters, including lowercasin
 ### 4. Primary Evaluation Metric: MRR@5
 The pipeline performance is formally scored using **Mean Reciprocal Rank @ 5**:
 
-$$\text{MRR@5} = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \frac{1}{\text{rank}_i}$$
+$$\text{MRR@5} = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \text{RR}_i, \quad \text{where } \text{RR}_i = \begin{cases} \frac{1}{\text{rank}_i} & \text{if } 1 \le \text{rank}_i \le 5 \\ 0 & \text{otherwise (not in top 5)} \end{cases}$$
 
-Where $\text{rank}_i$ is the 1-indexed position of the true reference within the model's top 5 predictions, or 0 if the ground-truth reference does not appear within the top 5 candidates.
+Where $\text{rank}_i$ is the 1-indexed position of the true reference within the model's top 5 predictions, and contributes $0$ if the ground-truth reference does not appear within the top 5 candidates.
+

@@ -1,0 +1,965 @@
+[
+  {
+    "run_id": "0a49a8b7-2414-447f-8c96-eb4b9ec0929f",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 100,
+    "discovery_elapsed_seconds": 322.0063957760001
+  },
+  {
+    "run_id": "21f52237-58af-4bb5-a389-f1031e5bd64b",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 747,
+    "discovery_elapsed_seconds": 1964.940052083
+  },
+  {
+    "run_id": "337cc0d3-4b28-4d19-a285-14073e511e51",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.03666976899967267
+  },
+  {
+    "run_id": "48165af8-071c-417a-af6a-1439d8ac0a70",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.00718563999998878
+  },
+  {
+    "run_id": "96d8f093-180c-4b55-a697-f648a6a993ef",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 232,
+    "discovery_elapsed_seconds": 802.4089263839999
+  },
+  {
+    "run_id": "a9b5f529-85b1-4a77-bb9f-5637dce3fa8f",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 228.012111892
+  },
+  {
+    "run_id": "aaf23f92-a54a-42ef-a2a8-77b0ebfd2f2b",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 137,
+    "discovery_elapsed_seconds": 459.73153933899994
+  },
+  {
+    "run_id": "af0aaee5-ca33-48c6-9d55-cce5396f82b4",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 40.078151535000075
+  },
+  {
+    "run_id": "b64d591d-af25-458a-9d70-669a45488ec7",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.10116618699976243
+  },
+  {
+    "run_id": "b99774f2-8c88-435f-9000-ac4e6d3c966b",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 13.177231754999866
+  },
+  {
+    "run_id": "ec294034-4112-4582-a334-0f1de783fee0",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 196,
+    "discovery_elapsed_seconds": 667.203814622
+  },
+  {
+    "run_id": "ede46eeb-27dd-4dfd-a0a2-622c215b30cd",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 255,
+    "discovery_elapsed_seconds": 1356.864235102
+  },
+  {
+    "run_id": "fa76d5b5-ad66-45e0-a07a-8b69d894a48b",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.12420343700023295
+  },
+  {
+    "run_id": "ff2d9bc6-bc91-4075-9af5-d39757e1f450",
+    "member": "Danh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.01701859799959493
+  },
+  {
+    "run_id": "09e45292-1446-4349-a7fa-b0c83e2ac36e",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 5,
+    "discovery_elapsed_seconds": 0.01641490900055942
+  },
+  {
+    "run_id": "0dd06080-93be-4f6f-81aa-71e7150cffe5",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 11,
+    "discovery_elapsed_seconds": 53.250652400000035
+  },
+  {
+    "run_id": "31bcd0db-a86b-4ea2-90f1-e836625418f8",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 239,
+    "discovery_elapsed_seconds": 804.4826226740001
+  },
+  {
+    "run_id": "37c25b42-7f9d-4101-a9ef-d7a09c2fbf42",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.0052539499993145
+  },
+  {
+    "run_id": "d1de2623-3498-42e7-b90d-ff1804ae0394",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 699,
+    "discovery_elapsed_seconds": 2343.78123909
+  },
+  {
+    "run_id": "db393ac9-9ddb-4676-bcd5-0f920989f3af",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 32.52695293299996
+  },
+  {
+    "run_id": "e032e6b5-eaa1-45e4-83f6-28e08bf588a2",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 695,
+    "discovery_elapsed_seconds": 2316.0144912719998
+  },
+  {
+    "run_id": "e635eb87-3afa-45bb-92f7-8d817baa6be3",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.03448709600024813
+  },
+  {
+    "run_id": "f85bed44-2f89-4f24-b43e-47ad026674b1",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 355.947397186
+  },
+  {
+    "run_id": "9b325e23-91c1-4b23-975b-6bb000907640",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": true,
+    "zip_count": 1,
+    "papers_extracted": 12,
+    "discovery_elapsed_seconds": 803.1882883439998
+  },
+  {
+    "run_id": "da305008-8bab-4f67-a5da-72f03ffbd6f4",
+    "member": "Danh",
+    "account": "acc2",
+    "is_checkpoint": true,
+    "zip_count": 1,
+    "papers_extracted": 6,
+    "discovery_elapsed_seconds": 675.9904073240001
+  },
+  {
+    "run_id": "13dd3eb3-5e56-4185-8805-b1b5c67423d9",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 670,
+    "discovery_elapsed_seconds": 2448.155818623
+  },
+  {
+    "run_id": "34ba60f2-fb23-4ad5-9c5a-84f0b5f96bbd",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 61.67983601499998
+  },
+  {
+    "run_id": "401a86e5-94b9-43a2-b63c-9a71c9e85bb1",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.04101948600009564
+  },
+  {
+    "run_id": "9919cb39-baa5-4593-9c1a-f275b6036f2b",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.033227099000214366
+  },
+  {
+    "run_id": "a8680f12-5bac-4818-b07a-aac95e29aa19",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.08416477600007966
+  },
+  {
+    "run_id": "ae8cb7dd-3bc9-452b-898e-3ef483e6b7ff",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.03998420000016267
+  },
+  {
+    "run_id": "bf4cbcee-08c1-4b21-95bf-50cb8f6ded64",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 119.08964807300003
+  },
+  {
+    "run_id": "c6612f51-a42d-452d-93dd-66e72aac8a49",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 55,
+    "discovery_elapsed_seconds": 130.3604774500002
+  },
+  {
+    "run_id": "e390576e-d684-4a0f-9c57-46b691f1da73",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.08004414999959408
+  },
+  {
+    "run_id": "77b8205a-1ad8-4fba-a0f4-4257bf40433c",
+    "member": "Danh",
+    "account": "acc3",
+    "is_checkpoint": true,
+    "zip_count": 24,
+    "papers_extracted": 941,
+    "discovery_elapsed_seconds": 3297.443629325
+  },
+  {
+    "run_id": "0315a9b8-ad6f-4113-8674-174e9e0c2aec",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 108,
+    "discovery_elapsed_seconds": 330.5340205110001
+  },
+  {
+    "run_id": "0f5de69f-cf1c-46df-b350-ef6957df3e20",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 47,
+    "discovery_elapsed_seconds": 0.22071289099994829
+  },
+  {
+    "run_id": "12830f9c-90d8-47d2-9059-d6073d9da93e",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 402,
+    "discovery_elapsed_seconds": 1355.8623105879997
+  },
+  {
+    "run_id": "4e4304ec-96d3-4462-9390-e35371716c4d",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.02414144900012616
+  },
+  {
+    "run_id": "9cc2bfc3-138e-443f-b73d-e125ec519fce",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.057100860999980796
+  },
+  {
+    "run_id": "a503fdc5-0e42-40ac-a6af-38d8614f9285",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 93,
+    "discovery_elapsed_seconds": 343.46987013599994
+  },
+  {
+    "run_id": "b8adb39f-c6f6-4581-938e-a593fe8f4744",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 97,
+    "discovery_elapsed_seconds": 339.44795223500114
+  },
+  {
+    "run_id": "b9396da7-b5aa-4709-8a14-911259387f5c",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 920,
+    "discovery_elapsed_seconds": 3245.56961063
+  },
+  {
+    "run_id": "359fce19-8ad6-43a3-82c7-40e8e4f5bc2c",
+    "member": "Khang",
+    "account": "acc1",
+    "is_checkpoint": true,
+    "zip_count": 3,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 16.769600594998337
+  },
+  {
+    "run_id": "1d6a93e7-ff61-44f8-844f-74cc5cdd6423",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 100,
+    "discovery_elapsed_seconds": 330.462159797
+  },
+  {
+    "run_id": "2764393c-37f6-45a2-83ce-56be7c99ad66",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 4,
+    "discovery_elapsed_seconds": 0.012356696999972883
+  },
+  {
+    "run_id": "3fb5aed9-65f9-453a-8d2f-6ebaa026ecb7",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.01727106700002423
+  },
+  {
+    "run_id": "76aaae53-ebe9-4967-851e-318be91dcd6c",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.008581549000041377
+  },
+  {
+    "run_id": "7968eb53-4300-4818-b3ea-eed89dba5616",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 1041,
+    "discovery_elapsed_seconds": 3405.517268421
+  },
+  {
+    "run_id": "80af0b6f-9008-40ec-ae76-176b97839dd5",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.012083997999980056
+  },
+  {
+    "run_id": "ae92ad43-de6c-4fae-9e55-39cefe473047",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 396,
+    "discovery_elapsed_seconds": 1348.263459066
+  },
+  {
+    "run_id": "c746cc51-6bf2-4c50-ad7a-84dc1a41e03f",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 67,
+    "discovery_elapsed_seconds": 218.37289000999994
+  },
+  {
+    "run_id": "f4a7c1c0-b3ea-4504-97a2-9b0041471467",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.010000801000046522
+  },
+  {
+    "run_id": "3fc8204b-8358-41f1-b06e-30624f06b3da",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": true,
+    "zip_count": 2,
+    "papers_extracted": 59,
+    "discovery_elapsed_seconds": 337.19199725100043
+  },
+  {
+    "run_id": "daee9f81-2c7f-43c7-a54c-6da3702e12a5",
+    "member": "Khang",
+    "account": "acc2",
+    "is_checkpoint": true,
+    "zip_count": 3,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 235.9723074909998
+  },
+  {
+    "run_id": "4caf5d0c-9243-4d18-adb7-74415e742965",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 100,
+    "discovery_elapsed_seconds": 332.27320641999995
+  },
+  {
+    "run_id": "cfc98ca8-1590-464c-a54b-c73e543c903a",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 400,
+    "discovery_elapsed_seconds": 1341.1445888569997
+  },
+  {
+    "run_id": "e7efd30c-0a4b-40be-bd5d-c25114eaf150",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 4,
+    "discovery_elapsed_seconds": 0.020863362000000052
+  },
+  {
+    "run_id": "e8c669e6-6437-4b76-b2f6-fb9767135c3a",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.02459681799973623
+  },
+  {
+    "run_id": "ed034e55-6915-44bb-b782-601d624aa751",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.021788721000007172
+  },
+  {
+    "run_id": "f26eb065-fc44-4403-a43a-91561c8b5f21",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 72,
+    "discovery_elapsed_seconds": 214.10095341200008
+  },
+  {
+    "run_id": "f893fd3f-ac07-485f-873e-cb75e4812de5",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 1032,
+    "discovery_elapsed_seconds": 3456.659755066
+  },
+  {
+    "run_id": "a5b32225-5910-45f6-947d-94c9af15a029",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": true,
+    "zip_count": 2,
+    "papers_extracted": 58,
+    "discovery_elapsed_seconds": 335.4502594239966
+  },
+  {
+    "run_id": "ebbe907c-9fd2-4da2-8f9b-7fb79c49ad67",
+    "member": "Khang",
+    "account": "acc3",
+    "is_checkpoint": true,
+    "zip_count": 3,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 243.0765341439983
+  },
+  {
+    "run_id": "268b69ed-ab11-48eb-9b54-b8a8b5741094",
+    "member": "Khánh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 494,
+    "discovery_elapsed_seconds": 1565.1051061379999
+  },
+  {
+    "run_id": "3cbc179d-acda-4117-b47a-114f2fe23bfd",
+    "member": "Khánh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.11983215099826339
+  },
+  {
+    "run_id": "3ee013cb-70c9-412f-98cc-9a3593cd8490",
+    "member": "Khánh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.046490928001730936
+  },
+  {
+    "run_id": "477169a6-9a61-4965-9456-2bae2576d88c",
+    "member": "Khánh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 596,
+    "discovery_elapsed_seconds": 1939.8958531450003
+  },
+  {
+    "run_id": "7c983200-fb9e-452e-a43f-b9e2e38e8125",
+    "member": "Khánh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 20.36697873400044
+  },
+  {
+    "run_id": "c0078c50-3afd-4ed8-97bb-18b97d1e8ac2",
+    "member": "Khánh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 577,
+    "discovery_elapsed_seconds": 2069.223622809
+  },
+  {
+    "run_id": "ea39dbc2-d211-420a-bf92-d726b816e328",
+    "member": "Khánh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.06128354999964358
+  },
+  {
+    "run_id": "ebdb1432-1939-4b91-be03-097d0e55bff6",
+    "member": "Khánh",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.11979749700185494
+  },
+  {
+    "run_id": "83972e15-2ab4-4b93-9dea-ee497033b264",
+    "member": "Khánh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 211,
+    "discovery_elapsed_seconds": 688.068249372
+  },
+  {
+    "run_id": "99da0740-cbe3-436f-81a2-ff4f5ffdcca8",
+    "member": "Khánh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 31,
+    "discovery_elapsed_seconds": 0.16124380899998414
+  },
+  {
+    "run_id": "c5b2f657-9964-4349-b11a-a12be3a1c227",
+    "member": "Khánh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 594,
+    "discovery_elapsed_seconds": 1961.978077888
+  },
+  {
+    "run_id": "c81c4699-b707-49d0-a7ce-823bd0587c3a",
+    "member": "Khánh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 241,
+    "discovery_elapsed_seconds": 880.7190509310021
+  },
+  {
+    "run_id": "d05bfdf5-549e-4e34-b3f9-f87af3349cfe",
+    "member": "Khánh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 589,
+    "discovery_elapsed_seconds": 1933.5222360650002
+  },
+  {
+    "run_id": "f978be92-6b00-461d-8e11-a3d001732f76",
+    "member": "Khánh",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.03876271300009648
+  },
+  {
+    "run_id": "78174595-9880-4ecf-9946-f16ef025b453",
+    "member": "Khánh",
+    "account": "acc2",
+    "is_checkpoint": true,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.03351801799999521
+  },
+  {
+    "run_id": "a6671007-35f5-4c6e-ae2c-c2dd53eecb58",
+    "member": "Khánh",
+    "account": "acc2",
+    "is_checkpoint": true,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.20974100500461645
+  },
+  {
+    "run_id": "0335d90b-d710-44cd-9b8f-beabc6a7bc86",
+    "member": "Khánh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 208,
+    "discovery_elapsed_seconds": 662.4034340479957
+  },
+  {
+    "run_id": "0ba17a9a-d73c-438d-accf-0ee872a21380",
+    "member": "Khánh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 600,
+    "discovery_elapsed_seconds": 1950.9902160350002
+  },
+  {
+    "run_id": "482be2b6-cf63-42e9-8c0b-e80cb3a0eddd",
+    "member": "Khánh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 2,
+    "discovery_elapsed_seconds": 0.042758394998600124
+  },
+  {
+    "run_id": "6e10d18a-10cc-4ac3-90eb-f56f514688a9",
+    "member": "Khánh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 265,
+    "discovery_elapsed_seconds": 885.6172451020001
+  },
+  {
+    "run_id": "b3a41252-42d6-4c8a-a7ab-305bf65be8b6",
+    "member": "Khánh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.2322128560008423
+  },
+  {
+    "run_id": "ea56a5cf-a327-4824-92db-a3a4e6a2db01",
+    "member": "Khánh",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 592,
+    "discovery_elapsed_seconds": 1967.077171466
+  },
+  {
+    "run_id": "8eea00dc-5ce4-4b0d-8c32-3bcada0f65df",
+    "member": "Khánh",
+    "account": "acc3",
+    "is_checkpoint": true,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.03928431200074556
+  },
+  {
+    "run_id": "6c0c31c2-3e47-4c25-afe3-c7658934ee13",
+    "member": "Nguyên",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 3,
+    "discovery_elapsed_seconds": 6.83754550499998
+  },
+  {
+    "run_id": "6c2857e0-7dc7-4f55-b4d3-a74a0c9bc1de",
+    "member": "Nguyên",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 3,
+    "discovery_elapsed_seconds": 6.527879627000061
+  },
+  {
+    "run_id": "6d696276-f134-4075-9eda-b2def27fb440",
+    "member": "Nguyên",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 16,
+    "discovery_elapsed_seconds": 0.05496916500123916
+  },
+  {
+    "run_id": "81406c21-d178-4827-802c-4213929b6a02",
+    "member": "Nguyên",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 102,
+    "discovery_elapsed_seconds": 343.28334175999953
+  },
+  {
+    "run_id": "cb0a3dfd-ec3c-4ab0-9d1a-f641a13b773f",
+    "member": "Nguyên",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 7,
+    "discovery_elapsed_seconds": 0.2406004180011223
+  },
+  {
+    "run_id": "dc0d8f5b-6cc8-4718-af01-87d9991f898e",
+    "member": "Nguyên",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 96,
+    "discovery_elapsed_seconds": 331.359117282
+  },
+  {
+    "run_id": "ef2f1245-7e26-4aad-8834-c5a49372fa98",
+    "member": "Nguyên",
+    "account": "acc1",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 726,
+    "discovery_elapsed_seconds": 1633.343631013
+  },
+  {
+    "run_id": "b106565e-be30-4613-8d16-cebf4c9c4c59",
+    "member": "Nguyên",
+    "account": "acc1",
+    "is_checkpoint": true,
+    "zip_count": 24,
+    "papers_extracted": 714,
+    "discovery_elapsed_seconds": 4605.450314952
+  },
+  {
+    "run_id": "92ec84a3-e507-4898-bd0e-c0c320bc4be0",
+    "member": "Nguyên",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 200,
+    "discovery_elapsed_seconds": 658.0018909119999
+  },
+  {
+    "run_id": "98cdc9c6-bc91-4bb4-bd8c-ed4e31080878",
+    "member": "Nguyên",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 862,
+    "discovery_elapsed_seconds": 2179.542374704
+  },
+  {
+    "run_id": "d5daae35-e3c4-4166-a8b3-3a643190e226",
+    "member": "Nguyên",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 0.04791372900217539
+  },
+  {
+    "run_id": "f288c45b-c1f4-40c1-9961-750222daf8f5",
+    "member": "Nguyên",
+    "account": "acc2",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 22.484060515002056
+  },
+  {
+    "run_id": "f4f1df07-e14c-4af8-8b0b-5e81403d00ac",
+    "member": "Nguyên",
+    "account": "acc2",
+    "is_checkpoint": true,
+    "zip_count": 20,
+    "papers_extracted": 604,
+    "discovery_elapsed_seconds": 4682.045192325
+  },
+  {
+    "run_id": "05cc7ba0-d45e-4964-ba75-81c8e92abee6",
+    "member": "Nguyên",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 140,
+    "discovery_elapsed_seconds": 0.8268630099992151
+  },
+  {
+    "run_id": "25174ba0-2f58-49d1-89ee-fd50b06179e4",
+    "member": "Nguyên",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 629,
+    "discovery_elapsed_seconds": 1941.093984719
+  },
+  {
+    "run_id": "44f46f3e-848c-4c6d-a381-28abee56b086",
+    "member": "Nguyên",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 199,
+    "discovery_elapsed_seconds": 668.4631182700001
+  },
+  {
+    "run_id": "55a25ac4-c115-4a90-8227-3a35d41d7500",
+    "member": "Nguyên",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 39.620325514995784
+  },
+  {
+    "run_id": "c0329901-dfdb-44ff-9da2-79ef80e1b3b8",
+    "member": "Nguyên",
+    "account": "acc3",
+    "is_checkpoint": false,
+    "zip_count": 1,
+    "papers_extracted": 2,
+    "discovery_elapsed_seconds": 6.549802294000017
+  },
+  {
+    "run_id": "2144c2fb-f29f-431c-bfa6-3dae00b50b00",
+    "member": "Nguyên",
+    "account": "acc3",
+    "is_checkpoint": true,
+    "zip_count": 22,
+    "papers_extracted": 697,
+    "discovery_elapsed_seconds": 4668.307853399
+  },
+  {
+    "run_id": "551a5289-e6d6-46fd-abac-4efb53b7c821",
+    "member": "Nguyên",
+    "account": "acc3",
+    "is_checkpoint": true,
+    "zip_count": 1,
+    "papers_extracted": 0,
+    "discovery_elapsed_seconds": 326.195352078
+  }
+]

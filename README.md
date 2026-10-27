@@ -60,30 +60,34 @@ Open the main page in your default browser:
 
 ---
 
-## 🔄 Automated Data Ingestion & Synchronization
+## 🔄 Automated Data Ingestion & Aggregation
 
-We provide an automated synchronization script [`scripts/sync_data.py`](scripts/sync_data.py) that extracts, verifies SHA-256 hashes, and formats metrics from Google Colab backups (`Milestone1/` run trees or final 20,000-paper aggregated folders) into `book/data/`:
+We provide an automated aggregation script [`scripts/aggregate_data.py`](scripts/aggregate_data.py) that discovers, verifies SHA-256 hashes, aggregates across all 4 team members and multiple accounts/checkpoints, and formats metrics from `input/` into `book/data/`:
 
-### 1. Ingest Sample or Aggregated Run Data
+### 1. Ingest & Aggregate Multi-Member Corpus (20,000 Papers)
 ```bash
-# Auto-detect Milestone1 directory from workspace
-python scripts/sync_data.py
+# Auto-detect input directory from workspace
+python scripts/aggregate_data.py
 
-# Or specify a custom folder (e.g. from Google Drive backup)
-python scripts/sync_data.py --source /path/to/Milestone1
+# Or specify custom source and target paths:
+python scripts/aggregate_data.py --source /path/to/input --target book/data
 
-# Sync and immediately rebuild the book:
-python scripts/sync_data.py --build
+# Aggregate and immediately rebuild the book:
+python scripts/aggregate_data.py --build
 ```
 
-### 2. Manual Inspection of Updated Datasets
-The script ensures all 4 auditable files in `book/data/` are updated and hash-verified:
+### 2. Standardized Aggregated Datasets in `book/data/`
+The script generates the complete set of auditable data files:
 ```text
 book/data/
-├── summary.json           # Crawl KPI rates, version counts, reference totals
-├── benchmark.json         # Wall time, peak/mean RAM, peak disk, environment
-├── resource_samples.csv   # High-resolution RAM/Disk timeline samples (every 0.25s)
-└── papers_unique.csv      # Rich paper roster (member, arxiv_id, title, submission_date)
+├── summary.json           # Crawl KPI rates, version counts, reference totals, denominators
+├── benchmark.json         # Multi-run synthesis: 107 runs, median/total wall time, peak RAM
+├── resource_samples.csv   # High-resolution RAM/Disk timeline samples across Colab runs
+├── papers_unique.csv      # 20,000 deduplicated papers (member, account, arxiv_id, title)
+├── papers_detail.csv      # Per-paper elapsed time, version status, reference status
+├── versions.csv           # 27,608 unique version records (status, before/after bytes)
+├── references_agg.csv     # 366,416 extracted reference rows
+└── run_metadata.json      # Provenance metadata across all 107 processed runs
 ```
 
 ### 3. Rebuild the Book

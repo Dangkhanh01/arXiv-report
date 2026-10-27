@@ -23,3 +23,8 @@ Thumbs.db
 # Temporary and test artifacts
 *.log
 .pytest_cache/
+
+# Large raw datasets (>100 MB exceeds GitHub push limit)
+book/data/references_agg.csv
+book/data/*.csv.gz
+

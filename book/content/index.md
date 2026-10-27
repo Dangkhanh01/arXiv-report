@@ -3,7 +3,7 @@
 Welcome to the comprehensive technical report for the **arXiv Knowledge Discovery and Entity Resolution Project**, conducted as part of the *Introduction to Data Science* course at VNUHCM - University of Science (HCMUS).
 
 > [!NOTE]
-> **Interim Sample Data Status (100 Papers)**: This report is currently compiled against live experimental measurements harvested from an interim smoke test batch of 100 assigned papers on Google Colab CPU (`Linux x86_64; Python 3.13.16`). All figures, KPI tables, and resource consumption timelines are generated dynamically at build time and will automatically scale to the complete 20,000-paper corpus upon final aggregation across all 4 team members.
+> **Milestone 1 Submission Scope (20,000 Papers)**: This report compiles and evaluates the complete, auditable crawl measurements harvested across all 20,000 assigned arXiv papers on Google Colab CPU (`Linux x86_64; Python 3.13 / 3.14`). All KPI tables, percentile breakdowns, and resource consumption timelines are generated dynamically at build time from raw experimental data aggregated across all 4 team members (Danh, Khang, Khánh, Nguyên).
 
 ---
 
@@ -48,26 +48,23 @@ The project is structured into three cumulative milestones:
 
 Our team consists of 4 members collaborating under strict engineering contracts and reproducible workflows:
 
-| Member | Primary Responsibilities | Core Deliverables |
-|:---|:---|:---|
-| **Khánh** | Discovery, Metadata & Version History | OAI-PMH `GetRecord` client (`arXivRaw`), submission date resolution, metadata cache |
-| **Khang** | Full-Text Source Extraction | Versioned source downloader, byte-exact `.tex`/`.bib` whitelist, figure removal |
-| **Nguyên** | Reference Mining & Ingestion | Semantic Scholar Graph API pagination, `references_all` and `references` stores |
-| **Danh** | Pipeline Orchestration & Reporting | Pipeline coordination, resource benchmarking (`psutil`), Jupyter Book synthesis |
+| Member | Primary Responsibilities | Assigned Partition | Verified Corpus |
+|:---|:---|:---:|:---:|
+| **Khánh** | Discovery, Metadata & Version History (`oai-pmh/arXivRaw`, date resolution) | 5,000 papers | 5,000 papers (100%) |
+| **Khang** | Full-Text Source Extraction (`.tex`/`.bib` whitelist, figure removal) | 5,000 papers | 5,000 papers (100%) |
+| **Nguyên** | Reference Mining & Ingestion (Semantic Scholar Graph API pagination) | 5,000 papers | 5,000 papers (100%) |
+| **Danh** | Pipeline Orchestration & Reporting (resource telemetry, Jupyter Book synthesis) | 5,000 papers | 5,000 papers (100%) |
 
 ---
 
 ## 3. Structure of this Report
 
-This **Jupyter Book** serves as the cumulative, auditable report for the project. In strict accordance with course specifications, **all figures and tables are dynamically generated at build time** from reproducible raw measurements rather than static screenshots:
+This **Jupyter Book** serves as the cumulative, auditable report for the project. For the **Milestone 1 submission**, the report focuses exclusively on the complete data acquisition, source cleaning, and resource benchmarking pipeline. Milestone 2 will be incorporated sequentially into this book in future milestones, and Milestone 3 will be accompanied by an A2 poster:
 
 1. **[Milestone 1 — Data Crawling](milestone1/01_overview.md)**:
-   - Problem statement and assigned scope (20,000 papers).
-   - Technical methodology (OAI-PMH `arXivRaw`, mirror streaming, Semantic Scholar pagination, dual-backup).
-   - [Corpus Statistics](milestone1/03_corpus_stats.ipynb): Interactive key metrics, size reduction distributions, and reference completeness.
-   - [Performance Benchmarking](milestone1/04_performance.ipynb): CPU, RAM, and Disk footprints observed on Google Colab CPU-only runtimes.
-2. **[Milestone 2 — Hierarchical Parsing & Standardization](milestone2/01_overview.md)**:
-   - Specifications for LaTeX hierarchy parsing, AST tree construction, math normalization, and cross-version deduplication.
-3. **[Milestone 3 — Reference Matching & Delivery](milestone3/01_overview.md)**:
-   - Preview of the machine learning matching pipeline, MRR@5 ranking, Hugging Face Parquet dataset, and A2 poster presentation.
-4. **[Academic References](references.md)**: Complete bibliographic references complying with scholarly standards.
+   - Problem statement and assigned scope (20,000 papers across 4 member partitions).
+   - Technical methodology (OAI-PMH `arXivRaw`, mirror streaming, Semantic Scholar pagination, dual-backup, and pacing policies).
+   - [Corpus Statistics](milestone1/03_corpus_stats.ipynb): Key performance indicators, storage reduction percentiles (95.74% saved), version multiplicity distributions, and citation pool categorization.
+   - [Performance Benchmarking](milestone1/04_performance.ipynb): CPU, RAM (RSS), and Disk footprints synthesized across 107 Google Colab CPU-only runs, including per-paper processing time distributions.
+2. **[Academic References](references.md)**: Complete bibliographic references complying with scholarly standards.
+
