@@ -1,350 +1,296 @@
-# Review QC — Template báo cáo Milestone 1
+Được. Mình sẽ chỉ rõ **vị trí → bằng chứng → vì sao có vấn đề → sửa ở đâu và sửa thế nào**. Có vài điểm cần phân biệt: **số liệu sai**, **nhãn gây hiểu nhầm**, và **đề xuất nâng chất lượng** không có mức độ nghiêm trọng giống nhau.
 
-Ngày review: 24/10/2026.
+Các vị trí dưới đây theo bản hiện tại. Với notebook, mình đếm **cell từ 1, gồm cả Markdown và code**; số dòng trong liên kết là dòng của file `.ipynb` khi mở dưới dạng text.
 
-Cập nhật đối chiếu code: 25/10/2026 — làm rõ discovery time, cơ sở đo kích thước, gán thành viên và xử lý `null`/kiểu dữ liệu ID.
+**1. Tuyên bố hoàn tất corpus và chỉ số “All Versions TeX”**
 
-## Phạm vi và kết luận
+**Vị trí trong báo cáo:**
 
-Đánh giá này áp dụng cho **template báo cáo được thử bằng 100 bài đã crawl**, không phải bản nộp hoàn chỉnh của toàn bộ 20.000 bài. Không trừ điểm vì dữ liệu hiện tại mới có 100 bài. Mục tiêu QC là kiểm tra template có đáp ứng report requirements của M1, tính và diễn giải chỉ số đúng, và có thể nhận dữ liệu đầy đủ về sau mà ít phải sửa tay hay không.
+- [Overview, dòng 8](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/01_overview.md:8): câu “completely harvested, validated…”.
+- [Statistics, cell 3, dòng 94](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/03_corpus_stats.ipynb:94): định nghĩa `full_source_papers` là paper có TeX ở mọi version.
+- Cùng notebook, cell 4, dòng 260: nhãn bảng **“Full Source Papers (All Versions TeX)”**.
 
-Nguồn yêu cầu: [Milestone 1 — Report Requirements (Jupyter Book)](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/#report-requirements-jupyter-book).
+**Bằng chứng lỗi:** [Aggregator, dòng 518](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/scripts/aggregate_data.py:518) đếm paper thành công khi:
 
-- Khi nộp M1, nội dung báo cáo cần tập trung vào M1. M2 bổ sung phần tiếp theo vào cùng Jupyter Book sau đó. M3 có yêu cầu poster riêng; không cần viết trước chương M2–3 để đạt yêu cầu report M1.
-- Đã đọc các trang nội dung, notebook, dữ liệu mẫu, script đồng bộ và workflow deploy; build kiểm tra thành công, cả ba notebook thực thi được. Điều này xác nhận khả năng build, không thay thế kiểm tra trực quan giao diện hoặc xác nhận website đã được deploy công khai.
-- Điểm đánh giá tham khảo: **6/10 cho độ sẵn sàng của template**, không phải điểm theo rubric chính thức và không phải điểm toàn bộ code crawler.
-- Điểm tốt: khung Jupyter Book chạy được; hình và bảng thống kê được sinh từ dữ liệu; có timeline tài nguyên; công khai trạng thái sample.
+```python
+versions_success + versions_no_tex >= versions_expected
+```
 
-> Nhận xét theo góc nhìn giảng viên khó tính: Đã dựng được một bộ khung chạy được. Nhưng phần diễn giải đang tự tin hơn bằng chứng, một số chỉ số chưa đúng yêu cầu, và lời hứa có đủ dữ liệu chỉ cần áp vào thì code chưa thực hiện được.
+Điều này bao gồm paper có version **không có TeX**, trái với định nghĩa và nhãn trên báo cáo.
 
-## 1. Chưa có bước gộp dữ liệu cả nhóm
+Tính từ bảng version hiện tại:
 
-**Vị trí:** `scripts/sync_data.py`, hàm `find_latest_report_zip()` (khoảng dòng 57–71), `sync_aggregated_tree()` (khoảng dòng 167–180), và mô tả đồng bộ trong `README.md`.
+| Điều đang đo | Kết quả |
+|---|---:|
+| Paper có record | 20.000 |
+| Paper mọi version đều `success` | **18.839** |
+| Paper mọi version thuộc `success` hoặc `no_tex` | **19.885** |
+| `full_source_papers` báo cáo đang ghi | **19.874** |
 
-**Vấn đề:** Script tìm nhiều `report.zip` nhưng chỉ chọn một file lớn nhất, dùng thời gian sửa file làm tiêu chí phụ. Script không gộp nhiều lần chạy, nhiều thành viên, checkpoint hay retry. Nhánh “aggregated” chỉ copy các file đã được tổng hợp sẵn. Vì vậy, chưa thể coi script này là công cụ tự động tổng hợp toàn bộ dữ liệu nhóm.
+Số **19.885** mình tính thêm trong lần kiểm tra này cho thấy **chỉ đổi tên 19.874 cũng chưa đủ**.
 
-**Câu hỏi người chấm sẽ đặt:** Ai tổng hợp 20.000 bài, bằng công cụ nào? Vì sao một ZIP lớn nhất có thể đại diện cho nhiều tài khoản và nhiều lần chạy?
+Có ví dụ cụ thể: bài `2606.17012` vẫn ghi một version lỗi ở [bảng paper, dòng 306](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/papers_detail.csv:306), nhưng version đó đã thành `no_tex` ở [bảng version, dòng 922](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/versions.csv:922). Hai bảng đang giữ kết quả từ những lần chạy khác nhau.
 
-**Cần sửa:**
+**Vì sao ảnh hưởng điểm:** người chấm không biết “100% hoàn tất” nghĩa là đã tìm thấy ID, đã có record hay đã tải đủ TeX. Đây là sự khác nhau trực tiếp liên quan yêu cầu crawl mọi version.
 
-- Có bước aggregation thực sự, hoặc mô tả rõ template chỉ nhận đầu vào đã tổng hợp và chỉ ra công cụ tạo đầu vào đó.
-- Hợp nhất theo paper/version và có quy tắc chọn trạng thái mới nhất hoặc hợp lệ khi trùng dữ liệu giữa các run/retry.
-- Tính lại tỷ lệ từ tử số và mẫu số; không lấy trung bình đơn giản tỷ lệ của các run có kích thước khác nhau.
-- Giữ benchmark theo run/member và định nghĩa cách báo cáo chung. Không cộng tùy tiện RAM đỉnh hoặc wall time của các phiên chạy song song.
+**Cách sửa tốt hơn:**
 
-**Hoàn tất khi:** Nhận được nhiều run của nhiều thành viên, đầu ra không trùng paper/version, tổng số và các tỷ lệ có thể đối chiếu; báo cáo không âm thầm chọn một run làm đại diện cả nhóm.
+- Gộp kết quả từng version trước.
+- Tính lại trạng thái paper từ tập version đã gộp.
+- Tách ba chỉ số: **ID discovery coverage**, **full-TeX paper rate**, **resolved source-outcome rate**.
+- Ở Overview, thay tuyên bố hoàn tất tuyệt đối bằng số lượng và trạng thái còn lại.
 
-## 2. Kết luận hiệu năng có số sai và khẳng định chưa có bằng chứng
+Một câu có thể dùng:
 
-**Vị trí:** `book/content/milestone1/04_performance.ipynb`, mục “Analysis & Discussion”.
+> Metadata was resolved for all 20,000 assigned IDs. Among 27,608 version records, 26,234 contain TeX sources, 1,243 are recorded as `no_tex`, and 131 remain failed.
 
-**Vấn đề:**
+Giữ `no_tex` là đúng đề; **đếm nó thành “All Versions TeX” mới là sai**.
 
-- “network latency accounts for over 85%” chưa có dữ liệu phân rã thời gian để chứng minh. Cũng cần phân biệt network latency, thời gian chờ pacing và backoff.
-- “~142 KB per version” không khớp `book/data/summary.json`: `average_source_bytes_after = 469022.33082706766`, tương đương khoảng **458 KiB/version**.
-- Kết luận “guaranteeing” batch 5.000 bài an toàn từ một batch thử 100 bài là quá mạnh; chưa có phân bố kích thước, ngoại lệ và mô hình dung lượng đỉnh.
+---
 
-**Cần sửa:**
+**2. Tỷ lệ thành công crawl references đang đo sự hiện diện của pool**
 
-- Sinh số liệu diễn giải từ dữ liệu, tránh viết cứng con số thực nghiệm.
-- Chỉ công bố phần trăm thời gian khi có phép đo tương ứng.
-- Chuyển các nhận định chưa kiểm chứng thành giả thuyết hoặc ước lượng có điều kiện; nêu phạm vi và giới hạn suy rộng.
-- Dùng đơn vị đúng: chia 1024 là KiB, chia 1024² là MiB.
+**Vị trí:**
 
-**Hoàn tất khi:** Mỗi khẳng định định lượng truy ngược được đến phép tính hoặc log; phần chữ không mâu thuẫn bảng và hình.
+- [Statistics, cell 4, dòng 266](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/03_corpus_stats.ipynb:266): dòng KPI **“Reference Extraction Success Rate”**.
+- [Aggregator, dòng 536](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/scripts/aggregate_data.py:536): đếm số paper xuất hiện trong `references_dict`.
+- Cùng script, dòng 598: lấy số đó làm `reference_jobs_success`; dòng 600: phần còn lại thành `reference_jobs_failed`.
 
-## 3. Tổng thời gian entry discovery chưa đưa sang Book
+**Bằng chứng:**
 
-**Vị trí:** `book/content/milestone1/04_performance.ipynb`, bảng benchmark; bộ dữ liệu đầu vào trong `book/data/`.
+| Trạng thái | `summary.json` | Đếm từ `papers_detail.csv` |
+|---|---:|---:|
+| success | 17.291 | 19.302 |
+| failed | 2.709 | 655 |
+| not_found | 0 | 34 |
+| partial | 0 | 9 |
 
-**Vấn đề:** Book có wall time, thời gian xử lý trung bình, RAM và disk nhưng không hiển thị **tổng thời gian entry discovery**, một chỉ số được đề M1 yêu cầu rõ. Crawler đã đo và lưu giá trị này tại `manifest["discovery"]["elapsed_seconds"]`; notebook crawler `../src/notebooks/milestone1.ipynb` cũng đã hiển thị. Phần thiếu nằm ở bước xuất/đồng bộ dữ liệu và trình bày trong Book, không phải crawler chưa có phép đo.
+**Vì sao có vấn đề:** lấy được response thành công và có ít nhất một reference trong pool là hai sự kiện khác nhau.
 
-**Cần sửa:**
+Ví dụ: API trả thành công, paper có 24 references nhưng tất cả ngoài arXiv. Job crawl có thể thành công, còn pool matching arXiv rỗng. Không thể từ pool rỗng suy ra job thất bại.
 
-- Đọc discovery time đã có từ manifest của run đang nhập, đưa vào bộ dữ liệu Book; không cần viết lại phép đo trong crawler.
-- Thêm dòng hiển thị tổng discovery time, đơn vị và phạm vi đo.
-- Nêu rõ discovery đã nằm trong end-to-end wall time của pipeline; hiển thị riêng để phân tích, không cộng hai lần.
-- Với run cũ không có field hoặc giá trị `null`, hiển thị thiếu dữ liệu thay vì tự điền 0.
+**Điểm cần nói công bằng:** **86,455% không nhất thiết vô dụng hay sai phép chia.** Nó có thể mô tả tỷ lệ paper có reference trong pool. Nhưng phải đặt tên đúng, chẳng hạn **“Papers with a non-empty arXiv reference pool”**; không được dùng nó để ghi phần còn lại là API failure.
 
-**Hoàn tất khi:** Có thể đọc trực tiếp tổng discovery time của batch đang báo cáo và đối chiếu với dữ liệu nguồn.
+**Cách sửa:**
 
-## 4. Hai số thời gian khác phạm vi nhưng chưa được giải thích
+- Đếm job theo `reference_status` sau khi giải quyết các lần retry.
+- Báo cáo riêng `success`, `partial`, `failed`, `not_found`.
+- Giữ thêm chỉ số paper có pool arXiv nếu cần.
+- Quy định rõ API trả thành công nhưng danh sách rỗng được tính thế nào.
 
-**Vị trí:** `book/content/milestone1/04_performance.ipynb`; `book/data/summary.json`, trường `average_paper_processing_seconds`; `book/data/benchmark.json`, trường `wall_seconds`.
+Đề yêu cầu tỷ lệ thành công crawl reference metadata ở [dòng 351](C:/Users/ADMIN/Desktop/Do_an/arXivProject/ARXIV_PROJECT_FULL.md:351), nên đây là phần cần làm rõ để đáp ứng yêu cầu, không chỉ là lựa chọn trình bày.
 
-**Bằng chứng trên sample:**
+---
 
-- End-to-end wall time: **6.324,64 giây**.
-- Trung bình thời gian xử lý từng paper: **59,09 giây**.
-- Wall time / 100 paper: **63,25 giây/paper**.
-- Chênh lệch giữa wall time và tổng thời gian từng paper: khoảng **415,41 giây**.
+**3. Biểu đồ “mọi references” thực chất đang dựa chủ yếu trên references đã lọc**
 
-**Vấn đề:** Hai cách đo có thể đều đúng khi khác phạm vi; không đủ cơ sở kết luận phép đo sai. Tuy nhiên, report chưa giải thích overhead và đang ghi “across all assigned papers” dù dữ liệu là batch mẫu.
+**Vị trí:**
 
-**Cần sửa:**
+- [Statistics, cell 12, dòng 1051](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/03_corpus_stats.ipynb:1051): lấy số arXiv/non-arXiv để vẽ donut.
+- [Methodology, dòng 50](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/02_methodology.md:50): nói `references_all.json` giữ mọi reference.
+- [Aggregator, dòng 204](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/scripts/aggregate_data.py:204): đọc `references.csv`; chỉ khi không có dòng mới đọc `references_all.csv`.
 
-- Phân biệt mean thời gian xử lý từng paper và end-to-end wall time trên mỗi paper.
-- Ghi rõ mẫu số là số paper được đo trong batch.
-- Giải thích discovery, khởi tạo, checkpoint, backup và các phần ngoài vòng xử lý paper được tính ở đâu; đối chiếu bằng log thay vì đoán nguyên nhân chênh lệch.
+**Vì sao sai về phương pháp:** bạn muốn đo “trong mọi references có bao nhiêu phần trăm ngoài arXiv”, nhưng lại ưu tiên đầu vào đã lọc arXiv. Sau bước lọc, non-arXiv bằng 0 không chứng minh dữ liệu gốc không có non-arXiv.
 
-**Hoàn tất khi:** Người đọc hiểu hai số đo khác nhau vì đâu, mỗi số bao gồm công đoạn nào.
+Đây giống như lọc chỉ sinh viên đậu rồi dùng tập đó kết luận tỷ lệ rớt bằng 0.
 
-## 5. Đề hỏi kích thước trung bình theo paper, bảng chỉ trình bày theo version
+**Hệ quả hiện tại:**
 
-**Vị trí:** `book/content/milestone1/03_corpus_stats.ipynb`, bảng KPI và mục “Storage Optimization”; `book/data/summary.json`.
+- Nhãn **366.416 “Total Extracted References”** chưa phản ánh đúng phạm vi.
+- **18,32 references/paper** chưa thể gọi là trung bình mọi references crawl được.
+- Donut non-arXiv bằng 0 chưa có sức thuyết phục.
+- [Dòng 611 của aggregator](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/scripts/aggregate_data.py:611) còn gán `average_reference_completeness_rate = 1.0` cố định.
 
-**Vấn đề:** Report hiển thị “Avg Version Size”, trong khi yêu cầu M1 nêu average paper size trước/sau loại hình. Dữ liệu đã có thống kê theo paper nhưng chưa sử dụng:
+**Cách sửa:**
 
-- Trước lọc: khoảng **5.176.456 bytes/paper**.
-- Sau lọc: khoảng **677.214 bytes/paper**.
-- Mẫu số: **92 paper**.
+- Đọc dữ liệu “all references” để thống kê toàn bộ.
+- Đọc pool đã lọc riêng để thống kê đầu vào matching.
+- Giữ trạng thái pagination và các bộ đếm metadata thiếu.
+- Tính completeness thật, hoặc bỏ chỉ số nếu thiếu bằng chứng.
 
-Theo contract `DownloadResult` trong `../src/crawling/__init__.py`, `source_bytes_before` và `source_bytes_after` **đều là dung lượng chưa nén**; `archive_bytes` là kích thước payload tải về, được lưu riêng. Với tar, `_extract_tar()` trong `../src/crawling/download.py` tính “before” bằng tổng kích thước các file thành viên, không tính tar headers hay thư mục; “after” là tổng bytes của các file được giữ lại. Vì vậy, code hiện tại không so sánh archive nén với file giải nén. Tuy nhiên, chênh lệch vẫn không chỉ phản ánh dung lượng ảnh: whitelist còn loại `.sty`, `.cls`, `.bbl` và các file khác.
+Không nhất thiết đưa CSV references rất lớn lên GitHub. Có thể xuất một bảng nhỏ theo paper gồm `total_references`, `arxiv_references`, `non_arxiv_references`, trạng thái và pagination để build biểu đồ.
 
-**Cần sửa:**
+Yêu cầu giữ mọi references local có ở [đề, dòng 321](C:/Users/ADMIN/Desktop/Do_an/arXivProject/ARXIV_PROJECT_FULL.md:321). Nhưng lỗi mình đang chỉ ra là **thống kê chưa chứng minh được việc đó**, chưa đủ căn cứ kết luận crawler đã làm mất dữ liệu.
 
-- Hiển thị kích thước trung bình theo paper, ưu tiên có giá trị bytes để đối chiếu yêu cầu; giữ thống kê version làm bổ sung.
-- Giải thích mẫu số 92 và cách xử lý paper có version lỗi hoặc `no_tex`.
-- Ghi rõ trước/sau đều chưa nén và gồm loại file nào; phân biệt với `archive_bytes` để không gọi nhầm “before” là kích thước archive tải về.
-- Không diễn giải toàn bộ mức giảm dung lượng là dung lượng hình ảnh đã loại bỏ.
+---
 
-**Hoàn tất khi:** Đơn vị phân tích, mẫu số và cơ sở so sánh rõ ràng; chỉ số theo paper có mặt trong report.
+**4. So sánh kích thước trước/sau lọc trên hai tập khác nhau**
 
-## 6. Tên chỉ số và mẫu số dễ gây hiểu nhầm
+**Vị trí:**
 
-**Vị trí:** `book/content/milestone1/03_corpus_stats.ipynb`, bảng KPI; cách tính trong `../src/crawling/metrics.py`, hàm `summarize_corpus()`.
+- [Statistics, cell 4, dòng 267](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/03_corpus_stats.ipynb:267): các hàng mean size trước/sau.
+- Cell 8, dòng 565: biểu đồ cột dùng những mean này.
+- [Aggregator, dòng 539](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/scripts/aggregate_data.py:539): lọc các giá trị trước và sau thành hai danh sách độc lập.
 
-**Vấn đề:**
+**Bằng chứng:**
 
-- “Total Assigned Papers” dùng `papers_discovered = 100`, trong khi tổng được giao là 20.000; 100 thuộc batch mẫu.
-- “Reference Jobs Success Rate = 100%” không chứng minh đã lấy đủ mọi tài liệu tham khảo thực tế trong bibliography.
-- “Average Reference Completeness = 100%” có mẫu số **81**, nhưng bảng không hiện mẫu số này. Cách tính hiện tại phản ánh độ đầy đủ metadata của arXiv matching pool trên các paper đủ điều kiện, không phải mức bao phủ toàn bộ bibliography.
-- “Paper success” theo cách tính hiện tại yêu cầu TeX thành công ở mọi version, khác với coverage chấp nhận `no_tex` hợp lệ; cần nói rõ để tránh hiểu sai 92%.
+| Cấp thống kê | Mẫu trước lọc | Mẫu sau lọc |
+|---|---:|---:|
+| Version | 27.477 | 26.234 |
+| Paper | 19.962 | 18.946 |
 
-**Cần sửa:**
+Nguyên nhân là script giữ giá trị `> 0`. `no_tex` có `after = 0` nên bị loại khỏi mean sau lọc nhưng vẫn có thể nằm trong mean trước lọc.
 
-- Tách assigned, evaluated, discovered và completed.
-- Với mỗi tỷ lệ, ghi định nghĩa, tử số, mẫu số và trường hợp bị loại.
-- Đặt tên phân biệt thành công job API, lấy hết pagination, đầy đủ trường metadata và bao phủ bibliography.
-- Hiển thị mẫu số của reference completeness và giải thích paper không có matching-pool reference được xử lý thế nào.
+**Vì sao ảnh hưởng kết luận:** hai cột cạnh nhau khiến người đọc hiểu rằng cùng một tập paper được đo trước và sau. Thực tế, tập sau đã loại một nhóm đối tượng.
 
-**Hoàn tất khi:** Không có tỷ lệ “100%” thiếu phạm vi; người đọc có thể tái tính từ dữ liệu nguồn.
+**Cách sửa tốt hơn:**
 
-## 7. Có version thất bại nhưng chưa phân tích
+- Ghép cặp `before` và `after` theo cùng version.
+- Quy định rõ `0` hợp lệ của `no_tex` khác với giá trị chưa biết do tải lỗi.
+- Với paper, nói rõ có yêu cầu đủ số đo mọi version không.
+- Nếu muốn phân tích riêng những version có TeX, dùng cùng tập đó cho cả trước và sau.
 
-**Vị trí:** `book/data/summary.json`; `book/content/milestone1/03_corpus_stats.ipynb`.
+Ngoài ra, dòng 271 đang gọi tỷ lệ giảm dung lượng là **“100% figure & image exclusion efficiency”**. Hai chỉ số không tương đương: giảm dung lượng không đo trực tiếp bao nhiêu file hình đã bị loại.
 
-**Bằng chứng:** 135 version dự kiến, 127 thành công có source, 6 `no_tex`, 2 thất bại; coverage hợp lệ là **98,52%**.
+**Mình không kết luận 95,74% tính trên tổng byte chắc chắn sai.** Lỗi đã xác nhận là các mean và mẫu số trình bày không khớp; cách diễn giải phần giảm cũng quá rộng.
 
-**Vấn đề:** Report nổi bật tỷ lệ coverage nhưng chưa trình bày đầy đủ breakdown và nguyên nhân hai version thất bại.
+---
 
-**Cần sửa:**
+**5. Benchmark checkpoint và timeline nhiều run bị tổng hợp sai**
 
-- Thêm bảng/biểu đồ trạng thái version: success, `no_tex`, failed, pending.
-- Thêm bảng lỗi gồm paper ID, version, loại lỗi, trạng thái retry và hướng xử lý.
-- Phân biệt `no_tex` được xác nhận hợp lệ với lỗi download hoặc định dạng chưa xử lý được.
-- Khi dữ liệu thay đổi, bảng lỗi phải cập nhật từ nguồn thay vì viết tay.
+**Vị trí:**
 
-**Hoàn tất khi:** Người chấm biết chính xác phần chưa đạt là gì, có sửa được không và tác động đến corpus như thế nào.
+- [Aggregator, dòng 397](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/scripts/aggregate_data.py:397): `if bench_data and not run_bench_entry`.
+- [Performance, cell 8, dòng 570](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/04_performance.ipynb:570): vẽ toàn bộ samples bằng `elapsed_seconds`, không chia `run_id`.
 
-## 8. Có biểu đồ nhưng phân tích dữ liệu còn mỏng
+**Lỗi chọn snapshot:** điều kiện trên chỉ giữ benchmark đầu tiên đọc được trong run.
 
-**Vị trí:** `book/content/milestone1/03_corpus_stats.ipynb`; phần phân tích trong `04_performance.ipynb`.
+Ví dụ run `77b8205a-…`:
 
-**Vấn đề:** KPI, biểu đồ hai cột kích thước, donut references và preview 15 bài minh họa được pipeline, nhưng chưa cho thấy phân bố và ngoại lệ. Chỉ số trung bình che mất các paper/version rất lớn, rất chậm hoặc không có reference.
+- [Run metadata, dòng 309](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/run_metadata.json:309): có **24 ZIP checkpoint**, tổng hợp được **941 paper mới**.
+- [Benchmark, dòng 464](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/benchmark.json:464): vẫn giữ bản đầu với `total_papers = 40`.
 
-**Nên bổ sung:**
+941 và 40 không nhất thiết phải bằng nhau trong mọi định nghĩa, nhưng ở đây code cho thấy rõ benchmark được lấy từ phần đầu, trong khi corpus được gom từ nhiều checkpoint phía sau.
 
-- Phân bố số version/paper.
-- Phân bố kích thước source và các paper/version lớn bất thường.
-- Phân bố số references/paper, gồm các paper có 0 references.
-- Phân bố thời gian xử lý, các trường hợp chậm và lý do có bằng chứng.
-- Nhận xét gắn với câu hỏi cụ thể và giới hạn của sample: 100 paper hiện đều thuộc Danh, từ `2606.15734` đến `2606.15833`, chưa đại diện mọi dải của nhóm.
+**Lỗi timeline:** `elapsed_seconds` bắt đầu lại ở mỗi run. [CSV, dòng 140](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/resource_samples.csv:140) đang ở khoảng **6.296,86 giây**, dòng kế tiếp sang run khác quay về **79,93 giây**. Toàn file có 198 lần giảm như vậy.
 
-Đây là đề xuất tăng chất lượng phân tích; không khẳng định từng biểu đồ trên đều là mục bắt buộc riêng của đề.
+Nối chúng thành một đường là nối hai đồng hồ khác nhau. **Chỉ sort toàn bộ theo `elapsed_seconds` cũng không sửa được**, vì vẫn trộn những phiên độc lập.
 
-**Hoàn tất khi:** Report giải thích được đặc điểm và khó khăn của corpus, thay vì chỉ trưng bày vài số tổng hợp.
+**Cách sửa:**
 
-## 9. Đổi dữ liệu chưa tự cập nhật phần chữ
+- Run hoàn tất: dùng benchmark cuối đã xác minh.
+- Run bị ngắt: dùng prefix cuối có bằng chứng, ghi rõ chưa hoàn tất.
+- Samples checkpoint lặp lại: loại phần trùng trước khi tổng hợp.
+- Vẽ từng run riêng hoặc thêm bộ chọn run.
+- RAM mean: nếu là trung bình các mean của run, đặt tên đúng như vậy; nếu muốn trung bình theo thời gian, tính theo thời lượng quan sát.
 
-**Vị trí:** `book/content/index.md`, hai notebook M1 và các đoạn mô tả môi trường/kết luận.
+Yêu cầu của đề là số đo kiểm chứng được. Đường timeline hiện tại không giúp kiểm chứng diễn biến của một phiên chạy thật.
 
-**Vấn đề:** “100 papers”, phiên bản Python, mốc 400 MB và nhiều kết luận đang được viết cứng. Thay JSON/CSV sẽ cập nhật bảng/hình nhưng phần chữ có thể tiếp tục mô tả batch cũ.
+---
 
-**Cần sửa:**
+**6. Kết luận performance có số sai và bằng chứng bị thay bằng giá trị cố định**
 
-- Có metadata chung cho chế độ sample/full, số paper, phạm vi ID, run ID, môi trường và cấu hình benchmark.
-- Sinh các con số trong nội dung diễn giải từ dữ liệu khi phù hợp.
-- Giữ bước rà lại nhận xét khi chuyển từ sample sang full corpus; nhận xét định tính không tự đúng chỉ vì biểu đồ đã cập nhật.
-- Tránh tuyên bố “all figures and tables” theo nghĩa tuyệt đối khi một số bảng mô tả/team/schema vẫn là Markdown tĩnh; chỉ rõ yêu cầu sinh động được áp dụng cho hình/bảng kết quả thống kê.
+**Vị trí chính:** [Performance, cell 9, dòng 625](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/04_performance.ipynb:625).
 
-**Hoàn tất khi:** Đổi bộ dữ liệu không để lại con số hoặc nhãn sample cũ gây mâu thuẫn trong báo cáo.
+Có bốn phần cần sửa:
 
-## 10. Nhập thiếu dữ liệu vẫn có thể báo thành công
+| Đoạn hiện tại | Vấn đề | Sửa tốt hơn |
+|---|---|---|
+| CPU `<15%`, không thermal throttling | Telemetry đang dùng chỉ có thời gian, RAM, disk | Bỏ con số và kết luận nhiệt; hoặc bổ sung phép đo CPU thật |
+| Dòng 628: RAM luôn dưới `350 MiB` | [Benchmark dòng 8](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/benchmark.json:8) ghi **581,08 MiB** | Sinh câu diễn giải từ dữ liệu, không nhập tay |
+| “completely eliminating” nguy cơ OOM | Peak đã quan sát không bảo đảm mọi lần chạy tương lai | Giới hạn kết luận trong các lần chạy đã đo |
+| Dòng 210: `Final Persisted Corpus Size` | Aggregator cộng disk cuối của các run | Đo corpus cuối đã hợp nhất hoặc đổi nhãn đúng phạm vi |
 
-**Vị trí:** `scripts/sync_data.py`, `verify_receipt()`, `sync_from_zip()`, `sync_aggregated_tree()` và thông báo thành công cuối script; tuyên bố hash-verified trong `README.md`.
+Về disk, tổng `.tex/.bib` từ bảng version khoảng **5,05 GiB**, còn `final_disk_bytes` tổng hợp khoảng **21,65 GiB**. [Aggregator, dòng 653](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/scripts/aggregate_data.py:653) đang cộng `final_disk_bytes` của từng run. Nó có thể chứa phạm vi khác nhau hoặc dữ liệu trùng, nên không tự động là dung lượng corpus cuối.
 
-**Vấn đề:**
+Cùng script, dòng 645 và 646 tự đặt:
 
-- ZIP có file nào thì copy file đó; thiếu file không bị chặn. File cũ trong `book/data/` có thể còn lại và bị trộn với run mới.
-- Không có receipt thì bỏ kiểm tra hash nhưng vẫn tiếp tục.
-- Có receipt nhưng thiếu expected hash cũng chưa bảo đảm đã đối chiếu hash, dù script có thể in thông báo “Verified SHA-256 integrity”.
-- Nhánh aggregated copy file không thực hiện đối chiếu receipt/hash như lời mô tả chung trong README.
-- Notebook dùng nhiều giá trị mặc định 0; thiếu trường có thể bị thể hiện như kết quả thực nghiệm bằng 0 thay vì thiếu phép đo.
-- `sync_from_zip()` mặc định `member_name = "Danh"`, rồi lấy file `retry-state/member-*.json` đầu tiên có trường `member`, chưa đối chiếu với `run_id`/receipt của ZIP đang nhập. Dữ liệu của người khác có thể bị gán tên Danh hoặc thành viên không liên quan dù tổng số paper vẫn đúng.
-- Trường có giá trị JSON `null` khác với trường không tồn tại: `.get(..., 0)` vẫn trả về `None` khi field tồn tại và bằng `null`. Phép chia hoặc định dạng số trên giá trị này có thể làm notebook lỗi lúc build. Crawler chủ động dùng `None` cho phép đo chưa xác định, nên đây là đầu vào cần được xử lý.
-- Notebook thống kê đọc `papers_unique.csv` bằng `pd.read_csv()` mà chưa chỉ định kiểu cho `arxiv_id`. ID số có thể bị suy luận thành số thực, làm mất biểu diễn chính xác như `2606.15740`; ID kiểu cũ như `hep-th/9901001` cũng phải được giữ dưới dạng chuỗi.
+```python
+"cpu_only": True,
+"cache_mode": "cold",
+```
 
-**Cần sửa:**
+Trong khi bảng version có 1.259 dòng `used_cache=True`.
 
-- Kiểm tra đủ bộ file, schema, trường bắt buộc, kiểu dữ liệu và tính nhất quán trước khi thay dữ liệu report.
-- Mang run ID/provenance vào bộ dữ liệu để phát hiện trộn run.
-- Xác định thành viên từ metadata/ledger gắn đúng run và receipt; nếu không xác định được thì báo thiếu hoặc dừng, không mặc định Danh hay lấy trạng thái đầu tiên. Kiểm tra với đầu vào của nhiều thành viên.
-- Cập nhật trọn bộ sau khi kiểm tra, tránh để bộ dữ liệu dở dang hoặc lẫn file cũ.
-- Phân biệt rõ verified, unverified và failed; chỉ tuyên bố hash-verified khi có giá trị kỳ vọng để đối chiếu và đã khớp.
-- Hiển thị thiếu dữ liệu hoặc dừng với lỗi có nghĩa khi thiếu phép đo bắt buộc.
-- Xử lý riêng field thiếu và field `null` trước khi tính toán/định dạng; không biến thành số 0 thực nghiệm. Chỉ chặn `null` ở các trường mà schema thực sự bắt buộc có giá trị.
-- Đọc/ghi các cột arXiv ID dưới dạng chuỗi, ví dụ `dtype={"arxiv_id": "string"}` khi đọc roster; áp dụng tương tự cho các cột ID khác khi bổ sung bảng references/version. Không chuyển ID qua số thực.
-- Thử đầu vào có phép đo `null`, trường bị thiếu, reference rỗng, `no_tex`, nhiều thành viên và ID `2606.15740`/`hep-th/9901001`; kiểm tra dữ liệu và hiển thị giữ đúng giá trị, thành viên và trạng thái thiếu phép đo.
+**Cách sửa:** giữ provenance thật của từng run; định nghĩa “cold” áp dụng cho thành phần nào; thiếu bằng chứng thì ghi chưa xác định. Sự xuất hiện cache không chứng minh dùng GPU, nhưng đủ để yêu cầu giải thích nhãn “cold”.
 
-**Hoàn tất khi:** Đầu vào thiếu/sai không thể sinh báo cáo trông hoàn chỉnh nhưng dùng lẫn dữ liệu cũ, số 0 giả hoặc thành viên sai; `null` được xử lý theo schema và các ID được giữ nguyên dạng chuỗi qua nhập/xuất/hiển thị.
+Một câu RAM chặt chẽ hơn:
 
-## 11. Mô tả phương pháp chưa đủ để đối chiếu triển khai
+> The run summaries report a maximum observed RSS of 581.1 MiB. Sampling may miss short-lived peaks.
 
-**Vị trí:** `book/content/milestone1/02_methodology.md`, đặc biệt phần reliability và tuyên bố “guarantee zero data loss”.
+---
 
-**Vấn đề:** Đã mô tả được OAI, selective extraction và S2 nhưng thiếu liên kết đến module/hàm triển khai, cấu hình batch, retry policy, resume và bằng chứng kiểm tra byte-exact/version coverage. Checkpoint định kỳ không tự chứng minh không mất bất kỳ dữ liệu nào khi Colab ngắt bất ngờ.
+**7. Methodology mô tả không khớp code đang có**
 
-**Cần sửa:**
+**Vị trí:** [Methodology, dòng 106](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/02_methodology.md:106), bảng “Software Module Mapping”.
 
-- Gắn từng cơ chế với module/hàm hoặc liên kết code ở revision cụ thể.
-- Công khai cấu hình thực tế: pacing, retry/backoff, timeout, cache mode/TTL, checkpoint và resume.
-- Nêu bằng chứng kiểm tra nội dung `.tex`/`.bib` giữ nguyên byte và kiểm tra toàn bộ version, gồm `no_tex`.
-- Viết giới hạn bảo đảm backup đúng với cơ chế thực tế; phân biệt dữ liệu đã backup thành công và phần công việc sau checkpoint gần nhất.
-- Gắn nguồn tham khảo với các khẳng định kỹ thuật cụ thể. Danh mục tài liệu cuối sách không thay thế hoàn toàn trích dẫn tại nơi sử dụng.
+| Báo cáo đang ghi | Code hiện tại |
+|---|---|
+| `discovery.py::OaiClient` | [discover.py:216](C:/Users/ADMIN/Desktop/Do_an/arXivProject/src/crawling/discover.py:216) |
+| `sources.py::SourceExtractor` | [download.py:456 — download_version](C:/Users/ADMIN/Desktop/Do_an/arXivProject/src/crawling/download.py:456) |
+| `references.py::S2Client` | [references.py:192 — collect_references](C:/Users/ADMIN/Desktop/Do_an/arXivProject/src/crawling/references.py:192) |
+| `telemetry.py::ResourceSampler` | [metrics.py:59 — collect_resource_samples](C:/Users/ADMIN/Desktop/Do_an/arXivProject/src/crawling/metrics.py:59) |
+| `CheckpointManager` | [checkpoints.py:84 — BackgroundCheckpoints](C:/Users/ADMIN/Desktop/Do_an/arXivProject/src/crawling/checkpoints.py:84) |
 
-**Hoàn tất khi:** Người đọc có thể đối chiếu mô tả với code, cấu hình và bằng chứng thực nghiệm; không có bảo đảm tuyệt đối chưa chứng minh.
+**Vì sao nghiêm trọng:** nếu giảng viên yêu cầu mở `SourceExtractor` để giải thích mà nhóm không tìm thấy, uy tín của cả methodology giảm ngay. Đây không phải nhận xét chủ quan về văn phong.
 
-## 12. Chương M2–3 làm loãng bản M1 và có lỗi ở nội dung tương lai
+Nếu bảng nói về code của commit cũ thì phải gắn commit đó; nếu là tên khối kiến trúc minh họa thì phải ghi rõ, không trình bày như tên implementation.
 
-**Vị trí:** `book/_toc.yml`, `book/content/index.md`, các trang `book/content/milestone2/` và `book/content/milestone3/`; riêng công thức ở `milestone3/01_overview.md`, khoảng dòng 45.
+Những vị trí khác trong cùng chương:
 
-**Vấn đề:** Navigation hiện đưa nhiều trang kế hoạch M2–3 vào bản M1 dù chưa có kết quả. Có thêm các chương này không tự động là vi phạm yêu cầu, nhưng làm người chấm khó tập trung vào phần được nộp.
+- **Dòng 34** nói chỉ giữ `.tex/.bib`, nhưng **dòng 95** thêm `.bbl/.sty/.cls`; Statistics cell 7, dòng 415 cũng thêm ba loại này. Code hiện giữ `.tex/.bib`.
+- **Dòng 91–92:** S2 delay 1 giây, 5 attempts, cap 60 giây. [Notebook crawler, dòng 228](C:/Users/ADMIN/Desktop/Do_an/arXivProject/src/notebooks/milestone1.ipynb:228) hiện đặt 3 attempts, S2 3,1 giây, cap 120 giây. Cần lấy cấu hình từ run thực tế, không mặc định cấu hình hiện tại là cấu hình lịch sử.
+- **Dòng 114:** “at most 39” paper phải crawl lại. Checkpoint đang chờ upload/commit cũng có thể chưa được bảo vệ. Nên viết: dữ liệu chỉ được bảo vệ sau khi receipt và trạng thái checkpoint đã commit.
+- [README, dòng 65](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/README.md:65) nói aggregator kiểm SHA-256. Trong script hiện tại, `sha256_file()` mới được định nghĩa, chưa được gọi. Hoặc thực hiện kiểm tra, hoặc bỏ tuyên bố này.
 
-Trang M3 ghi rank bằng 0 khi không tìm thấy reference đúng rồi sử dụng `1/rank`. Điều này dẫn đến `1/0`; đúng phải là **đóng góp điểm bằng 0** nếu đáp án đúng không nằm trong top 5.
+---
 
-**Cần sửa:**
+**8. Thiếu discovery time trong bảng và gọi sai phạm vi per-paper time**
 
-- Bản M1 nên tập trung navigation vào M1 và references; giữ roadmap tương lai ngắn nếu cần.
-- Có thể giữ nguồn trang M2–3 để phát triển sau, nhưng điều chỉnh cấu hình xuất bản phù hợp để không đưa trang chưa hoàn thiện vào bản nộp.
-- Sửa diễn giải MRR@5 theo từng trường hợp: reciprocal rank khi đáp án đúng nằm trong top 5; bằng 0 khi không nằm trong top 5.
-- Phân biệt kế hoạch với kết quả đã thực hiện, tránh thì hiện tại tạo cảm giác pipeline tương lai đã chạy.
+**Vị trí:**
 
-**Hoàn tất khi:** Người chấm mở book là nhận ra phạm vi M1 và tìm đủ nội dung M1; roadmap không chứa công thức sai hoặc bị hiểu thành kết quả thực nghiệm.
+- [Performance, cell 4, dòng 202](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/04_performance.ipynb:202): bảng benchmark không có dòng tổng thời gian discovery.
+- Cell 4, dòng 206: gọi mean từng paper là **“end-to-end”**.
+- Cell 5, dòng 229: nói thời gian đó bao gồm OAI metadata resolution.
 
-## Đối chiếu đầy đủ với ARXIV_PROJECT_FULL.md
+**Bằng chứng:** [pipeline, dòng 438](C:/Users/ADMIN/Desktop/Do_an/arXivProject/src/crawling/pipeline.py:438) thực hiện discovery; đến dòng 456 mới bắt đầu `paper_started`. Vì vậy, **discovery ban đầu của các assigned papers nằm ngoài đồng hồ từng paper**. Việc lookup ngày reference sau đó có thể vẫn nằm trong đồng hồ này; phải phân biệt hai loại công việc.
 
-Phần bổ sung này đối chiếu trực tiếp bản đề local `../ARXIV_PROJECT_FULL.md`, gồm Logistics/Regulations, Description của M1, Requirement, Submission Format, Report Requirements và cả năm Grading Criteria. Đây là checklist yêu cầu để sử dụng cùng 12 mục phân tích ở trên; **12 mục lỗi không tự thay thế checklist yêu cầu**.
+JSON đã có `total_discovery_elapsed_seconds` tại [dòng 18](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/benchmark.json:18), nhưng chưa hiện trong báo cáo. Không nên đưa ngay số này lên trước khi sửa aggregation checkpoint.
 
-Các vị trí nguồn chính trong bản đề tại thời điểm review:
+**Cách sửa cụ thể:**
 
-- Logistics/Regulations: khoảng dòng 51–72.
-- M1 Description: khoảng dòng 88–295.
-- M1 Requirement và schema: khoảng dòng 297–315.
-- Submission Format/Source Code: khoảng dòng 317–331.
-- Report Requirements: khoảng dòng 333–339.
-- Grading Criteria: khoảng dòng 341–353.
+- Thêm dòng **Total entry discovery time** vào bảng benchmark.
+- Đổi nhãn mean hiện tại thành thời gian xử lý source/references sau discovery, nếu giữ cách đo hiện có.
+- Thêm đoạn mô tả ranh giới đo ngay trước bảng: discovery, per-paper processing, checkpoint và final export/backup.
+- Giải thích vì sao tổng per-paper time khác batch wall time.
 
-Trạng thái “có” dưới đây chỉ xác nhận nội dung/khả năng quan sát được trong template, không tự chứng nhận dữ liệu crawl đã đúng hoặc toàn bộ bài được giao đã hoàn tất. “Chưa xác minh” không có nghĩa là đã vi phạm.
+Đây là thiếu sót trực tiếp với [yêu cầu performance, dòng 353](C:/Users/ADMIN/Desktop/Do_an/arXivProject/ARXIV_PROJECT_FULL.md:353), vì đề nêu rõ **total time for entry discovery** và wall time toàn hệ thống.
 
-### A. Yêu cầu báo cáo và README
+---
 
-| ID  | Yêu cầu trong đề                                                            | Trạng thái template hiện tại                                                                                       | Việc còn cần làm / mục QC                                                                                                                                               |
-| :-- | :-------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| R01 | Report là Jupyter Book                                                      | Có `_config.yml`, `_toc.yml`, Markdown và notebooks; build kiểm tra thành công                                     | Giữ kiểm tra build khi đổi dữ liệu/cấu hình                                                                                                                             |
-| R02 | Repo report public riêng, tách repo code chung                              | Có repo Git local riêng trong `arXiv-report` và URL repo trong config; trạng thái public trên GitHub chưa xác minh | Xác minh repo thực tế public và tách repo code; không suy từ URL config rằng đã đạt                                                                                     |
-| R03 | Host trên GitHub Pages của repo report                                      | Có workflow build/deploy và hướng dẫn; website public đang chạy chưa xác minh                                      | Kiểm tra lần deploy thực tế và URL Pages truy cập được                                                                                                                  |
-| R04 | M1 là phần đầu book; M2 thêm phần tiếp theo về sau                          | Có phần M1; đang đưa cả kế hoạch M2–3 vào navigation                                                               | Không thiếu yêu cầu do chưa có kết quả M2–3; thu gọn navigation là đề xuất biên tập, mục 12                                                                             |
-| R05 | Có thống kê **và phân tích** dữ liệu crawl                                  | Có KPI và biểu đồ; phân tích còn mỏng, có nhận định thiếu bằng chứng                                               | Sửa mục 2, 7, 8; đề không ấn định số lượng hay loại histogram cụ thể                                                                                                    |
-| R06 | Hình/bảng kết quả sinh lúc compile, không dán screenshot                    | Các notebook được thực thi khi build và sinh bảng/Plotly; không dùng screenshot cho kết quả đang xét               | Tiếp tục kiểm tra output HTML và tương tác sau khi cập nhật; bảng team/schema tĩnh không phải bằng chứng thống kê thực nghiệm                                           |
-| R07 | Mô tả quá trình triển khai, cách scraper hoạt động                          | Có discovery, download, extraction, references, checkpoint                                                         | Cần bổ sung mapping code/config, giới hạn và provenance; mục 11                                                                                                         |
-| R08 | Mô tả công cụ, thư viện sử dụng                                             | Có OAI, S2, `tarfile`, `psutil`, công cụ hiển thị; mô tả thư viện triển khai chưa tập trung đầy đủ                 | Thêm bảng công cụ/thư viện thực sự dùng và vai trò; API, OAI và `requests` trong đề là ví dụ, không bắt buộc dùng tất cả                                                |
-| R09 | Số paper crawl thành công                                                   | Có `full_source_papers = 92`                                                                                       | Định nghĩa rõ thành công theo paper và cách tính `no_tex`; mục 6, 7                                                                                                     |
-| R10 | Overall success rate                                                        | Có `paper_success_rate = 92%`, version coverage là chỉ số khác                                                     | Hiển thị tỷ lệ quan sát đúng cột, tử số/mẫu số và phạm vi sample; mục 6                                                                                                 |
-| R11 | Kích thước trung bình paper bằng bytes trước/sau loại hình                  | Dữ liệu có, report đang hiển thị chủ yếu theo version và KB                                                        | Bổ sung cặp chỉ số theo paper, bytes, mẫu số và cơ sở đo nén/giải nén; mục 5                                                                                            |
-| R12 | Số references trung bình mỗi paper                                          | Có `32.22`, mẫu số 100                                                                                             | Nêu cách tính khi API lỗi, partial hoặc 0 references; mục 6                                                                                                             |
-| R13 | Tỷ lệ thành công trung bình crawl reference metadata                        | Có job success `100%`; đồng thời có metadata completeness với mẫu số khác                                          | Định nghĩa rõ hai chỉ số; không coi chúng là độ bao phủ bibliography; mục 6                                                                                             |
-| R14 | Tổng thời gian xử lý một paper                                              | Có mean và batch wall time; chưa trình bày thời gian của từng paper/một paper cụ thể trong report                  | Thêm bảng per-paper end-to-end elapsed time hoặc ví dụ paper có ID, scope rõ; dùng bảng per-paper còn hỗ trợ kiểm chứng mean; bổ sung mục 4                             |
-| R15 | Thời gian trung bình xử lý các paper được yêu cầu                           | Có `59.09 s`, nhưng nhãn “all assigned” chưa đúng phạm vi sample và khác `wall/N`                                  | Giải thích phạm vi và mẫu số; mục 4                                                                                                                                     |
-| R16 | Tổng thời gian entry discovery                                              | Crawler đã đo trong manifest và hiển thị ở notebook; chưa đưa sang bộ dữ liệu/trình bày của Book                                                                  | Đồng bộ phép đo đã có, thêm field và bảng trong Book; không cần đo lại ở crawler; mục 3                                                                                                                                   |
-| R17 | RAM tối đa trong scraping                                                   | Có peak RSS và timeline; khớp peak của CSV sample                                                                  | Ghi là peak quan sát qua sampling, phạm vi process tree; không bảo đảm bắt được mọi peak ngắn                                                                           |
-| R18 | RAM trung bình                                                              | Có mean khớp trung bình các mẫu CSV                                                                                | Nêu là sample mean; khoảng lấy mẫu thực tế không cố định chính xác 0,25 s, xem bổ sung bên dưới                                                                         |
-| R19 | Dung lượng disk tối đa cần dùng                                             | Có observed peak disk và timeline                                                                                  | Nêu các đường dẫn/loại dữ liệu được tính, gồm staging/cache/index/backup nếu thuộc hệ thống; chưa suy từ một số tổng rằng mọi thành phần đã được bao phủ                |
-| R20 | Dung lượng output cuối                                                      | Có `final_disk_bytes`                                                                                              | Định nghĩa output gồm corpus hay cả report/cache/archive; giải thích nếu khác điểm cuối timeline                                                                        |
-| R21 | Phép đo runtime/RAM/disk kiểm chứng được                                    | Có JSON và CSV resource samples; thiếu per-paper/discovery/provenance trong repo report                            | Hoàn thiện mục 3, 4, 10, 11; giữ log/config hoặc dữ liệu đo tối thiểu đủ đối chiếu, không bắt buộc công bố toàn bộ corpus                                               |
-| R22 | Nhiều chương trình: wall time end-to-end và memory toàn hệ thống            | Report có mô tả process tree; code sampler hỗ trợ parent + children                                                | Liệt kê thành phần trong/ngoài benchmark, worker backup, cache/index, discovery; process nằm ngoài cây tiến trình không tự được tính; cần xác minh cấu hình run thực tế |
-| R23 | Benchmark cuối trên Google Colab CPU-only                                   | JSON ghi Colab và `cpu_only: true`; sample chưa phải benchmark cuối                                                | Hiển thị giá trị thực từ metadata, kèm cấu hình/bằng chứng runtime; không coi một chuỗi environment là xác minh độc lập                                                 |
-| R24 | Disk không vượt giới hạn instance Colab; không có trần runtime do đề áp đặt | Có số disk sample; chưa có capacity/free-space của runtime để đối chiếu                                            | Ghi giới hạn/dung lượng khả dụng thực tế và so sánh observed peak; bỏ bảo đảm 5.000 bài chưa chứng minh, mục 2                                                          |
-| R25 | README riêng: Python, package setup, cách chạy với cấu hình cụ thể          | README report có hướng dẫn build/sync; README repo code có cấu hình crawler/Colab                                  | Liên kết rõ hai repo/README; người đọc phải tìm được lệnh/notebook chạy crawler và cấu hình batch. Không bắt README report chứa lại toàn bộ code crawler                |
+**Các phần nên bổ sung, đặt chính xác ở đâu và vì sao đáng làm**
 
-### B. Yêu cầu crawler/corpus cần có bằng chứng khi chấm M1
+Không phải mọi đề xuất dưới đây là một mục bắt buộc riêng trong đề.
 
-Các mục dưới đây là yêu cầu thực hiện của M1, không phải yêu cầu phải có một chương độc lập cho mỗi dòng. Template có thể trình bày bằng bảng audit, ví dụ và liên kết code. Chưa thể kết luận chúng đã đạt chỉ vì report mô tả đúng ý tưởng.
+| Bổ sung | Đặt ở đâu | Nội dung tối thiểu và tác dụng |
+|---|---|---|
+| **Định nghĩa chỉ số và mẫu số** | Sau đoạn định nghĩa KPI ở Statistics cell 3, trước bảng cell 4 | Ghi công thức, cấp paper/version/reference, cách xử lý `no_tex`, lỗi và giá trị thiếu. Giúp người đọc hiểu chính xác mỗi tỷ lệ; đây là cách đáp ứng yêu cầu thống kê rõ ràng |
+| **Ví dụ corpus thật** | Sau Methodology mục 3, đoạn kết ở dòng 52 | Một paper nhiều version và một trường hợp `no_tex`; chỉ ra metadata/source/references nằm đâu. Chứng minh tổ chức dữ liệu có thể dùng tiếp cho M2 |
+| **Audit metadata** | Sau “Crawled Corpus Sample Preview”, Statistics cell 14 | Đếm thiếu title/authors/dates, kiểm kiểu list, ID null, version thiếu. Preview vài dòng đẹp chưa chứng minh chất lượng cả corpus |
+| **Phân tích vài lỗi thật** | Ngay sau bảng lỗi của Statistics cell 10, đoạn bắt đầu dòng 925 | Mỗi loại chọn ID, thông báo lỗi gốc, điều đã xác minh, tác động và hướng xử lý. Biến bảng đếm thành phân tích |
+| **Nguồn và ranh giới benchmark** | Performance sau cell 3, trước bảng cell 4 | Commit code, config, trạng thái run, cache mode, phạm vi RAM/disk và các bước nằm ngoài đồng hồ. Đáp ứng tính kiểm chứng được mà đề yêu cầu |
+| **Trích dẫn tại chỗ** | Methodology mục 1, mục 3 và bảng policy | Gắn nguồn ngay vào phát biểu về OAI, ngày v1, pagination, rate limit. Danh mục cuối sách chưa chỉ rõ nguồn nào hỗ trợ câu nào |
+| **Kết luận về corpus còn lại** | Thêm Markdown cell sau cell 9 của Performance | Nêu phần dùng được, lỗi chưa xử lý và ảnh hưởng đến M2/M3. Đây là đề xuất tăng chất lượng phân tích, không phải chương bắt buộc |
 
-| ID  | Yêu cầu trong đề                                                                               | Report hiện tại và điểm cần kiểm chứng                                                                                                                                                                                     |
-| :-- | :--------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| D01 | Resolve đúng dải ID được giao; không bắt harvest toàn arXiv                                    | Có bảng dải ID; cần đối chiếu manifest với assignment, không chỉ đếm paper                                                                                                                                                 |
-| D02 | Crawl mọi version, kể cả v1                                                                    | Có tổng version và mô tả endpoint versioned; cần danh sách expected/observed theo paper/version và xử lý hai version lỗi trong sample                                                                                      |
-| D03 | Thu full-text source, metadata, BibTeX/source `.bib`, reference information                    | Có mô tả `.tex`/`.bib` và S2; bổ sung inventory/audit file và mapping metadata theo version. Không nhầm giữ `.bib` ở M1 với chuyển `\\bibitem` sang BibTeX ở M2                                                            |
-| D04 | Chỉ extract `.tex`/`.bib`; giữ nguyên figure commands trong TeX                                | Mô tả đúng; cần bằng chứng whitelist và byte-exact thay vì chỉ khẳng định                                                                                                                                                  |
-| D05 | Version không có TeX phải giữ record rỗng, không bỏ publication                                | Có mô tả `no_tex`; cần ví dụ/audit phân biệt nguồn không có TeX với download lỗi                                                                                                                                           |
-| D06 | Crawl reference metadata qua Semantic Scholar cho mỗi publication                              | Có endpoint, pagination, thống kê job; cần mapping kết quả về publication/version trong tổ chức local và nêu giới hạn S2 không phân biệt version                                                                           |
-| D07 | Giữ mọi crawled reference local; chỉ arXiv-keyed reference vào bảng `references` cuối          | Có dual-store và donut; kiểm tra số hàng/schema thực tế và mapping `paperId` sang `ref_s2_id`                                                                                                                              |
-| D08 | Giữ đủ title, authors, submission/revision dates, venue khi có và metadata reference tương ứng | Có bảng đặc tả; chưa có audit đầy đủ field/type/missingness trong template                                                                                                                                                 |
-| D09 | Chuẩn bị đủ cột `papers` và `references` theo schema M1 cho xuất cuối M3                       | Tên cột trong overview phù hợp; overview tự ghi non-null cho nhiều trường hơn đề nêu rõ. Phải phân biệt ràng buộc nội bộ nhóm với ràng buộc đề, không tự loại reference hợp lệ vì thiếu field mà đề chưa đánh dấu non-null |
-| D10 | Tổ chức corpus đủ thông tin per-publication/per-version                                        | Report chưa có ví dụ cây thư mục thực tế và mapping file → paper/version. Cấu trúc folder trong đề là gợi ý, nhóm được tự chọn; không bắt buộc đúng tên `2310-12345`                                                       |
-| D11 | Giữ identifier cũ trước 2007 khi gặp                                                           | Phần Description M1 đề cập; thêm quy tắc và ví dụ nếu reference pool có ID dạng `hep-th/9901001`, không ép tất cả thành ID số mới                                                                                          |
-| D12 | Download qua export mirror, request pacing, descriptive User-Agent, xử lý rate limit           | Có mirror và pacing; report chưa ghi đầy đủ User-Agent, pacing/retry riêng S2. Bổ sung cấu hình thực dùng và xử lý 429/Retry-After; không cần benchmark tốc độ bằng cách tăng request vượt chính sách                      |
+Riêng bảng schema ở [Overview, dòng 38](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/01_overview.md:38): báo cáo đang ghi nhiều trường `Nullable = No`, trong khi đề chỉ đánh dấu non-null rõ cho các ID. Nhóm có thể đặt ràng buộc nội bộ chặt hơn, nhưng phải nói **đó là quy tắc nhóm**, không trình bày như toàn bộ đều do đề bắt buộc.
 
-### C. Điều kiện nộp bài và năm tiêu chí chấm
+**Có thêm hai ví dụ cụ thể cần sửa trong phần phân tích:**
 
-| ID  | Điều kiện/tiêu chí                                                                           | Kết luận QC                                                                                                                                                                        |
-| :-- | :------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| S01 | Một repo code public chung, commit tích lũy qua các milestone                                | Cần xác minh repo remote/public và lịch sử thực tế; không được kết luận từ report local                                                                                            |
-| S02 | Repo code chứa source và hướng dẫn/dependencies, loại data/compiled/non-source theo quy định | Cần audit **file được track/push**, không chỉ file có trên máy. Không đánh đồng JSON/CSV số liệu phục vụ build trong repo report với toàn bộ corpus bị cấm nộp trong repo code     |
-| S03 | Nộp Moodle theo nhóm: link repo code và link report public, đúng hạn                         | Là điều kiện nộp; chưa kiểm tra thao tác Moodle. Ghi checklist trước nộp, không tự cho là đã hoàn thành                                                                            |
-| S04 | Ngôn ngữ theo chương trình; trích dẫn đầy đủ, tự hiểu và tự diễn giải                        | Report hiện tiếng Anh và có danh mục nguồn. Cần bảo đảm phù hợp ngôn ngữ chương trình và nguồn gắn với nội dung sử dụng; không kết luận có gian lận chỉ vì văn phong hoặc template |
-| S05 | Không nộp data trung gian ở M1                                                               | Không yêu cầu upload Hugging Face ở M1; không trừ điểm vì chưa có final dataset/poster                                                                                             |
-| G01 | Report (Jupyter Book)                                                                        | Đối chiếu R01–R25; build được chưa có nghĩa đủ chỉ số hoặc diễn giải đúng                                                                                                          |
-| G02 | Source Code: sạch, dễ đọc, chạy được                                                         | Review này mới kiểm tra phần report/sync và khả năng build, không chứng nhận toàn bộ crawler. Cần đánh giá code crawler riêng nếu muốn chấm đủ M1                                  |
-| G03 | Discovery & Crawling: phương pháp phù hợp, full version coverage                             | Đối chiếu D01–D06, D11–D12 và audit thực tế; sample chỉ chứng minh trong phạm vi được kiểm tra                                                                                     |
-| G04 | Resulted Data: mức độ thành công và tổ chức corpus                                           | Đối chiếu D03–D10; cần audit corpus/schema, không chỉ sơ đồ và bảng đặc tả                                                                                                         |
-| G05 | Scraper's Performance: hiệu quả so với nhóm khác                                             | Cần số đo Colab CPU có thể so sánh và giới hạn rõ; chưa có kết quả nhóm khác thì chưa thể kết luận hơn/kém. Không tự thêm yêu cầu phải có baseline đối thủ nếu không có dữ liệu    |
+- [Performance cell 6, dòng 493](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/04_performance.ipynb:493) giải thích paper chậm nhất có “5+ versions”. [Record thật](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/papers_detail.csv:19279) của `2601.23264` có **3 versions**, mất khoảng 669,08 giây.
+- Cùng cell, dòng 486 giải thích paper nhanh nhất “no citations”. [Record thật](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/data/papers_detail.csv:18390) của `2602.00964` có **24 total references**, còn `kept_references = 0`.
 
-### D. Những điểm cần bổ sung sau lần đọc lại
+Nên sinh các thuộc tính này từ record được chọn. Chưa có log xác nhận nguyên nhân chậm thì viết “có thể liên quan” và giới hạn suy luận; không điền sẵn nguyên nhân theo percentile.
 
-1. **Per-paper runtime:** Bổ sung dữ liệu và bảng thời gian từng paper/một paper có ID, không coi batch wall time hoặc mean là đủ thay cho mọi ý của yêu cầu thời gian.
-2. **Phạm vi đo toàn hệ thống:** Ghi rõ discovery, worker checkpoint/upload, temporary extraction, index/cache, final export và backup có nằm trong benchmark hay không. README code cho biết final notebook export/backup nằm ngoài crawl benchmark; report cần mô tả nhất quán và giải thích ranh giới, không gọi toàn bộ mọi hoạt động là đã bao gồm nếu chưa đo.
-3. **Sampling RAM:** CSV sample có median khoảng cách mẫu khoảng **0,309 s**, gap lớn nhất khoảng **7,651 s**; `0.25` là interval cấu hình, không phải cam kết chu kỳ thực tế chính xác. Mean hiện là trung bình mẫu; nên ghi rõ hoặc tính mean có trọng số thời gian nếu muốn diễn giải mức tiêu thụ trung bình theo thời gian. Peak lấy mẫu có thể bỏ lỡ spike ngắn. Đây là làm rõ phương pháp kiểm chứng, không có nghĩa đề bắt buộc thuật toán tích phân cụ thể.
-4. **Disk cuối và timeline:** Mẫu timeline cuối ghi **77.174.446 bytes**, `final_disk_bytes` ghi **79.196.837 bytes**. Có thể là hai thời điểm/phạm vi đo khác nhau; cần giải thích từ log, không mặc định đó là lỗi tính toán. Nêu capacity/free-space của instance để đối chiếu giới hạn Colab.
-5. **Bằng chứng CPU-only:** Table đang in environment nhưng không trực tiếp hiển thị `cpu_only`/cache mode từ JSON. Thêm các field này và cấu hình run; không gán giá trị mặc định “Colab CPU-only” khi thiếu bằng chứng.
-6. **Schema/missingness và layout:** Thêm audit hoặc ví dụ dữ liệu thật cho metadata, mapping source/BibTeX/reference theo paper/version, ID cũ và xử lý null; đề không bắt xuất final Parquet/Hugging Face ngay M1.
-7. **Public hosting và reproducibility:** Xác minh repo/public Pages, link code, README crawler và cấu hình chạy thực tế trước khi đánh dấu yêu cầu đã đạt.
+Ở [Statistics cell 10, dòng 935](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/milestone1/03_corpus_stats.ipynb:935), HTTP 404 còn được diễn giải là withdrawn/unhosted. **404 chỉ xác nhận endpoint trả 404**, chưa xác nhận lý do. Giữ thông báo quan sát và giả thuyết ở hai cột riêng sẽ chặt chẽ hơn.
 
-### E. Phân biệt yêu cầu bắt buộc và đề xuất QC
+**Những chỗ giọng “AI” rõ và cách viết lại**
 
-- **Yêu cầu trực tiếp:** Jupyter Book public riêng trên Pages; thống kê/phân tích; hình/bảng kết quả sinh khi compile; mô tả triển khai/công cụ; các số đếm/tỷ lệ/kích thước/time/RAM/disk nêu trong R09–R24; README setup/run; đúng phạm vi crawl/version/corpus và điều kiện nộp.
-- **Đề xuất cách đáp ứng hoặc tăng chất lượng:** Các histogram cụ thể, bảng lỗi chi tiết, mapping tới hàm code, metadata/provenance tập trung, validation đầu vào, số liệu diễn giải sinh động. Đề có thể yêu cầu kết quả kiểm chứng được nhưng không ấn định duy nhất những hình thức triển khai này.
-- **Theo mục tiêu riêng của template:** Tự gộp multi-run/multi-member và thay dữ liệu ít sửa tay. Đề không bắt aggregation phải nằm trong repo report; có thể dùng công cụ ngoài nếu mô tả và đầu ra đúng.
-- **Biên tập tùy chọn:** Ẩn M2–3 khỏi bản M1 để tập trung. Có chương tương lai không tự động vi phạm đề.
-- **Không phải yêu cầu M1:** Hoàn thành parser/dedup M2, feature engineering/model/MRR M3, upload final dataset, nộp poster; không bắt harvest toàn arXiv hay dùng mọi API/thư viện ví dụ trong đề.
+| Vị trí | Câu/cụm hiện tại | Nên sửa |
+|---|---|---|
+| [Trang chủ, dòng 12](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/book/content/index.md:12) | “this project pioneers…” | “This project collects versioned LaTeX sources and reference metadata for the assigned papers.” |
+| Cùng file, dòng 49 | “strict engineering contracts” | Nêu việc thật: nhóm dùng chung crawler, chia bốn dải ID và tổng hợp kết quả |
+| [README, dòng 3](C:/Users/ADMIN/Desktop/Do_an/arXivProject/arXiv-report/README.md:3) | “official, publication-grade” | “This repository contains the Jupyter Book report for…” |
+| Statistics cell 1, dòng 13 | “Auditable Build-Time Guarantee”, “No … hardcoded numbers” | Mô tả đơn giản file đầu vào và bước tạo bảng/hình; bỏ bảo đảm tuyệt đối |
+| Performance cell 9, dòng 628 | “completely eliminating the risk…” | Giới hạn kết luận vào peak đã quan sát và hạn chế sampling |
 
-**Kết luận sau đối chiếu:** Khung bốn phần M1 (overview, methodology, corpus stats, performance) có thể chứa đủ yêu cầu báo cáo mà không cần thêm chương M2–3. Tuy nhiên, nội dung hiện tại **chưa đủ để đánh dấu hoàn tất tất cả Report Requirements**, và 12 mục review ban đầu cần được dùng cùng ma trận này. Sau khi sửa, phải kiểm tra từng hàng bắt buộc và bằng chứng tương ứng; không chỉ đếm số mục lỗi đã đóng.
-
-## Thứ tự xử lý đề nghị
-
-1. Làm rõ/hoàn thiện aggregation và kiểm tra đầu vào: mục 1, 10.
-2. Bổ sung đủ chỉ số bắt buộc và định nghĩa phạm vi đo: mục 3, 4, 5, 6.
-3. Sửa số liệu sai, bỏ kết luận thiếu bằng chứng và phân tích lỗi: mục 2, 7, 11.
-4. Làm nội dung cập nhật theo dữ liệu và bổ sung phân tích: mục 9, 8.
-5. Thu gọn phạm vi xuất bản M1 và sửa nội dung tương lai: mục 12.
+**Điều thuyết phục mình nhất không phải thay từ cho bớt “AI”, mà là để mỗi câu quan trọng truy ngược được về dữ liệu hoặc code thật.** Hiện báo cáo có nhiều thành phần tốt để làm điều đó; những vị trí trên là nơi lời viết đang vượt khỏi bằng chứng. Sửa đúng các chỗ này sẽ nâng độ tin cậy rõ hơn việc thêm trang hay thêm biểu đồ.
