@@ -1,8 +1,8 @@
 # arXiv Project — Jupyter Book Report Template
 
-This repository contains the official, publication-grade **Jupyter Book** report for the **arXiv Knowledge Discovery and Entity Resolution Project** (HCMUS Intro to Data Science).
+This repository contains the Jupyter Book technical report for the **arXiv Knowledge Discovery and Entity Resolution Project** (HCMUS Introduction to Data Science).
 
-The book features an **auditable, compilation-time execution pipeline**: all figures, distributions, and performance tables are generated dynamically at build time using Plotly and pandas Styler from raw measurement data.
+All figures, distributions, and performance tables in this report are generated dynamically at build time using Plotly and pandas from the aggregated measurement data in `book/data/`.
 
 ---
 

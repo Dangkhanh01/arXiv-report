@@ -22,6 +22,8 @@ html:
   extra_navbar: |
     <p>HCMUS Intro to Data Science</p>
     <p>Project Milestones Report</p>
+  extra_css:
+    - _static/custom.css
 
 # Repository settings
 repository:
@@ -36,6 +38,18 @@ sphinx:
     - sphinx.ext.mathjax
     - sphinxcontrib.mermaid
   config:
+    html_static_path: ["_static"]
+    html_css_files:
+      - custom.css
+    myst_update_mathjax: false
+    mathjax3_config:
+      tex:
+        inlineMath:
+          - ["\\(", "\\)"]
+          - ["$", "$"]
+        processEscapes: true
+      options:
+        processHtmlClass: "tex2jax_process|mathjax_process|math|output_area|cell_output|output|text_html"
     exclude_patterns:
       - "_build"
       - "_build/*"

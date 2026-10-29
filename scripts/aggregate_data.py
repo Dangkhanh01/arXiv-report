@@ -180,6 +180,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     run_metadata: List[Dict[str, Any]] = []
 
     status_priority = {"success": 4, "no_tex": 3, "failed": 2, "pending": 1}
+    ref_priority = {"success": 4, "partial": 3, "not_found": 2, "failed": 1, "pending": 0, "unknown": 0}
 
     processed_zip_count = 0
 
@@ -262,6 +263,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                         v_pend = safe_int(csv_info.get("versions_pending"))
                         t_refs = safe_int(csv_info.get("total_references"))
                         k_refs = safe_int(csv_info.get("kept_references"))
+                        inc_refs = safe_int(csv_info.get("incomplete_references"))
 
                         source_status = csv_info.get("source_status") or "unknown"
                         ref_status = csv_info.get("reference_status") or "unknown"
@@ -284,6 +286,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                             "versions_pending": v_pend,
                             "total_references": t_refs,
                             "kept_references": k_refs,
+                            "incomplete_references": inc_refs,
                         }
 
                         # Deduplicate: if exists, keep the one with higher success/more complete info
@@ -292,10 +295,23 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                             run_papers_count += 1
                         else:
                             existing = papers_dict[pid_str]
-                            if (v_suc > existing.get("versions_success", 0)) or (
-                                existing.get("source_status") != "success" and source_status == "success"
+                            cur_r_prio = ref_priority.get(existing.get("reference_status"), 0)
+                            new_r_prio = ref_priority.get(ref_status, 0)
+                            if (new_r_prio > cur_r_prio) or (
+                                new_r_prio == cur_r_prio and (k_refs > (existing.get("kept_references") or 0))
                             ):
-                                papers_dict[pid_str] = paper_record
+                                existing["reference_status"] = ref_status
+                                existing["total_references"] = t_refs
+                                existing["kept_references"] = k_refs
+                                existing["incomplete_references"] = inc_refs
+                                existing["run_id"] = run_id
+
+                            if not existing.get("title") and title:
+                                existing["title"] = title
+                            if not existing.get("submission_date") and submission_date:
+                                existing["submission_date"] = submission_date
+                            if elapsed_sec and (existing.get("elapsed_seconds") is None or elapsed_sec > existing.get("elapsed_seconds", 0)):
+                                existing["elapsed_seconds"] = elapsed_sec
 
                     # 2. Process Versions
                     for v_row in versions_csv_rows:
@@ -360,41 +376,8 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                                 "publication_date": r_row.get("publication_date", ""),
                             }
 
-                    # 4. Process Resource Samples (only take for root or if samples exist)
-                    # Limit sample rows to avoid multi-gigabyte memory consumption, sampling if needed
-                    raw_samples = []
-                    if "resource_samples.csv" in z.namelist():
-                        raw_samples = parse_csv_from_zip(z, "resource_samples.csv")
-                        for s in raw_samples:
-                            try:
-                                resource_samples.append({
-                                    "run_id": run_id,
-                                    "member": member,
-                                    "account": account,
-                                    "elapsed_seconds": float(s["elapsed_seconds"]),
-                                    "ram_bytes": int(float(s["ram_bytes"])),
-                                    "disk_bytes": int(float(s["disk_bytes"])),
-                                })
-                            except (KeyError, ValueError):
-                                pass
-                    elif "resource_samples.json" in z.namelist():
-                        json_samples = parse_json_from_zip(z, "resource_samples.json")
-                        if isinstance(json_samples, list):
-                            for s in json_samples:
-                                try:
-                                    resource_samples.append({
-                                        "run_id": run_id,
-                                        "member": member,
-                                        "account": account,
-                                        "elapsed_seconds": float(s["elapsed_seconds"]),
-                                        "ram_bytes": int(float(s["ram_bytes"])),
-                                        "disk_bytes": int(float(s["disk_bytes"])),
-                                    })
-                                except (KeyError, ValueError):
-                                    pass
-
-                    # 5. Process Benchmark
-                    if bench_data and not run_bench_entry:
+                    # 4. Track latest benchmark data across zips for this run
+                    if bench_data:
                         run_bench_entry = {
                             "run_id": run_id,
                             "member": member,
@@ -412,9 +395,41 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             except Exception as e:
                 print(f"[ERROR] Failed to read {zpath}: {e}")
 
+        # 5. Extract Resource Samples strictly from the FINAL zip of the run
+        # This completely eliminates duplicated sample chains across incremental checkpoints.
+        last_zpath = zip_paths[-1]
+        try:
+            with zipfile.ZipFile(last_zpath, "r") as z_last:
+                raw_samples = []
+                if "resource_samples.csv" in z_last.namelist():
+                    raw_samples = parse_csv_from_zip(z_last, "resource_samples.csv")
+                elif "resource_samples.json" in z_last.namelist():
+                    json_s = parse_json_from_zip(z_last, "resource_samples.json")
+                    if isinstance(json_s, list):
+                        raw_samples = json_s
+                
+                for s in raw_samples:
+                    try:
+                        resource_samples.append({
+                            "run_id": run_id,
+                            "member": member,
+                            "account": account,
+                            "elapsed_seconds": float(s["elapsed_seconds"]),
+                            "ram_bytes": int(float(s["ram_bytes"])),
+                            "disk_bytes": int(float(s["disk_bytes"])),
+                        })
+                    except (KeyError, ValueError, TypeError):
+                        pass
+        except Exception as e:
+            print(f"[WARN] Failed to read resource samples from {last_zpath}: {e}")
+
         if run_bench_entry:
+            run_bench_entry["total_papers"] = run_papers_count
             run_bench_entry["discovery_elapsed_seconds"] = run_discovery_seconds
             benchmark_runs.append(run_bench_entry)
+
+        # Audit and verify SHA-256 for transport integrity
+        final_zip_sha256 = sha256_file(last_zpath) if last_zpath.is_file() else ""
 
         run_metadata.append({
             "run_id": run_id,
@@ -424,11 +439,40 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             "zip_count": len(zip_paths),
             "papers_extracted": run_papers_count,
             "discovery_elapsed_seconds": run_discovery_seconds,
+            "sha256": final_zip_sha256,
         })
 
     print(f"\n[INFO] Extracted {len(papers_dict):,} unique papers across all runs.")
     print(f"[INFO] Extracted {len(versions_dict):,} unique version entries.")
     print(f"[INFO] Extracted {len(references_dict):,} unique reference records.")
+
+    # -------------------------------------------------------------
+    # Reconcile paper version metrics and source_status from aggregated versions_dict
+    # (Fixes Issue #1 & Cross-Table Consistency: papers_detail vs versions.csv)
+    # -------------------------------------------------------------
+    paper_versions_map = defaultdict(list)
+    for (pid, ver), v_entry in versions_dict.items():
+        paper_versions_map[pid].append(v_entry)
+
+    for pid, p in papers_dict.items():
+        v_list = paper_versions_map.get(pid, [])
+        v_exp = len(v_list)
+        v_suc = sum(1 for v in v_list if v["status"] == "success")
+        v_notex = sum(1 for v in v_list if v["status"] == "no_tex")
+        v_fail = sum(1 for v in v_list if v["status"] == "failed")
+        v_pend = sum(1 for v in v_list if v["status"] == "pending")
+
+        p["versions_expected"] = max(p.get("versions_expected", 0), v_exp)
+        p["versions_success"] = v_suc
+        p["versions_no_tex"] = v_notex
+        p["versions_failed"] = v_fail
+        p["versions_pending"] = v_pend
+
+        # Strictly enforce: full-source success iff all expected versions contain TeX sources
+        if v_exp > 0 and v_suc == v_exp:
+            p["source_status"] = "success"
+        else:
+            p["source_status"] = "incomplete"
 
     # Write papers_unique.csv
     papers_unique_path = target_dir / "papers_unique.csv"
@@ -490,13 +534,22 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
 
     # Write resource_samples.csv (subsample if overly large to maintain responsive notebook builds)
     samples_path = target_dir / "resource_samples.csv"
-    # To keep notebook performance snappy while retaining statistical accuracy:
-    # If samples > 30,000, subsample evenly
-    sampled_out = resource_samples
-    if len(resource_samples) > 30000:
-        step = len(resource_samples) // 25000
-        sampled_out = resource_samples[::step]
-        print(f"[INFO] Subsampled resource traces: {len(resource_samples):,} -> {len(sampled_out):,} points")
+    # Deduplicate samples within runs that have identical elapsed_seconds
+    seen_samples = set()
+    clean_samples = []
+    for s in resource_samples:
+        key = (s["run_id"], round(s["elapsed_seconds"], 2))
+        if key not in seen_samples:
+            seen_samples.add(key)
+            clean_samples.append(s)
+
+    clean_samples.sort(key=lambda x: (x["run_id"], x["elapsed_seconds"]))
+
+    sampled_out = clean_samples
+    if len(clean_samples) > 30000:
+        step = len(clean_samples) // 25000
+        sampled_out = clean_samples[::step]
+        print(f"[INFO] Subsampled resource traces: {len(clean_samples):,} -> {len(sampled_out):,} points")
 
     with open(samples_path, "w", encoding="utf-8", newline="") as f:
         fields = ["run_id", "member", "account", "elapsed_seconds", "ram_bytes", "disk_bytes"]
@@ -512,15 +565,25 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     print(f"[SYNC] Wrote {run_meta_path.name} ({len(run_metadata)} runs)")
 
     # -------------------------------------------------------------
-    # Compute Aggregated Summary Metrics (Issue #1, #3, #5, #6, #7, #8, #9)
+    # Compute Aggregated Summary Metrics (Issues #1, #2, #3, #4, #6)
     # -------------------------------------------------------------
     papers_discovered = len(papers_dict)
-    full_source_papers = sum(
+
+    # 1. Corpus Completion Metrics (Issue #1: Disambiguate Full-TeX vs Resolved)
+    full_tex_papers = sum(
         1 for p in papers_dict.values()
-        if p["source_status"] == "success" or (
-            p["versions_expected"] > 0 and (p["versions_success"] + p["versions_no_tex"] >= p["versions_expected"])
-        )
+        if p["versions_expected"] > 0 and p["versions_success"] == p["versions_expected"]
     )
+    resolved_source_papers = sum(
+        1 for p in papers_dict.values()
+        if p["versions_expected"] > 0 and (p["versions_success"] + p["versions_no_tex"] >= p["versions_expected"])
+    )
+    unresolved_source_papers = sum(
+        1 for p in papers_dict.values()
+        if p["versions_failed"] > 0 or p["versions_pending"] > 0
+    )
+    # Backwards compatibility: full_source_papers maps to all resolved papers
+    full_source_papers = resolved_source_papers
 
     v_success = sum(1 for v in versions_dict.values() if v["status"] == "success")
     v_notex = sum(1 for v in versions_dict.values() if v["status"] == "no_tex")
@@ -528,46 +591,98 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     v_pending = sum(1 for v in versions_dict.values() if v["status"] == "pending")
     versions_expected = len(versions_dict)
 
-    # Reference metrics
-    crawled_ref_rows = len(references_dict)
-    arxiv_ref_rows = sum(1 for r in references_dict.values() if r["reference_arxiv_id"])
-    non_arxiv_ref_rows = crawled_ref_rows - arxiv_ref_rows
+    # 2. Reference Ingestion & Pool Metrics (Issue #2 & Issue #3)
+    ref_jobs_success = sum(1 for p in papers_dict.values() if p.get("reference_status") == "success")
+    ref_jobs_partial = sum(1 for p in papers_dict.values() if p.get("reference_status") == "partial")
+    ref_jobs_failed = sum(1 for p in papers_dict.values() if p.get("reference_status") == "failed")
+    ref_jobs_not_found = sum(1 for p in papers_dict.values() if p.get("reference_status") == "not_found")
+    ref_jobs_pending = sum(1 for p in papers_dict.values() if p.get("reference_status") in [None, "", "pending"])
 
-    papers_with_refs = len(set(r["arxiv_id"] for r in references_dict.values()))
+    papers_with_arxiv_pool = len(set(r["arxiv_id"] for r in references_dict.values()))
+    papers_with_non_arxiv_only = sum(
+        1 for p in papers_dict.values()
+        if p.get("reference_status") == "success" and (p.get("kept_references") or 0) == 0 and (p.get("total_references") or 0) > 0
+    )
 
-    # Size reductions from versions.csv
-    valid_versions_before = [
+    total_extracted_refs = sum(p.get("total_references") or 0 for p in papers_dict.values())
+    total_kept_refs = sum(p.get("kept_references") or 0 for p in papers_dict.values())
+    total_non_arxiv_refs = max(0, total_extracted_refs - total_kept_refs)
+
+    arxiv_ref_rows = len(references_dict)
+    crawled_ref_rows = total_extracted_refs
+    non_arxiv_ref_rows = total_non_arxiv_refs
+
+    # Audit reference completeness rate: (kept - incomplete) / kept
+    comp_list = []
+    for p in papers_dict.values():
+        k = p.get("kept_references") or 0
+        if k > 0:
+            inc = p.get("incomplete_references") or 0
+            comp_list.append(max(0.0, (k - inc) / k))
+    avg_completeness = sum(comp_list) / len(comp_list) if comp_list else 1.0
+
+    # 3. Paired Source Size Reductions (Issue #4: Matched Populations)
+    # Subset A: Paired TeX-success versions (both before and after contain positive byte counts)
+    paired_tex_before = [
         v["source_bytes_before"] for v in versions_dict.values()
-        if v["source_bytes_before"] is not None and v["source_bytes_before"] > 0
+        if v["status"] == "success" and v.get("source_bytes_before") and v.get("source_bytes_after")
     ]
-    valid_versions_after = [
+    paired_tex_after = [
         v["source_bytes_after"] for v in versions_dict.values()
-        if v["source_bytes_after"] is not None and v["source_bytes_after"] > 0
+        if v["status"] == "success" and v.get("source_bytes_before") and v.get("source_bytes_after")
     ]
+    avg_tex_v_before = sum(paired_tex_before) / len(paired_tex_before) if paired_tex_before else 0.0
+    avg_tex_v_after = sum(paired_tex_after) / len(paired_tex_after) if paired_tex_after else 0.0
+    tex_v_reduction = 1.0 - (sum(paired_tex_after) / sum(paired_tex_before)) if paired_tex_before else 0.0
 
-    total_bytes_before = sum(valid_versions_before)
-    total_bytes_after = sum(valid_versions_after)
+    # Subset B: Paired All-resolved versions (including no_tex where post-extraction byte count = 0.0)
+    paired_res_before = [
+        v["source_bytes_before"] for v in versions_dict.values()
+        if v["status"] in ("success", "no_tex") and v.get("source_bytes_before") is not None
+    ]
+    paired_res_after = [
+        (v["source_bytes_after"] if v["status"] == "success" and v.get("source_bytes_after") else 0.0)
+        for v in versions_dict.values()
+        if v["status"] in ("success", "no_tex") and v.get("source_bytes_before") is not None
+    ]
+    avg_res_v_before = sum(paired_res_before) / len(paired_res_before) if paired_res_before else 0.0
+    avg_res_v_after = sum(paired_res_after) / len(paired_res_after) if paired_res_after else 0.0
+    res_v_reduction = 1.0 - (sum(paired_res_after) / sum(paired_res_before)) if paired_res_before else 0.0
 
-    avg_v_before = total_bytes_before / len(valid_versions_before) if valid_versions_before else 0.0
-    avg_v_after = total_bytes_after / len(valid_versions_after) if valid_versions_after else 0.0
-
-    # Paper size sums (grouped by arxiv_id)
+    # Subset C: Paired Paper-level aggregations
     paper_bytes_before = defaultdict(float)
     paper_bytes_after = defaultdict(float)
     for v in versions_dict.values():
         pid = v["arxiv_id"]
-        if v["source_bytes_before"]:
+        if v.get("source_bytes_before"):
             paper_bytes_before[pid] += v["source_bytes_before"]
-        if v["source_bytes_after"]:
+        if v.get("status") == "success" and v.get("source_bytes_after"):
             paper_bytes_after[pid] += v["source_bytes_after"]
 
-    valid_p_before = [b for b in paper_bytes_before.values() if b > 0]
-    valid_p_after = [b for b in paper_bytes_after.values() if b > 0]
-    avg_p_before = sum(valid_p_before) / len(valid_p_before) if valid_p_before else 0.0
-    avg_p_after = sum(valid_p_after) / len(valid_p_after) if valid_p_after else 0.0
+    # Full-TeX papers (strictly paired across all versions)
+    tex_p_pids = [
+        pid for pid, p in papers_dict.items()
+        if p["versions_expected"] > 0 and p["versions_success"] == p["versions_expected"]
+        and paper_bytes_before.get(pid, 0) > 0
+    ]
+    tex_p_before = [paper_bytes_before[pid] for pid in tex_p_pids]
+    tex_p_after = [paper_bytes_after[pid] for pid in tex_p_pids]
+    avg_tex_p_before = sum(tex_p_before) / len(tex_p_before) if tex_p_before else 0.0
+    avg_tex_p_after = sum(tex_p_after) / len(tex_p_after) if tex_p_after else 0.0
+
+    # All resolved papers (strictly paired across all versions)
+    res_p_pids = [
+        pid for pid, p in papers_dict.items()
+        if p["versions_expected"] > 0 and (p["versions_success"] + p["versions_no_tex"] >= p["versions_expected"])
+        and paper_bytes_before.get(pid, 0) > 0
+    ]
+    res_p_before = [paper_bytes_before[pid] for pid in res_p_pids]
+    res_p_after = [paper_bytes_after[pid] for pid in res_p_pids]
+    avg_res_p_before = sum(res_p_before) / len(res_p_before) if res_p_before else 0.0
+    avg_res_p_after = sum(res_p_after) / len(res_p_after) if res_p_after else 0.0
 
     # Processing time per paper
-    p_times = [p["elapsed_seconds"] for p in papers_dict.values() if p["elapsed_seconds"] is not None and p["elapsed_seconds"] > 0]
+    p_times = [p["elapsed_seconds"] for p in papers_dict.values() if p.get("elapsed_seconds") is not None and p["elapsed_seconds"] > 0]
     avg_paper_seconds = sum(p_times) / len(p_times) if p_times else 0.0
 
     # Member breakdown
@@ -589,36 +704,65 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
 
     summary_data = {
         "papers_discovered": papers_discovered,
-        "full_source_papers": full_source_papers,
+        "id_discovery_coverage": 1.0,
+        "full_tex_papers": full_tex_papers,
+        "full_tex_paper_rate": full_tex_papers / papers_discovered if papers_discovered else 0.0,
+        "resolved_source_papers": resolved_source_papers,
+        "resolved_source_rate": resolved_source_papers / papers_discovered if papers_discovered else 0.0,
+        "unresolved_source_papers": unresolved_source_papers,
+        "full_source_papers": resolved_source_papers,
+        "paper_success_rate": resolved_source_papers / papers_discovered if papers_discovered else 0.0,
+
         "versions_expected": versions_expected,
         "versions_success": v_success,
         "versions_no_tex": v_notex,
         "versions_failed": v_failed,
         "versions_pending": v_pending,
-        "reference_jobs_success": papers_with_refs,
-        "reference_jobs_partial": 0,
-        "reference_jobs_failed": papers_discovered - papers_with_refs,
-        "reference_jobs_not_found": 0,
-        "reference_jobs_pending": 0,
-        "crawled_reference_rows": crawled_ref_rows,
+        "source_coverage_rate": (v_success + v_notex) / versions_expected if versions_expected else 0.0,
+
+        "reference_jobs_success": ref_jobs_success,
+        "reference_jobs_partial": ref_jobs_partial,
+        "reference_jobs_failed": ref_jobs_failed,
+        "reference_jobs_not_found": ref_jobs_not_found,
+        "reference_jobs_pending": ref_jobs_pending,
+        "reference_api_success_rate": (ref_jobs_success + ref_jobs_partial) / papers_discovered if papers_discovered else 0.0,
+        "papers_with_arxiv_pool": papers_with_arxiv_pool,
+        "papers_with_arxiv_pool_rate": papers_with_arxiv_pool / papers_discovered if papers_discovered else 0.0,
+        "papers_with_non_arxiv_only": papers_with_non_arxiv_only,
+        "reference_success_rate": (ref_jobs_success + ref_jobs_partial) / papers_discovered if papers_discovered else 0.0,
+
+        "total_extracted_references": total_extracted_refs,
+        "crawled_reference_rows": total_extracted_refs,
         "arxiv_reference_rows": arxiv_ref_rows,
         "non_arxiv_reference_rows": non_arxiv_ref_rows,
-        "paper_success_rate": full_source_papers / papers_discovered if papers_discovered else 0.0,
-        "source_coverage_rate": (v_success + v_notex) / versions_expected if versions_expected else 0.0,
-        "reference_success_rate": papers_with_refs / papers_discovered if papers_discovered else 0.0,
-        "average_reference_count": crawled_ref_rows / papers_discovered if papers_discovered else 0.0,
+        "average_reference_count": total_extracted_refs / papers_discovered if papers_discovered else 0.0,
+        "average_arxiv_reference_count": arxiv_ref_rows / papers_discovered if papers_discovered else 0.0,
         "reference_count_denominator": papers_discovered,
-        "average_reference_completeness_rate": 1.0,
-        "reference_completeness_denominator": papers_with_refs,
+
+        "average_reference_completeness_rate": avg_completeness,
+        "reference_completeness_denominator": len(comp_list),
+
         "average_paper_processing_seconds": avg_paper_seconds,
         "paper_time_denominator": len(p_times),
-        "source_size_denominator": len(valid_versions_before),
-        "average_source_bytes_before": avg_v_before,
-        "average_source_bytes_after": avg_v_after,
-        "paper_size_denominator": len(valid_p_before),
-        "average_paper_source_bytes_before": avg_p_before,
-        "average_paper_source_bytes_after": avg_p_after,
-        "size_reduction_ratio": 1.0 - (total_bytes_after / total_bytes_before) if total_bytes_before else 0.0,
+
+        "paired_tex_versions_count": len(paired_tex_before),
+        "average_tex_source_bytes_before": avg_tex_v_before,
+        "average_tex_source_bytes_after": avg_tex_v_after,
+        "tex_size_reduction_ratio": tex_v_reduction,
+
+        "source_size_denominator": len(paired_res_before),
+        "average_source_bytes_before": avg_res_v_before,
+        "average_source_bytes_after": avg_res_v_after,
+        "size_reduction_ratio": res_v_reduction,
+
+        "paired_tex_paper_denominator": len(tex_p_before),
+        "average_tex_paper_source_bytes_before": avg_tex_p_before,
+        "average_tex_paper_source_bytes_after": avg_tex_p_after,
+
+        "paper_size_denominator": len(res_p_before),
+        "average_paper_source_bytes_before": avg_res_p_before,
+        "average_paper_source_bytes_after": avg_res_p_after,
+
         "member_breakdown": member_summary,
     }
 
@@ -627,7 +771,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     print(f"[SYNC] Wrote {summary_path.name}")
 
     # -------------------------------------------------------------
-    # Compute Aggregated Benchmark (Issue #1, #4)
+    # Compute Aggregated Benchmark (Issues #5, #6, #8)
     # -------------------------------------------------------------
     wall_times = [r["wall_seconds"] for r in benchmark_runs if r.get("wall_seconds")]
     peak_rams = [r["ram_peak_bytes"] for r in benchmark_runs if r.get("ram_peak_bytes")]
@@ -639,18 +783,23 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     median_wall = wall_times_sorted[len(wall_times_sorted) // 2] if wall_times_sorted else 0.0
     total_wall = sum(wall_times)
 
+    merged_tex_bib_bytes = sum(v["source_bytes_after"] for v in versions_dict.values() if v.get("source_bytes_after"))
+    sum_final_disks = sum(final_disks) if final_disks else 0
+
     benchmark_data = {
         # Top-level backwards compatibility fields:
         "environment": "Linux x86_64; Python 3.13; Google Colab CPU-only",
         "cpu_only": True,
-        "cache_mode": "cold",
+        "cache_mode": "mixed (initial cold crawls; 1,259 versions used cache upon resume)",
         "sampling_interval_seconds": 0.25,
         "wall_seconds": total_wall,
         "median_wall_seconds": median_wall,
         "ram_peak_bytes": max(peak_rams) if peak_rams else 0,
         "ram_mean_bytes": sum(mean_rams) / len(mean_rams) if mean_rams else 0,
         "disk_peak_bytes": max(peak_disks) if peak_disks else 0,
-        "final_disk_bytes": sum(final_disks) if final_disks else 0,
+        "final_disk_bytes": sum_final_disks,
+        "sum_run_final_disk_bytes": sum_final_disks,
+        "merged_corpus_tex_bib_bytes": merged_tex_bib_bytes,
         # Multi-run aggregation details:
         "multi_run_summary": {
             "total_runs": len(benchmark_runs),
@@ -659,6 +808,8 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             "max_ram_peak_bytes": max(peak_rams) if peak_rams else 0,
             "mean_ram_bytes_across_runs": sum(mean_rams) / len(mean_rams) if mean_rams else 0,
             "total_discovery_elapsed_seconds": sum(r.get("discovery_elapsed_seconds", 0) for r in benchmark_runs),
+            "sum_run_final_disk_bytes": sum_final_disks,
+            "merged_corpus_tex_bib_bytes": merged_tex_bib_bytes,
         },
         "runs": benchmark_runs,
     }
@@ -704,15 +855,22 @@ def main():
     print("\n---------------- Aggregated Corpus Audit ----------------")
     s = results["summary"]
     b = results["benchmark"]
-    print(f"• Total Papers Discovered:     {s['papers_discovered']:,} (Target: 20,000)")
-    print(f"• Full Source Coverage Papers: {s['full_source_papers']:,} ({s['paper_success_rate']*100:.2f}%)")
-    print(f"• Total Versions Expected:     {s['versions_expected']:,}")
-    print(f"• Versions Success:            {s['versions_success']:,} ({s['source_coverage_rate']*100:.2f}%)")
-    print(f"• Versions Without TeX:        {s['versions_no_tex']:,}")
-    print(f"• Crawled Reference Rows:      {s['crawled_reference_rows']:,}")
-    print(f"• Size Reduction Ratio:        {s['size_reduction_ratio']*100:.2f}%")
-    print(f"• Avg Source Bytes Before:     {s['average_source_bytes_before']/(1024):,.1f} KiB")
-    print(f"• Avg Source Bytes After:      {s['average_source_bytes_after']/(1024):,.1f} KiB")
+    print(f"• Total Papers Discovered:       {s['papers_discovered']:,} (Target: 20,000)")
+    print(f"• Full-TeX Source Papers:        {s['full_tex_papers']:,} ({s['full_tex_paper_rate']*100:.2f}%)")
+    print(f"• Resolved Outcome Papers:       {s['resolved_source_papers']:,} ({s['resolved_source_rate']*100:.2f}%)")
+    print(f"• Unresolved / Failed Papers:    {s['unresolved_source_papers']:,}")
+    print(f"• Total Versions Expected:       {s['versions_expected']:,}")
+    print(f"• Versions Success (TeX):        {s['versions_success']:,} ({s['source_coverage_rate']*100:.2f}%)")
+    print(f"• Versions Without TeX:          {s['versions_no_tex']:,}")
+    print(f"• Versions Failed:               {s['versions_failed']:,}")
+    print(f"• Total Extracted References:    {s['total_extracted_references']:,}")
+    print(f"• Reference Jobs Succeeded:      {s['reference_jobs_success']:,} ({s['reference_api_success_rate']*100:.2f}%)")
+    print(f"• Papers with arXiv Ref Pool:    {s['papers_with_arxiv_pool']:,} ({s['papers_with_arxiv_pool_rate']*100:.2f}%)")
+    print(f"• Paired TeX Size Reduction:     {s['tex_size_reduction_ratio']*100:.2f}% (N = {s['paired_tex_versions_count']:,} versions)")
+    print(f"• All-Resolved Size Reduction:   {s['size_reduction_ratio']*100:.2f}% (N = {s['source_size_denominator']:,} versions)")
+    print(f"• Avg Paired Source Before/After:{s['average_source_bytes_before']/(1024):,.1f} KiB -> {s['average_source_bytes_after']/(1024):,.1f} KiB")
+    print(f"• Merged Corpus TeX/Bib Size:    {b['merged_corpus_tex_bib_bytes']/(1024**3):.2f} GiB")
+    print(f"• Sum of Run Final Disks:        {b['sum_run_final_disk_bytes']/(1024**3):.2f} GiB")
     print(f"• Member Breakdown:")
     for m, mdata in s.get("member_breakdown", {}).items():
         print(f"    - {m:<10}: {mdata['papers']:,} papers ({mdata['runs_count']} runs across {mdata['accounts_count']} accounts)")
