@@ -9,7 +9,7 @@ Welcome to the comprehensive technical report for the **arXiv Knowledge Discover
 
 ## 1. Project Overview & Research Context
 
-Scientific literature published on [arXiv.org](https://arxiv.org) forms one of the largest open-access scholarly corpuses in the world, containing over two million papers. While traditional data engineering workflows primarily focus on bibliographic metadata or compiled PDF documents, this project pioneers an end-to-end data science pipeline that mines **full-text LaTeX source files** and constructs a unified entity resolution graph.
+Scientific literature published on [arXiv.org](https://arxiv.org) forms one of the largest open-access scholarly corpuses in the world, containing over two million papers. While typical scholarly workflows primarily inspect bibliographic metadata or compiled PDF documents, this project builds an end-to-end data processing pipeline that collects versioned **full-text LaTeX source files** (`.tex`/`.bib`) and reference networks for assigned papers, preparing them for hierarchical parsing and entity resolution.
 
 The project is structured into three cumulative milestones:
 
@@ -46,7 +46,7 @@ The project is structured into three cumulative milestones:
 
 ## 2. Project Team & Responsibilities
 
-Our team consists of 4 members collaborating under strict engineering contracts and reproducible workflows:
+Our team consists of 4 members operating a shared crawler architecture across four non-overlapping ID partitions with synchronized aggregation:
 
 | Member | Primary Responsibilities | Assigned Partition | Verified Corpus |
 |:---|:---|:---:|:---:|

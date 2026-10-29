@@ -37,6 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=68db5256" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -60,7 +61,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["\\(", "\\)"], ["$", "$"]], "processEscapes": true}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area|cell_output|output|text_html"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
@@ -392,7 +393,7 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="arxiv-knowledge-discovery-entity-resolution">
+  <section id="arxiv-knowledge-discovery-entity-resolution">
 <h1>arXiv Knowledge Discovery &amp; Entity Resolution<a class="headerlink" href="#arxiv-knowledge-discovery-entity-resolution" title="Link to this heading">#</a></h1>
 <p>Welcome to the comprehensive technical report for the <strong>arXiv Knowledge Discovery and Entity Resolution Project</strong>, conducted as part of the <em>Introduction to Data Science</em> course at VNUHCM - University of Science (HCMUS).</p>
 <blockquote>
@@ -402,7 +403,7 @@
 <hr class="docutils" />
 <section id="project-overview-research-context">
 <h2>1. Project Overview &amp; Research Context<a class="headerlink" href="#project-overview-research-context" title="Link to this heading">#</a></h2>
-<p>Scientific literature published on <a class="reference external" href="https://arxiv.org">arXiv.org</a> forms one of the largest open-access scholarly corpuses in the world, containing over two million papers. While traditional data engineering workflows primarily focus on bibliographic metadata or compiled PDF documents, this project pioneers an end-to-end data science pipeline that mines <strong>full-text LaTeX source files</strong> and constructs a unified entity resolution graph.</p>
+<p>Scientific literature published on <a class="reference external" href="https://arxiv.org">arXiv.org</a> forms one of the largest open-access scholarly corpuses in the world, containing over two million papers. While typical scholarly workflows primarily inspect bibliographic metadata or compiled PDF documents, this project builds an end-to-end data processing pipeline that collects versioned <strong>full-text LaTeX source files</strong> (<code class="docutils literal notranslate"><span class="pre">.tex</span></code>/<code class="docutils literal notranslate"><span class="pre">.bib</span></code>) and reference networks for assigned papers, preparing them for hierarchical parsing and entity resolution.</p>
 <p>The project is structured into three cumulative milestones:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+-----------------------------------------------------------------------------------+
 |                            End-to-End Project Pipeline                            |
@@ -436,7 +437,7 @@
 <hr class="docutils" />
 <section id="project-team-responsibilities">
 <h2>2. Project Team &amp; Responsibilities<a class="headerlink" href="#project-team-responsibilities" title="Link to this heading">#</a></h2>
-<p>Our team consists of 4 members collaborating under strict engineering contracts and reproducible workflows:</p>
+<p>Our team consists of 4 members operating a shared crawler architecture across four non-overlapping ID partitions with synchronized aggregation:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Member</p></th>

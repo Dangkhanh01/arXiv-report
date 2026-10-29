@@ -37,6 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=68db5256" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -60,7 +61,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["\\(", "\\)"], ["$", "$"]], "processEscapes": true}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area|cell_output|output|text_html"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
@@ -745,6 +746,7 @@ window.runMermaid = runMermaid;</script>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-mining-via-semantic-scholar-graph-api">3. Reference Mining via Semantic Scholar Graph API</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-api-pagination-separation-of-stores">Graph API Pagination &amp; Separation of Stores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concrete-corpus-organization-example">Concrete Corpus Organization Example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-rate-limiting-fault-tolerance">4. Reliability, Rate Limiting &amp; Fault Tolerance</a><ul class="nav section-nav flex-column">
@@ -767,7 +769,7 @@ window.runMermaid = runMermaid;</script>
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="technical-methodology-pipeline-implementation">
+  <section id="technical-methodology-pipeline-implementation">
 <h1>Technical Methodology &amp; Pipeline Implementation<a class="headerlink" href="#technical-methodology-pipeline-implementation" title="Link to this heading">#</a></h1>
 <p>This section details the architectural decisions, API implementations, and reliability strategies that govern our Milestone 1 collection engine.</p>
 <hr class="docutils" />
@@ -775,11 +777,11 @@ window.runMermaid = runMermaid;</script>
 <h2>1. Targeted Discovery via OAI-PMH <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code><a class="headerlink" href="#targeted-discovery-via-oai-pmh-arxivraw" title="Link to this heading">#</a></h2>
 <section id="why-oai-pmh-arxivraw-over-query-api-or-rss">
 <h3>Why OAI-PMH <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code> over Query API or RSS?<a class="headerlink" href="#why-oai-pmh-arxivraw-over-query-api-or-rss" title="Link to this heading">#</a></h3>
-<p>The arXiv repository provides several discovery interfaces: the Query API (<code class="docutils literal notranslate"><span class="pre">/api/query</span></code>), RSS feeds, and the Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH). We chose the official OAI-PMH endpoint (<code class="docutils literal notranslate"><span class="pre">https://oaipmh.arxiv.org/oai</span></code>) using the <code class="docutils literal notranslate"><span class="pre">GetRecord</span></code> verb and the specialized <code class="docutils literal notranslate"><span class="pre">metadataPrefix=arXivRaw</span></code> for three decisive reasons:</p>
+<p>The arXiv repository provides several discovery interfaces: the Query API (<code class="docutils literal notranslate"><span class="pre">/api/query</span></code>), RSS feeds, and the Open Archives Initiative Protocol for Metadata Harvesting (<a class="reference external" href="https://www.openarchives.org/OAI/openarchivesprotocol.html">OAI-PMH v2.0</a>; Lagoze et al., 2002). We chose the official OAI-PMH endpoint (<code class="docutils literal notranslate"><span class="pre">https://oaipmh.arxiv.org/oai</span></code>) documented in the <a class="reference external" href="https://info.arxiv.org/help/oa/index.html">arXiv OAI-PMH Service Guide</a> using the <code class="docutils literal notranslate"><span class="pre">GetRecord</span></code> verb and the specialized <code class="docutils literal notranslate"><span class="pre">metadataPrefix=arXivRaw</span></code> (<a class="reference external" href="https://info.arxiv.org/help/oa/arXivRaw.html">arXiv Metadata Formats</a>) for three decisive reasons:</p>
 <ol class="arabic simple">
-<li><p><strong>Full Version History in One Request</strong>: Standard metadata formats (like Dublin Core or <code class="docutils literal notranslate"><span class="pre">arXiv</span></code>) return only the metadata of the latest version. In contrast, <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code> encodes the complete history of all versions (<span class="math notranslate nohighlight">\(v_1, v_2, \dots, v_N\)</span>) within its <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> tags.</p></li>
-<li><p><strong>True Canonical Submission Dates</strong>: The standard OAI <code class="docutils literal notranslate"><span class="pre">datestamp</span></code> header records the date metadata was updated, <em>not</em> when the research was submitted. Relying on <code class="docutils literal notranslate"><span class="pre">datestamp</span></code> introduces severe date distortion. <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code> stores the authentic timestamp of initial submission inside the <span class="math notranslate nohighlight">\(v_1\)</span> version element.</p></li>
-<li><p><strong>Deterministic Error Handling</strong>: Protocol errors such as <code class="docutils literal notranslate"><span class="pre">idDoesNotExist</span></code> or <code class="docutils literal notranslate"><span class="pre">deleted</span></code> are explicitly structured in XML, distinguishing a non-existent paper from network transit errors.</p></li>
+<li><p><strong>Full Version History in One Request</strong>: Standard metadata formats (like Dublin Core <code class="docutils literal notranslate"><span class="pre">oai_dc</span></code> or <code class="docutils literal notranslate"><span class="pre">arXiv</span></code>) return only the metadata snapshot of the latest version. In contrast, the <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code> schema exposes internal submission records encoding the complete history of all versions (<span class="math notranslate nohighlight">\(v_1, v_2, \dots, v_N\)</span>) within individual <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> elements.</p></li>
+<li><p><strong>True Canonical Submission Dates</strong>: Under Section 2.5 of the <a class="reference external" href="https://www.openarchives.org/OAI/openarchivesprotocol.html#RecordControlInfo">OAI-PMH Protocol Specification</a>, the standard OAI <code class="docutils literal notranslate"><span class="pre">datestamp</span></code> header indicates the date metadata was last modified or re-indexed in the repository, <em>not</em> when the research was submitted. Relying on <code class="docutils literal notranslate"><span class="pre">datestamp</span></code> introduces severe temporal distortion. <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code> stores the authentic timestamp of initial submission inside the <code class="docutils literal notranslate"><span class="pre">&lt;version</span> <span class="pre">version=&quot;v1&quot;&gt;&lt;date&gt;</span></code> element.</p></li>
+<li><p><strong>Deterministic Error Handling</strong>: Protocol-level error codes defined in the OAI-PMH standard (such as <code class="docutils literal notranslate"><span class="pre">idDoesNotExist</span></code> or <code class="docutils literal notranslate"><span class="pre">cannotDisseminateFormat</span></code>) are returned as structured XML elements, allowing the crawler to distinguish a non-existent paper from transient network failures.</p></li>
 </ol>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Request Pattern:
 GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;identifier=oai:arXiv.org:{arxiv_id}
@@ -792,14 +794,14 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
 <h2>2. Full-Text Source Extraction &amp; Figure Removal<a class="headerlink" href="#full-text-source-extraction-figure-removal" title="Link to this heading">#</a></h2>
 <section id="safe-in-memory-inspection-extraction">
 <h3>Safe In-Memory Inspection &amp; Extraction<a class="headerlink" href="#safe-in-memory-inspection-extraction" title="Link to this heading">#</a></h3>
-<p>Source archives are fetched from the versioned export mirror:</p>
+<p>Source archives are fetched from the versioned export mirror following the <a class="reference external" href="https://info.arxiv.org/help/faq/tarball.html">arXiv Source Download Specification</a>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET https://export.arxiv.org/src/{arxiv_id}v{version}
 </pre></div>
 </div>
-<p>The payload may be a compressed tarball (<code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code>), a direct gzip-compressed TeX file (<code class="docutils literal notranslate"><span class="pre">.gz</span></code>), or an uncompressed TeX source. To fulfill the course requirement of removing figure binaries without compromising text:</p>
+<p>As documented in <a class="reference external" href="https://info.arxiv.org/help/mimetypes.html">arXiv Media Types</a>, the payload may be a compressed tarball (<code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code>), a direct gzip-compressed TeX file (<code class="docutils literal notranslate"><span class="pre">.gz</span></code>), or a PDF-only submission. To fulfill the course requirement of removing figure binaries without compromising text:</p>
 <ol class="arabic simple">
-<li><p><strong>Tarball Traversal without Full Extraction</strong>: The downloader streams the archive into an in-memory or temporary buffer and inspects directory headers using Python’s <code class="docutils literal notranslate"><span class="pre">tarfile</span></code> module.</p></li>
-<li><p><strong>Strict Whitelist</strong>: Only files ending with <code class="docutils literal notranslate"><span class="pre">.tex</span></code> and <code class="docutils literal notranslate"><span class="pre">.bib</span></code> are extracted. Binary formats (<code class="docutils literal notranslate"><span class="pre">.png</span></code>, <code class="docutils literal notranslate"><span class="pre">.jpg</span></code>, <code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">.eps</span></code>), style sheets (<code class="docutils literal notranslate"><span class="pre">.sty</span></code>, <code class="docutils literal notranslate"><span class="pre">.cls</span></code>), and compiled outputs (<code class="docutils literal notranslate"><span class="pre">.bbl</span></code>, <code class="docutils literal notranslate"><span class="pre">.aux</span></code>) are discarded prior to disk write.</p></li>
+<li><p><strong>Tarball Traversal without Full Extraction</strong>: The downloader streams the archive into an in-memory buffer and inspects directory headers using Python’s <code class="docutils literal notranslate"><span class="pre">tarfile</span></code> module.</p></li>
+<li><p><strong>Strict Whitelist</strong>: Only files ending with <code class="docutils literal notranslate"><span class="pre">.tex</span></code> and <code class="docutils literal notranslate"><span class="pre">.bib</span></code> are extracted. Binary formats (<code class="docutils literal notranslate"><span class="pre">.png</span></code>, <code class="docutils literal notranslate"><span class="pre">.jpg</span></code>, <code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">.eps</span></code>), style sheets (<code class="docutils literal notranslate"><span class="pre">.sty</span></code>, <code class="docutils literal notranslate"><span class="pre">.cls</span></code>), and compiled outputs (<code class="docutils literal notranslate"><span class="pre">.bbl</span></code>, <code class="docutils literal notranslate"><span class="pre">.aux</span></code>) are discarded prior to disk write, meeting the course data preparation requirements (<a class="reference external" href="https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/">HCMUS CS TA, 2026</a>).</p></li>
 <li><p><strong>Integrity Preservation</strong>: The contents of <code class="docutils literal notranslate"><span class="pre">.tex</span></code> files are written strictly byte-exact. Figure environments (<code class="docutils literal notranslate"><span class="pre">\begin{figure}</span></code>) and inclusion statements (<code class="docutils literal notranslate"><span class="pre">\includegraphics{...}</span></code>) are kept completely untouched because Milestone 2 requires them to detect document hierarchy.</p></li>
 <li><p><strong>Handling <code class="docutils literal notranslate"><span class="pre">no_tex</span></code> Records</strong>: When an archive contains exclusively a PDF or DOCX binary with zero TeX sources, the pipeline records a valid <code class="docutils literal notranslate"><span class="pre">no_tex</span></code> event, creates an empty version folder, and generates a cryptographic receipt.</p></li>
 </ol>
@@ -810,20 +812,45 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
 <h2>3. Reference Mining via Semantic Scholar Graph API<a class="headerlink" href="#reference-mining-via-semantic-scholar-graph-api" title="Link to this heading">#</a></h2>
 <section id="graph-api-pagination-separation-of-stores">
 <h3>Graph API Pagination &amp; Separation of Stores<a class="headerlink" href="#graph-api-pagination-separation-of-stores" title="Link to this heading">#</a></h3>
-<p>To acquire external citation metadata, the pipeline queries the Semantic Scholar Academic Graph API:</p>
+<p>To acquire external citation metadata, the pipeline queries the <a class="reference external" href="https://api.semanticscholar.org/api-docs/graph">Semantic Scholar Academic Graph API</a> (Kinney et al., 2023):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET https://api.semanticscholar.org/graph/v1/paper/ARXIV:{arxiv_id}/references?fields=title,authors,externalIds,publicationDate,year,venue&amp;limit=100
 </pre></div>
 </div>
 <ol class="arabic simple">
-<li><p><strong>Complete Pagination</strong>: The client systematically follows the <code class="docutils literal notranslate"><span class="pre">next</span></code> token returned by the API until the entire reference list is exhausted.</p></li>
+<li><p><strong>Complete Pagination</strong>: The client systematically follows the cursor-based <code class="docutils literal notranslate"><span class="pre">next</span></code> token defined in the <a class="reference external" href="https://api.semanticscholar.org/api-docs/graph#tag/Paper-Data/operation/get_graph_get_paper_references">Semantic Scholar References API</a> until the entire citation list is exhausted.</p></li>
 <li><p><strong>Dual-Store Architecture</strong>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">references_all.json</span></code>: Stores <strong>every single citation</strong> returned by S2, including non-arXiv books, websites, unresolved papers, and duplicates.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">references.json</span></code>: Serves as the clean, filtered matching pool for Milestone 3, retaining only references with a verified <code class="docutils literal notranslate"><span class="pre">arxiv_id</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">references_all.json</span></code> / <code class="docutils literal notranslate"><span class="pre">references_all.csv</span></code>: Stores <strong>every single citation</strong> returned by Semantic Scholar (totaling 734,157 citations across the corpus), capturing books, external URLs, non-arXiv journals, and conference papers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">references.json</span></code> / <code class="docutils literal notranslate"><span class="pre">references_agg.csv</span></code>: Stores the clean, filtered matching pool for Milestone 3, retaining only citations with a verified <code class="docutils literal notranslate"><span class="pre">arxiv_id</span></code> (totaling 366,416 citation records).</p></li>
 </ul>
 </li>
-<li><p><strong>Canonical Date Resolution</strong>: Rather than trusting Semantic Scholar’s generic <code class="docutils literal notranslate"><span class="pre">publicationDate</span></code>, each cited arXiv ID is cross-referenced through an indexed Kaggle snapshot or OAI discovery to attach its authentic <span class="math notranslate nohighlight">\(v_1\)</span> submission date.</p></li>
+<li><p><strong>Canonical Date Resolution</strong>: Rather than trusting Semantic Scholar’s generic <code class="docutils literal notranslate"><span class="pre">publicationDate</span></code> (which often reflects external publisher publication or estimated year), each cited arXiv ID is cross-referenced through indexed Kaggle snapshots or OAI discovery to attach its authentic <span class="math notranslate nohighlight">\(v_1\)</span> submission date.</p></li>
 </ol>
+</section>
+<section id="concrete-corpus-organization-example">
+<h3>Concrete Corpus Organization Example<a class="headerlink" href="#concrete-corpus-organization-example" title="Link to this heading">#</a></h3>
+<p>To verify downstream handoff readiness for Milestone 2 and Milestone 3, publications are organized uniformly on disk:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>corpus/
+├── 2601.23264/                        # Multi-version paper (3 versions)
+│   ├── metadata.json                 # OAI-PMH metadata &amp; parsed version history
+│   ├── references.json               # Filtered arXiv matching pool (kept_references)
+│   ├── references_all.json           # All S2 citations (total_references)
+│   ├── v1/
+│   │   ├── main.tex                  # Extracted source file (figures excluded)
+│   │   └── references.bib            # BibTeX bibliography
+│   ├── v2/
+│   │   └── main.tex
+│   └── v3/
+│       ├── main.tex
+│       └── appendix.tex
+└── 2606.17012/                        # Author PDF-only upload (no_tex event)
+    ├── metadata.json                 # Canonical title &amp; submission timestamp
+    ├── references.json               # Citation list (5 total citations, 0 arXiv)
+    ├── references_all.json           # Full Semantic Scholar response
+    └── v1/                           # Validated no_tex terminal state
+        └── .receipt.json             # Verification receipt (status: no_tex, 0 bytes)
+</pre></div>
+</div>
 </section>
 </section>
 <hr class="docutils" />
@@ -855,7 +882,7 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
     Colab-&gt;&gt;Drive: Final dual backup (Corpus ZIP + Report ZIP)
     </pre><section id="empirical-pipeline-configuration-parameters">
 <h3>Empirical Pipeline Configuration Parameters<a class="headerlink" href="#empirical-pipeline-configuration-parameters" title="Link to this heading">#</a></h3>
-<p>The table below documents the strict production parameters configured across our crawling nodes:</p>
+<p>The table below documents the production parameters configured across our crawling nodes (defined in <code class="docutils literal notranslate"><span class="pre">arXiv/src/notebooks/milestone1.ipynb</span></code> and <code class="docutils literal notranslate"><span class="pre">pipeline.py</span></code>):</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Parameter</p></th>
@@ -866,27 +893,27 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
 <tbody>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ARXIV_PACING_DELAY</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">3.1</span> <span class="pre">seconds</span></code></p></td>
-<td class="text-left"><p>Complies with arXiv Terms of Use (mandatory ≥ 3.0s between requests)</p></td>
+<td class="text-left"><p>Complies with <a class="reference external" href="https://info.arxiv.org/help/api/tou.html">arXiv Terms of Use for APIs</a> (mandatory <span class="math notranslate nohighlight">\(\ge 3.0\)</span>s between consecutive requests to prevent IP throttling)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">S2_PACING_DELAY</span></code></p></td>
-<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">1.0</span> <span class="pre">second</span></code></p></td>
-<td class="text-left"><p>Complies with Semantic Scholar Public API tier rate limits</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">3.1</span> <span class="pre">seconds</span></code></p></td>
+<td class="text-left"><p>Conservative pacing adhering to <a class="reference external" href="https://www.semanticscholar.org/product/api#api-faq">Semantic Scholar API Rate Limits</a> (avoids HTTP 429 rate limit triggers on public endpoints)</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">HTTP_MAX_RETRIES</span></code></p></td>
-<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">attempts</span></code></p></td>
-<td class="text-left"><p>Exponential backoff (<span class="math notranslate nohighlight">\(t = 2.0 \times 2^{\text{attempt}}\)</span>, max 60s) on HTTP 429/503</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">attempts</span></code></p></td>
+<td class="text-left"><p>Exponential backoff capped at 120s upon receiving HTTP 429 / 503 retry-after headers</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">CHECKPOINT_INTERVAL</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">40</span> <span class="pre">papers</span></code></p></td>
-<td class="text-left"><p>Periodic immutable archive snapshot &amp; SHA-256 receipt generation</p></td>
+<td class="text-left"><p>Periodic immutable archive snapshot &amp; SHA-256 receipt generation for Colab durability</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">CACHE_TTL</span></code></p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">24</span> <span class="pre">hours</span></code></p></td>
-<td class="text-left"><p>Local XML and citation response verification cache</p></td>
+<td class="text-left"><p>Local XML and citation response verification cache conforming to HTTP RFC 9111 caching standards</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">SOURCE_WHITELIST</span></code></p></td>
-<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">.tex,</span> <span class="pre">.bib,</span> <span class="pre">.bbl,</span> <span class="pre">.sty,</span> <span class="pre">.cls</span></code></p></td>
-<td class="text-left"><p>Excludes binary assets while preserving full LaTeX AST dependencies</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">.tex,</span> <span class="pre">.bib</span></code></p></td>
+<td class="text-left"><p>Whitelist per <a class="reference external" href="https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/">HCMUS CS TA Data Crawling Statement</a>; binary figures (.png, .jpg, .pdf) and auxiliary files (.bbl, .sty, .cls) excluded</p></td>
 </tr>
 </tbody>
 </table>
@@ -898,34 +925,34 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
 <h2>5. Architectural Module Mapping &amp; Resilience Boundaries<a class="headerlink" href="#architectural-module-mapping-resilience-boundaries" title="Link to this heading">#</a></h2>
 <section id="software-module-mapping">
 <h3>Software Module Mapping<a class="headerlink" href="#software-module-mapping" title="Link to this heading">#</a></h3>
-<p>Our codebase strictly modularizes core responsibilities:</p>
+<p>Our codebase (<code class="docutils literal notranslate"><span class="pre">arXiv/src/crawling/</span></code>) strictly modularizes core responsibilities across focused Python modules:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Operational Dimension</p></th>
-<th class="head text-left"><p>Source Module / Handler</p></th>
+<th class="head text-left"><p>Implementation Module &amp; Core Functions</p></th>
 <th class="head text-left"><p>Key Responsibilities</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p><strong>Discovery &amp; Metadata</strong></p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">discovery.py::OaiClient</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">discover.py</span></code> (<code class="docutils literal notranslate"><span class="pre">fetch_oai_record</span></code>, <code class="docutils literal notranslate"><span class="pre">parse_oai_record</span></code>)</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">GetRecord</span></code> with <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code>, version parsing, initial submission date resolution</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><strong>Source Downloader</strong></p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sources.py::SourceExtractor</span></code></p></td>
-<td class="text-left"><p>HTTP streaming, tarball in-memory traversal, selective whitelist extraction</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">download.py</span></code> (<code class="docutils literal notranslate"><span class="pre">download_version</span></code>, <code class="docutils literal notranslate"><span class="pre">download_paper_versions</span></code>)</p></td>
+<td class="text-left"><p>HTTP streaming, tarball in-memory traversal, selective whitelist extraction (<code class="docutils literal notranslate"><span class="pre">.tex</span></code>/<code class="docutils literal notranslate"><span class="pre">.bib</span></code>)</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><strong>Citation Mining</strong></p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">references.py::S2Client</span></code></p></td>
-<td class="text-left"><p>Semantic Scholar Graph API pagination, <code class="docutils literal notranslate"><span class="pre">references_all</span></code> vs <code class="docutils literal notranslate"><span class="pre">references</span></code> partitioning</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">references.py</span></code> (<code class="docutils literal notranslate"><span class="pre">collect_references</span></code>, <code class="docutils literal notranslate"><span class="pre">fetch_references_page</span></code>)</p></td>
+<td class="text-left"><p>Semantic Scholar Graph API pagination, <code class="docutils literal notranslate"><span class="pre">all_references</span></code> vs <code class="docutils literal notranslate"><span class="pre">references</span></code> partitioning</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><strong>Telemetry &amp; Benchmarking</strong></p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">telemetry.py::ResourceSampler</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">metrics.py</span></code> (<code class="docutils literal notranslate"><span class="pre">collect_resource_samples</span></code>, <code class="docutils literal notranslate"><span class="pre">summarize_run</span></code>)</p></td>
 <td class="text-left"><p>Background daemon sampling <code class="docutils literal notranslate"><span class="pre">psutil</span></code> process tree RSS and disk every 0.25s</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><strong>Durability &amp; Checkpoints</strong></p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">checkpoints.py::CheckpointManager</span></code></p></td>
-<td class="text-left"><p>Atomic ZIP bundling, SHA-256 digest validation, Google Drive backup receipts</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">checkpoints.py</span></code> (<code class="docutils literal notranslate"><span class="pre">BackgroundCheckpoints</span></code>, <code class="docutils literal notranslate"><span class="pre">commit_checkpoint</span></code>)</p></td>
+<td class="text-left"><p>Incremental ZIP bundling, SHA-256 digest validation, Google Drive backup receipts</p></td>
 </tr>
 </tbody>
 </table>
@@ -935,7 +962,7 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
 <h3>Resilience &amp; Data Durability Boundaries<a class="headerlink" href="#resilience-data-durability-boundaries" title="Link to this heading">#</a></h3>
 <p>While the dual-backup architecture is engineered for high reliability in ephemeral Google Colab environments:</p>
 <ol class="arabic simple">
-<li><p><strong>Checkpoint Granularity</strong>: Checkpoints commit in atomic increments of 40 papers. If a Colab session is preempted or terminated between checkpoints, at most 39 uncommitted papers must be re-crawled upon resumption.</p></li>
+<li><p><strong>Checkpoint Granularity &amp; Recovery Window</strong>: Checkpoints commit in atomic increments of 40 papers. Because Google Colab runtimes can be preempted while a batch is actively being processed or uploaded, only checkpoints that have successfully committed their verification receipt to Google Drive are protected. Any uncommitted papers actively in transit must be re-crawled upon session resumption.</p></li>
 <li><p><strong>Idempotent Resumption</strong>: When resuming a run, the pipeline inspects local and Drive commit receipts, seamlessly skipping all previously validated papers and versions without generating redundant upstream requests.</p></li>
 <li><p><strong>Cryptographic Validation</strong>: Every backup receipt stores exact SHA-256 digests and byte counts for both <code class="docutils literal notranslate"><span class="pre">corpus.zip</span></code> and <code class="docutils literal notranslate"><span class="pre">report.zip</span></code>, preventing archive corruption or incomplete tar stream writes.</p></li>
 </ol>
@@ -1019,6 +1046,7 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&amp;metadataPrefix=arXivRaw&amp;
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-mining-via-semantic-scholar-graph-api">3. Reference Mining via Semantic Scholar Graph API</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-api-pagination-separation-of-stores">Graph API Pagination &amp; Separation of Stores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concrete-corpus-organization-example">Concrete Corpus Organization Example</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-rate-limiting-fault-tolerance">4. Reliability, Rate Limiting &amp; Fault Tolerance</a><ul class="nav section-nav flex-column">

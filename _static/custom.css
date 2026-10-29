@@ -1,0 +1,264 @@
+/* Custom CSS for Jupyter Book — Theme Compatibility (Light & Dark Mode) */
+
+/* ==========================================================================
+   1. Cell Output & HTML Wrapper Neutralization
+   Eliminates PyData Sphinx Theme's injection of light backgrounds
+   behind notebook outputs in dark mode.
+   ========================================================================== */
+html[data-theme="dark"] .bd-content div.cell_output .text_html,
+html[data-theme="dark"] .bd-content div.cell_output .text_html:not(:has(table.dataframe)),
+html[data-theme="dark"] .bd-content div.cell_output .widget-subarea,
+html[data-theme="dark"] .bd-content div.cell_output,
+html[data-theme="dark"] .bd-content .nboutput .output_area,
+html[data-theme="dark"] .bd-content .nboutput .output_area.rendered_html:not(:has(table.dataframe)),
+html[data-bs-theme="dark"] .bd-content div.cell_output .text_html,
+html[data-bs-theme="dark"] .bd-content div.cell_output .text_html:not(:has(table.dataframe)),
+html[data-bs-theme="dark"] .bd-content div.cell_output .widget-subarea,
+html[data-bs-theme="dark"] .bd-content div.cell_output,
+html[data-bs-theme="dark"] .bd-content .nboutput .output_area,
+[data-theme="dark"] .bd-content div.cell_output .text_html,
+[data-theme="dark"] .bd-content div.cell_output .text_html:not(:has(table.dataframe)),
+[data-theme="dark"] .bd-content div.cell_output .widget-subarea,
+[data-theme="dark"] .bd-content div.cell_output,
+[data-theme="dark"] .bd-content .nboutput .output_area {
+    background-color: transparent !important;
+    color: inherit !important;
+    padding: 0 !important;
+}
+
+/* ==========================================================================
+   2. Dark Mode Table Architecture & Typography
+   Applies to Markdown tables (.table), pandas DataFrames (table.dataframe),
+   and Styler outputs ([id^="T_"]).
+   ========================================================================== */
+html[data-theme="dark"] table,
+html[data-theme="dark"] table.dataframe,
+html[data-theme="dark"] .table,
+html[data-theme="dark"] [id^="T_"],
+html[data-bs-theme="dark"] table,
+html[data-bs-theme="dark"] table.dataframe,
+html[data-bs-theme="dark"] .table,
+html[data-bs-theme="dark"] [id^="T_"],
+[data-theme="dark"] table,
+[data-theme="dark"] table.dataframe,
+[data-theme="dark"] .table,
+[data-theme="dark"] [id^="T_"] {
+    background-color: transparent !important;
+    color: #f1f5f9 !important;
+    border-collapse: collapse !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Dark mode table data cells */
+html[data-theme="dark"] table td,
+html[data-theme="dark"] table.dataframe td,
+html[data-theme="dark"] .table td,
+html[data-theme="dark"] [id^="T_"] td,
+html[data-bs-theme="dark"] table td,
+html[data-bs-theme="dark"] table.dataframe td,
+html[data-bs-theme="dark"] .table td,
+html[data-bs-theme="dark"] [id^="T_"] td,
+[data-theme="dark"] table td,
+[data-theme="dark"] table.dataframe td,
+[data-theme="dark"] .table td,
+[data-theme="dark"] [id^="T_"] td {
+    color: #f1f5f9 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Dark mode table headers */
+html[data-theme="dark"] table th,
+html[data-theme="dark"] table.dataframe th,
+html[data-theme="dark"] .table th,
+html[data-theme="dark"] [id^="T_"] th,
+html[data-bs-theme="dark"] table th,
+html[data-bs-theme="dark"] table.dataframe th,
+html[data-bs-theme="dark"] .table th,
+html[data-bs-theme="dark"] [id^="T_"] th,
+[data-theme="dark"] table th,
+[data-theme="dark"] table.dataframe th,
+[data-theme="dark"] .table th,
+[data-theme="dark"] [id^="T_"] th {
+    color: #ffffff !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.20) !important;
+    font-weight: 600 !important;
+}
+
+/* Fallback header background for dark mode tables without inline custom header color */
+html[data-theme="dark"] table:not([id^="T_"]) th,
+html[data-theme="dark"] .table th,
+html[data-bs-theme="dark"] table:not([id^="T_"]) th,
+[data-theme="dark"] table:not([id^="T_"]) th {
+    background-color: #1e293b;
+}
+
+/* ==========================================================================
+   3. Dark Mode Zebra Striping & Hover States
+   Uses subtle semi-transparent tints that layer perfectly over dark mode.
+   ========================================================================== */
+html[data-theme="dark"] table tbody tr:nth-child(even),
+html[data-theme="dark"] table tr:nth-child(even),
+html[data-theme="dark"] [id^="T_"] tr:nth-child(even),
+html[data-theme="dark"] [id^="T_"] tbody tr:nth-child(even),
+html[data-bs-theme="dark"] table tbody tr:nth-child(even),
+html[data-bs-theme="dark"] table tr:nth-child(even),
+html[data-bs-theme="dark"] [id^="T_"] tr:nth-child(even),
+[data-theme="dark"] table tbody tr:nth-child(even),
+[data-theme="dark"] table tr:nth-child(even),
+[data-theme="dark"] [id^="T_"] tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+html[data-theme="dark"] table tbody tr:nth-child(odd),
+html[data-theme="dark"] table tr:nth-child(odd),
+html[data-theme="dark"] [id^="T_"] tr:nth-child(odd),
+html[data-theme="dark"] [id^="T_"] tbody tr:nth-child(odd),
+html[data-bs-theme="dark"] table tbody tr:nth-child(odd),
+html[data-bs-theme="dark"] table tr:nth-child(odd),
+html[data-bs-theme="dark"] [id^="T_"] tr:nth-child(odd),
+[data-theme="dark"] table tbody tr:nth-child(odd),
+[data-theme="dark"] table tr:nth-child(odd),
+[data-theme="dark"] [id^="T_"] tr:nth-child(odd) {
+    background-color: transparent !important;
+}
+
+html[data-theme="dark"] table tbody tr:hover,
+html[data-theme="dark"] [id^="T_"] tbody tr:hover,
+html[data-bs-theme="dark"] table tbody tr:hover,
+[data-theme="dark"] table tbody tr:hover,
+[data-theme="dark"] [id^="T_"] tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* ==========================================================================
+   4. Light Mode Table Architecture & Typography
+   ========================================================================== */
+html[data-theme="light"] table td,
+html[data-theme="light"] table.dataframe td,
+html[data-theme="light"] .table td,
+html[data-theme="light"] [id^="T_"] td,
+html[data-bs-theme="light"] table td,
+html[data-bs-theme="light"] table.dataframe td,
+html[data-bs-theme="light"] .table td,
+html[data-bs-theme="light"] [id^="T_"] td {
+    color: #1e293b !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+html[data-theme="light"] table th,
+html[data-theme="light"] table.dataframe th,
+html[data-theme="light"] .table th,
+html[data-theme="light"] [id^="T_"] th,
+html[data-bs-theme="light"] table th,
+html[data-bs-theme="light"] table.dataframe th,
+html[data-bs-theme="light"] .table th,
+html[data-bs-theme="light"] [id^="T_"] th {
+    color: #ffffff !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    font-weight: 600 !important;
+}
+
+html[data-theme="light"] table:not([id^="T_"]) th,
+html[data-theme="light"] .table th,
+html[data-bs-theme="light"] table:not([id^="T_"]) th {
+    background-color: #2c3e50;
+}
+
+html[data-theme="light"] table tbody tr:nth-child(even),
+html[data-theme="light"] table tr:nth-child(even),
+html[data-theme="light"] [id^="T_"] tr:nth-child(even),
+html[data-theme="light"] [id^="T_"] tbody tr:nth-child(even),
+html[data-bs-theme="light"] table tbody tr:nth-child(even),
+html[data-bs-theme="light"] table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.035) !important;
+}
+
+html[data-theme="light"] table tbody tr:nth-child(odd),
+html[data-theme="light"] table tr:nth-child(odd),
+html[data-theme="light"] [id^="T_"] tr:nth-child(odd),
+html[data-theme="light"] [id^="T_"] tbody tr:nth-child(odd),
+html[data-bs-theme="light"] table tbody tr:nth-child(odd),
+html[data-bs-theme="light"] table tr:nth-child(odd) {
+    background-color: transparent !important;
+}
+
+html[data-theme="light"] table tbody tr:hover,
+html[data-theme="light"] [id^="T_"] tbody tr:hover,
+html[data-bs-theme="light"] table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.07) !important;
+}
+
+/* ==========================================================================
+   5. System Preference Fallback: @media (prefers-color-scheme: dark)
+   Guarantees immediate dark mode styling before/without JS execution.
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) .bd-content div.cell_output .text_html,
+    html:not([data-theme="light"]) .bd-content div.cell_output .text_html:not(:has(table.dataframe)),
+    html:not([data-theme="light"]) .bd-content div.cell_output .widget-subarea,
+    html:not([data-theme="light"]) .bd-content div.cell_output,
+    html:not([data-theme="light"]) .bd-content .nboutput .output_area {
+        background-color: transparent !important;
+        color: inherit !important;
+        padding: 0 !important;
+    }
+
+    html:not([data-theme="light"]) table,
+    html:not([data-theme="light"]) table.dataframe,
+    html:not([data-theme="light"]) .table,
+    html:not([data-theme="light"]) [id^="T_"] {
+        background-color: transparent !important;
+        color: #f1f5f9 !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    html:not([data-theme="light"]) table td,
+    html:not([data-theme="light"]) table.dataframe td,
+    html:not([data-theme="light"]) .table td,
+    html:not([data-theme="light"]) [id^="T_"] td {
+        color: #f1f5f9 !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    }
+
+    html:not([data-theme="light"]) table th,
+    html:not([data-theme="light"]) table.dataframe th,
+    html:not([data-theme="light"]) .table th,
+    html:not([data-theme="light"]) [id^="T_"] th {
+        color: #ffffff !important;
+        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.20) !important;
+        font-weight: 600 !important;
+    }
+
+    html:not([data-theme="light"]) table:not([id^="T_"]) th,
+    html:not([data-theme="light"]) .table th {
+        background-color: #1e293b;
+    }
+
+    html:not([data-theme="light"]) table tbody tr:nth-child(even),
+    html:not([data-theme="light"]) table tr:nth-child(even),
+    html:not([data-theme="light"]) [id^="T_"] tr:nth-child(even),
+    html:not([data-theme="light"]) [id^="T_"] tbody tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    html:not([data-theme="light"]) table tbody tr:nth-child(odd),
+    html:not([data-theme="light"]) table tr:nth-child(odd),
+    html:not([data-theme="light"]) [id^="T_"] tr:nth-child(odd),
+    html:not([data-theme="light"]) [id^="T_"] tbody tr:nth-child(odd) {
+        background-color: transparent !important;
+    }
+
+    html:not([data-theme="light"]) table tbody tr:hover,
+    html:not([data-theme="light"]) [id^="T_"] tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.12) !important;
+    }
+}

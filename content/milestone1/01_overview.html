@@ -37,6 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=68db5256" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -60,7 +61,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["\\(", "\\)"], ["$", "$"]], "processEscapes": true}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area|cell_output|output|text_html"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/milestone1/01_overview';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
@@ -396,14 +397,14 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="milestone-1-data-crawling-overview">
+  <section id="milestone-1-data-crawling-overview">
 <h1>Milestone 1 — Data Crawling Overview<a class="headerlink" href="#milestone-1-data-crawling-overview" title="Link to this heading">#</a></h1>
 <section id="objectives-course-context">
 <h2>1. Objectives &amp; Course Context<a class="headerlink" href="#objectives-course-context" title="Link to this heading">#</a></h2>
 <p>The primary objective of Milestone 1 is to build a robust, reproducible data acquisition pipeline that harvests the raw foundation for the downstream parsing (Milestone 2) and machine learning entity matching (Milestone 3) stages.</p>
 <blockquote>
 <div><p>[!NOTE]
-<strong>Corpus Completion Status</strong>: All four assigned ranges (totaling exactly 20,000 unique publications) have been completely harvested, validated, and consolidated with 0 overlap. The interactive statistics and performance traces in <a class="reference internal" href="03_corpus_stats.html"><span class="std std-doc">Chapter 3</span></a> and <a class="reference internal" href="04_performance.html"><span class="std std-doc">Chapter 4</span></a> reflect this full 20,000-paper corpus.</p>
+<strong>Corpus Ingestion Summary</strong>: Metadata was resolved for all 20,000 assigned publication IDs across the four team partitions. Across 27,608 multi-version records, 26,234 contain verified LaTeX sources, 1,243 are recorded as valid PDF-only submissions (<code class="docutils literal notranslate"><span class="pre">no_tex</span></code>), and 131 remain failed due to upstream mirror 404s or filesystem path guards. Detailed statistics and performance benchmarks are presented in <a class="reference internal" href="03_corpus_stats.html"><span class="std std-doc">Chapter 3</span></a> and <a class="reference internal" href="04_performance.html"><span class="std std-doc">Chapter 4</span></a>.</p>
 </div></blockquote>
 <p>Unlike typical web-scraping assignments that collect metadata or PDFs, our mandate requires collecting:</p>
 <ol class="arabic simple">
@@ -544,6 +545,10 @@
 </tbody>
 </table>
 </div>
+<blockquote>
+<div><p>[!NOTE]
+<strong>Schema Nullability Constraints</strong>: The course specification strictly mandates non-null constraints for canonical primary keys (<code class="docutils literal notranslate"><span class="pre">arxiv_id</span></code>, <code class="docutils literal notranslate"><span class="pre">ref_arxiv_id</span></code>, <code class="docutils literal notranslate"><span class="pre">ref_s2_id</span></code>). Additional non-null constraints for fields such as <code class="docutils literal notranslate"><span class="pre">title</span></code>, <code class="docutils literal notranslate"><span class="pre">authors</span></code>, and <code class="docutils literal notranslate"><span class="pre">submission_date</span></code> reflect internal team validation rules enforced during metadata normalization, ensuring clean downstream ingestion for Milestone 2.</p>
+</div></blockquote>
 </section>
 </section>
 <hr class="docutils" />
