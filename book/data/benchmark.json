@@ -1,7 +1,7 @@
 {
-  "environment": "Linux x86_64; Python 3.13; Google Colab CPU-only",
-  "cpu_only": true,
-  "cache_mode": "mixed (initial cold crawls; 1,259 versions used cache upon resume)",
+  "environment": "Linux x86_64; Python 3.13.16; Colab",
+  "cpu_only": null,
+  "cache_mode": "unknown (run cache metadata missing)",
   "sampling_interval_seconds": 0.25,
   "wall_seconds": 970144.2027211869,
   "median_wall_seconds": 1284.9864028199954,
@@ -1413,5 +1413,6 @@
       "total_papers": 0,
       "discovery_elapsed_seconds": 326.195352078
     }
-  ]
+  ],
+  "cached_source_versions": 1259
 }

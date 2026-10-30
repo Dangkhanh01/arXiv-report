@@ -64,6 +64,10 @@ Open the main page in your default browser:
 
 We provide an automated aggregation script [`scripts/aggregate_data.py`](scripts/aggregate_data.py) that discovers, verifies SHA-256 hashes, aggregates across all 4 team members and multiple accounts/checkpoints, and formats metrics from `input/` into `book/data/`:
 
+Before replacing output files, the script verifies **every selected report ZIP** against its adjacent `backup_receipt.json`: run ID, archive filename, byte count and SHA-256 must match. Missing or mismatched receipts stop ingestion, including an invalid earlier checkpoint. `run_metadata.json` records the verified report inputs. This verifies report transport integrity; it does not verify source corpus ZIPs or establish semantic correctness of their contents.
+
+The checked-in measurements predate this verification change. Their original input trees are not included here, so adding the check does not retroactively certify those archives. Re-run aggregation against the original member/account trees to obtain receipt-verified provenance. Missing historical accelerator/cache flags remain unknown rather than being filled with CPU-only/cold defaults.
+
 ### 1. Ingest & Aggregate Multi-Member Corpus (20,000 Papers)
 ```bash
 # Auto-detect input directory from workspace
@@ -95,6 +99,12 @@ book/data/
 jupyter-book build --all book/
 ```
 All notebooks dynamically re-calculate KPIs and re-render interactive Plotly figures at build time!
+
+Receipt-ingestion regression tests (stdlib only):
+
+```bash
+python -m unittest discover -s tests -v
+```
 
 ---
 

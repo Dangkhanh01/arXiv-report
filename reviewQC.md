@@ -1,3 +1,15 @@
+# QC — Trạng thái sau sửa ngày 30/10/2026
+
+Năm nhóm lỗi của lượt review gần nhất đã được sửa trong repo report: (1) đối chiếu receipt/bytes/SHA-256 cho mọi report ZIP được chọn trước khi thay output; (2) thống nhất peak RAM theo benchmark summaries và giải thích trace đã lấy thưa; (3) mapping đúng symbol/layout/receipt của crawler; (4) sinh bảng handoff theo từng tập paper từ CSV; (5) thay các khẳng định ground truth/DAG/parser guarantee bằng phạm vi và công việc M2/M3 thực sự cần làm. Tỷ lệ API success cũng đã loại partial khỏi tử số, và schema note đã tách `ref_s2_id` khỏi các trường non-null do đề quy định.
+
+Kiểm chứng: 4 test receipt-ingestion pass; cả hai notebook thực thi thành công trong build `--all -W --keep-going`; output sinh ra khớp 584,2 MiB peak từ run summaries, 15.243 citations của nhóm 1.413 paper non-arXiv-only và 26.072 versions thuộc nhóm full-TeX. Lượt review độc lập không có finding mới trong phạm vi sửa.
+
+**Còn cần dữ liệu gốc:** Chưa có cây ZIP gốc của 12 tài khoản tại workspace nên chưa thể xác minh lại integrity/provenance của các bảng lịch sử. Cần chạy lại aggregation với receipt gốc; không được coi hash đã tính trước đây là hash đã đối chiếu. Các accelerator/cache flags lịch sử chưa giữ đủ được hiển thị là chưa xác định.
+
+## Nội dung review gốc trước lần sửa này
+
+Các vị trí, số liệu và lỗi dưới đây mô tả bản trước sửa, được giữ làm lịch sử đối chiếu.
+
 Được. Mình sẽ chỉ rõ **vị trí → bằng chứng → vì sao có vấn đề → sửa ở đâu và sửa thế nào**. Có vài điểm cần phân biệt: **số liệu sai**, **nhãn gây hiểu nhầm**, và **đề xuất nâng chất lượng** không có mức độ nghiêm trọng giống nhau.
 
 Các vị trí dưới đây theo bản hiện tại. Với notebook, mình đếm **cell từ 1, gồm cả Markdown và code**; số dòng trong liên kết là dòng của file `.ipynb` khi mở dưới dạng text.

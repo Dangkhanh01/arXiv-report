@@ -46,6 +46,30 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def verify_report_archive(path: Path, run_id: str) -> Dict[str, Any]:
+    """Match an input report ZIP to its adjacent crawler completion receipt."""
+    receipt_path = path.with_name("backup_receipt.json")
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        entry = receipt["archives"]["report"]
+        expected_hash = entry["sha256"]
+        expected_bytes = entry["bytes"]
+        if (receipt["run_id"] != run_id or entry["filename"] != path.name
+                or type(expected_bytes) is not int or expected_bytes < 0
+                or not isinstance(expected_hash, str) or len(expected_hash) != 64
+                or any(c not in "0123456789abcdefABCDEF" for c in expected_hash)):
+            raise ValueError("Invalid report receipt identity or digest fields")
+    except (OSError, KeyError, TypeError, ValueError) as exc:
+        raise ValueError(f"Missing or invalid backup receipt for {path}") from exc
+    if path.stat().st_size != expected_bytes:
+        raise ValueError(f"Report ZIP byte count differs from receipt: {path}")
+    actual_hash = sha256_file(path)
+    if actual_hash != expected_hash.lower():
+        raise ValueError(f"Report ZIP SHA-256 differs from receipt: {path}")
+    return {"receipt_path": str(receipt_path), "bytes": expected_bytes,
+            "sha256": actual_hash, "verified": True}
+
+
 def find_default_source() -> Path:
     """Locate the input directory in standard locations."""
     repo_root = Path(__file__).resolve().parent.parent
@@ -166,11 +190,17 @@ def parse_json_from_zip(z: zipfile.ZipFile, filename: str) -> Optional[Any]:
 
 def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     """Core aggregation pipeline processing all runs into book/data/ files."""
-    target_dir.mkdir(parents=True, exist_ok=True)
-
     print(f"[INFO] Scanning runs from {source_dir}...")
     run_configs = collect_runs(source_dir)
     print(f"[INFO] Discovered {len(run_configs)} total run entries.")
+
+    # Validate every selected checkpoint/final archive before replacing any data.
+    # A checksum calculated without comparison is not verification.
+    verified_archives = {
+        path: verify_report_archive(path, item["run_id"])
+        for item in run_configs for path in item["zip_paths"]
+    }
+    target_dir.mkdir(parents=True, exist_ok=True)
 
     papers_dict: Dict[str, Dict[str, Any]] = {}
     versions_dict: Dict[Tuple[str, str], Dict[str, Any]] = {}
@@ -382,7 +412,9 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                             "run_id": run_id,
                             "member": member,
                             "account": account,
-                            "environment": bench_data.get("environment", "Linux x86_64; Python 3.13; Colab"),
+                            "environment": bench_data.get("environment"),
+                            "cpu_only": bench_data.get("cpu_only"),
+                            "cache_mode": bench_data.get("cache_mode"),
                             "wall_seconds": bench_data.get("wall_seconds"),
                             "ram_peak_bytes": bench_data.get("ram_peak_bytes"),
                             "ram_mean_bytes": bench_data.get("ram_mean_bytes"),
@@ -428,8 +460,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             run_bench_entry["discovery_elapsed_seconds"] = run_discovery_seconds
             benchmark_runs.append(run_bench_entry)
 
-        # Audit and verify SHA-256 for transport integrity
-        final_zip_sha256 = sha256_file(last_zpath) if last_zpath.is_file() else ""
+        final_zip_sha256 = verified_archives[last_zpath]["sha256"]
 
         run_metadata.append({
             "run_id": run_id,
@@ -440,6 +471,8 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             "papers_extracted": run_papers_count,
             "discovery_elapsed_seconds": run_discovery_seconds,
             "sha256": final_zip_sha256,
+            "verified_archives": [dict(path=str(path), **verified_archives[path])
+                                  for path in zip_paths],
         })
 
     print(f"\n[INFO] Extracted {len(papers_dict):,} unique papers across all runs.")
@@ -725,11 +758,11 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
         "reference_jobs_failed": ref_jobs_failed,
         "reference_jobs_not_found": ref_jobs_not_found,
         "reference_jobs_pending": ref_jobs_pending,
-        "reference_api_success_rate": (ref_jobs_success + ref_jobs_partial) / papers_discovered if papers_discovered else 0.0,
+        "reference_api_success_rate": ref_jobs_success / papers_discovered if papers_discovered else 0.0,
         "papers_with_arxiv_pool": papers_with_arxiv_pool,
         "papers_with_arxiv_pool_rate": papers_with_arxiv_pool / papers_discovered if papers_discovered else 0.0,
         "papers_with_non_arxiv_only": papers_with_non_arxiv_only,
-        "reference_success_rate": (ref_jobs_success + ref_jobs_partial) / papers_discovered if papers_discovered else 0.0,
+        "reference_success_rate": ref_jobs_success / papers_discovered if papers_discovered else 0.0,
 
         "total_extracted_references": total_extracted_refs,
         "crawled_reference_rows": total_extracted_refs,
@@ -785,12 +818,21 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
 
     merged_tex_bib_bytes = sum(v["source_bytes_after"] for v in versions_dict.values() if v.get("source_bytes_after"))
     sum_final_disks = sum(final_disks) if final_disks else 0
+    cpu_flags = [r.get("cpu_only") for r in benchmark_runs]
+    cpu_only = (False if any(value is False for value in cpu_flags) else
+                True if cpu_flags and all(value is True for value in cpu_flags) else None)
+    cache_modes = sorted({r["cache_mode"] for r in benchmark_runs if r.get("cache_mode")})
+    missing_cache_modes = any(not r.get("cache_mode") for r in benchmark_runs)
+    cache_description = ("unknown (run cache metadata missing)" if missing_cache_modes or not cache_modes
+                         else cache_modes[0] if len(cache_modes) == 1 else "mixed: " + ", ".join(cache_modes))
+    cached_versions = sum(str(v.get("used_cache", "")).lower() == "true" for v in versions_dict.values())
 
     benchmark_data = {
         # Top-level backwards compatibility fields:
-        "environment": "Linux x86_64; Python 3.13; Google Colab CPU-only",
-        "cpu_only": True,
-        "cache_mode": "mixed (initial cold crawls; 1,259 versions used cache upon resume)",
+        "environment": "; ".join(sorted({r["environment"] for r in benchmark_runs if r.get("environment")})) or None,
+        "cpu_only": cpu_only,
+        "cache_mode": cache_description,
+        "cached_source_versions": cached_versions,
         "sampling_interval_seconds": 0.25,
         "wall_seconds": total_wall,
         "median_wall_seconds": median_wall,
