@@ -112,7 +112,7 @@ sequenceDiagram
 
 ### Empirical Pipeline Configuration Parameters
 
-The table below documents the production parameters configured across our crawling nodes (defined in the shared repo's `src/notebooks/milestone1.ipynb` and `src/crawling/pipeline.py`):
+The table below documents the current crawler defaults; historical run settings are not fully retained (defined in the shared repo's `src/notebooks/milestone1.ipynb` and `src/crawling/pipeline.py`):
 
 | Parameter | Operational Setting | Rationale / Specification |
 |:---|:---:|:---|
@@ -120,7 +120,7 @@ The table below documents the production parameters configured across our crawli
 | `S2_PACING_DELAY` | `3.1 seconds` | Conservative pacing adhering to [Semantic Scholar API Rate Limits](https://www.semanticscholar.org/product/api#api-faq) (avoids HTTP 429 rate limit triggers on public endpoints) |
 | `HTTP_MAX_RETRIES` | `3 attempts` | Up to 3 total attempts; exponential backoff cap 120s, while server Retry-After takes precedence |
 | `CHECKPOINT_INTERVAL` | `40 papers` | Periodic immutable archive snapshot & SHA-256 receipt generation for Colab durability |
-| `CACHE_TTL` | `24 hours` | Local XML and citation response verification cache conforming to HTTP RFC 9111 caching standards |
+| `CACHE_TTL` | `24 hours` | Freshness window for local XML and citation caches |
 | `SOURCE_WHITELIST` | `.tex, .bib` | Whitelist per [HCMUS CS TA Data Crawling Statement](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/); binary figures (.png, .jpg, .pdf) and auxiliary files (.bbl, .sty, .cls) excluded |
 
 ---
@@ -142,5 +142,5 @@ The following symbols exist in the shared crawler at [commit 21d624e](https://gi
 While the dual-backup architecture is engineered for high reliability in ephemeral Google Colab environments:
 1. **Checkpoint Granularity & Recovery Window**: Checkpoints commit in atomic increments of 40 papers. Because Google Colab runtimes can be preempted while a batch is actively being processed or uploaded, only checkpoints that have successfully committed their verification receipt to Google Drive are protected. Any uncommitted papers actively in transit must be re-crawled upon session resumption.
 2. **Idempotent Resumption**: When resuming a run, the pipeline inspects local and Drive commit receipts, seamlessly skipping all previously validated papers and versions without generating redundant upstream requests.
-3. **Cryptographic Validation**: Backup receipts store SHA-256 digests and byte counts for `corpus.zip` and `report.zip`. Comparing stored values to the actual archives detects transport mismatches; it does not prevent corruption or prove semantic correctness. The report aggregator now checks every selected report ZIP before ingestion. The historical measurement tables in this repository have not been revalidated against their original ZIPs during this correction because those input trees are unavailable locally.
+3. **Cryptographic Validation**: Backup receipts store SHA-256 digests and byte counts for `corpus.zip` and `report.zip`. Comparing stored values to the actual archives detects transport mismatches; it does not prevent corruption or prove semantic correctness. The report aggregator now checks every selected report ZIP before ingestion. Original ZIPs are not included in this repository, so receipt verification of the historical measurements remains unconfirmed.
 

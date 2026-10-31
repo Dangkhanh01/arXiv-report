@@ -293,7 +293,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                         v_pend = safe_int(csv_info.get("versions_pending"))
                         t_refs = safe_int(csv_info.get("total_references"))
                         k_refs = safe_int(csv_info.get("kept_references"))
-                        inc_refs = safe_int(csv_info.get("incomplete_references"))
+                        inc_refs = safe_int(csv_info.get("incomplete_references"), default=None)
 
                         source_status = csv_info.get("source_status") or "unknown"
                         ref_status = csv_info.get("reference_status") or "unknown"
@@ -502,7 +502,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
         p["versions_pending"] = v_pend
 
         # Strictly enforce: full-source success iff all expected versions contain TeX sources
-        if v_exp > 0 and v_suc == v_exp:
+        if p["versions_expected"] > 0 and v_suc == p["versions_expected"]:
             p["source_status"] = "success"
         else:
             p["source_status"] = "incomplete"
@@ -530,7 +530,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             "arxiv_id", "member", "account", "run_id", "title", "submission_date",
             "metadata_source", "elapsed_seconds", "source_status", "reference_status",
             "versions_expected", "versions_success", "versions_no_tex", "versions_failed",
-            "versions_pending", "total_references", "kept_references"
+            "versions_pending", "total_references", "kept_references", "incomplete_references"
         ]
         writer = csv.DictWriter(f, fieldnames=fields)
         writer.writeheader()
@@ -613,7 +613,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     )
     unresolved_source_papers = sum(
         1 for p in papers_dict.values()
-        if p["versions_failed"] > 0 or p["versions_pending"] > 0
+        if p["versions_expected"] <= 0 or (p["versions_success"] + p["versions_no_tex"]) < p["versions_expected"]
     )
     # Backwards compatibility: full_source_papers maps to all resolved papers
     full_source_papers = resolved_source_papers
@@ -622,7 +622,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     v_notex = sum(1 for v in versions_dict.values() if v["status"] == "no_tex")
     v_failed = sum(1 for v in versions_dict.values() if v["status"] == "failed")
     v_pending = sum(1 for v in versions_dict.values() if v["status"] == "pending")
-    versions_expected = len(versions_dict)
+    versions_expected = sum(p["versions_expected"] for p in papers_dict.values())
 
     # 2. Reference Ingestion & Pool Metrics (Issue #2 & Issue #3)
     ref_jobs_success = sum(1 for p in papers_dict.values() if p.get("reference_status") == "success")
@@ -649,10 +649,10 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     comp_list = []
     for p in papers_dict.values():
         k = p.get("kept_references") or 0
-        if k > 0:
-            inc = p.get("incomplete_references") or 0
+        if k > 0 and p.get("incomplete_references") is not None:
+            inc = p["incomplete_references"]
             comp_list.append(max(0.0, (k - inc) / k))
-    avg_completeness = sum(comp_list) / len(comp_list) if comp_list else 1.0
+    avg_completeness = sum(comp_list) / len(comp_list) if comp_list else None
 
     # 3. Paired Source Size Reductions (Issue #4: Matched Populations)
     # Subset A: Paired TeX-success versions (both before and after contain positive byte counts)

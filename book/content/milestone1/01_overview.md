@@ -5,7 +5,7 @@
 The primary objective of Milestone 1 is to build a robust, reproducible data acquisition pipeline that harvests the raw foundation for the downstream parsing (Milestone 2) and machine learning entity matching (Milestone 3) stages.
 
 > [!NOTE]
-> **Corpus Ingestion Summary**: Metadata was resolved for all 20,000 assigned publication IDs across the four team partitions. Across 27,608 multi-version records, 26,234 contain verified LaTeX sources, 1,243 are recorded as validated source outcomes without usable TeX (`no_tex`), and 131 remain failed due to upstream mirror 404s or filesystem path guards. Detailed statistics and performance benchmarks are presented in [Chapter 3](03_corpus_stats.ipynb) and [Chapter 4](04_performance.ipynb).
+> **Corpus Ingestion Summary**: Metadata was resolved for all 20,000 assigned publication IDs across the four team partitions. Across 27,608 multi-version records, 26,234 are recorded as successful source extractions, 1,243 as source outcomes without usable TeX (`no_tex`), and 131 as failed. Historical source receipts have not been rechecked against the original archives. Detailed statistics and performance benchmarks are presented in [Chapter 3](03_corpus_stats.ipynb) and [Chapter 4](04_performance.ipynb).
 
 Unlike typical web-scraping assignments that collect metadata or PDFs, our mandate requires collecting:
 1. **Full-Text LaTeX Sources**: The complete `.tex` and `.bib` source files across **every single version** ($v_1, v_2, \dots, v_N$) of each assigned publication.

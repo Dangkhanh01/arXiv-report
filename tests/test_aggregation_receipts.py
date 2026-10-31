@@ -90,6 +90,31 @@ class ReceiptTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.ingest()
 
+    def test_missing_completeness_evidence_stays_unknown(self):
+        self.archive()
+        result = self.ingest()
+        self.assertIsNone(result["summary"]["average_reference_completeness_rate"])
+        self.assertEqual(result["summary"]["reference_completeness_denominator"], 0)
+
+    def test_unlisted_expected_version_is_not_source_success(self):
+        path, receipt = self.archive()
+        with zipfile.ZipFile(path) as archive:
+            entries = {name: archive.read(name) for name in archive.namelist()}
+        entries["papers.csv"] = entries["papers.csv"].replace(b",success,1,0,0,2", b",success,2,0,0,2")
+        with zipfile.ZipFile(path, "w") as archive:
+            for name, content in entries.items():
+                archive.writestr(name, content)
+        receipt["archives"]["report"].update(
+            bytes=path.stat().st_size,
+            sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+        )
+        path.with_name("backup_receipt.json").write_text(json.dumps(receipt), encoding="utf-8")
+        result = self.ingest()
+        self.assertEqual(result["summary"]["full_tex_papers"], 0)
+        self.assertEqual(result["summary"]["unresolved_source_papers"], 1)
+        self.assertEqual(result["summary"]["versions_expected"], 2)
+        self.assertEqual(result["summary"]["source_coverage_rate"], 0.5)
+
     def test_earlier_checkpoint_is_verified_too(self):
         path, receipt = self.archive(checkpoint="20261001T000000Z")
         self.archive(checkpoint="20261001T010000Z")

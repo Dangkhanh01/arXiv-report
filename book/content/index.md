@@ -3,7 +3,7 @@
 Welcome to the comprehensive technical report for the **arXiv Knowledge Discovery and Entity Resolution Project**, conducted as part of the *Introduction to Data Science* course at VNUHCM - University of Science (HCMUS).
 
 > [!NOTE]
-> **Milestone 1 Submission Scope (20,000 Papers)**: This report compiles and evaluates the complete, auditable crawl measurements harvested across all 20,000 assigned arXiv papers on Google Colab CPU (`Linux x86_64; Python 3.13 / 3.14`). All KPI tables, percentile breakdowns, and resource consumption timelines are generated dynamically at build time from raw experimental data aggregated across all 4 team members (Danh, Khang, Khánh, Nguyên).
+> **Milestone 1 Submission Scope (20,000 Papers)**: This report summarizes retained crawl measurements for 20,000 assigned arXiv IDs. Runtime strings identify Google Colab; CPU-only settings and original archive receipts are not established for all historical runs. All KPI tables, percentile breakdowns, and resource consumption timelines are generated dynamically at build time from raw experimental data aggregated across all 4 team members (Danh, Khang, Khánh, Nguyên).
 
 ---
 
@@ -48,7 +48,7 @@ The project is structured into three cumulative milestones:
 
 Our team consists of 4 members operating a shared crawler architecture across four non-overlapping ID partitions with synchronized aggregation:
 
-| Member | Primary Responsibilities | Assigned Partition | Verified Corpus |
+| Member | Primary Responsibilities | Assigned Partition | Metadata-resolved IDs |
 |:---|:---|:---:|:---:|
 | **Khánh** | Discovery, Metadata & Version History (`oai-pmh/arXivRaw`, date resolution) | 5,000 papers | 5,000 papers (100%) |
 | **Khang** | Full-Text Source Extraction (`.tex`/`.bib` whitelist, figure removal) | 5,000 papers | 5,000 papers (100%) |
@@ -59,12 +59,12 @@ Our team consists of 4 members operating a shared crawler architecture across fo
 
 ## 3. Structure of this Report
 
-This **Jupyter Book** serves as the cumulative, auditable report for the project. For the **Milestone 1 submission**, the report focuses exclusively on the complete data acquisition, source cleaning, and resource benchmarking pipeline. Milestone 2 will be incorporated sequentially into this book in future milestones, and Milestone 3 will be accompanied by an A2 poster:
+This **Jupyter Book** serves as the cumulative, auditable report for the project. For the **Milestone 1 submission**, the report covers data acquisition, source filtering, remaining failures, and resource measurements. Milestone 2 will be incorporated sequentially into this book in future milestones, and Milestone 3 will be accompanied by an A2 poster:
 
 1. **[Milestone 1 — Data Crawling](milestone1/01_overview.md)**:
    - Problem statement and assigned scope (20,000 papers across 4 member partitions).
    - Technical methodology (OAI-PMH `arXivRaw`, mirror streaming, Semantic Scholar pagination, dual-backup, and pacing policies).
    - [Corpus Statistics](milestone1/03_corpus_stats.ipynb): Key performance indicators, storage reduction percentiles (95.74% saved), version multiplicity distributions, and citation pool categorization.
-   - [Performance Benchmarking](milestone1/04_performance.ipynb): CPU, RAM (RSS), and Disk footprints synthesized across 107 Google Colab CPU-only runs, including per-paper processing time distributions.
+   - [Performance Benchmarking](milestone1/04_performance.ipynb): Wall time, RAM (RSS), and disk measurements across 107 recorded runs, including per-paper processing time distributions.
 2. **[Academic References](references.md)**: Complete bibliographic references complying with scholarly standards.
 

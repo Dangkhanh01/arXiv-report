@@ -62,7 +62,7 @@ Open the main page in your default browser:
 
 ## 🔄 Automated Data Ingestion & Aggregation
 
-We provide an automated aggregation script [`scripts/aggregate_data.py`](scripts/aggregate_data.py) that discovers, verifies SHA-256 hashes, aggregates across all 4 team members and multiple accounts/checkpoints, and formats metrics from `input/` into `book/data/`:
+We provide an automated aggregation script [`scripts/aggregate_data.py`](scripts/aggregate_data.py) that discovers, verifies report archives against backup receipts, aggregates across all 4 team members and multiple accounts/checkpoints, and formats metrics from `input/` into `book/data/`:
 
 Before replacing output files, the script verifies **every selected report ZIP** against its adjacent `backup_receipt.json`: run ID, archive filename, byte count and SHA-256 must match. Missing or mismatched receipts stop ingestion, including an invalid earlier checkpoint. `run_metadata.json` records the verified report inputs. This verifies report transport integrity; it does not verify source corpus ZIPs or establish semantic correctness of their contents.
 
@@ -81,18 +81,19 @@ python scripts/aggregate_data.py --build
 ```
 
 ### 2. Standardized Aggregated Datasets in `book/data/`
-The script generates the complete set of auditable data files:
+The script generates the measurement files:
 ```text
 book/data/
 ├── summary.json           # Crawl KPI rates, version counts, reference totals, denominators
 ├── benchmark.json         # Multi-run synthesis: 107 runs, median/total wall time, peak RAM
-├── resource_samples.csv   # High-resolution RAM/Disk timeline samples across Colab runs
+├── resource_samples.csv   # Thinned RAM/Disk timeline samples across runs
 ├── papers_unique.csv      # 20,000 deduplicated papers (member, account, arxiv_id, title)
 ├── papers_detail.csv      # Per-paper elapsed time, version status, reference status
 ├── versions.csv           # 27,608 unique version records (status, before/after bytes)
-├── references_agg.csv     # 366,416 extracted reference rows
 └── run_metadata.json      # Provenance metadata across all 107 processed runs
 ```
+
+Aggregation also writes `references_agg.csv`; this large file is excluded from Git. The Book uses per-paper citation counters for reference totals and distributions. Historical field-level reference completeness is not established by the checked-in files.
 
 ### 3. Rebuild the Book
 ```bash

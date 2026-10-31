@@ -8,7 +8,7 @@ logo: ""
 
 # Execution settings
 execute:
-  execute_notebooks: "auto"    # Run un-executed notebooks at build time to dynamically generate figures/tables
+  execute_notebooks: "force"
   timeout: 300                 # Max seconds per cell execution
   allow_errors: false          # Stop build on execution error for high quality assurance
   stderr_output: "show"
