@@ -22,7 +22,7 @@ GET https://oaipmh.arxiv.org/oai?verb=GetRecord&metadataPrefix=arXivRaw&identifi
 
 ## 2. Full-Text Source Extraction & Figure Removal
 
-### Safe In-Memory Inspection & Extraction
+### Streamed Download and Selective Extraction
 Source archives are fetched from the versioned export mirror following the [arXiv Source Download Specification](https://info.arxiv.org/help/faq/tarball.html):
 ```text
 GET https://export.arxiv.org/src/{arxiv_id}v{version}
@@ -30,7 +30,7 @@ GET https://export.arxiv.org/src/{arxiv_id}v{version}
 
 As documented in [arXiv Media Types](https://info.arxiv.org/help/mimetypes.html), the payload may be a compressed tarball (`.tar.gz`), a direct gzip-compressed TeX file (`.gz`), or a PDF-only submission. To fulfill the course requirement of removing figure binaries without compromising text:
 
-1. **Tarball Traversal without Full Extraction**: The downloader streams the archive into an in-memory buffer and inspects directory headers using Python's `tarfile` module.
+1. **Tarball Traversal without Full Extraction**: The downloader streams the response to a temporary payload on disk. Gzip payloads are expanded to a bounded temporary file; `tarfile` then inspects members and writes only accepted source files. Temporary payloads and expanded archives contribute to the tracked disk footprint.
 2. **Strict Whitelist**: Only files ending with `.tex` and `.bib` are extracted. Binary formats (`.png`, `.jpg`, `.pdf`, `.eps`), style sheets (`.sty`, `.cls`), and compiled outputs (`.bbl`, `.aux`) are discarded prior to disk write, meeting the course data preparation requirements ([HCMUS CS TA, 2026](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/)).
 3. **Integrity Preservation**: The contents of `.tex` files are written strictly byte-exact. Figure environments (`\begin{figure}`) and inclusion statements (`\includegraphics{...}`) are kept completely untouched because Milestone 2 requires them to detect document hierarchy.
 4. **Handling `no_tex` Records**: When an archive contains exclusively a PDF or DOCX binary with zero TeX sources, the pipeline records a valid `no_tex` event, creates an empty version folder, and generates a cryptographic receipt.
@@ -51,31 +51,34 @@ GET https://api.semanticscholar.org/graph/v1/paper/ARXIV:{arxiv_id}/references?f
    - `references.json` / `references_agg.csv`: Stores the clean, filtered matching pool for Milestone 3, retaining only citations with a verified `arxiv_id` (totaling 366,416 citation records).
 3. **Canonical Date Resolution**: Rather than trusting Semantic Scholar's generic `publicationDate` (which often reflects external publisher publication or estimated year), each cited arXiv ID is cross-referenced through indexed Kaggle snapshots or OAI discovery to attach its authentic $v_1$ submission date.
 
-### Concrete Corpus Organization Example
+### Corpus Layout and Receipt Locations
 
-To verify downstream handoff readiness for Milestone 2 and Milestone 3, publications are organized uniformly on disk:
+The crawler's `paper_directory()` maps dots in paper IDs to hyphens. Source versions live under `sources/vN/`; their receipts are siblings of the version directories. The schematic below follows the implementation. Filenames inside each version are supplied by the author; `main.tex` and a `.bib` file are not guaranteed to exist.
 
 ```text
 corpus/
-├── 2601.23264/                        # Multi-version paper (3 versions)
-│   ├── metadata.json                 # OAI-PMH metadata & parsed version history
-│   ├── references.json               # Filtered arXiv matching pool (kept_references)
-│   ├── references_all.json           # All S2 citations (total_references)
-│   ├── v1/
-│   │   ├── main.tex                  # Extracted source file (figures excluded)
-│   │   └── references.bib            # BibTeX bibliography
-│   ├── v2/
-│   │   └── main.tex
-│   └── v3/
-│       ├── main.tex
-│       └── appendix.tex
-└── 2606.17012/                        # Author PDF-only upload (no_tex event)
-    ├── metadata.json                 # Canonical title & submission timestamp
-    ├── references.json               # Citation list (5 total citations, 0 arXiv)
-    ├── references_all.json           # Full Semantic Scholar response
-    └── v1/                           # Validated no_tex terminal state
-        └── .receipt.json             # Verification receipt (status: no_tex, 0 bytes)
+├── 2601-23264/
+│   ├── metadata.json                 # Publication metadata, including revision dates
+│   ├── references.json               # Filtered arXiv matching pool
+│   ├── references_all.json           # Every returned S2 reference
+│   ├── .references_receipt.json
+│   └── sources/
+│       ├── .v1.receipt.json          # Non-empty JSON: status, sizes and file hashes
+│       ├── v1/                      # Author-named .tex/.bib files, if present
+│       ├── .v2.receipt.json
+│       ├── v2/
+│       ├── .v3.receipt.json
+│       └── v3/
+└── 2606-17012/
+    ├── metadata.json
+    ├── references.json              # Empty arXiv pool in this example
+    ├── references_all.json          # Five references reported in paper counters
+    └── sources/
+        ├── .v1.receipt.json          # JSON receipt for validated no_tex outcome
+        └── v1/                      # Empty source directory; receipt is outside
 ```
+
+A `no_tex` result means that a validated payload yielded no usable TeX. It does not, by itself, identify the payload as PDF-only. The JSON receipt is not zero bytes; its retained-source byte count is zero. M2 must inspect each version and locate its compilation root rather than assume a standard filename.
 
 ---
 
@@ -109,15 +112,15 @@ sequenceDiagram
 
 ### Empirical Pipeline Configuration Parameters
 
-The table below documents the production parameters configured across our crawling nodes (defined in `arXiv/src/notebooks/milestone1.ipynb` and `pipeline.py`):
+The table below documents the current crawler defaults; historical run settings are not fully retained (defined in the shared repo's `src/notebooks/milestone1.ipynb` and `src/crawling/pipeline.py`):
 
 | Parameter | Operational Setting | Rationale / Specification |
 |:---|:---:|:---|
 | `ARXIV_PACING_DELAY` | `3.1 seconds` | Complies with [arXiv Terms of Use for APIs](https://info.arxiv.org/help/api/tou.html) (mandatory $\ge 3.0$s between consecutive requests to prevent IP throttling) |
 | `S2_PACING_DELAY` | `3.1 seconds` | Conservative pacing adhering to [Semantic Scholar API Rate Limits](https://www.semanticscholar.org/product/api#api-faq) (avoids HTTP 429 rate limit triggers on public endpoints) |
-| `HTTP_MAX_RETRIES` | `3 attempts` | Exponential backoff capped at 120s upon receiving HTTP 429 / 503 retry-after headers |
+| `HTTP_MAX_RETRIES` | `3 attempts` | Up to 3 total attempts; exponential backoff cap 120s, while server Retry-After takes precedence |
 | `CHECKPOINT_INTERVAL` | `40 papers` | Periodic immutable archive snapshot & SHA-256 receipt generation for Colab durability |
-| `CACHE_TTL` | `24 hours` | Local XML and citation response verification cache conforming to HTTP RFC 9111 caching standards |
+| `CACHE_TTL` | `24 hours` | Freshness window for local XML and citation caches |
 | `SOURCE_WHITELIST` | `.tex, .bib` | Whitelist per [HCMUS CS TA Data Crawling Statement](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/); binary figures (.png, .jpg, .pdf) and auxiliary files (.bbl, .sty, .cls) excluded |
 
 ---
@@ -125,19 +128,19 @@ The table below documents the production parameters configured across our crawli
 ## 5. Architectural Module Mapping & Resilience Boundaries
 
 ### Software Module Mapping
-Our codebase (`arXiv/src/crawling/`) strictly modularizes core responsibilities across focused Python modules:
+The following symbols exist in the shared crawler at [commit 21d624e](https://github.com/Hireophant/arXivProject/tree/21d624e2a79e4c6d1a046a13ba0ad1e651fbbe9e/src/crawling). This mapping describes that implementation; historical runs may use earlier revisions:
 
 | Operational Dimension | Implementation Module & Core Functions | Key Responsibilities |
 |:---|:---|:---|
-| **Discovery & Metadata** | `discover.py` (`fetch_oai_record`, `parse_oai_record`) | `GetRecord` with `arXivRaw`, version parsing, initial submission date resolution |
-| **Source Downloader** | `download.py` (`download_version`, `download_paper_versions`) | HTTP streaming, tarball in-memory traversal, selective whitelist extraction (`.tex`/`.bib`) |
-| **Citation Mining** | `references.py` (`collect_references`, `fetch_references_page`) | Semantic Scholar Graph API pagination, `all_references` vs `references` partitioning |
-| **Telemetry & Benchmarking**| `metrics.py` (`collect_resource_samples`, `summarize_run`) | Background daemon sampling `psutil` process tree RSS and disk every 0.25s |
-| **Durability & Checkpoints** | `checkpoints.py` (`BackgroundCheckpoints`, `commit_checkpoint`) | Incremental ZIP bundling, SHA-256 digest validation, Google Drive backup receipts |
+| **Discovery & Metadata** | `discover.py` (`OaiClient.fetch`, `OaiClient.discover`, `_parse_raw`) | `GetRecord` with `arXivRaw`, version parsing, initial submission date resolution |
+| **Source Downloader** | `download.py` (`download_version`, `prepare_source`, `_extract_tar`) | HTTP streaming to temporary disk, bounded archive inspection and `.tex`/`.bib` extraction |
+| **Citation Mining** | `references.py` (`collect_references`, `_request_s2`) | Semantic Scholar Graph API pagination, `all_references` vs `references` partitioning |
+| **Telemetry & Benchmarking**| `metrics.py` (`collect_resource_samples`, `summarize_benchmark`, `summarize_corpus`) | Background daemon sampling `psutil` process tree RSS and disk every 0.25s |
+| **Durability & Checkpoints** | `checkpoints.py` (`BackgroundCheckpoints.paper_done`, `BackgroundCheckpoints.close`, `BackgroundCheckpoints.finalize`) | Incremental ZIP bundling, SHA-256 digest validation, Google Drive backup receipts |
 
 ### Resilience & Data Durability Boundaries
 While the dual-backup architecture is engineered for high reliability in ephemeral Google Colab environments:
 1. **Checkpoint Granularity & Recovery Window**: Checkpoints commit in atomic increments of 40 papers. Because Google Colab runtimes can be preempted while a batch is actively being processed or uploaded, only checkpoints that have successfully committed their verification receipt to Google Drive are protected. Any uncommitted papers actively in transit must be re-crawled upon session resumption.
 2. **Idempotent Resumption**: When resuming a run, the pipeline inspects local and Drive commit receipts, seamlessly skipping all previously validated papers and versions without generating redundant upstream requests.
-3. **Cryptographic Validation**: Every backup receipt stores exact SHA-256 digests and byte counts for both `corpus.zip` and `report.zip`, preventing archive corruption or incomplete tar stream writes.
+3. **Cryptographic Validation**: Backup receipts store SHA-256 digests and byte counts for `corpus.zip` and `report.zip`. Comparing stored values to the actual archives detects transport mismatches; it does not prevent corruption or prove semantic correctness. The report aggregator now checks every selected report ZIP before ingestion. Original ZIPs are not included in this repository, so receipt verification of the historical measurements remains unconfirmed.
 

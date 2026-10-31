@@ -398,7 +398,7 @@
 <p>Welcome to the comprehensive technical report for the <strong>arXiv Knowledge Discovery and Entity Resolution Project</strong>, conducted as part of the <em>Introduction to Data Science</em> course at VNUHCM - University of Science (HCMUS).</p>
 <blockquote>
 <div><p>[!NOTE]
-<strong>Milestone 1 Submission Scope (20,000 Papers)</strong>: This report compiles and evaluates the complete, auditable crawl measurements harvested across all 20,000 assigned arXiv papers on Google Colab CPU (<code class="docutils literal notranslate"><span class="pre">Linux</span> <span class="pre">x86_64;</span> <span class="pre">Python</span> <span class="pre">3.13</span> <span class="pre">/</span> <span class="pre">3.14</span></code>). All KPI tables, percentile breakdowns, and resource consumption timelines are generated dynamically at build time from raw experimental data aggregated across all 4 team members (Danh, Khang, Khánh, Nguyên).</p>
+<strong>Milestone 1 Submission Scope (20,000 Papers)</strong>: This report summarizes retained crawl measurements for 20,000 assigned arXiv IDs. Runtime strings identify Google Colab; CPU-only settings and original archive receipts are not established for all historical runs. All KPI tables, percentile breakdowns, and resource consumption timelines are generated dynamically at build time from raw experimental data aggregated across all 4 team members (Danh, Khang, Khánh, Nguyên).</p>
 </div></blockquote>
 <hr class="docutils" />
 <section id="project-overview-research-context">
@@ -443,7 +443,7 @@
 <tr class="row-odd"><th class="head text-left"><p>Member</p></th>
 <th class="head text-left"><p>Primary Responsibilities</p></th>
 <th class="head text-center"><p>Assigned Partition</p></th>
-<th class="head text-center"><p>Verified Corpus</p></th>
+<th class="head text-center"><p>Metadata-resolved IDs</p></th>
 </tr>
 </thead>
 <tbody>
@@ -474,14 +474,14 @@
 <hr class="docutils" />
 <section id="structure-of-this-report">
 <h2>3. Structure of this Report<a class="headerlink" href="#structure-of-this-report" title="Link to this heading">#</a></h2>
-<p>This <strong>Jupyter Book</strong> serves as the cumulative, auditable report for the project. For the <strong>Milestone 1 submission</strong>, the report focuses exclusively on the complete data acquisition, source cleaning, and resource benchmarking pipeline. Milestone 2 will be incorporated sequentially into this book in future milestones, and Milestone 3 will be accompanied by an A2 poster:</p>
+<p>This <strong>Jupyter Book</strong> serves as the cumulative, auditable report for the project. For the <strong>Milestone 1 submission</strong>, the report covers data acquisition, source filtering, remaining failures, and resource measurements. Milestone 2 will be incorporated sequentially into this book in future milestones, and Milestone 3 will be accompanied by an A2 poster:</p>
 <ol class="arabic simple">
 <li><p><strong><a class="reference internal" href="milestone1/01_overview.html"><span class="std std-doc">Milestone 1 — Data Crawling</span></a></strong>:</p>
 <ul class="simple">
 <li><p>Problem statement and assigned scope (20,000 papers across 4 member partitions).</p></li>
 <li><p>Technical methodology (OAI-PMH <code class="docutils literal notranslate"><span class="pre">arXivRaw</span></code>, mirror streaming, Semantic Scholar pagination, dual-backup, and pacing policies).</p></li>
 <li><p><a class="reference internal" href="milestone1/03_corpus_stats.html"><span class="std std-doc">Corpus Statistics</span></a>: Key performance indicators, storage reduction percentiles (95.74% saved), version multiplicity distributions, and citation pool categorization.</p></li>
-<li><p><a class="reference internal" href="milestone1/04_performance.html"><span class="std std-doc">Performance Benchmarking</span></a>: CPU, RAM (RSS), and Disk footprints synthesized across 107 Google Colab CPU-only runs, including per-paper processing time distributions.</p></li>
+<li><p><a class="reference internal" href="milestone1/04_performance.html"><span class="std std-doc">Performance Benchmarking</span></a>: Wall time, RAM (RSS), and disk measurements across 107 recorded runs, including per-paper processing time distributions.</p></li>
 </ul>
 </li>
 <li><p><strong><a class="reference internal" href="references.html"><span class="std std-doc">Academic References</span></a></strong>: Complete bibliographic references complying with scholarly standards.</p></li>

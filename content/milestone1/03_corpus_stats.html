@@ -386,6 +386,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-multiplicity-status-breakdown">3. Version Multiplicity &amp; Status Breakdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-mining-citation-pool-breakdown">4. Reference Mining &amp; Citation Pool Breakdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crawled-corpus-sample-preview">5. Crawled Corpus Sample Preview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-and-metadata-audit">6. Coverage and Metadata Audit</a></li>
 </ul>
             </nav>
         </div>
@@ -401,7 +402,7 @@
 <h1>Milestone 1 — Corpus Statistics &amp; Analysis<a class="headerlink" href="#milestone-1-corpus-statistics-analysis" title="Link to this heading">#</a></h1>
 <blockquote>
 <div><p>[!NOTE]
-<strong>Complete Evaluation Scope (20,000 Papers)</strong>: The metrics, distributions, and visualizations in this report reflect the complete corpus of <strong>20,000 assigned papers</strong> (5,000 papers per member across 4 team partitions: Danh, Khang, Khánh, Nguyên), harvested on Google Colab CPU runtimes.</p>
+<strong>Complete Evaluation Scope (20,000 Papers)</strong>: The metrics, distributions, and visualizations in this report reflect the complete corpus of <strong>20,000 assigned papers</strong> (5,000 papers per member across 4 team partitions: Danh, Khang, Khánh, Nguyên), represented in the retained measurement tables. Historical CPU-only settings and archive receipts are not fully established.</p>
 </div></blockquote>
 <blockquote>
 <div><p><strong>Data Provenance</strong>: All figures, tables, and distribution histograms in this chapter are generated programmatically at build time from reproducible measurement files in <code class="docutils literal notranslate"><span class="pre">book/data/</span></code> (<code class="docutils literal notranslate"><span class="pre">summary.json</span></code>, <code class="docutils literal notranslate"><span class="pre">papers_unique.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">papers_detail.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">versions.csv</span></code>, and <code class="docutils literal notranslate"><span class="pre">references_agg.csv</span></code>).</p>
@@ -468,11 +469,11 @@
 </div>
 <section id="corpus-key-performance-indicators-kpis">
 <h2>1. Corpus Key Performance Indicators (KPIs)<a class="headerlink" href="#corpus-key-performance-indicators-kpis" title="Link to this heading">#</a></h2>
-<p>The table below presents the primary ingestion KPIs with explicit, verified mathematical formulas and denominators across the full 20,000-paper corpus. We distinguish clearly between:</p>
+<p>The table below presents the primary ingestion KPIs with explicit formulas and denominators across the full 20,000-paper corpus. We distinguish clearly between:</p>
 <ul class="simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">id_discovery_coverage</span></code></strong>: Ratio of assigned arXiv IDs successfully resolved to OAI-PMH metadata (<span class="math notranslate nohighlight">\(20,000 / 20,000 = 100\%\)</span>).</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">full_tex_paper_rate</span></code></strong>: Proportion of papers where <strong>every</strong> version has valid LaTeX source files (<code class="docutils literal notranslate"><span class="pre">.tex</span></code>) available (<span class="math notranslate nohighlight">\(18,839 / 20,000 = 94.19\%\)</span>).</p></li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">resolved_source_rate</span></code></strong>: Proportion of papers where every version reached a verified terminal outcome—either extracted <code class="docutils literal notranslate"><span class="pre">.tex</span></code> source or a verified <code class="docutils literal notranslate"><span class="pre">no_tex</span></code> announcement (<span class="math notranslate nohighlight">\(19,885 / 20,000 = 99.42\%\)</span>).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">full_tex_paper_rate</span></code></strong>: Proportion of papers where <strong>every</strong> version has recorded successful source extractions (<span class="math notranslate nohighlight">\(18,839 / 20,000 = 94.19\%\)</span>).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">resolved_source_rate</span></code></strong>: Proportion of papers where every version reached a recorded terminal outcome—either extracted <code class="docutils literal notranslate"><span class="pre">.tex</span></code> source or a <code class="docutils literal notranslate"><span class="pre">no_tex</span></code> outcome (<span class="math notranslate nohighlight">\(19,885 / 20,000 = 99.42\%\)</span>).</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">unresolved_source_papers</span></code></strong>: Remaining papers (<span class="math notranslate nohighlight">\(115 / 20,000 = 0.58\%\)</span>) that encountered upstream 404s, filesystem collisions, or timeouts on at least one version.</p></li>
 <li><p><strong>Reference Extraction</strong>: We report <strong>API extraction success</strong> (Semantic Scholar returned valid response) separately from <strong>arXiv pool presence</strong> (papers containing citations to other arXiv papers for Milestone 3 graph resolution).</p></li>
 <li><p><strong>Storage Metrics</strong>: Reported on strictly <strong>matched (paired) populations</strong> across both paper and version levels.</p></li>
@@ -499,7 +500,8 @@
 <span class="n">ref_api_rate</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'reference_api_success_rate'</span><span class="p">,</span> <span class="mf">0.998</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
 <span class="n">arxiv_pool_papers</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'papers_with_arxiv_pool'</span><span class="p">,</span> <span class="mi">17291</span><span class="p">)</span>
 <span class="n">arxiv_pool_rate</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'papers_with_arxiv_pool_rate'</span><span class="p">,</span> <span class="n">arxiv_pool_papers</span> <span class="o">/</span> <span class="n">total_discovered</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="n">ref_completeness</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'average_reference_completeness_rate'</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">mean_refs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_detail</span><span class="p">[</span><span class="s1">'total_references'</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'raise'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">mean_arxiv_refs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_detail</span><span class="p">[</span><span class="s1">'kept_references'</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'raise'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="c1"># Paired version-level metrics</span>
 <span class="n">paired_tex_count</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'paired_tex_versions_count'</span><span class="p">,</span> <span class="mi">26234</span><span class="p">)</span>
@@ -528,7 +530,8 @@
     <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Reference Mining'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Total Extracted Citations (All Sources)'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">total_refs</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">arxiv_refs</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> arXiv-keyed + </span><span class="si">{</span><span class="n">non_arxiv_refs</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> non-arXiv'</span><span class="p">},</span>
     <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Reference Mining'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Reference API Extraction Success Rate'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ref_api_rate</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ref_api_success</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> jobs succeeded / </span><span class="si">{</span><span class="n">total_discovered</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> papers'</span><span class="p">},</span>
     <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Reference Mining'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Papers with Non-Empty arXiv Reference Pool'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">arxiv_pool_rate</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">arxiv_pool_papers</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> papers with &gt;= 1 arXiv reference'</span><span class="p">},</span>
-    <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Reference Mining'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Reference Metadata Completeness Rate'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ref_completeness</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="s1">'(kept - incomplete) / kept across papers with arXiv pool'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Reference Mining'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Mean References per Paper (All Sources)'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">mean_refs</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_detail</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> papers, including zero-reference outcomes'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Reference Mining'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Mean arXiv References per Paper'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">mean_arxiv_refs</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_detail</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> papers, including empty arXiv pools'</span><span class="p">},</span>
     <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Storage (Per Version)'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Avg Paired TeX Version Size Before/After'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">avg_tex_before_kib</span><span class="si">:</span><span class="s1">,.1f</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">avg_tex_after_kib</span><span class="si">:</span><span class="s1">,.1f</span><span class="si">}</span><span class="s1"> KiB'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'Matched TeX versions only (N = </span><span class="si">{</span><span class="n">paired_tex_count</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">)'</span><span class="p">},</span>
     <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Storage (Per Version)'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Avg Paired Resolved Version Size Before/After'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">v_before_kib</span><span class="si">:</span><span class="s1">,.1f</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">v_after_kib</span><span class="si">:</span><span class="s1">,.1f</span><span class="si">}</span><span class="s1"> KiB'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'All resolved versions including no_tex=0 (N = </span><span class="si">{</span><span class="n">v_denom</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">)'</span><span class="p">},</span>
     <span class="p">{</span><span class="s1">'Dimension'</span><span class="p">:</span> <span class="s1">'Storage (Per Paper)'</span><span class="p">,</span> <span class="s1">'Metric'</span><span class="p">:</span> <span class="s1">'Avg Paired Paper Source Size Before/After'</span><span class="p">,</span> <span class="s1">'Observed Value'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">p_before_kib</span><span class="si">:</span><span class="s1">,.1f</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">p_after_kib</span><span class="si">:</span><span class="s1">,.1f</span><span class="si">}</span><span class="s1"> KiB'</span><span class="p">,</span> <span class="s1">'Denominator / Scope'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'Matched resolved papers (N = </span><span class="si">{</span><span class="n">p_denom</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> papers)'</span><span class="p">},</span>
@@ -546,121 +549,127 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_917fd th {
+#T_cca35 th {
   background-color: #1e3d59;
   color: white;
   font-weight: bold;
   padding: 8px;
 }
-#T_917fd td {
+#T_cca35 td {
   padding: 7px 10px;
 }
-#T_917fd tr:nth-child(even) {
+#T_cca35 tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.05);
 }
-#T_917fd_row0_col0, #T_917fd_row0_col1, #T_917fd_row0_col2, #T_917fd_row0_col3, #T_917fd_row1_col0, #T_917fd_row1_col1, #T_917fd_row1_col2, #T_917fd_row1_col3, #T_917fd_row2_col0, #T_917fd_row2_col1, #T_917fd_row2_col2, #T_917fd_row2_col3, #T_917fd_row3_col0, #T_917fd_row3_col1, #T_917fd_row3_col2, #T_917fd_row3_col3, #T_917fd_row4_col0, #T_917fd_row4_col1, #T_917fd_row4_col2, #T_917fd_row4_col3, #T_917fd_row5_col0, #T_917fd_row5_col1, #T_917fd_row5_col2, #T_917fd_row5_col3, #T_917fd_row6_col0, #T_917fd_row6_col1, #T_917fd_row6_col2, #T_917fd_row6_col3, #T_917fd_row7_col0, #T_917fd_row7_col1, #T_917fd_row7_col2, #T_917fd_row7_col3, #T_917fd_row8_col0, #T_917fd_row8_col1, #T_917fd_row8_col2, #T_917fd_row8_col3, #T_917fd_row9_col0, #T_917fd_row9_col1, #T_917fd_row9_col2, #T_917fd_row9_col3, #T_917fd_row10_col0, #T_917fd_row10_col1, #T_917fd_row10_col2, #T_917fd_row10_col3, #T_917fd_row11_col0, #T_917fd_row11_col1, #T_917fd_row11_col2, #T_917fd_row11_col3, #T_917fd_row12_col0, #T_917fd_row12_col1, #T_917fd_row12_col2, #T_917fd_row12_col3, #T_917fd_row13_col0, #T_917fd_row13_col1, #T_917fd_row13_col2, #T_917fd_row13_col3, #T_917fd_row14_col0, #T_917fd_row14_col1, #T_917fd_row14_col2, #T_917fd_row14_col3 {
+#T_cca35_row0_col0, #T_cca35_row0_col1, #T_cca35_row0_col2, #T_cca35_row0_col3, #T_cca35_row1_col0, #T_cca35_row1_col1, #T_cca35_row1_col2, #T_cca35_row1_col3, #T_cca35_row2_col0, #T_cca35_row2_col1, #T_cca35_row2_col2, #T_cca35_row2_col3, #T_cca35_row3_col0, #T_cca35_row3_col1, #T_cca35_row3_col2, #T_cca35_row3_col3, #T_cca35_row4_col0, #T_cca35_row4_col1, #T_cca35_row4_col2, #T_cca35_row4_col3, #T_cca35_row5_col0, #T_cca35_row5_col1, #T_cca35_row5_col2, #T_cca35_row5_col3, #T_cca35_row6_col0, #T_cca35_row6_col1, #T_cca35_row6_col2, #T_cca35_row6_col3, #T_cca35_row7_col0, #T_cca35_row7_col1, #T_cca35_row7_col2, #T_cca35_row7_col3, #T_cca35_row8_col0, #T_cca35_row8_col1, #T_cca35_row8_col2, #T_cca35_row8_col3, #T_cca35_row9_col0, #T_cca35_row9_col1, #T_cca35_row9_col2, #T_cca35_row9_col3, #T_cca35_row10_col0, #T_cca35_row10_col1, #T_cca35_row10_col2, #T_cca35_row10_col3, #T_cca35_row11_col0, #T_cca35_row11_col1, #T_cca35_row11_col2, #T_cca35_row11_col3, #T_cca35_row12_col0, #T_cca35_row12_col1, #T_cca35_row12_col2, #T_cca35_row12_col3, #T_cca35_row13_col0, #T_cca35_row13_col1, #T_cca35_row13_col2, #T_cca35_row13_col3, #T_cca35_row14_col0, #T_cca35_row14_col1, #T_cca35_row14_col2, #T_cca35_row14_col3, #T_cca35_row15_col0, #T_cca35_row15_col1, #T_cca35_row15_col2, #T_cca35_row15_col3 {
   text-align: left;
 }
 </style>
-<table id="T_917fd" class="dataframe table tex2jax_process">
+<table id="T_cca35" class="dataframe table tex2jax_process">
   <thead>
     <tr>
-      <th id="T_917fd_level0_col0" class="col_heading level0 col0" >Dimension</th>
-      <th id="T_917fd_level0_col1" class="col_heading level0 col1" >Metric</th>
-      <th id="T_917fd_level0_col2" class="col_heading level0 col2" >Observed Value</th>
-      <th id="T_917fd_level0_col3" class="col_heading level0 col3" >Denominator / Scope</th>
+      <th id="T_cca35_level0_col0" class="col_heading level0 col0" >Dimension</th>
+      <th id="T_cca35_level0_col1" class="col_heading level0 col1" >Metric</th>
+      <th id="T_cca35_level0_col2" class="col_heading level0 col2" >Observed Value</th>
+      <th id="T_cca35_level0_col3" class="col_heading level0 col3" >Denominator / Scope</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_917fd_row0_col0" class="data row0 col0" >Paper Discovery</td>
-      <td id="T_917fd_row0_col1" class="data row0 col1" >Total Assigned Papers (ID Discovery)</td>
-      <td id="T_917fd_row0_col2" class="data row0 col2" >20,000 (100.0%)</td>
-      <td id="T_917fd_row0_col3" class="data row0 col3" >Target: 20,000 assigned papers resolved</td>
+      <td id="T_cca35_row0_col0" class="data row0 col0" >Paper Discovery</td>
+      <td id="T_cca35_row0_col1" class="data row0 col1" >Total Assigned Papers (ID Discovery)</td>
+      <td id="T_cca35_row0_col2" class="data row0 col2" >20,000 (100.0%)</td>
+      <td id="T_cca35_row0_col3" class="data row0 col3" >Target: 20,000 assigned papers resolved</td>
     </tr>
     <tr>
-      <td id="T_917fd_row1_col0" class="data row1 col0" >Paper Discovery</td>
-      <td id="T_917fd_row1_col1" class="data row1 col1" >Full-TeX Source Papers (All Versions TeX)</td>
-      <td id="T_917fd_row1_col2" class="data row1 col2" >18,839 (94.19%)</td>
-      <td id="T_917fd_row1_col3" class="data row1 col3" >Papers with TeX in every version (N = 20,000)</td>
+      <td id="T_cca35_row1_col0" class="data row1 col0" >Paper Discovery</td>
+      <td id="T_cca35_row1_col1" class="data row1 col1" >Full-TeX Source Papers (All Versions TeX)</td>
+      <td id="T_cca35_row1_col2" class="data row1 col2" >18,839 (94.19%)</td>
+      <td id="T_cca35_row1_col3" class="data row1 col3" >Papers with TeX in every version (N = 20,000)</td>
     </tr>
     <tr>
-      <td id="T_917fd_row2_col0" class="data row2 col0" >Paper Discovery</td>
-      <td id="T_917fd_row2_col1" class="data row2 col1" >Resolved Outcome Papers (TeX or valid no_tex)</td>
-      <td id="T_917fd_row2_col2" class="data row2 col2" >19,885 (99.42%)</td>
-      <td id="T_917fd_row2_col3" class="data row2 col3" >All versions reached terminal state (N = 20,000)</td>
+      <td id="T_cca35_row2_col0" class="data row2 col0" >Paper Discovery</td>
+      <td id="T_cca35_row2_col1" class="data row2 col1" >Resolved Outcome Papers (TeX or valid no_tex)</td>
+      <td id="T_cca35_row2_col2" class="data row2 col2" >19,885 (99.42%)</td>
+      <td id="T_cca35_row2_col3" class="data row2 col3" >All versions reached terminal state (N = 20,000)</td>
     </tr>
     <tr>
-      <td id="T_917fd_row3_col0" class="data row3 col0" >Paper Discovery</td>
-      <td id="T_917fd_row3_col1" class="data row3 col1" >Unresolved / Partially Incomplete Papers</td>
-      <td id="T_917fd_row3_col2" class="data row3 col2" >115 (0.57%)</td>
-      <td id="T_917fd_row3_col3" class="data row3 col3" >At least 1 version failed or pending (N = 20,000)</td>
+      <td id="T_cca35_row3_col0" class="data row3 col0" >Paper Discovery</td>
+      <td id="T_cca35_row3_col1" class="data row3 col1" >Unresolved / Partially Incomplete Papers</td>
+      <td id="T_cca35_row3_col2" class="data row3 col2" >115 (0.57%)</td>
+      <td id="T_cca35_row3_col3" class="data row3 col3" >At least 1 version failed or pending (N = 20,000)</td>
     </tr>
     <tr>
-      <td id="T_917fd_row4_col0" class="data row4 col0" >Version Coverage</td>
-      <td id="T_917fd_row4_col1" class="data row4 col1" >Total Expected Versions (v1..vN)</td>
-      <td id="T_917fd_row4_col2" class="data row4 col2" >27,608</td>
-      <td id="T_917fd_row4_col3" class="data row4 col3" >Complete multi-version history per paper</td>
+      <td id="T_cca35_row4_col0" class="data row4 col0" >Version Coverage</td>
+      <td id="T_cca35_row4_col1" class="data row4 col1" >Total Expected Versions (v1..vN)</td>
+      <td id="T_cca35_row4_col2" class="data row4 col2" >27,608</td>
+      <td id="T_cca35_row4_col3" class="data row4 col3" >Complete multi-version history per paper</td>
     </tr>
     <tr>
-      <td id="T_917fd_row5_col0" class="data row5 col0" >Version Coverage</td>
-      <td id="T_917fd_row5_col1" class="data row5 col1" >Source Coverage (TeX + valid no_tex)</td>
-      <td id="T_917fd_row5_col2" class="data row5 col2" >99.53%</td>
-      <td id="T_917fd_row5_col3" class="data row5 col3" >(26,234 success + 1,243 no_tex) / 27,608 versions</td>
+      <td id="T_cca35_row5_col0" class="data row5 col0" >Version Coverage</td>
+      <td id="T_cca35_row5_col1" class="data row5 col1" >Source Coverage (TeX + valid no_tex)</td>
+      <td id="T_cca35_row5_col2" class="data row5 col2" >99.53%</td>
+      <td id="T_cca35_row5_col3" class="data row5 col3" >(26,234 success + 1,243 no_tex) / 27,608 versions</td>
     </tr>
     <tr>
-      <td id="T_917fd_row6_col0" class="data row6 col0" >Version Coverage</td>
-      <td id="T_917fd_row6_col1" class="data row6 col1" >Failed Source Versions</td>
-      <td id="T_917fd_row6_col2" class="data row6 col2" >131 (0.47%)</td>
-      <td id="T_917fd_row6_col3" class="data row6 col3" >Upstream 404s & path collisions (131 / 27,608)</td>
+      <td id="T_cca35_row6_col0" class="data row6 col0" >Version Coverage</td>
+      <td id="T_cca35_row6_col1" class="data row6 col1" >Failed Source Versions</td>
+      <td id="T_cca35_row6_col2" class="data row6 col2" >131 (0.47%)</td>
+      <td id="T_cca35_row6_col3" class="data row6 col3" >Upstream 404s & path collisions (131 / 27,608)</td>
     </tr>
     <tr>
-      <td id="T_917fd_row7_col0" class="data row7 col0" >Reference Mining</td>
-      <td id="T_917fd_row7_col1" class="data row7 col1" >Total Extracted Citations (All Sources)</td>
-      <td id="T_917fd_row7_col2" class="data row7 col2" >734,157</td>
-      <td id="T_917fd_row7_col3" class="data row7 col3" >366,416 arXiv-keyed + 367,741 non-arXiv</td>
+      <td id="T_cca35_row7_col0" class="data row7 col0" >Reference Mining</td>
+      <td id="T_cca35_row7_col1" class="data row7 col1" >Total Extracted Citations (All Sources)</td>
+      <td id="T_cca35_row7_col2" class="data row7 col2" >734,157</td>
+      <td id="T_cca35_row7_col3" class="data row7 col3" >366,416 arXiv-keyed + 367,741 non-arXiv</td>
     </tr>
     <tr>
-      <td id="T_917fd_row8_col0" class="data row8 col0" >Reference Mining</td>
-      <td id="T_917fd_row8_col1" class="data row8 col1" >Reference API Extraction Success Rate</td>
-      <td id="T_917fd_row8_col2" class="data row8 col2" >99.83%</td>
-      <td id="T_917fd_row8_col3" class="data row8 col3" >19,963 jobs succeeded / 20,000 papers</td>
+      <td id="T_cca35_row8_col0" class="data row8 col0" >Reference Mining</td>
+      <td id="T_cca35_row8_col1" class="data row8 col1" >Reference API Extraction Success Rate</td>
+      <td id="T_cca35_row8_col2" class="data row8 col2" >99.81%</td>
+      <td id="T_cca35_row8_col3" class="data row8 col3" >19,963 jobs succeeded / 20,000 papers</td>
     </tr>
     <tr>
-      <td id="T_917fd_row9_col0" class="data row9 col0" >Reference Mining</td>
-      <td id="T_917fd_row9_col1" class="data row9 col1" >Papers with Non-Empty arXiv Reference Pool</td>
-      <td id="T_917fd_row9_col2" class="data row9 col2" >86.45%</td>
-      <td id="T_917fd_row9_col3" class="data row9 col3" >17,291 papers with >= 1 arXiv reference</td>
+      <td id="T_cca35_row9_col0" class="data row9 col0" >Reference Mining</td>
+      <td id="T_cca35_row9_col1" class="data row9 col1" >Papers with Non-Empty arXiv Reference Pool</td>
+      <td id="T_cca35_row9_col2" class="data row9 col2" >86.45%</td>
+      <td id="T_cca35_row9_col3" class="data row9 col3" >17,291 papers with >= 1 arXiv reference</td>
     </tr>
     <tr>
-      <td id="T_917fd_row10_col0" class="data row10 col0" >Reference Mining</td>
-      <td id="T_917fd_row10_col1" class="data row10 col1" >Reference Metadata Completeness Rate</td>
-      <td id="T_917fd_row10_col2" class="data row10 col2" >100.00%</td>
-      <td id="T_917fd_row10_col3" class="data row10 col3" >(kept - incomplete) / kept across papers with arXiv pool</td>
+      <td id="T_cca35_row10_col0" class="data row10 col0" >Reference Mining</td>
+      <td id="T_cca35_row10_col1" class="data row10 col1" >Mean References per Paper (All Sources)</td>
+      <td id="T_cca35_row10_col2" class="data row10 col2" >36.70785</td>
+      <td id="T_cca35_row10_col3" class="data row10 col3" >20,000 papers, including zero-reference outcomes</td>
     </tr>
     <tr>
-      <td id="T_917fd_row11_col0" class="data row11 col0" >Storage (Per Version)</td>
-      <td id="T_917fd_row11_col1" class="data row11 col1" >Avg Paired TeX Version Size Before/After</td>
-      <td id="T_917fd_row11_col2" class="data row11 col2" >4,613.6 -> 201.9 KiB</td>
-      <td id="T_917fd_row11_col3" class="data row11 col3" >Matched TeX versions only (N = 26,234)</td>
+      <td id="T_cca35_row11_col0" class="data row11 col0" >Reference Mining</td>
+      <td id="T_cca35_row11_col1" class="data row11 col1" >Mean arXiv References per Paper</td>
+      <td id="T_cca35_row11_col2" class="data row11 col2" >18.32080</td>
+      <td id="T_cca35_row11_col3" class="data row11 col3" >20,000 papers, including empty arXiv pools</td>
     </tr>
     <tr>
-      <td id="T_917fd_row12_col0" class="data row12 col0" >Storage (Per Version)</td>
-      <td id="T_917fd_row12_col1" class="data row12 col1" >Avg Paired Resolved Version Size Before/After</td>
-      <td id="T_917fd_row12_col2" class="data row12 col2" >4,521.0 -> 192.8 KiB</td>
-      <td id="T_917fd_row12_col3" class="data row12 col3" >All resolved versions including no_tex=0 (N = 27,477)</td>
+      <td id="T_cca35_row12_col0" class="data row12 col0" >Storage (Per Version)</td>
+      <td id="T_cca35_row12_col1" class="data row12 col1" >Avg Paired TeX Version Size Before/After</td>
+      <td id="T_cca35_row12_col2" class="data row12 col2" >4,613.6 -> 201.9 KiB</td>
+      <td id="T_cca35_row12_col3" class="data row12 col3" >Matched TeX versions only (N = 26,234)</td>
     </tr>
     <tr>
-      <td id="T_917fd_row13_col0" class="data row13 col0" >Storage (Per Paper)</td>
-      <td id="T_917fd_row13_col1" class="data row13 col1" >Avg Paired Paper Source Size Before/After</td>
-      <td id="T_917fd_row13_col2" class="data row13 col2" >6,228.9 -> 265.7 KiB</td>
-      <td id="T_917fd_row13_col3" class="data row13 col3" >Matched resolved papers (N = 19,885 papers)</td>
+      <td id="T_cca35_row13_col0" class="data row13 col0" >Storage (Per Version)</td>
+      <td id="T_cca35_row13_col1" class="data row13 col1" >Avg Paired Resolved Version Size Before/After</td>
+      <td id="T_cca35_row13_col2" class="data row13 col2" >4,521.0 -> 192.8 KiB</td>
+      <td id="T_cca35_row13_col3" class="data row13 col3" >All resolved versions including no_tex=0 (N = 27,477)</td>
     </tr>
     <tr>
-      <td id="T_917fd_row14_col0" class="data row14 col0" >Storage Optimization</td>
-      <td id="T_917fd_row14_col1" class="data row14 col1" >Corpus Storage Volume Reduction Ratio</td>
-      <td id="T_917fd_row14_col2" class="data row14 col2" >95.74%</td>
-      <td id="T_917fd_row14_col3" class="data row14 col3" >Byte-level reduction via whitelist filtering (.tex/.bib only)</td>
+      <td id="T_cca35_row14_col0" class="data row14 col0" >Storage (Per Paper)</td>
+      <td id="T_cca35_row14_col1" class="data row14 col1" >Avg Paired Paper Source Size Before/After</td>
+      <td id="T_cca35_row14_col2" class="data row14 col2" >6,228.9 -> 265.7 KiB</td>
+      <td id="T_cca35_row14_col3" class="data row14 col3" >Matched resolved papers (N = 19,885 papers)</td>
+    </tr>
+    <tr>
+      <td id="T_cca35_row15_col0" class="data row15 col0" >Storage Optimization</td>
+      <td id="T_cca35_row15_col1" class="data row15 col1" >Corpus Storage Volume Reduction Ratio</td>
+      <td id="T_cca35_row15_col2" class="data row15 col2" >95.74%</td>
+      <td id="T_cca35_row15_col3" class="data row15 col3" >Byte-level reduction via whitelist filtering (.tex/.bib only)</td>
     </tr>
   </tbody>
 </table>
@@ -678,7 +687,7 @@
     <span class="k">for</span> <span class="n">member_name</span><span class="p">,</span> <span class="n">stats</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mb</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
         <span class="n">member_stats</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
             <span class="s2">"Team Member"</span><span class="p">:</span> <span class="n">member_name</span><span class="p">,</span>
-            <span class="s2">"Unique Papers Crawled"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'papers'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"Metadata-resolved IDs"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'papers'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
             <span class="s2">"Assigned Target"</span><span class="p">:</span> <span class="s2">"5,000 papers"</span><span class="p">,</span>
             <span class="s2">"Completion Rate"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'papers'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mi">5000</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span>
             <span class="s2">"Colab Accounts"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'accounts_count'</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2"> accounts"</span><span class="p">,</span>
@@ -688,7 +697,7 @@
     <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">df_papers</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"member"</span><span class="p">):</span>
         <span class="n">member_stats</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
             <span class="s2">"Team Member"</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span>
-            <span class="s2">"Unique Papers Crawled"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"Metadata-resolved IDs"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
             <span class="s2">"Assigned Target"</span><span class="p">:</span> <span class="s2">"5,000 papers"</span><span class="p">,</span>
             <span class="s2">"Completion Rate"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="o">/</span><span class="mi">5000</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span>
             <span class="s2">"Colab Accounts"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">group</span><span class="p">[</span><span class="s1">'account'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> accounts"</span><span class="p">,</span>
@@ -705,61 +714,61 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_29ae2 th {
+#T_51956 th {
   background-color: #2b580c;
   color: white;
   font-weight: bold;
 }
-#T_29ae2 tr:nth-child(even) {
+#T_51956 tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.05);
 }
-#T_29ae2_row0_col0, #T_29ae2_row0_col1, #T_29ae2_row0_col2, #T_29ae2_row0_col3, #T_29ae2_row0_col4, #T_29ae2_row0_col5, #T_29ae2_row1_col0, #T_29ae2_row1_col1, #T_29ae2_row1_col2, #T_29ae2_row1_col3, #T_29ae2_row1_col4, #T_29ae2_row1_col5, #T_29ae2_row2_col0, #T_29ae2_row2_col1, #T_29ae2_row2_col2, #T_29ae2_row2_col3, #T_29ae2_row2_col4, #T_29ae2_row2_col5, #T_29ae2_row3_col0, #T_29ae2_row3_col1, #T_29ae2_row3_col2, #T_29ae2_row3_col3, #T_29ae2_row3_col4, #T_29ae2_row3_col5 {
+#T_51956_row0_col0, #T_51956_row0_col1, #T_51956_row0_col2, #T_51956_row0_col3, #T_51956_row0_col4, #T_51956_row0_col5, #T_51956_row1_col0, #T_51956_row1_col1, #T_51956_row1_col2, #T_51956_row1_col3, #T_51956_row1_col4, #T_51956_row1_col5, #T_51956_row2_col0, #T_51956_row2_col1, #T_51956_row2_col2, #T_51956_row2_col3, #T_51956_row2_col4, #T_51956_row2_col5, #T_51956_row3_col0, #T_51956_row3_col1, #T_51956_row3_col2, #T_51956_row3_col3, #T_51956_row3_col4, #T_51956_row3_col5 {
   text-align: left;
 }
 </style>
-<table id="T_29ae2" class="dataframe table tex2jax_process">
+<table id="T_51956" class="dataframe table tex2jax_process">
   <thead>
     <tr>
-      <th id="T_29ae2_level0_col0" class="col_heading level0 col0" >Team Member</th>
-      <th id="T_29ae2_level0_col1" class="col_heading level0 col1" >Unique Papers Crawled</th>
-      <th id="T_29ae2_level0_col2" class="col_heading level0 col2" >Assigned Target</th>
-      <th id="T_29ae2_level0_col3" class="col_heading level0 col3" >Completion Rate</th>
-      <th id="T_29ae2_level0_col4" class="col_heading level0 col4" >Colab Accounts</th>
-      <th id="T_29ae2_level0_col5" class="col_heading level0 col5" >Independent Runs</th>
+      <th id="T_51956_level0_col0" class="col_heading level0 col0" >Team Member</th>
+      <th id="T_51956_level0_col1" class="col_heading level0 col1" >Metadata-resolved IDs</th>
+      <th id="T_51956_level0_col2" class="col_heading level0 col2" >Assigned Target</th>
+      <th id="T_51956_level0_col3" class="col_heading level0 col3" >Completion Rate</th>
+      <th id="T_51956_level0_col4" class="col_heading level0 col4" >Colab Accounts</th>
+      <th id="T_51956_level0_col5" class="col_heading level0 col5" >Independent Runs</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_29ae2_row0_col0" class="data row0 col0" >Danh</td>
-      <td id="T_29ae2_row0_col1" class="data row0 col1" >5,000</td>
-      <td id="T_29ae2_row0_col2" class="data row0 col2" >5,000 papers</td>
-      <td id="T_29ae2_row0_col3" class="data row0 col3" >100.0%</td>
-      <td id="T_29ae2_row0_col4" class="data row0 col4" >3 accounts</td>
-      <td id="T_29ae2_row0_col5" class="data row0 col5" >18 runs</td>
+      <td id="T_51956_row0_col0" class="data row0 col0" >Danh</td>
+      <td id="T_51956_row0_col1" class="data row0 col1" >5,000</td>
+      <td id="T_51956_row0_col2" class="data row0 col2" >5,000 papers</td>
+      <td id="T_51956_row0_col3" class="data row0 col3" >100.0%</td>
+      <td id="T_51956_row0_col4" class="data row0 col4" >3 accounts</td>
+      <td id="T_51956_row0_col5" class="data row0 col5" >18 runs</td>
     </tr>
     <tr>
-      <td id="T_29ae2_row1_col0" class="data row1 col0" >Khang</td>
-      <td id="T_29ae2_row1_col1" class="data row1 col1" >5,000</td>
-      <td id="T_29ae2_row1_col2" class="data row1 col2" >5,000 papers</td>
-      <td id="T_29ae2_row1_col3" class="data row1 col3" >100.0%</td>
-      <td id="T_29ae2_row1_col4" class="data row1 col4" >3 accounts</td>
-      <td id="T_29ae2_row1_col5" class="data row1 col5" >21 runs</td>
+      <td id="T_51956_row1_col0" class="data row1 col0" >Khang</td>
+      <td id="T_51956_row1_col1" class="data row1 col1" >5,000</td>
+      <td id="T_51956_row1_col2" class="data row1 col2" >5,000 papers</td>
+      <td id="T_51956_row1_col3" class="data row1 col3" >100.0%</td>
+      <td id="T_51956_row1_col4" class="data row1 col4" >3 accounts</td>
+      <td id="T_51956_row1_col5" class="data row1 col5" >21 runs</td>
     </tr>
     <tr>
-      <td id="T_29ae2_row2_col0" class="data row2 col0" >Khánh</td>
-      <td id="T_29ae2_row2_col1" class="data row2 col1" >5,000</td>
-      <td id="T_29ae2_row2_col2" class="data row2 col2" >5,000 papers</td>
-      <td id="T_29ae2_row2_col3" class="data row2 col3" >100.0%</td>
-      <td id="T_29ae2_row2_col4" class="data row2 col4" >3 accounts</td>
-      <td id="T_29ae2_row2_col5" class="data row2 col5" >18 runs</td>
+      <td id="T_51956_row2_col0" class="data row2 col0" >Khánh</td>
+      <td id="T_51956_row2_col1" class="data row2 col1" >5,000</td>
+      <td id="T_51956_row2_col2" class="data row2 col2" >5,000 papers</td>
+      <td id="T_51956_row2_col3" class="data row2 col3" >100.0%</td>
+      <td id="T_51956_row2_col4" class="data row2 col4" >3 accounts</td>
+      <td id="T_51956_row2_col5" class="data row2 col5" >18 runs</td>
     </tr>
     <tr>
-      <td id="T_29ae2_row3_col0" class="data row3 col0" >Nguyên</td>
-      <td id="T_29ae2_row3_col1" class="data row3 col1" >5,000</td>
-      <td id="T_29ae2_row3_col2" class="data row3 col2" >5,000 papers</td>
-      <td id="T_29ae2_row3_col3" class="data row3 col3" >100.0%</td>
-      <td id="T_29ae2_row3_col4" class="data row3 col4" >3 accounts</td>
-      <td id="T_29ae2_row3_col5" class="data row3 col5" >18 runs</td>
+      <td id="T_51956_row3_col0" class="data row3 col0" >Nguyên</td>
+      <td id="T_51956_row3_col1" class="data row3 col1" >5,000</td>
+      <td id="T_51956_row3_col2" class="data row3 col2" >5,000 papers</td>
+      <td id="T_51956_row3_col3" class="data row3 col3" >100.0%</td>
+      <td id="T_51956_row3_col4" class="data row3 col4" >3 accounts</td>
+      <td id="T_51956_row3_col5" class="data row3 col5" >18 runs</td>
     </tr>
   </tbody>
 </table>
@@ -769,14 +778,14 @@
 </section>
 <section id="storage-optimization-via-selective-extraction">
 <h2>2. Storage Optimization via Selective Extraction<a class="headerlink" href="#storage-optimization-via-selective-extraction" title="Link to this heading">#</a></h2>
-<p>Full-text source downloads from arXiv contain large binary assets (PNG, JPG, PDF figures, compiled models) that severely inflate bandwidth and disk utilization. Our pipeline implements a strict <strong>in-memory streaming whitelist filter</strong> that extracts only <code class="docutils literal notranslate"><span class="pre">.tex</span></code> and <code class="docutils literal notranslate"><span class="pre">.bib</span></code> files while discarding binary figures.</p>
+<p>Full-text source downloads from arXiv may contain large binary assets (PNG, JPG, PDF figures, compiled models) that severely inflate bandwidth and disk utilization. Our pipeline implements a disk-backed download and selective extraction process that extracts only <code class="docutils literal notranslate"><span class="pre">.tex</span></code> and <code class="docutils literal notranslate"><span class="pre">.bib</span></code> files while discarding binary figures.</p>
 <p>The charts below quantify this storage efficiency across strictly paired populations at both paper-level and version-level aggregations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Bar Chart: Before vs After at Paper &amp; Version levels</span>
 <span class="n">fig_size</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span>
     <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">"Before Filtering (Raw Source Archive)"</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">"Before Filtering (Uncompressed Source Members)"</span><span class="p">,</span>
         <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s2">"Avg per Paper"</span><span class="p">,</span> <span class="s2">"Avg per Version"</span><span class="p">],</span>
         <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">p_before_kib</span><span class="p">,</span> <span class="n">v_before_kib</span><span class="p">],</span>
         <span class="n">marker_color</span><span class="o">=</span><span class="s2">"#e74c3c"</span><span class="p">,</span>
@@ -834,9 +843,9 @@
         </script>
         <script type="module">import "https://cdn.plot.ly/plotly-4.1.1.min"</script>
         </div><div class="output text_html"><div style="height:420px; width:100%;">            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="a509cca3-1a8f-4b6f-92f5-3377d337e659" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("a509cca3-1a8f-4b6f-92f5-3377d337e659")) {                    Plotly.newPlot(                        "a509cca3-1a8f-4b6f-92f5-3377d337e659",                        [{"marker":{"color":"#e74c3c"},"name":"Before Filtering (Raw Source Archive)","text":["6,228.9 KiB","4,521.0 KiB"],"textposition":"auto","x":["Avg per Paper","Avg per Version"],"y":[6228.857588801625,4521.010915947883],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"After Filtering (.tex\u002f.bib whitelist only)","text":["265.7 KiB","192.8 KiB"],"textposition":"auto","x":["Avg per Paper","Avg per Version"],"y":[265.6862023038723,192.7900425810678],"type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"legend":{"yanchor":"top","y":0.99,"xanchor":"right","x":0.99},"title":{"text":"\u003cb\u003eSource Storage Optimization (95.74% Total Reduction)\u003c\u002fb\u003e"},"yaxis":{"title":{"text":"Size in KiB (Uncompressed Member Bytes)"}},"barmode":"group","height":420},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="5111aaa5-c525-4156-8a68-306cdb0f5444" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("5111aaa5-c525-4156-8a68-306cdb0f5444")) {                    Plotly.newPlot(                        "5111aaa5-c525-4156-8a68-306cdb0f5444",                        [{"marker":{"color":"#e74c3c"},"name":"Before Filtering (Uncompressed Source Members)","text":["6,228.9 KiB","4,521.0 KiB"],"textposition":"auto","x":["Avg per Paper","Avg per Version"],"y":[6228.857588801625,4521.010915947883],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"After Filtering (.tex\u002f.bib whitelist only)","text":["265.7 KiB","192.8 KiB"],"textposition":"auto","x":["Avg per Paper","Avg per Version"],"y":[265.6862023038723,192.7900425810678],"type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"legend":{"yanchor":"top","y":0.99,"xanchor":"right","x":0.99},"title":{"text":"\u003cb\u003eSource Storage Optimization (95.74% Total Reduction)\u003c\u002fb\u003e"},"yaxis":{"title":{"text":"Size in KiB (Uncompressed Member Bytes)"}},"barmode":"group","height":420},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('a509cca3-1a8f-4b6f-92f5-3377d337e659');
+var gd = document.getElementById('5111aaa5-c525-4156-8a68-306cdb0f5444');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -860,69 +869,69 @@ if (outputEl) {{
 
                         })                };            </script>        </div></div><h4 class="rubric" id="percentile-distribution-of-source-size-reduction">Percentile Distribution of Source Size Reduction</h4>
 <div class="output text_html"><style type="text/css">
-#T_1952a th {
+#T_f8319 th {
   background-color: #2c3e50;
   color: white;
   font-weight: bold;
 }
-#T_1952a tr:nth-child(even) {
+#T_f8319 tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.05);
 }
-#T_1952a_row0_col0, #T_1952a_row0_col1, #T_1952a_row0_col2, #T_1952a_row0_col3, #T_1952a_row1_col0, #T_1952a_row1_col1, #T_1952a_row1_col2, #T_1952a_row1_col3, #T_1952a_row2_col0, #T_1952a_row2_col1, #T_1952a_row2_col2, #T_1952a_row2_col3, #T_1952a_row3_col0, #T_1952a_row3_col1, #T_1952a_row3_col2, #T_1952a_row3_col3, #T_1952a_row4_col0, #T_1952a_row4_col1, #T_1952a_row4_col2, #T_1952a_row4_col3, #T_1952a_row5_col0, #T_1952a_row5_col1, #T_1952a_row5_col2, #T_1952a_row5_col3, #T_1952a_row6_col0, #T_1952a_row6_col1, #T_1952a_row6_col2, #T_1952a_row6_col3 {
+#T_f8319_row0_col0, #T_f8319_row0_col1, #T_f8319_row0_col2, #T_f8319_row0_col3, #T_f8319_row1_col0, #T_f8319_row1_col1, #T_f8319_row1_col2, #T_f8319_row1_col3, #T_f8319_row2_col0, #T_f8319_row2_col1, #T_f8319_row2_col2, #T_f8319_row2_col3, #T_f8319_row3_col0, #T_f8319_row3_col1, #T_f8319_row3_col2, #T_f8319_row3_col3, #T_f8319_row4_col0, #T_f8319_row4_col1, #T_f8319_row4_col2, #T_f8319_row4_col3, #T_f8319_row5_col0, #T_f8319_row5_col1, #T_f8319_row5_col2, #T_f8319_row5_col3, #T_f8319_row6_col0, #T_f8319_row6_col1, #T_f8319_row6_col2, #T_f8319_row6_col3 {
   text-align: left;
 }
 </style>
-<table id="T_1952a" class="dataframe table tex2jax_process">
+<table id="T_f8319" class="dataframe table tex2jax_process">
   <thead>
     <tr>
-      <th id="T_1952a_level0_col0" class="col_heading level0 col0" >Percentile</th>
-      <th id="T_1952a_level0_col1" class="col_heading level0 col1" >Raw Size (KiB)</th>
-      <th id="T_1952a_level0_col2" class="col_heading level0 col2" >Cleaned Size (KiB)</th>
-      <th id="T_1952a_level0_col3" class="col_heading level0 col3" >Reduction (%)</th>
+      <th id="T_f8319_level0_col0" class="col_heading level0 col0" >Percentile</th>
+      <th id="T_f8319_level0_col1" class="col_heading level0 col1" >Raw Size (KiB)</th>
+      <th id="T_f8319_level0_col2" class="col_heading level0 col2" >Cleaned Size (KiB)</th>
+      <th id="T_f8319_level0_col3" class="col_heading level0 col3" >Reduction (%)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_1952a_row0_col0" class="data row0 col0" >P10 (10th percentile)</td>
-      <td id="T_1952a_row0_col1" class="data row0 col1" >101.2</td>
-      <td id="T_1952a_row0_col2" class="data row0 col2" >44.1</td>
-      <td id="T_1952a_row0_col3" class="data row0 col3" >0.5%</td>
+      <td id="T_f8319_row0_col0" class="data row0 col0" >P10 (10th percentile)</td>
+      <td id="T_f8319_row0_col1" class="data row0 col1" >101.2</td>
+      <td id="T_f8319_row0_col2" class="data row0 col2" >44.1</td>
+      <td id="T_f8319_row0_col3" class="data row0 col3" >0.5%</td>
     </tr>
     <tr>
-      <td id="T_1952a_row1_col0" class="data row1 col0" >P25 (Q1)</td>
-      <td id="T_1952a_row1_col1" class="data row1 col1" >320.0</td>
-      <td id="T_1952a_row1_col2" class="data row1 col2" >68.5</td>
-      <td id="T_1952a_row1_col3" class="data row1 col3" >63.9%</td>
+      <td id="T_f8319_row1_col0" class="data row1 col0" >P25 (Q1)</td>
+      <td id="T_f8319_row1_col1" class="data row1 col1" >320.0</td>
+      <td id="T_f8319_row1_col2" class="data row1 col2" >68.5</td>
+      <td id="T_f8319_row1_col3" class="data row1 col3" >63.9%</td>
     </tr>
     <tr>
-      <td id="T_1952a_row2_col0" class="data row2 col0" >P50 (Median)</td>
-      <td id="T_1952a_row2_col1" class="data row2 col1" >1,400.8</td>
-      <td id="T_1952a_row2_col2" class="data row2 col2" >104.5</td>
-      <td id="T_1952a_row2_col3" class="data row2 col3" >91.8%</td>
+      <td id="T_f8319_row2_col0" class="data row2 col0" >P50 (Median)</td>
+      <td id="T_f8319_row2_col1" class="data row2 col1" >1,400.8</td>
+      <td id="T_f8319_row2_col2" class="data row2 col2" >104.5</td>
+      <td id="T_f8319_row2_col3" class="data row2 col3" >91.8%</td>
     </tr>
     <tr>
-      <td id="T_1952a_row3_col0" class="data row3 col0" >P75 (Q3)</td>
-      <td id="T_1952a_row3_col1" class="data row3 col1" >4,851.0</td>
-      <td id="T_1952a_row3_col2" class="data row3 col2" >157.7</td>
-      <td id="T_1952a_row3_col3" class="data row3 col3" >97.7%</td>
+      <td id="T_f8319_row3_col0" class="data row3 col0" >P75 (Q3)</td>
+      <td id="T_f8319_row3_col1" class="data row3 col1" >4,851.0</td>
+      <td id="T_f8319_row3_col2" class="data row3 col2" >157.7</td>
+      <td id="T_f8319_row3_col3" class="data row3 col3" >97.7%</td>
     </tr>
     <tr>
-      <td id="T_1952a_row4_col0" class="data row4 col0" >P90 (90th percentile)</td>
-      <td id="T_1952a_row4_col1" class="data row4 col1" >12,844.4</td>
-      <td id="T_1952a_row4_col2" class="data row4 col2" >245.1</td>
-      <td id="T_1952a_row4_col3" class="data row4 col3" >99.1%</td>
+      <td id="T_f8319_row4_col0" class="data row4 col0" >P90 (90th percentile)</td>
+      <td id="T_f8319_row4_col1" class="data row4 col1" >12,844.4</td>
+      <td id="T_f8319_row4_col2" class="data row4 col2" >245.1</td>
+      <td id="T_f8319_row4_col3" class="data row4 col3" >99.1%</td>
     </tr>
     <tr>
-      <td id="T_1952a_row5_col0" class="data row5 col0" >P99 (99th percentile)</td>
-      <td id="T_1952a_row5_col1" class="data row5 col1" >41,425.1</td>
-      <td id="T_1952a_row5_col2" class="data row5 col2" >969.7</td>
-      <td id="T_1952a_row5_col3" class="data row5 col3" >99.7%</td>
+      <td id="T_f8319_row5_col0" class="data row5 col0" >P99 (99th percentile)</td>
+      <td id="T_f8319_row5_col1" class="data row5 col1" >41,425.1</td>
+      <td id="T_f8319_row5_col2" class="data row5 col2" >969.7</td>
+      <td id="T_f8319_row5_col3" class="data row5 col3" >99.7%</td>
     </tr>
     <tr>
-      <td id="T_1952a_row6_col0" class="data row6 col0" >Mean (Arithmetic Avg)</td>
-      <td id="T_1952a_row6_col1" class="data row6 col1" >4,613.6</td>
-      <td id="T_1952a_row6_col2" class="data row6 col2" >201.9</td>
-      <td id="T_1952a_row6_col3" class="data row6 col3" >73.5%</td>
+      <td id="T_f8319_row6_col0" class="data row6 col0" >Mean (Arithmetic Avg)</td>
+      <td id="T_f8319_row6_col1" class="data row6 col1" >4,613.6</td>
+      <td id="T_f8319_row6_col2" class="data row6 col2" >201.9</td>
+      <td id="T_f8319_row6_col3" class="data row6 col3" >73.5%</td>
     </tr>
   </tbody>
 </table>
@@ -962,7 +971,7 @@ if (outputEl) {{
     
     <span class="n">status_labels</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">'success'</span><span class="p">:</span> <span class="s1">'LaTeX Source Extracted (.tex)'</span><span class="p">,</span>
-        <span class="s1">'no_tex'</span><span class="p">:</span> <span class="s1">'Valid Announcement (PDF / No TeX)'</span><span class="p">,</span>
+        <span class="s1">'no_tex'</span><span class="p">:</span> <span class="s1">'No usable TeX in validated payload'</span><span class="p">,</span>
         <span class="s1">'failed'</span><span class="p">:</span> <span class="s1">'Upstream Failure / Network Timeout'</span><span class="p">,</span>
         <span class="s1">'pending'</span><span class="p">:</span> <span class="s1">'Pending Queue'</span>
     <span class="p">}</span>
@@ -1017,9 +1026,9 @@ if (outputEl) {{
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><div style="height:400px; width:100%;">            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="b600dc48-cb9f-46af-ab7c-2ea014c0d7fd" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("b600dc48-cb9f-46af-ab7c-2ea014c0d7fd")) {                    Plotly.newPlot(                        "b600dc48-cb9f-46af-ab7c-2ea014c0d7fd",                        [{"hovertemplate":"Total Versions per Paper=%{x}\u003cbr\u003eNumber of Papers=%{y}\u003cbr\u003etext=%{text}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#3498db","pattern":{"shape":""}},"name":"","orientation":"v","showlegend":false,"text":{"dtype":"f8","bdata":"AAAAAIDZy0AAAAAAABKxQAAAAAAAQJBAAAAAAAAAbEAAAAAAAMBaQA=="},"textposition":"outside","x":["v1","v2","v3","v4","v5+"],"xaxis":"x","y":{"dtype":"i2","bdata":"szcSERAE4ABrAA=="},"yaxis":"y","type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Total Versions per Paper"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Number of Papers"}},"legend":{"tracegroupgap":0},"title":{"text":"\u003cb\u003eDistribution of Version Multiplicity per Paper (N = 20,000)\u003c\u002fb\u003e"},"barmode":"relative","height":400},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="53356e30-d265-4907-a4f7-f7ff081abc8f" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("53356e30-d265-4907-a4f7-f7ff081abc8f")) {                    Plotly.newPlot(                        "53356e30-d265-4907-a4f7-f7ff081abc8f",                        [{"hovertemplate":"Total Versions per Paper=%{x}\u003cbr\u003eNumber of Papers=%{y}\u003cbr\u003etext=%{text}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#3498db","pattern":{"shape":""}},"name":"","orientation":"v","showlegend":false,"text":{"dtype":"f8","bdata":"AAAAAIDZy0AAAAAAABKxQAAAAAAAQJBAAAAAAAAAbEAAAAAAAMBaQA=="},"textposition":"outside","x":["v1","v2","v3","v4","v5+"],"xaxis":"x","y":{"dtype":"i2","bdata":"szcSERAE4ABrAA=="},"yaxis":"y","type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Total Versions per Paper"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Number of Papers"}},"legend":{"tracegroupgap":0},"title":{"text":"\u003cb\u003eDistribution of Version Multiplicity per Paper (N = 20,000)\u003c\u002fb\u003e"},"barmode":"relative","height":400},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('b600dc48-cb9f-46af-ab7c-2ea014c0d7fd');
+var gd = document.getElementById('53356e30-d265-4907-a4f7-f7ff081abc8f');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1042,9 +1051,9 @@ if (outputEl) {{
 }}
 
                         })                };            </script>        </div></div><div class="output text_html"><div style="height:420px; width:100%;">            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="c9813f1a-ef2a-49a2-8d30-7e45286fdd0c" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("c9813f1a-ef2a-49a2-8d30-7e45286fdd0c")) {                    Plotly.newPlot(                        "c9813f1a-ef2a-49a2-8d30-7e45286fdd0c",                        [{"hole":0.45,"labels":["LaTeX Source Extracted (.tex)","Valid Announcement (PDF \u002f No TeX)","Upstream Failure \u002f Network Timeout"],"marker":{"colors":["#2ecc71","#f39c12","#e74c3c","#95a5a6"]},"values":{"dtype":"i2","bdata":"embbBIMA"},"type":"pie"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"title":{"text":"\u003cb\u003eVersion Ingestion Status Breakdown (Total = 27,608 Versions)\u003c\u002fb\u003e"},"height":420},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="40adae4f-b849-4138-8f4a-b67b7fe8211f" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("40adae4f-b849-4138-8f4a-b67b7fe8211f")) {                    Plotly.newPlot(                        "40adae4f-b849-4138-8f4a-b67b7fe8211f",                        [{"hole":0.45,"labels":["LaTeX Source Extracted (.tex)","No usable TeX in validated payload","Upstream Failure \u002f Network Timeout"],"marker":{"colors":["#2ecc71","#f39c12","#e74c3c","#95a5a6"]},"values":{"dtype":"i2","bdata":"embbBIMA"},"type":"pie"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"title":{"text":"\u003cb\u003eVersion Ingestion Status Breakdown (Total = 27,608 Versions)\u003c\u002fb\u003e"},"height":420},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('c9813f1a-ef2a-49a2-8d30-7e45286fdd0c');
+var gd = document.getElementById('40adae4f-b849-4138-8f4a-b67b7fe8211f');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1068,130 +1077,130 @@ if (outputEl) {{
 
                         })                };            </script>        </div></div><h3 class="rubric" id="failed-versions-audit-breakdown-131-versions">Failed Versions Audit Breakdown (131 Versions)</h3>
 <div class="output text_html"><style type="text/css">
-#T_24160 th {
+#T_751a2 th {
   background-color: #c0392b;
   color: white;
   font-weight: bold;
 }
-#T_24160 tr:nth-child(even) {
+#T_751a2 tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.05);
 }
-#T_24160_row0_col0, #T_24160_row0_col1, #T_24160_row0_col2, #T_24160_row1_col0, #T_24160_row1_col1, #T_24160_row1_col2, #T_24160_row2_col0, #T_24160_row2_col1, #T_24160_row2_col2, #T_24160_row3_col0, #T_24160_row3_col1, #T_24160_row3_col2, #T_24160_row4_col0, #T_24160_row4_col1, #T_24160_row4_col2, #T_24160_row5_col0, #T_24160_row5_col1, #T_24160_row5_col2 {
+#T_751a2_row0_col0, #T_751a2_row0_col1, #T_751a2_row0_col2, #T_751a2_row1_col0, #T_751a2_row1_col1, #T_751a2_row1_col2, #T_751a2_row2_col0, #T_751a2_row2_col1, #T_751a2_row2_col2, #T_751a2_row3_col0, #T_751a2_row3_col1, #T_751a2_row3_col2, #T_751a2_row4_col0, #T_751a2_row4_col1, #T_751a2_row4_col2, #T_751a2_row5_col0, #T_751a2_row5_col1, #T_751a2_row5_col2 {
   text-align: left;
 }
 </style>
-<table id="T_24160" class="dataframe table tex2jax_process">
+<table id="T_751a2" class="dataframe table tex2jax_process">
   <thead>
     <tr>
-      <th id="T_24160_level0_col0" class="col_heading level0 col0" >Observed Error Category & Hypothesis</th>
-      <th id="T_24160_level0_col1" class="col_heading level0 col1" >Impacted Versions</th>
-      <th id="T_24160_level0_col2" class="col_heading level0 col2" >Impact (%)</th>
+      <th id="T_751a2_level0_col0" class="col_heading level0 col0" >Observed Error Category & Hypothesis</th>
+      <th id="T_751a2_level0_col1" class="col_heading level0 col1" >Impacted Versions</th>
+      <th id="T_751a2_level0_col2" class="col_heading level0 col2" >Impact (%)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_24160_row0_col0" class="data row0 col0" >Upstream HTTP 404 (Endpoint returned 404; possibly unhosted or withdrawn package)</td>
-      <td id="T_24160_row0_col1" class="data row0 col1" >78</td>
-      <td id="T_24160_row0_col2" class="data row0 col2" >0.283%</td>
+      <td id="T_751a2_row0_col0" class="data row0 col0" >Upstream HTTP 404 (Endpoint returned 404; possibly unhosted or withdrawn package)</td>
+      <td id="T_751a2_row0_col1" class="data row0 col1" >78</td>
+      <td id="T_751a2_row0_col2" class="data row0 col2" >0.283%</td>
     </tr>
     <tr>
-      <td id="T_24160_row1_col0" class="data row1 col0" >Case Collision Guard (Windows case-insensitive filesystem collision)</td>
-      <td id="T_24160_row1_col1" class="data row1 col1" >30</td>
-      <td id="T_24160_row1_col2" class="data row1 col2" >0.109%</td>
+      <td id="T_751a2_row1_col0" class="data row1 col0" >Case Collision Guard (Windows case-insensitive filesystem collision)</td>
+      <td id="T_751a2_row1_col1" class="data row1 col1" >30</td>
+      <td id="T_751a2_row1_col2" class="data row1 col2" >0.109%</td>
     </tr>
     <tr>
-      <td id="T_24160_row2_col0" class="data row2 col0" >Archive Path Traversal Guard (Security block on directory escape member)</td>
-      <td id="T_24160_row2_col1" class="data row2 col1" >16</td>
-      <td id="T_24160_row2_col2" class="data row2 col2" >0.058%</td>
+      <td id="T_751a2_row2_col0" class="data row2 col0" >Archive Path Traversal Guard (Security block on directory escape member)</td>
+      <td id="T_751a2_row2_col1" class="data row2 col1" >16</td>
+      <td id="T_751a2_row2_col2" class="data row2 col2" >0.058%</td>
     </tr>
     <tr>
-      <td id="T_24160_row3_col0" class="data row3 col0" >Source transport stream failed.</td>
-      <td id="T_24160_row3_col1" class="data row3 col1" >3</td>
-      <td id="T_24160_row3_col2" class="data row3 col2" >0.011%</td>
+      <td id="T_751a2_row3_col0" class="data row3 col0" >Source transport stream failed.</td>
+      <td id="T_751a2_row3_col1" class="data row3 col1" >3</td>
+      <td id="T_751a2_row3_col2" class="data row3 col2" >0.011%</td>
     </tr>
     <tr>
-      <td id="T_24160_row4_col0" class="data row4 col0" >Unrecognized or damaged source; absence of TeX is not verifi</td>
-      <td id="T_24160_row4_col1" class="data row4 col1" >2</td>
-      <td id="T_24160_row4_col2" class="data row4 col2" >0.007%</td>
+      <td id="T_751a2_row4_col0" class="data row4 col0" >Unrecognized or damaged source; absence of TeX is not verifi</td>
+      <td id="T_751a2_row4_col1" class="data row4 col1" >2</td>
+      <td id="T_751a2_row4_col2" class="data row4 col2" >0.007%</td>
     </tr>
     <tr>
-      <td id="T_24160_row5_col0" class="data row5 col0" >Tar member exceeds the configured byte limit.</td>
-      <td id="T_24160_row5_col1" class="data row5 col1" >2</td>
-      <td id="T_24160_row5_col2" class="data row5 col2" >0.007%</td>
+      <td id="T_751a2_row5_col0" class="data row5 col0" >Tar member exceeds the configured byte limit.</td>
+      <td id="T_751a2_row5_col1" class="data row5 col1" >2</td>
+      <td id="T_751a2_row5_col2" class="data row5 col2" >0.007%</td>
     </tr>
   </tbody>
 </table>
 </div><h4 class="rubric" id="sample-of-failed-ingestion-versions-transparent-audit">Sample of Failed Ingestion Versions (Transparent Audit)</h4>
 <div class="output text_html"><style type="text/css">
-#T_43ca2 th {
+#T_586a4 th {
   background-color: #c0392b;
   color: white;
   font-weight: bold;
 }
-#T_43ca2 tr:nth-child(even) {
+#T_586a4 tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.05);
 }
-#T_43ca2_row0_col0, #T_43ca2_row0_col1, #T_43ca2_row0_col2, #T_43ca2_row0_col3, #T_43ca2_row1_col0, #T_43ca2_row1_col1, #T_43ca2_row1_col2, #T_43ca2_row1_col3, #T_43ca2_row2_col0, #T_43ca2_row2_col1, #T_43ca2_row2_col2, #T_43ca2_row2_col3, #T_43ca2_row3_col0, #T_43ca2_row3_col1, #T_43ca2_row3_col2, #T_43ca2_row3_col3, #T_43ca2_row4_col0, #T_43ca2_row4_col1, #T_43ca2_row4_col2, #T_43ca2_row4_col3, #T_43ca2_row5_col0, #T_43ca2_row5_col1, #T_43ca2_row5_col2, #T_43ca2_row5_col3, #T_43ca2_row6_col0, #T_43ca2_row6_col1, #T_43ca2_row6_col2, #T_43ca2_row6_col3, #T_43ca2_row7_col0, #T_43ca2_row7_col1, #T_43ca2_row7_col2, #T_43ca2_row7_col3 {
+#T_586a4_row0_col0, #T_586a4_row0_col1, #T_586a4_row0_col2, #T_586a4_row0_col3, #T_586a4_row1_col0, #T_586a4_row1_col1, #T_586a4_row1_col2, #T_586a4_row1_col3, #T_586a4_row2_col0, #T_586a4_row2_col1, #T_586a4_row2_col2, #T_586a4_row2_col3, #T_586a4_row3_col0, #T_586a4_row3_col1, #T_586a4_row3_col2, #T_586a4_row3_col3, #T_586a4_row4_col0, #T_586a4_row4_col1, #T_586a4_row4_col2, #T_586a4_row4_col3, #T_586a4_row5_col0, #T_586a4_row5_col1, #T_586a4_row5_col2, #T_586a4_row5_col3, #T_586a4_row6_col0, #T_586a4_row6_col1, #T_586a4_row6_col2, #T_586a4_row6_col3, #T_586a4_row7_col0, #T_586a4_row7_col1, #T_586a4_row7_col2, #T_586a4_row7_col3 {
   text-align: left;
 }
 </style>
-<table id="T_43ca2" class="dataframe table tex2jax_process">
+<table id="T_586a4" class="dataframe table tex2jax_process">
   <thead>
     <tr>
-      <th id="T_43ca2_level0_col0" class="col_heading level0 col0" >arxiv_id</th>
-      <th id="T_43ca2_level0_col1" class="col_heading level0 col1" >version</th>
-      <th id="T_43ca2_level0_col2" class="col_heading level0 col2" >member</th>
-      <th id="T_43ca2_level0_col3" class="col_heading level0 col3" >error</th>
+      <th id="T_586a4_level0_col0" class="col_heading level0 col0" >arxiv_id</th>
+      <th id="T_586a4_level0_col1" class="col_heading level0 col1" >version</th>
+      <th id="T_586a4_level0_col2" class="col_heading level0 col2" >member</th>
+      <th id="T_586a4_level0_col3" class="col_heading level0 col3" >error</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_43ca2_row0_col0" class="data row0 col0" >2606.16511</td>
-      <td id="T_43ca2_row0_col1" class="data row0 col1" >3</td>
-      <td id="T_43ca2_row0_col2" class="data row0 col2" >Danh</td>
-      <td id="T_43ca2_row0_col3" class="data row0 col3" >Source HTTP 404.</td>
+      <td id="T_586a4_row0_col0" class="data row0 col0" >2606.16511</td>
+      <td id="T_586a4_row0_col1" class="data row0 col1" >3</td>
+      <td id="T_586a4_row0_col2" class="data row0 col2" >Danh</td>
+      <td id="T_586a4_row0_col3" class="data row0 col3" >Source HTTP 404.</td>
     </tr>
     <tr>
-      <td id="T_43ca2_row1_col0" class="data row1 col0" >2606.16656</td>
-      <td id="T_43ca2_row1_col1" class="data row1 col1" >1</td>
-      <td id="T_43ca2_row1_col2" class="data row1 col2" >Danh</td>
-      <td id="T_43ca2_row1_col3" class="data row1 col3" >Unsafe archive path.</td>
+      <td id="T_586a4_row1_col0" class="data row1 col0" >2606.16656</td>
+      <td id="T_586a4_row1_col1" class="data row1 col1" >1</td>
+      <td id="T_586a4_row1_col2" class="data row1 col2" >Danh</td>
+      <td id="T_586a4_row1_col3" class="data row1 col3" >Unsafe archive path.</td>
     </tr>
     <tr>
-      <td id="T_43ca2_row2_col0" class="data row2 col0" >2606.16665</td>
-      <td id="T_43ca2_row2_col1" class="data row2 col1" >3</td>
-      <td id="T_43ca2_row2_col2" class="data row2 col2" >Danh</td>
-      <td id="T_43ca2_row2_col3" class="data row2 col3" >Source HTTP 404.</td>
+      <td id="T_586a4_row2_col0" class="data row2 col0" >2606.16665</td>
+      <td id="T_586a4_row2_col1" class="data row2 col1" >3</td>
+      <td id="T_586a4_row2_col2" class="data row2 col2" >Danh</td>
+      <td id="T_586a4_row2_col3" class="data row2 col3" >Source HTTP 404.</td>
     </tr>
     <tr>
-      <td id="T_43ca2_row3_col0" class="data row3 col0" >2606.16674</td>
-      <td id="T_43ca2_row3_col1" class="data row3 col1" >3</td>
-      <td id="T_43ca2_row3_col2" class="data row3 col2" >Danh</td>
-      <td id="T_43ca2_row3_col3" class="data row3 col3" >Source HTTP 404.</td>
+      <td id="T_586a4_row3_col0" class="data row3 col0" >2606.16674</td>
+      <td id="T_586a4_row3_col1" class="data row3 col1" >3</td>
+      <td id="T_586a4_row3_col2" class="data row3 col2" >Danh</td>
+      <td id="T_586a4_row3_col3" class="data row3 col3" >Source HTTP 404.</td>
     </tr>
     <tr>
-      <td id="T_43ca2_row4_col0" class="data row4 col0" >2606.16767</td>
-      <td id="T_43ca2_row4_col1" class="data row4 col1" >1</td>
-      <td id="T_43ca2_row4_col2" class="data row4 col2" >Danh</td>
-      <td id="T_43ca2_row4_col3" class="data row4 col3" >Case-colliding archive paths.</td>
+      <td id="T_586a4_row4_col0" class="data row4 col0" >2606.16767</td>
+      <td id="T_586a4_row4_col1" class="data row4 col1" >1</td>
+      <td id="T_586a4_row4_col2" class="data row4 col2" >Danh</td>
+      <td id="T_586a4_row4_col3" class="data row4 col3" >Case-colliding archive paths.</td>
     </tr>
     <tr>
-      <td id="T_43ca2_row5_col0" class="data row5 col0" >2606.17028</td>
-      <td id="T_43ca2_row5_col1" class="data row5 col1" >2</td>
-      <td id="T_43ca2_row5_col2" class="data row5 col2" >Danh</td>
-      <td id="T_43ca2_row5_col3" class="data row5 col3" >Source HTTP 404.</td>
+      <td id="T_586a4_row5_col0" class="data row5 col0" >2606.17028</td>
+      <td id="T_586a4_row5_col1" class="data row5 col1" >2</td>
+      <td id="T_586a4_row5_col2" class="data row5 col2" >Danh</td>
+      <td id="T_586a4_row5_col3" class="data row5 col3" >Source HTTP 404.</td>
     </tr>
     <tr>
-      <td id="T_43ca2_row6_col0" class="data row6 col0" >2606.15862</td>
-      <td id="T_43ca2_row6_col1" class="data row6 col1" >2</td>
-      <td id="T_43ca2_row6_col2" class="data row6 col2" >Danh</td>
-      <td id="T_43ca2_row6_col3" class="data row6 col3" >Source HTTP 404.</td>
+      <td id="T_586a4_row6_col0" class="data row6 col0" >2606.15862</td>
+      <td id="T_586a4_row6_col1" class="data row6 col1" >2</td>
+      <td id="T_586a4_row6_col2" class="data row6 col2" >Danh</td>
+      <td id="T_586a4_row6_col3" class="data row6 col3" >Source HTTP 404.</td>
     </tr>
     <tr>
-      <td id="T_43ca2_row7_col0" class="data row7 col0" >2606.15862</td>
-      <td id="T_43ca2_row7_col1" class="data row7 col1" >3</td>
-      <td id="T_43ca2_row7_col2" class="data row7 col2" >Danh</td>
-      <td id="T_43ca2_row7_col3" class="data row7 col3" >Source HTTP 404.</td>
+      <td id="T_586a4_row7_col0" class="data row7 col0" >2606.15862</td>
+      <td id="T_586a4_row7_col1" class="data row7 col1" >3</td>
+      <td id="T_586a4_row7_col2" class="data row7 col2" >Danh</td>
+      <td id="T_586a4_row7_col3" class="data row7 col3" >Source HTTP 404.</td>
     </tr>
   </tbody>
 </table>
@@ -1251,9 +1260,9 @@ if (outputEl) {{
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><div style="height:440px; width:100%;">            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="7bed93b8-5d80-4c51-bcbf-376874161a3d" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("7bed93b8-5d80-4c51-bcbf-376874161a3d")) {                    Plotly.newPlot(                        "7bed93b8-5d80-4c51-bcbf-376874161a3d",                        [{"hole":0.45,"labels":["arXiv-Keyed References (Entity Resolution Pool)","Non-arXiv References (Local Citation Store)"],"marker":{"colors":["#2980b9","#95a5a6"]},"textinfo":"label+percent+value","values":[366416,367741],"type":"pie"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"title":{"text":"\u003cb\u003eCitation Pool Breakdown: 734,157 Total Extracted References\u003c\u002fb\u003e"},"height":440},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="a639bac8-4f1d-4709-97d1-a0aff797c7f2" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("a639bac8-4f1d-4709-97d1-a0aff797c7f2")) {                    Plotly.newPlot(                        "a639bac8-4f1d-4709-97d1-a0aff797c7f2",                        [{"hole":0.45,"labels":["arXiv-Keyed References (Entity Resolution Pool)","Non-arXiv References (Local Citation Store)"],"marker":{"colors":["#2980b9","#95a5a6"]},"textinfo":"label+percent+value","values":[366416,367741],"type":"pie"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"title":{"text":"\u003cb\u003eCitation Pool Breakdown: 734,157 Total Extracted References\u003c\u002fb\u003e"},"height":440},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('7bed93b8-5d80-4c51-bcbf-376874161a3d');
+var gd = document.getElementById('a639bac8-4f1d-4709-97d1-a0aff797c7f2');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1276,9 +1285,9 @@ if (outputEl) {{
 }}
 
                         })                };            </script>        </div></div><div class="output text_html"><div style="height:400px; width:100%;">            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="4b86f265-0e56-49a1-9e7d-574bec5b9ede" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("4b86f265-0e56-49a1-9e7d-574bec5b9ede")) {                    Plotly.newPlot(                        "4b86f265-0e56-49a1-9e7d-574bec5b9ede",                        [{"hovertemplate":"Citation Range=%{x}\u003cbr\u003eNumber of Papers=%{y}\u003cbr\u003etext=%{text}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#16a085","pattern":{"shape":""}},"name":"","orientation":"v","showlegend":false,"text":{"dtype":"f8","bdata":"AAAAAABMlEAAAAAAAAidQAAAAAAAprBAAAAAAAA2vkAAAAAAAAKxQAAAAAAAwH5A"},"textposition":"outside","x":["0 refs","1\u201310 refs","11\u201325 refs","26\u201350 refs","51\u2013100 refs","\u003e100 refs"],"xaxis":"x","y":{"dtype":"i2","bdata":"EwVCB6YQNh4CEewB"},"yaxis":"y","type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Citation Range"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Number of Papers"}},"legend":{"tracegroupgap":0},"title":{"text":"\u003cb\u003eReference Count Distribution across Papers (N = 20,000)\u003c\u002fb\u003e"},"barmode":"relative","height":400},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-4.1.1.min.js" integrity="sha256-O24V1F27f8pb0glCkelh3cVHLNiHAJ5gCaVtq2aNch8=" crossorigin="anonymous"></script>                <div id="a8bb1a80-d08b-4103-8301-4b588e622e8d" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("a8bb1a80-d08b-4103-8301-4b588e622e8d")) {                    Plotly.newPlot(                        "a8bb1a80-d08b-4103-8301-4b588e622e8d",                        [{"hovertemplate":"Citation Range=%{x}\u003cbr\u003eNumber of Papers=%{y}\u003cbr\u003etext=%{text}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#16a085","pattern":{"shape":""}},"name":"","orientation":"v","showlegend":false,"text":{"dtype":"f8","bdata":"AAAAAABMlEAAAAAAAAidQAAAAAAAprBAAAAAAAA2vkAAAAAAAAKxQAAAAAAAwH5A"},"textposition":"outside","x":["0 refs","1\u201310 refs","11\u201325 refs","26\u201350 refs","51\u2013100 refs","\u003e100 refs"],"xaxis":"x","y":{"dtype":"i2","bdata":"EwVCB6YQNh4CEewB"},"yaxis":"y","type":"bar"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Citation Range"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Number of Papers"}},"legend":{"tracegroupgap":0},"title":{"text":"\u003cb\u003eReference Count Distribution across Papers (N = 20,000)\u003c\u002fb\u003e"},"barmode":"relative","height":400},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('4b86f265-0e56-49a1-9e7d-574bec5b9ede');
+var gd = document.getElementById('a8bb1a80-d08b-4103-8301-4b588e622e8d');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1331,112 +1340,112 @@ if (outputEl) {{
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_af3fe th {
+#T_83a74 th {
   background-color: #34495e;
   color: white;
   font-weight: bold;
 }
-#T_af3fe tr:nth-child(even) {
+#T_83a74 tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.05);
 }
-#T_af3fe_row0_col0, #T_af3fe_row0_col1, #T_af3fe_row0_col2, #T_af3fe_row0_col3, #T_af3fe_row0_col4, #T_af3fe_row1_col0, #T_af3fe_row1_col1, #T_af3fe_row1_col2, #T_af3fe_row1_col3, #T_af3fe_row1_col4, #T_af3fe_row2_col0, #T_af3fe_row2_col1, #T_af3fe_row2_col2, #T_af3fe_row2_col3, #T_af3fe_row2_col4, #T_af3fe_row3_col0, #T_af3fe_row3_col1, #T_af3fe_row3_col2, #T_af3fe_row3_col3, #T_af3fe_row3_col4, #T_af3fe_row4_col0, #T_af3fe_row4_col1, #T_af3fe_row4_col2, #T_af3fe_row4_col3, #T_af3fe_row4_col4, #T_af3fe_row5_col0, #T_af3fe_row5_col1, #T_af3fe_row5_col2, #T_af3fe_row5_col3, #T_af3fe_row5_col4, #T_af3fe_row6_col0, #T_af3fe_row6_col1, #T_af3fe_row6_col2, #T_af3fe_row6_col3, #T_af3fe_row6_col4, #T_af3fe_row7_col0, #T_af3fe_row7_col1, #T_af3fe_row7_col2, #T_af3fe_row7_col3, #T_af3fe_row7_col4, #T_af3fe_row8_col0, #T_af3fe_row8_col1, #T_af3fe_row8_col2, #T_af3fe_row8_col3, #T_af3fe_row8_col4, #T_af3fe_row9_col0, #T_af3fe_row9_col1, #T_af3fe_row9_col2, #T_af3fe_row9_col3, #T_af3fe_row9_col4, #T_af3fe_row10_col0, #T_af3fe_row10_col1, #T_af3fe_row10_col2, #T_af3fe_row10_col3, #T_af3fe_row10_col4, #T_af3fe_row11_col0, #T_af3fe_row11_col1, #T_af3fe_row11_col2, #T_af3fe_row11_col3, #T_af3fe_row11_col4 {
+#T_83a74_row0_col0, #T_83a74_row0_col1, #T_83a74_row0_col2, #T_83a74_row0_col3, #T_83a74_row0_col4, #T_83a74_row1_col0, #T_83a74_row1_col1, #T_83a74_row1_col2, #T_83a74_row1_col3, #T_83a74_row1_col4, #T_83a74_row2_col0, #T_83a74_row2_col1, #T_83a74_row2_col2, #T_83a74_row2_col3, #T_83a74_row2_col4, #T_83a74_row3_col0, #T_83a74_row3_col1, #T_83a74_row3_col2, #T_83a74_row3_col3, #T_83a74_row3_col4, #T_83a74_row4_col0, #T_83a74_row4_col1, #T_83a74_row4_col2, #T_83a74_row4_col3, #T_83a74_row4_col4, #T_83a74_row5_col0, #T_83a74_row5_col1, #T_83a74_row5_col2, #T_83a74_row5_col3, #T_83a74_row5_col4, #T_83a74_row6_col0, #T_83a74_row6_col1, #T_83a74_row6_col2, #T_83a74_row6_col3, #T_83a74_row6_col4, #T_83a74_row7_col0, #T_83a74_row7_col1, #T_83a74_row7_col2, #T_83a74_row7_col3, #T_83a74_row7_col4, #T_83a74_row8_col0, #T_83a74_row8_col1, #T_83a74_row8_col2, #T_83a74_row8_col3, #T_83a74_row8_col4, #T_83a74_row9_col0, #T_83a74_row9_col1, #T_83a74_row9_col2, #T_83a74_row9_col3, #T_83a74_row9_col4, #T_83a74_row10_col0, #T_83a74_row10_col1, #T_83a74_row10_col2, #T_83a74_row10_col3, #T_83a74_row10_col4, #T_83a74_row11_col0, #T_83a74_row11_col1, #T_83a74_row11_col2, #T_83a74_row11_col3, #T_83a74_row11_col4 {
   text-align: left;
 }
 </style>
-<table id="T_af3fe" class="dataframe table tex2jax_process">
+<table id="T_83a74" class="dataframe table tex2jax_process">
   <thead>
     <tr>
-      <th id="T_af3fe_level0_col0" class="col_heading level0 col0" >member</th>
-      <th id="T_af3fe_level0_col1" class="col_heading level0 col1" >account</th>
-      <th id="T_af3fe_level0_col2" class="col_heading level0 col2" >arxiv_id</th>
-      <th id="T_af3fe_level0_col3" class="col_heading level0 col3" >title</th>
-      <th id="T_af3fe_level0_col4" class="col_heading level0 col4" >submission_date</th>
+      <th id="T_83a74_level0_col0" class="col_heading level0 col0" >member</th>
+      <th id="T_83a74_level0_col1" class="col_heading level0 col1" >account</th>
+      <th id="T_83a74_level0_col2" class="col_heading level0 col2" >arxiv_id</th>
+      <th id="T_83a74_level0_col3" class="col_heading level0 col3" >title</th>
+      <th id="T_83a74_level0_col4" class="col_heading level0 col4" >submission_date</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_af3fe_row0_col0" class="data row0 col0" >Danh</td>
-      <td id="T_af3fe_row0_col1" class="data row0 col1" >acc1</td>
-      <td id="T_af3fe_row0_col2" class="data row0 col2" >2606.15827</td>
-      <td id="T_af3fe_row0_col3" class="data row0 col3" >Rigidity Estimate for Hyperbolic Shells and its Application in $\Gamma$-limit Theory</td>
-      <td id="T_af3fe_row0_col4" class="data row0 col4" >2026-06-14</td>
+      <td id="T_83a74_row0_col0" class="data row0 col0" >Danh</td>
+      <td id="T_83a74_row0_col1" class="data row0 col1" >acc1</td>
+      <td id="T_83a74_row0_col2" class="data row0 col2" >2606.15827</td>
+      <td id="T_83a74_row0_col3" class="data row0 col3" >Rigidity Estimate for Hyperbolic Shells and its Application in $\Gamma$-limit Theory</td>
+      <td id="T_83a74_row0_col4" class="data row0 col4" >2026-06-14</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row1_col0" class="data row1 col0" >Danh</td>
-      <td id="T_af3fe_row1_col1" class="data row1 col1" >acc1</td>
-      <td id="T_af3fe_row1_col2" class="data row1 col2" >2606.15803</td>
-      <td id="T_af3fe_row1_col3" class="data row1 col3" >Quantum vortex in a fluid flow: negative effective mass and a novel mechanism for turbulence formation</td>
-      <td id="T_af3fe_row1_col4" class="data row1 col4" >2026-06-14</td>
+      <td id="T_83a74_row1_col0" class="data row1 col0" >Danh</td>
+      <td id="T_83a74_row1_col1" class="data row1 col1" >acc1</td>
+      <td id="T_83a74_row1_col2" class="data row1 col2" >2606.15803</td>
+      <td id="T_83a74_row1_col3" class="data row1 col3" >Quantum vortex in a fluid flow: negative effective mass and a novel mechanism for turbulence formation</td>
+      <td id="T_83a74_row1_col4" class="data row1 col4" >2026-06-14</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row2_col0" class="data row2 col0" >Danh</td>
-      <td id="T_af3fe_row2_col1" class="data row2 col1" >acc1</td>
-      <td id="T_af3fe_row2_col2" class="data row2 col2" >2606.15832</td>
-      <td id="T_af3fe_row2_col3" class="data row2 col3" >SILAGE: Memory-Efficient, Full-Gradient-Free Nonconvex Optimization for Nested Finite Sums</td>
-      <td id="T_af3fe_row2_col4" class="data row2 col4" >2026-06-14</td>
+      <td id="T_83a74_row2_col0" class="data row2 col0" >Danh</td>
+      <td id="T_83a74_row2_col1" class="data row2 col1" >acc1</td>
+      <td id="T_83a74_row2_col2" class="data row2 col2" >2606.15832</td>
+      <td id="T_83a74_row2_col3" class="data row2 col3" >SILAGE: Memory-Efficient, Full-Gradient-Free Nonconvex Optimization for Nested Finite Sums</td>
+      <td id="T_83a74_row2_col4" class="data row2 col4" >2026-06-14</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row3_col0" class="data row3 col0" >Khang</td>
-      <td id="T_af3fe_row3_col1" class="data row3 col1" >acc1</td>
-      <td id="T_af3fe_row3_col2" class="data row3 col2" >2609.05110</td>
-      <td id="T_af3fe_row3_col3" class="data row3 col3" >Embedding Surgery: Localized Updates for Adaptive Ranking Correction in Dense Retrieval</td>
-      <td id="T_af3fe_row3_col4" class="data row3 col4" >2026-09-04</td>
+      <td id="T_83a74_row3_col0" class="data row3 col0" >Khang</td>
+      <td id="T_83a74_row3_col1" class="data row3 col1" >acc1</td>
+      <td id="T_83a74_row3_col2" class="data row3 col2" >2609.05110</td>
+      <td id="T_83a74_row3_col3" class="data row3 col3" >Embedding Surgery: Localized Updates for Adaptive Ranking Correction in Dense Retrieval</td>
+      <td id="T_83a74_row3_col4" class="data row3 col4" >2026-09-04</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row4_col0" class="data row4 col0" >Khang</td>
-      <td id="T_af3fe_row4_col1" class="data row4 col1" >acc1</td>
-      <td id="T_af3fe_row4_col2" class="data row4 col2" >2609.05115</td>
-      <td id="T_af3fe_row4_col3" class="data row4 col3" >Creators Have Difficulty Abandoning Ideas They Generated</td>
-      <td id="T_af3fe_row4_col4" class="data row4 col4" >2026-09-04</td>
+      <td id="T_83a74_row4_col0" class="data row4 col0" >Khang</td>
+      <td id="T_83a74_row4_col1" class="data row4 col1" >acc1</td>
+      <td id="T_83a74_row4_col2" class="data row4 col2" >2609.05115</td>
+      <td id="T_83a74_row4_col3" class="data row4 col3" >Creators Have Difficulty Abandoning Ideas They Generated</td>
+      <td id="T_83a74_row4_col4" class="data row4 col4" >2026-09-04</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row5_col0" class="data row5 col0" >Khang</td>
-      <td id="T_af3fe_row5_col1" class="data row5 col1" >acc1</td>
-      <td id="T_af3fe_row5_col2" class="data row5 col2" >2609.05182</td>
-      <td id="T_af3fe_row5_col3" class="data row5 col3" >Conserved Immune Topology Improves Pathology Foundation Model Generalization for Cross-Cancer MSI-H Prediction</td>
-      <td id="T_af3fe_row5_col4" class="data row5 col4" >2026-09-04</td>
+      <td id="T_83a74_row5_col0" class="data row5 col0" >Khang</td>
+      <td id="T_83a74_row5_col1" class="data row5 col1" >acc1</td>
+      <td id="T_83a74_row5_col2" class="data row5 col2" >2609.05182</td>
+      <td id="T_83a74_row5_col3" class="data row5 col3" >Conserved Immune Topology Improves Pathology Foundation Model Generalization for Cross-Cancer MSI-H Prediction</td>
+      <td id="T_83a74_row5_col4" class="data row5 col4" >2026-09-04</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row6_col0" class="data row6 col0" >Khánh</td>
-      <td id="T_af3fe_row6_col1" class="data row6 col1" >acc1</td>
-      <td id="T_af3fe_row6_col2" class="data row6 col2" >2602.21513</td>
-      <td id="T_af3fe_row6_col3" class="data row6 col3" >Deep Unfolding Real-Time Super-Resolution Using Subpixel-Shift Twin Image and Convex Self-Similarity Prior</td>
-      <td id="T_af3fe_row6_col4" class="data row6 col4" >2026-02-25</td>
+      <td id="T_83a74_row6_col0" class="data row6 col0" >Khánh</td>
+      <td id="T_83a74_row6_col1" class="data row6 col1" >acc1</td>
+      <td id="T_83a74_row6_col2" class="data row6 col2" >2602.21513</td>
+      <td id="T_83a74_row6_col3" class="data row6 col3" >Deep Unfolding Real-Time Super-Resolution Using Subpixel-Shift Twin Image and Convex Self-Similarity Prior</td>
+      <td id="T_83a74_row6_col4" class="data row6 col4" >2026-02-25</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row7_col0" class="data row7 col0" >Khánh</td>
-      <td id="T_af3fe_row7_col1" class="data row7 col1" >acc1</td>
-      <td id="T_af3fe_row7_col2" class="data row7 col2" >2602.21073</td>
-      <td id="T_af3fe_row7_col3" class="data row7 col3" >Automata Learning with an Incomplete but Inductive Teacher (Technical Report)</td>
-      <td id="T_af3fe_row7_col4" class="data row7 col4" >2026-02-24</td>
+      <td id="T_83a74_row7_col0" class="data row7 col0" >Khánh</td>
+      <td id="T_83a74_row7_col1" class="data row7 col1" >acc1</td>
+      <td id="T_83a74_row7_col2" class="data row7 col2" >2602.21073</td>
+      <td id="T_83a74_row7_col3" class="data row7 col3" >Automata Learning with an Incomplete but Inductive Teacher (Technical Report)</td>
+      <td id="T_83a74_row7_col4" class="data row7 col4" >2026-02-24</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row8_col0" class="data row8 col0" >Khánh</td>
-      <td id="T_af3fe_row8_col1" class="data row8 col1" >acc1</td>
-      <td id="T_af3fe_row8_col2" class="data row8 col2" >2602.21354</td>
-      <td id="T_af3fe_row8_col3" class="data row8 col3" >Novel Asymmetrical High-Resolution and High-Sensitivity Brain Dedicated PET system: Design optimization and performance evaluation</td>
-      <td id="T_af3fe_row8_col4" class="data row8 col4" >2026-02-24</td>
+      <td id="T_83a74_row8_col0" class="data row8 col0" >Khánh</td>
+      <td id="T_83a74_row8_col1" class="data row8 col1" >acc1</td>
+      <td id="T_83a74_row8_col2" class="data row8 col2" >2602.21354</td>
+      <td id="T_83a74_row8_col3" class="data row8 col3" >Novel Asymmetrical High-Resolution and High-Sensitivity Brain Dedicated PET system: Design optimization and performance evaluation</td>
+      <td id="T_83a74_row8_col4" class="data row8 col4" >2026-02-24</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row9_col0" class="data row9 col0" >Nguyên</td>
-      <td id="T_af3fe_row9_col1" class="data row9 col1" >acc1</td>
-      <td id="T_af3fe_row9_col2" class="data row9 col2" >2602.01737</td>
-      <td id="T_af3fe_row9_col3" class="data row9 col3" >Physics-Informed Chebyshev Polynomial Neural Operator for Parametric Partial Differential Equations</td>
-      <td id="T_af3fe_row9_col4" class="data row9 col4" >2026-02-02</td>
+      <td id="T_83a74_row9_col0" class="data row9 col0" >Nguyên</td>
+      <td id="T_83a74_row9_col1" class="data row9 col1" >acc1</td>
+      <td id="T_83a74_row9_col2" class="data row9 col2" >2602.01737</td>
+      <td id="T_83a74_row9_col3" class="data row9 col3" >Physics-Informed Chebyshev Polynomial Neural Operator for Parametric Partial Differential Equations</td>
+      <td id="T_83a74_row9_col4" class="data row9 col4" >2026-02-02</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row10_col0" class="data row10 col0" >Nguyên</td>
-      <td id="T_af3fe_row10_col1" class="data row10 col1" >acc1</td>
-      <td id="T_af3fe_row10_col2" class="data row10 col2" >2602.01740</td>
-      <td id="T_af3fe_row10_col3" class="data row10 col3" >MACD: Model-Aware Contrastive Decoding via Counterfactual Data</td>
-      <td id="T_af3fe_row10_col4" class="data row10 col4" >2026-02-02</td>
+      <td id="T_83a74_row10_col0" class="data row10 col0" >Nguyên</td>
+      <td id="T_83a74_row10_col1" class="data row10 col1" >acc1</td>
+      <td id="T_83a74_row10_col2" class="data row10 col2" >2602.01740</td>
+      <td id="T_83a74_row10_col3" class="data row10 col3" >MACD: Model-Aware Contrastive Decoding via Counterfactual Data</td>
+      <td id="T_83a74_row10_col4" class="data row10 col4" >2026-02-02</td>
     </tr>
     <tr>
-      <td id="T_af3fe_row11_col0" class="data row11 col0" >Nguyên</td>
-      <td id="T_af3fe_row11_col1" class="data row11 col1" >acc1</td>
-      <td id="T_af3fe_row11_col2" class="data row11 col2" >2602.01739</td>
-      <td id="T_af3fe_row11_col3" class="data row11 col3" >Convex sets and Axiom of Choice</td>
-      <td id="T_af3fe_row11_col4" class="data row11 col4" >2026-02-02</td>
+      <td id="T_83a74_row11_col0" class="data row11 col0" >Nguyên</td>
+      <td id="T_83a74_row11_col1" class="data row11 col1" >acc1</td>
+      <td id="T_83a74_row11_col2" class="data row11 col2" >2602.01739</td>
+      <td id="T_83a74_row11_col3" class="data row11 col3" >Convex sets and Axiom of Choice</td>
+      <td id="T_83a74_row11_col4" class="data row11 col4" >2026-02-02</td>
     </tr>
   </tbody>
 </table>
@@ -1469,63 +1478,214 @@ if (outputEl) {{
 <h3 class="rubric" id="corpus-metadata-integrity-audit">6. Corpus Metadata Integrity Audit</h3>
 <p>Programmatic audit verifying complete absence of null primary identifiers, complete title resolution, and 100% submission date presence across the 20,000-paper corpus:</p>
 <div class="output text_html"><style type="text/css">
-#T_48b46 th {
+#T_aaded th {
   background-color: #2c3e50;
   color: white;
   font-weight: bold;
 }
-#T_48b46 tr:nth-child(even) {
+#T_aaded tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.05);
 }
-#T_48b46_row0_col0, #T_48b46_row0_col1, #T_48b46_row0_col2, #T_48b46_row0_col3, #T_48b46_row1_col0, #T_48b46_row1_col1, #T_48b46_row1_col2, #T_48b46_row1_col3, #T_48b46_row2_col0, #T_48b46_row2_col1, #T_48b46_row2_col2, #T_48b46_row2_col3, #T_48b46_row3_col0, #T_48b46_row3_col1, #T_48b46_row3_col2, #T_48b46_row3_col3, #T_48b46_row4_col0, #T_48b46_row4_col1, #T_48b46_row4_col2, #T_48b46_row4_col3, #T_48b46_row5_col0, #T_48b46_row5_col1, #T_48b46_row5_col2, #T_48b46_row5_col3 {
+#T_aaded_row0_col0, #T_aaded_row0_col1, #T_aaded_row0_col2, #T_aaded_row0_col3, #T_aaded_row1_col0, #T_aaded_row1_col1, #T_aaded_row1_col2, #T_aaded_row1_col3, #T_aaded_row2_col0, #T_aaded_row2_col1, #T_aaded_row2_col2, #T_aaded_row2_col3, #T_aaded_row3_col0, #T_aaded_row3_col1, #T_aaded_row3_col2, #T_aaded_row3_col3, #T_aaded_row4_col0, #T_aaded_row4_col1, #T_aaded_row4_col2, #T_aaded_row4_col3, #T_aaded_row5_col0, #T_aaded_row5_col1, #T_aaded_row5_col2, #T_aaded_row5_col3 {
   text-align: left;
 }
 </style>
-<table id="T_48b46" class="dataframe table tex2jax_process">
+<table id="T_aaded" class="dataframe table tex2jax_process">
   <thead>
     <tr>
-      <th id="T_48b46_level0_col0" class="col_heading level0 col0" >Metadata Field</th>
-      <th id="T_48b46_level0_col1" class="col_heading level0 col1" >Null / Missing</th>
-      <th id="T_48b46_level0_col2" class="col_heading level0 col2" >Coverage (%)</th>
-      <th id="T_48b46_level0_col3" class="col_heading level0 col3" >Integrity Rule</th>
+      <th id="T_aaded_level0_col0" class="col_heading level0 col0" >Metadata Field</th>
+      <th id="T_aaded_level0_col1" class="col_heading level0 col1" >Null / Missing</th>
+      <th id="T_aaded_level0_col2" class="col_heading level0 col2" >Coverage (%)</th>
+      <th id="T_aaded_level0_col3" class="col_heading level0 col3" >Integrity Rule</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="T_48b46_row0_col0" class="data row0 col0" >arXiv Identifier (`arxiv_id`)</td>
-      <td id="T_48b46_row0_col1" class="data row0 col1" >0</td>
-      <td id="T_48b46_row0_col2" class="data row0 col2" >100.00%</td>
-      <td id="T_48b46_row0_col3" class="data row0 col3" >Primary key: Non-null guaranteed</td>
+      <td id="T_aaded_row0_col0" class="data row0 col0" >arXiv Identifier (`arxiv_id`)</td>
+      <td id="T_aaded_row0_col1" class="data row0 col1" >0</td>
+      <td id="T_aaded_row0_col2" class="data row0 col2" >100.00%</td>
+      <td id="T_aaded_row0_col3" class="data row0 col3" >Primary key: Non-null guaranteed</td>
     </tr>
     <tr>
-      <td id="T_48b46_row1_col0" class="data row1 col0" >Publication Title (`title`)</td>
-      <td id="T_48b46_row1_col1" class="data row1 col1" >0</td>
-      <td id="T_48b46_row1_col2" class="data row1 col2" >100.00%</td>
-      <td id="T_48b46_row1_col3" class="data row1 col3" >OAI-PMH DC title or raw metadata</td>
+      <td id="T_aaded_row1_col0" class="data row1 col0" >Publication Title (`title`)</td>
+      <td id="T_aaded_row1_col1" class="data row1 col1" >0</td>
+      <td id="T_aaded_row1_col2" class="data row1 col2" >100.00%</td>
+      <td id="T_aaded_row1_col3" class="data row1 col3" >OAI-PMH DC title or raw metadata</td>
     </tr>
     <tr>
-      <td id="T_48b46_row2_col0" class="data row2 col0" >Initial Submission Date (`submission_date`)</td>
-      <td id="T_48b46_row2_col1" class="data row2 col1" >0</td>
-      <td id="T_48b46_row2_col2" class="data row2 col2" >100.00%</td>
-      <td id="T_48b46_row2_col3" class="data row2 col3" >v1 initial submission timestamp</td>
+      <td id="T_aaded_row2_col0" class="data row2 col0" >Initial Submission Date (`submission_date`)</td>
+      <td id="T_aaded_row2_col1" class="data row2 col1" >0</td>
+      <td id="T_aaded_row2_col2" class="data row2 col2" >100.00%</td>
+      <td id="T_aaded_row2_col3" class="data row2 col3" >v1 initial submission timestamp</td>
     </tr>
     <tr>
-      <td id="T_48b46_row3_col0" class="data row3 col0" >Assigned Team Member (`member`)</td>
-      <td id="T_48b46_row3_col1" class="data row3 col1" >0</td>
-      <td id="T_48b46_row3_col2" class="data row3 col2" >100.00%</td>
-      <td id="T_48b46_row3_col3" class="data row3 col3" >Strict 5,000 partition quota per member</td>
+      <td id="T_aaded_row3_col0" class="data row3 col0" >Assigned Team Member (`member`)</td>
+      <td id="T_aaded_row3_col1" class="data row3 col1" >0</td>
+      <td id="T_aaded_row3_col2" class="data row3 col2" >100.00%</td>
+      <td id="T_aaded_row3_col3" class="data row3 col3" >Strict 5,000 partition quota per member</td>
     </tr>
     <tr>
-      <td id="T_48b46_row4_col0" class="data row4 col0" >Multi-version Ingestion State</td>
-      <td id="T_48b46_row4_col1" class="data row4 col1" >0</td>
-      <td id="T_48b46_row4_col2" class="data row4 col2" >100.00%</td>
-      <td id="T_48b46_row4_col3" class="data row4 col3" >Full v1..vN version array parsed</td>
+      <td id="T_aaded_row4_col0" class="data row4 col0" >Multi-version Ingestion State</td>
+      <td id="T_aaded_row4_col1" class="data row4 col1" >0</td>
+      <td id="T_aaded_row4_col2" class="data row4 col2" >100.00%</td>
+      <td id="T_aaded_row4_col3" class="data row4 col3" >Full v1..vN version array parsed</td>
     </tr>
     <tr>
-      <td id="T_48b46_row5_col0" class="data row5 col0" >Citation Resolution State (`reference_status`)</td>
-      <td id="T_48b46_row5_col1" class="data row5 col1" >0</td>
-      <td id="T_48b46_row5_col2" class="data row5 col2" >100.00%</td>
-      <td id="T_48b46_row5_col3" class="data row5 col3" >Semantic Scholar API outcome tracked</td>
+      <td id="T_aaded_row5_col0" class="data row5 col0" >Citation Resolution State (`reference_status`)</td>
+      <td id="T_aaded_row5_col1" class="data row5 col1" >0</td>
+      <td id="T_aaded_row5_col2" class="data row5 col2" >100.00%</td>
+      <td id="T_aaded_row5_col3" class="data row5 col3" >Semantic Scholar API outcome tracked</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="coverage-and-metadata-audit">
+<h2>6. Coverage and Metadata Audit<a class="headerlink" href="#coverage-and-metadata-audit" title="Link to this heading">#</a></h2>
+<p>Counts below are recomputed from the retained CSV files. Record presence does not independently establish correctness against arXiv or completeness of Semantic Scholar indexing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paper_counts</span> <span class="o">=</span> <span class="n">df_detail</span><span class="p">[[</span><span class="s1">'versions_expected'</span><span class="p">,</span> <span class="s1">'versions_success'</span><span class="p">,</span> <span class="s1">'versions_no_tex'</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'raise'</span><span class="p">)</span>
+<span class="n">member_audit</span> <span class="o">=</span> <span class="n">df_detail</span><span class="p">[[</span><span class="s1">'member'</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">member_audit</span><span class="p">[</span><span class="s1">'Metadata records'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">member_audit</span><span class="p">[</span><span class="s1">'Full-TeX papers'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">paper_counts</span><span class="p">[</span><span class="s1">'versions_expected'</span><span class="p">]</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">paper_counts</span><span class="p">[</span><span class="s1">'versions_success'</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">paper_counts</span><span class="p">[</span><span class="s1">'versions_expected'</span><span class="p">]))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">member_audit</span><span class="p">[</span><span class="s1">'Resolved source papers'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">paper_counts</span><span class="p">[</span><span class="s1">'versions_expected'</span><span class="p">]</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">paper_counts</span><span class="p">[</span><span class="s1">'versions_success'</span><span class="p">]</span> <span class="o">+</span> <span class="n">paper_counts</span><span class="p">[</span><span class="s1">'versions_no_tex'</span><span class="p">])</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">paper_counts</span><span class="p">[</span><span class="s1">'versions_expected'</span><span class="p">]))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">member_audit</span> <span class="o">=</span> <span class="n">member_audit</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'member'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">member_audit</span><span class="p">[</span><span class="s1">'Unresolved source papers'</span><span class="p">]</span> <span class="o">=</span> <span class="n">member_audit</span><span class="p">[</span><span class="s1">'Metadata records'</span><span class="p">]</span> <span class="o">-</span> <span class="n">member_audit</span><span class="p">[</span><span class="s1">'Resolved source papers'</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">member_audit</span><span class="p">)</span>
+
+<span class="n">audit_rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">'Check'</span><span class="p">:</span> <span class="s1">'Duplicate paper IDs'</span><span class="p">,</span> <span class="s1">'Result'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">df_detail</span><span class="p">[</span><span class="s1">'arxiv_id'</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()))},</span>
+    <span class="p">{</span><span class="s1">'Check'</span><span class="p">:</span> <span class="s1">'Duplicate paper/version keys'</span><span class="p">,</span> <span class="s1">'Result'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">df_versions</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s1">'arxiv_id'</span><span class="p">,</span> <span class="s1">'version'</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()))},</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'title'</span><span class="p">,</span> <span class="s1">'submission_date'</span><span class="p">]:</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="n">df_detail</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="o">|</span> <span class="n">df_detail</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'string'</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
+    <span class="n">audit_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'Check'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'Paper records missing </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'Result'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">missing</span><span class="o">.</span><span class="n">sum</span><span class="p">()))})</span>
+<span class="n">expected</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_detail</span><span class="p">[</span><span class="s1">'versions_expected'</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'raise'</span><span class="p">)</span>
+<span class="n">observed</span> <span class="o">=</span> <span class="n">df_detail</span><span class="p">[</span><span class="s1">'arxiv_id'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">df_versions</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'arxiv_id'</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">())</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">audit_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'Check'</span><span class="p">:</span> <span class="s1">'Papers with expected/observed version-count mismatch'</span><span class="p">,</span> <span class="s1">'Result'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">expected</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))})</span>
+<span class="k">if</span> <span class="s1">'incomplete_references'</span> <span class="ow">in</span> <span class="n">df_detail</span><span class="p">:</span>
+    <span class="n">incomplete</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_detail</span><span class="p">[</span><span class="s1">'incomplete_references'</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'coerce'</span><span class="p">)</span>
+    <span class="n">kept</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_detail</span><span class="p">[</span><span class="s1">'kept_references'</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'raise'</span><span class="p">)</span>
+    <span class="n">audited</span> <span class="o">=</span> <span class="n">kept</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">incomplete</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+    <span class="n">complete_rate</span> <span class="o">=</span> <span class="p">((</span><span class="n">kept</span><span class="p">[</span><span class="n">audited</span><span class="p">]</span> <span class="o">-</span> <span class="n">incomplete</span><span class="p">[</span><span class="n">audited</span><span class="p">])</span> <span class="o">/</span> <span class="n">kept</span><span class="p">[</span><span class="n">audited</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">complete_rate</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1"> across </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">audited</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> papers'</span> <span class="k">if</span> <span class="n">audited</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">else</span> <span class="s1">'Not established'</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s1">'Not established: per-paper incomplete-reference counters are unavailable'</span>
+<span class="n">audit_rows</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
+    <span class="p">{</span><span class="s1">'Check'</span><span class="p">:</span> <span class="s1">'Mean arXiv-reference metadata completeness'</span><span class="p">,</span> <span class="s1">'Result'</span><span class="p">:</span> <span class="n">result</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'Check'</span><span class="p">:</span> <span class="s1">'Authors, revision dates and venue completeness'</span><span class="p">,</span> <span class="s1">'Result'</span><span class="p">:</span> <span class="s1">'Not established from the retained paper CSV schema'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">'Check'</span><span class="p">:</span> <span class="s1">'Independent metadata/source sample validation'</span><span class="p">,</span> <span class="s1">'Result'</span><span class="p">:</span> <span class="s1">'Not recorded in the retained measurement files'</span><span class="p">},</span>
+<span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">audit_rows</span><span class="p">)</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">hide</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'index'</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Metadata records</th>
+      <th>Full-TeX papers</th>
+      <th>Resolved source papers</th>
+      <th>Unresolved source papers</th>
+    </tr>
+    <tr>
+      <th>member</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Danh</th>
+      <td>5000</td>
+      <td>4738</td>
+      <td>4980</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>Khang</th>
+      <td>5000</td>
+      <td>4750</td>
+      <td>4988</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>Khánh</th>
+      <td>5000</td>
+      <td>4657</td>
+      <td>4963</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th>Nguyên</th>
+      <td>5000</td>
+      <td>4694</td>
+      <td>4954</td>
+      <td>46</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><style type="text/css">
+</style>
+<table id="T_70288">
+  <thead>
+    <tr>
+      <th id="T_70288_level0_col0" class="col_heading level0 col0" >Check</th>
+      <th id="T_70288_level0_col1" class="col_heading level0 col1" >Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_70288_row0_col0" class="data row0 col0" >Duplicate paper IDs</td>
+      <td id="T_70288_row0_col1" class="data row0 col1" >0</td>
+    </tr>
+    <tr>
+      <td id="T_70288_row1_col0" class="data row1 col0" >Duplicate paper/version keys</td>
+      <td id="T_70288_row1_col1" class="data row1 col1" >0</td>
+    </tr>
+    <tr>
+      <td id="T_70288_row2_col0" class="data row2 col0" >Paper records missing title</td>
+      <td id="T_70288_row2_col1" class="data row2 col1" >0</td>
+    </tr>
+    <tr>
+      <td id="T_70288_row3_col0" class="data row3 col0" >Paper records missing submission_date</td>
+      <td id="T_70288_row3_col1" class="data row3 col1" >0</td>
+    </tr>
+    <tr>
+      <td id="T_70288_row4_col0" class="data row4 col0" >Papers with expected/observed version-count mismatch</td>
+      <td id="T_70288_row4_col1" class="data row4 col1" >0</td>
+    </tr>
+    <tr>
+      <td id="T_70288_row5_col0" class="data row5 col0" >Mean arXiv-reference metadata completeness</td>
+      <td id="T_70288_row5_col1" class="data row5 col1" >Not established: per-paper incomplete-reference counters are unavailable</td>
+    </tr>
+    <tr>
+      <td id="T_70288_row6_col0" class="data row6 col0" >Authors, revision dates and venue completeness</td>
+      <td id="T_70288_row6_col1" class="data row6 col1" >Not established from the retained paper CSV schema</td>
+    </tr>
+    <tr>
+      <td id="T_70288_row7_col0" class="data row7 col0" >Independent metadata/source sample validation</td>
+      <td id="T_70288_row7_col1" class="data row7 col1" >Not recorded in the retained measurement files</td>
     </tr>
   </tbody>
 </table>
@@ -1608,6 +1768,7 @@ if (outputEl) {{
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-multiplicity-status-breakdown">3. Version Multiplicity &amp; Status Breakdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-mining-citation-pool-breakdown">4. Reference Mining &amp; Citation Pool Breakdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crawled-corpus-sample-preview">5. Crawled Corpus Sample Preview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-and-metadata-audit">6. Coverage and Metadata Audit</a></li>
 </ul>
   </nav></div>
 

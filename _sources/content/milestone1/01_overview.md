@@ -5,7 +5,7 @@
 The primary objective of Milestone 1 is to build a robust, reproducible data acquisition pipeline that harvests the raw foundation for the downstream parsing (Milestone 2) and machine learning entity matching (Milestone 3) stages.
 
 > [!NOTE]
-> **Corpus Ingestion Summary**: Metadata was resolved for all 20,000 assigned publication IDs across the four team partitions. Across 27,608 multi-version records, 26,234 contain verified LaTeX sources, 1,243 are recorded as valid PDF-only submissions (`no_tex`), and 131 remain failed due to upstream mirror 404s or filesystem path guards. Detailed statistics and performance benchmarks are presented in [Chapter 3](03_corpus_stats.ipynb) and [Chapter 4](04_performance.ipynb).
+> **Corpus Ingestion Summary**: Metadata was resolved for all 20,000 assigned publication IDs across the four team partitions. Across 27,608 multi-version records, 26,234 are recorded as successful source extractions, 1,243 as source outcomes without usable TeX (`no_tex`), and 131 as failed. Historical source receipts have not been rechecked against the original archives. Detailed statistics and performance benchmarks are presented in [Chapter 3](03_corpus_stats.ipynb) and [Chapter 4](04_performance.ipynb).
 
 Unlike typical web-scraping assignments that collect metadata or PDFs, our mandate requires collecting:
 1. **Full-Text LaTeX Sources**: The complete `.tex` and `.bib` source files across **every single version** ($v_1, v_2, \dots, v_N$) of each assigned publication.
@@ -56,7 +56,7 @@ The two published tables specified for this milestone are:
 | `ref_s2_id` | String | No | Semantic Scholar internal paper identifier |
 
 > [!NOTE]
-> **Schema Nullability Constraints**: The course specification strictly mandates non-null constraints for canonical primary keys (`arxiv_id`, `ref_arxiv_id`, `ref_s2_id`). Additional non-null constraints for fields such as `title`, `authors`, and `submission_date` reflect internal team validation rules enforced during metadata normalization, ensuring clean downstream ingestion for Milestone 2.
+> **Schema Nullability Constraints**: The course specification explicitly marks `papers.arxiv_id`, `references.arxiv_id` and `references.ref_arxiv_id` as non-null. The additional non-null entries in these tables, including `ref_s2_id`, describe internal team validation rules, not additional requirements imposed by the course. Actual missing values must be audited before final dataset export.
 
 ---
 
