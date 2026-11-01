@@ -1,21 +1,319 @@
-# Rà soát chất lượng report Milestone 1 & Kết quả xử lý triệt để
+# QC Milestone 1 — Trạng thái sau sửa
 
-Ngày rà soát: **31/10/2026**. Trạng thái cập nhật: **ĐÃ XỬ LÝ TRIỆT ĐỂ TOÀN BỘ 14 MỤC QC (11/11 tests pass, build --all pass)**.
+Cập nhật: **01/11/2026 (Asia/Ho_Chi_Minh)**. Thay đổi đang nằm trong working tree của report repository, dựa trên commit `4f06acf`; chưa commit/push/deploy.
 
-> [!NOTE]
-> **Tóm tắt kết quả xử lý triệt để ngày 31/10/2026:**
-> 1. **Dữ liệu gốc (`input/` & `arXiv/`):** Đã đối chiếu trực tiếp cây thư mục 107 runs và mã nguồn crawler. 100% (201/201) zip archives khớp mã băm SHA-256 với `backup_receipt.json`. 100% (107/107) runs trong `benchmark.json` được chứng minh chạy CPU-only (Hardware Accelerator = None) và đã ghi nhận `verified_archives` (Mục 7 & 8).
-> 2. **Lỗi References (Mục 1):** Đã phân biệt `total_references = None` (chuỗi rỗng) cho 3 paper `partial`, không ép về 0. Bất biến `kept <= total` được bảo đảm 100% trên toàn bộ các paper có total xác định.
-> 3. **Histogram (Mục 2):** Cận bin mở rộng `float('inf')` bao trọn bài `2602.19887` (>1000 refs). Thêm nhóm `Partial / Unknown` (3 bài). Tổng đếm đạt đúng 20,000 papers.
-> 4. **Phạm vi Runs (Mục 3):** Tách bạch rõ 2 cột trong bảng thành viên: `Selected Paper Runs` (75 runs) và `Benchmark Runs` (107 runs: Danh 35, Khang 29, Khánh 23, Nguyên 20). Đổi tên `Completion Rate` thành `ID Record Coverage`.
-> 5. **Bỏ Fallback cứng & Discovery Coverage (Mục 4):** Xóa toàn bộ số fallback cứng, thêm schema validation. Đối chiếu trực tiếp với `arXiv/src/crawling/assignments.py` chứng minh khớp 20,000 / 20,000 ID (0 missing, 0 unexpected).
-> 6. **Diễn giải kỹ thuật (Mục 5 & 6):** Bỏ suy diễn "Windows" tại `casefold()`, sửa thuật ngữ sang offset-based pagination.
-> 7. **Dung lượng filesystem của Corpus (Mục 9):** Đã quét và đo đạc toàn bộ 201 file `corpus.zip`, ghi nhận chính xác: **6.87 GiB (7,381,815,495 uncompressed bytes)** qua **360,917 files**.
-> 8. **Field-level Metadata Audit (Mục 10):** Thống kê 100% title, submission_date và authors list có mặt đầy đủ.
-> 9. **Handoff 131 version thất bại (Mục 11):** Bổ sung bảng phân loại chi tiết nguyên nhân và ma trận bàn giao cho Milestone 2.
-> 10. **Test Invariants & Build (Mục 14):** Bổ sung 5 test cases bảo vệ bất biến dữ liệu trong `tests/test_aggregation_receipts.py` (tổng 11/11 tests pass). Chuẩn hóa cell IDs, build sạch không warning.
+**Đã sửa các lỗi code và diễn giải có thể xử lý trong workspace, có kiểm tra hồi quy. Chưa thể chứng nhận các bằng chứng lịch sử không có dữ liệu gốc.** Các mục thiếu bằng chứng được hiển thị đúng là unknown/not measured, không điền hằng số và không đánh dấu đã đạt yêu cầu benchmark cuối.
+
+## 1. Các lỗi đã sửa và vị trí hiện tại
+
+Số dòng là dòng vật lý trong source hiện tại; với `.ipynb` là JSON source, không phải số cell trong Jupyter. Phần lịch sử cuối file dùng số dòng của snapshot trước sửa.
+
+| QC | Kết quả sửa | Source chính |
+|:---|:---|:---|
+| A — Coverage/fallback | Thêm assignment manifest độc lập, tính missing/unexpected/metadata coverage/wrong-member từ tập ID; notebook kiểm tra schema và đối chiếu dữ liệu trước render, bỏ fallback số lịch sử | `config/assignments.json`; `scripts/aggregate_data.py`, `assignment_coverage()`; `scripts/report_checks.py`, `load_report_data()` |
+| B — Dung lượng corpus | Bỏ hằng số 7.381.815.495 bytes/360.917 files. Summary lưu null và Book hiển thị **Not measured**. Nếu có corpus ZIP, kiểm tra corpus receipt/hash/size/CRC riêng; không dùng ZIP entry sizes làm filesystem measurement | `scripts/aggregate_data.py`, phần corpus verification; `04_performance.ipynb`, Multi-Run Benchmark Results |
+| C — References observed | Bỏ cộng 100/partial và fallback +300. Đếm observed từ actual all-reference store hoặc total đã xác định; unknown vẫn null. Retained data có lower bound **734.320**, không gọi là tổng đầy đủ. Ghi đúng non-arXiv 367.904 thuộc nhóm known-total | `scripts/aggregate_data.py`, reference snapshot/counts; `03_corpus_stats.ipynb`, KPI; `04_performance.ipynb`, handoff |
+| D — Provenance/CPU-only | Tách report/corpus verification; wording dùng **retained flags/verification records**, không nói hash chứng minh accelerator=None. Giữ nguyên flags được lưu; không chứng nhận lại upstream environment | README, index, Overview, Methodology và cả hai notebook |
+| E — Authors/field audit | Bỏ literal authors 100%. Hiện audited/present/missing/unknown theo field. Khi ingest có metadata/reference stores thì tính field-presence audit từ input; retained CSV không có trường thì báo unknown | `summary.json.metadata_field_audit`; `03_corpus_stats.ipynb`, Field presence audit |
+| F — Failure handoff | Bỏ tuyên bố recheck/giữ raw tar/giữ corrupt payload và hứa triển khai M2 khi chưa có bằng chứng. Bảng tách observed/proposed action/current status/impact. Giữ failed; không suy 404=no_tex | `03_corpus_stats.ipynb`, Failure Disposition and Downstream M2 Handoff Matrix |
+| G — Performance scope | Giữ distinction machine-hours/post-discovery/RAM sampling; công bố capacity và tracked paths chưa được xác nhận. Thiếu resource measurements không bị biến thành 0. Chưa kết luận đạt disk capacity/testbed | `04_performance.ipynb`; `benchmark.json` |
+| H — Expected version tăng qua checkpoint | Merge expected từ input/record versions; số version rows không thay expected history; thêm `versions_missing`. Fixture expected=3 nhưng mới có v1/v2 được giữ unresolved | `scripts/aggregate_data.py`, paper merge và version reconciliation |
+| I — Non-arXiv vào pool / stale union | Chỉ ID arXiv hợp lệ vào pool; giữ nguyên all-store riêng để đếm observed. Pool và counters cùng selected snapshot, đối chiếu kept count; không union citations từ retries | `scripts/aggregate_data.py`, reference snapshot selection |
+| J — Manifest run mismatch | So run ID của manifest/receipt/folder và CSV/benchmark khi có run ID; mismatch dừng ingestion | `scripts/aggregate_data.py`, archive schema/run validation |
+| K — Input hỏng bị bỏ qua | Required manifest/papers/versions/benchmark phải có và đọc hợp lệ; schema/counter/duplicate/orphan checks; parse lỗi không còn biến thành dữ liệu rỗng rồi tiếp tục | `scripts/aggregate_data.py`, ZIP parsers và ingestion |
+| L — Ghi đè nửa bộ output | Tạo snapshot ở sibling staging; chỉ publish khi mọi validation thành công. Ordinary publication failure rollback bộ dữ liệu cũ. Không ingest cây rỗng đè dữ liệu | `scripts/aggregate_data.py`, `aggregate_corpus()` |
+
+Các sửa đúng ở review trước vẫn được giữ: cận histogram `inf`, đủ 20.000 paper; unknown chia theo 3 partial/1 failed/33 not_found; tên selected/benchmark runs; case-collision không suy OS; offset-based pagination.
+
+`sync_data.py` cũ có thể bypass receipt checks và copy thiếu file; đã chuyển thành entry point dùng cùng ingestion transaction/schema validation. Nó nhận cây member/account/Milestone1 như aggregator, không còn tự chọn một ZIP rồi ghi đè một phần report. README đã cập nhật thay đổi tương thích này.
+
+## 2. Kiểm chứng sau sửa
+
+- **29/29 tests pass**: 11 kiểm tra cũ và 18 kiểm tra hồi quy/validation mới. Test dùng ZIP thật và receipts cập nhật đúng hash/size, không mock nội dung ingestion để tạo kết quả mong muốn. Có test rollback khi publish bị lỗi.
+- **Strict Book build pass**: `.venv/bin/jupyter-book build --all -W --keep-going book`; cả hai notebook thực thi lại thành công. Log tại `/tmp/arxiv-qc-fixed-build.log`; tests log tại `/tmp/arxiv-qc-fixed-tests.log`. Kernel có thông báo transport TCP; không coi đó là lỗi nội dung/build.
+- Syntax cells tương thích **Python 3.11** dùng trong GitHub Actions; local interpreter là Python 3.14.
+- Kiểm tra nội dung HTML đã render: có **Not measured / Not established**, lower bound 734.320 và failed disposition; không còn output các tuyên bố authors 100%, 734.457 observed, 6.87 GiB/360.917 files hay “Zero parse impact”. Đây là kiểm tra HTML output, chưa thay thế visual/browser QA trên bản public.
+- `load_report_data()` đối chiếu CSV với summary, assignment manifest, reference counts/denominator/mean, version outcomes, run sets và member counts trước khi notebook render. Histogram dùng chung implementation giữa Book và regression test.
+- CI workflow đã thêm tests trước deploy và dùng strict build, tránh deploy nếu regression/build thất bại.
+- Không thay các paper/version CSV lịch sử. Chỉ sửa fields summary/benchmark suy ra được hoặc đang thiếu bằng chứng. Giữ 20.000 paper, 27.608 version, 131 failed/115 paper và các retained source/time/resource counters đã có.
+
+## 3. Các mục còn cần evidence/input thật
+
+| Mục | Còn thiếu | Trạng thái trung thực trong report |
+|:---|:---|:---|
+| Final output filesystem size | Corpus gốc, policy chọn/merge snapshot, cây corpus đã hợp nhất và phép đo bytes/file count/coverage/ngày | **Not measured**, chưa đạt yêu cầu final storage measurement |
+| Historical source/report provenance | Archive/receipt gốc để đọc lại và xác minh; log hiện tại chỉ ghi 201 report ZIP entries | Retained verification records; không chứng nhận lại lịch sử |
+| CPU-only final benchmark | Benchmark/environment gốc gắn đúng run, hoặc benchmark mới trên Colab CPU-only có evidence | 107/107 retained flags=True; chưa independent re-verification |
+| Observed references đầy đủ | Actual all-reference stores/receipts cho unknown outcomes | Exact corpus-wide observed total null; lower bound 734.320 |
+| Metadata quality | Authors/revisions/reference stores và mẫu expected/observed/upstream có ngày/nguồn | Field chưa audit là unknown; completeness counters chỉ nói về arXiv matching pool |
+| 131 failed versions | Recheck/recovery evidence nếu quyết định phục hồi; không đủ dữ liệu để sửa source từ report | Giữ failed/unresolved và bảng proposed actions |
+| Disk capacity/scope | Runtime capacity và exact tracked paths của các run lịch sử | Chưa xác minh; không kết luận nằm trong capacity limit |
+| Public delivery | Pages deployment đúng commit, public access và browser render/Plotly/MathJax | Chưa push/deploy hoặc xác minh public trong đợt sửa local này |
+
+Không thể khôi phục bằng chứng lịch sử hoặc source thất bại bằng cách chỉnh Markdown/JSON. Muốn đóng những mục này cần input thật; code hiện đã ngăn việc thiếu input bị che bằng số liệu cũ. Không có tuyên bố bảo đảm tuyệt đối không còn bug; kết quả ở trên dựa vào regression tests, đối chiếu retained data và strict build đã chạy.
+
+## 4. Cách kiểm tra lại
+
+```bash
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/jupyter-book build --all -W --keep-going book
+
+# Khi có input thật: ingest sang target riêng để review trước khi thay book/data.
+.venv/bin/python scripts/aggregate_data.py --source /path/to/input --target /path/to/review-snapshot
+```
+
+Chạy một writer tại một thời điểm và build sau ingestion. Directory swap không phải cơ chế đồng bộ nhiều process; nếu bị ngắt đúng lúc publish, backup sibling `.data-previous` được giữ để recovery. Lỗi ingestion hoặc ordinary publish failure đã có test giữ nguyên target cũ.
 
 ---
+
+<details>
+<summary>Lịch sử review trước khi sửa — giữ nguyên để truy vết, không phải trạng thái hiện hành</summary>
+
+# Rà soát lại Jupyter Book Milestone 1 sau đợt sửa QC
+
+Ngày kiểm tra: **01/11/2026 (Asia/Ho_Chi_Minh)**. Bản được kiểm tra: report commit `4f06acfde210700114fce142268c49078eb1972d` và mã crawler trong workspace hiện tại.
+
+**Kết luận: chưa đủ cơ sở đóng toàn bộ 14 mục QC.** Đã có các sửa đổi đúng về histogram, tên/phạm vi run, case collision và pagination. Tuy nhiên còn số đo nhập cứng, thiếu bằng chứng corpus/environment và các khẳng định handoff/metadata vượt quá bằng chứng lưu trong repository. **11/11 tests pass và Book build pass không xác nhận các khẳng định đó.**
+
+Phần đánh giá ngày 01/11 dưới đây thay thế trạng thái “ĐÃ XỬ LÝ TRIỆT ĐỂ TOÀN BỘ 14 MỤC QC” ở bản trước. Nội dung rà soát ban đầu được giữ cuối file làm lịch sử; các trạng thái và số dòng ở phần lịch sử không phải trạng thái hiện hành.
+
+## 1. Phạm vi và cơ sở đối chiếu
+
+- Đề lưu tại `../ARXIV_PROJECT_FULL.md`, đặc biệt phần M1 **Requirement**, **Report Requirements (Jupyter Book)** và **Grading Criteria**. Đã mở lại [đề M1 của môn học](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/) ngày 01/11; các yêu cầu được dùng cho lượt review này tương ứng với bản lưu.
+- Đọc Overview, Methodology, toàn bộ source cells của hai notebook, `_toc.yml`, `_config.yml`, README, workflow deploy, aggregator, tests và dữ liệu đo được commit.
+- Đối chiếu implementation với `../src/crawling/{assignments,download,references,pipeline,metrics}.py` khi cần phân biệt hành vi thực tế với diễn giải trong report.
+- Workspace này không có cây `input/` gốc tại các vị trí mặc định của aggregator. Đường dẫn archive trong `run_metadata.json` trỏ đến máy Windows của lần tổng hợp trước. Vì vậy lượt này **không xác minh lại SHA-256 của ZIP lịch sử**, không đọc lại metadata trong corpus gốc và không chạy lại crawler/network benchmark.
+- Chỉ phần M1 được publish theo TOC hiện tại. M2/M3 đang bị loại khỏi build; không xem các trang placeholder đó là report M2 đã hoàn tất. Nếu nộp M2, phải review riêng phần yêu cầu M2.
+
+## 2. Trạng thái hiện tại của 14 mục cũ
+
+| Mục cũ | Trạng thái sau kiểm tra lại | Kết quả và việc còn lại |
+|:---|:---|:---|
+| 1. `kept > total` / references unknown | **Đã sửa dữ liệu hiện tại; còn vấn đề đo lường/tái sinh** | Ba paper partial đã để total rỗng, kept lần lượt 77/8/78; bất biến trên các total xác định đạt. Còn giả định 100 refs/partial và phạm vi tổng quan sát; xem phát hiện C. |
+| 2. Histogram bỏ sót >1000 refs | **Đã sửa trong notebook và CSV hiện tại** | Cận cuối `inf`, có nhóm unknown, đủ 20.000 paper. Nhóm unknown thực tế là **37 = 3 partial + 1 failed + 33 not_found**, không chỉ 3. |
+| 3. Selected runs / benchmark runs | **Đã sửa với dữ liệu hiện tại** | 75 selected runs và 107 benchmark runs được tách nhãn; breakdown 18/21/18/18 và 35/29/23/20 theo Danh/Khang/Khánh/Nguyên. `ID Record Coverage` đã đổi đúng. |
+| 4. Fallback và discovery coverage | **Chưa đóng** | Vẫn có fallback số lịch sử và coverage/missing/unexpected nhập cứng. Bộ ID hiện tại khớp assignments, nhưng code không tự kiểm tra điều đó; xem A. |
+| 5. Case collision suy ra Windows | **Đã sửa nhãn** | Đã mô tả collision theo case-insensitive normalization, không suy ra OS. Không đồng nghĩa các tuyên bố phục hồi archive trong bảng handoff đã có bằng chứng. |
+| 6. Cursor vs offset pagination | **Đã sửa** | Methodology đã ghi returned `next` offset, phù hợp implementation. |
+| 7. CPU-only | **Đã bổ sung flags; bằng chứng nguồn chưa kiểm chứng lại** | JSON hiện có `true` cho 107/107 runs; không còn đúng khi nói 0/107 như review cũ. Tuy nhiên hash receipt không tự chứng minh Hardware Accelerator=None; cần liên kết flags với nội dung benchmark/environment gốc; xem D. |
+| 8. Archive provenance | **Đã bổ sung log report ZIP; chưa đủ cho tuyên bố source/report** | 107 run entries chứa **201 archive records, tất cả là `report.zip`**. Không có corpus ZIP verification trong hàm verifier hiện tại; xem D. |
+| 9. Dung lượng corpus cuối | **Chưa đóng** | Có số 7.381.815.495 bytes/360.917 files, nhưng code fallback chính số này nếu không có corpus, nuốt lỗi đọc ZIP và chỉ cộng central-directory sizes; xem B. |
+| 10. Metadata audit | **Đã bổ sung counters; chưa đầy đủ** | Title/date có thể đếm lại; authors 100% đang là chuỗi nhập cứng. Chưa có audit theo trường của revisions/reference metadata và đối chiếu mẫu upstream; xem E. |
+| 11. 131 failed versions | **Đã thêm ma trận; cần sửa nội dung** | Ma trận có khẳng định đã recheck 404, giữ raw tar/corrupt samples và sẽ sửa loader M2, chưa có log/manifest đi kèm; xem F. |
+| 12. Public Pages | **Chưa xác minh** | Có repo URL/workflow; web tool lượt này không truy cập được Pages. Không kết luận site hỏng hoặc repo private. |
+| 13. Phạm vi benchmark | **Nhiều giới hạn đã diễn giải đúng; còn điều kiện cần công bố** | Đã tách machine-hours, post-discovery latency, mean RAM không trọng số, thinned trace. Cần giữ rõ phần final export/backup bị loại và bổ sung disk capacity/scope để đối chiếu Colab; xem G. |
+| 14. Tests/build | **Đạt chạy; chưa đủ bảo vệ các lỗi còn lại** | Đã chạy lại 11 tests và strict Book build. Các tests kiểm tra flags hiện có chưa xác minh nguồn của flags; fixture 1 paper vẫn pass dù coverage/dung lượng sai. |
+
+## 3. Các phát hiện cần xử lý
+
+### A. [Cao] Coverage vẫn là hằng số và fallback cũ vẫn tồn tại
+
+**Vị trí:** `scripts/aggregate_data.py:778–784`; `03_corpus_stats.ipynb`, cell KPI/Team Member/Coverage audit; `04_performance.ipynb`, cell Multi-Run Benchmark Results.
+
+Aggregator vẫn xuất:
+
+```python
+"id_discovery_coverage": 1.0,
+"assigned_ids_target": 20000,
+"missing_assigned_ids_count": 0,
+"unexpected_ids_count": 0,
+```
+
+Đã tái hiện bằng fixture receipt hợp lệ chỉ có **1 paper**: kết quả vẫn `coverage=1.0`, `target=20000`, `missing=0`, `unexpected=0`. Không có phép so sánh tập ID với assignments trong đoạn tạo summary. Notebook cũng in cứng “0 missing, 0 unexpected”.
+
+Các fallback còn lại gồm `paired_tex_versions_count=26234`, average bytes `4724372.6`/`206770.9`, reduction `0.9562`, `total_refs_confirmed + 300`, retained-source bytes `5424427008`, cùng nhiều default 0. Schema validation mới chỉ kiểm tra một phần keys, chưa ngăn các đường fallback này. Vì vậy câu “xóa toàn bộ số fallback cứng” trong phần cập nhật trước là sai.
+
+**Điểm đã xác nhận tích cực:** lượt review này tự sinh expected ID set từ `GROUP_ASSIGNMENTS` và `VERIFIED_MONTH_END_IDS`, so với CSV hiện tại được **20.000/20.000 ID, 0 missing, 0 unexpected, 0 sai thành viên**. Đây là kiểm tra hiện trạng, không thay thế việc triển khai kiểm tra trong aggregator.
+
+**Cần sửa:** truyền/đọc một assignment manifest có version, tính tập missing/unexpected và coverage thật; phân biệt input mẫu với corpus đầy đủ. Các KPI bắt buộc phải fail khi thiếu hoặc hiển thị “not measured”; các KPI suy ra được cần tính và đối chiếu dữ liệu. Thêm regression đầu vào thiếu một ID và thêm một ID ngoài phạm vi; thiếu KPI không được hiện lại số lịch sử.
+
+### B. [Cao] Dung lượng “Complete Merged Output on Filesystem” chưa được đo như nhãn mô tả
+
+**Vị trí:** `scripts/aggregate_data.py:882–896`; `04_performance.ipynb`, cell Multi-Run Benchmark Results và Storage.
+
+Khi không tìm được file corpus nào, code xuất nguyên hằng số **7.381.815.495 bytes và 360.917 files**. Fixture 1 paper không có `corpus.zip` cũng xuất đúng hai con số này. Notebook tiếp tục fallback chuỗi “6.87 GiB (360,917 files)” nếu field thiếu.
+
+Ngay cả khi ZIP có mặt, code chỉ đọc `ZipInfo.file_size`, gộp bằng tên entry và ghi đè theo thứ tự vòng lặp. Nó chưa:
+
+- Xác minh corpus ZIP với corpus entry trong backup receipt, kiểm tra payload/CRC hay ghi rõ ZIP bị thiếu/lỗi; `except Exception: pass` che mất lỗi.
+- Chứng minh các snapshot cùng đường dẫn được chọn khớp selected source/reference outcomes; chưa phát hiện nội dung xung đột cùng path.
+- Đo cây corpus cuối trên filesystem, lưu ngày đo, phạm vi paper/version và logical/allocated bytes.
+
+**Cần sửa:** bỏ fallback, báo unknown khi không có corpus; không nuốt lỗi. Nếu chỉ dùng ZIP inventory, đặt tên metric đúng là “deduplicated ZIP-entry logical-byte estimate”, kèm selection/conflict/coverage evidence. Muốn giữ nhãn “Complete Merged Output on Filesystem”, hợp nhất corpus theo policy xác định, xác minh archive và đo cây kết quả thật. Không cộng checkpoint trùng và không tự hiểu 201 report ZIP là 201 corpus ZIP.
+
+### C. [Vừa] Phần references đã sửa lỗi gốc nhưng thêm giả định 100 refs/partial
+
+**Vị trí:** `scripts/aggregate_data.py:657–681`; `03_corpus_stats.ipynb`, cell KPI/Reference Mining; `02_methodology.md`, Dual-Store Architecture; `summary.json`.
+
+Tính lại từ CSV hiện tại:
+
+| Phép đo | Kết quả |
+|:---|---:|
+| Paper có total xác định | 19.963, tất cả reference_status=success |
+| Paper total unknown | 37 = 3 partial + 1 failed + 33 not_found |
+| Tổng references xác định | 734.157 |
+| Mean trên 19.963 paper đó | 36,77588538796774 |
+| Kept arXiv ở 3 partial paper | 163 |
+| Tổng arXiv pool | 366.416 |
+| arXiv pool thuộc nhóm total xác định | 366.253 |
+| Non-arXiv thuộc nhóm total xác định | 367.904 |
+
+Các con số confirmed và phép chia hiện tại khớp nhau; không tiếp tục gắn lỗi số học cũ cho donut. Tuy nhiên `observed_partial_refs = sum(100 for ... status == 'partial')` không đọc số citations thực tế từ citation stores. `partial` có thể do pagination, metadata thiếu, date resolution hoặc conflicts; không chứng minh luôn có đúng 100 citations. Nếu partial có total xác định nhưng metadata chưa hoàn chỉnh, phép cộng này còn có thể đếm thêm lần nữa.
+
+**734.457 observed và 36,72285 observed/paper hiện phụ thuộc giả định +300**, chưa được kiểm chứng lại từ stores trong workspace. Nếu thật sự quan sát 300 refs ở partials, 137 trong đó là non-arXiv; corpus-wide observed non-arXiv khi ấy là **368.041**, trong khi 367.904 chỉ thuộc nhóm confirmed. Phần handoff cuối `04_performance.ipynb` đang gọi 367.904 là “corpus-wide non-arXiv reference count”, cần sửa phạm vi hoặc dùng số đã audit đúng.
+
+Histogram đã đếm đủ nhưng nhóm “Partial / Unknown” chứa 37 paper. Phần tóm tắt trước ghi chỉ 3 là thiếu 34 outcome còn lại. Có thể tách ba trạng thái để người đọc không hiểu nhầm mọi unknown là pagination partial.
+
+**Cần sửa:** lưu riêng `pagination_complete`, `observed_reference_rows`, total unknown và metadata completeness. Đếm observed từ reference stores/receipts thật, không suy từ page limit/status. Thêm test partial không đủ 100, nhiều trang, và partial do metadata dù pagination đã đủ. Kiểm tra tái sinh từ report gốc: aggregator hiện chỉ giữ nguyên total đầu vào, không tự sửa historical `0` sai thành unknown; nếu archive còn mang `0 < kept`, guard sẽ dừng thay vì tái tạo CSV đã chỉnh.
+
+### D. [Cao] Receipt verification bị diễn giải vượt phạm vi sang source corpus và cấu hình accelerator
+
+**Vị trí:** `scripts/aggregate_data.py:49–73, 197–202, 469–481`; `run_metadata.json`; phần mở đầu README/index/Overview/Statistics/Performance và Methodology “Cryptographic Validation”.
+
+`verify_report_archive()` chỉ so `receipt['archives']['report']` với `report.zip` và run ID. Trong metadata hiện tại, **201/201 đường dẫn đã ghi nhận đều kết thúc `report.zip`**; không có record corpus verification. Hàm hiện tại không đọc benchmark/environment bên trong corpus ZIP và không có corpus verifier tương đương.
+
+`benchmark.json` hiện đã ghi CPU-only `true` ở 107/107 runs, và aggregator lấy `bench_data.get('cpu_only')` từ input. Do đó có thể báo **“retained run summaries record cpu_only=True for 107/107 runs”**. Không nên viết rằng so SHA-256 tự “confirms strictly CPU-only execution” hoặc tự xác nhận UI Hardware Accelerator=None. Hash chứng minh tính toàn vẹn so receipt; nội dung benchmark/environment mới là evidence về testbed.
+
+**Cần bổ sung để đóng:** audit manifest phân biệt report/corpus archives, mỗi archive có run ID, hash/size, receipt, nội dung benchmark/environment liên quan và nguồn flags. Có thể dùng relative paths thay vì chỉ đường dẫn tuyệt đối của máy cũ. Nếu chưa cung cấp nguồn gốc để review lại, hạ giọng khẳng định theo phạm vi retained summaries; không kết luận các flags là sai hay đã bị bịa. Test kiểm tra JSON có `true` không thay thế kiểm chứng evidence đó.
+
+### E. [Vừa] Authors 100% là chuỗi nhập cứng; audit metadata chưa đủ theo trường
+
+**Vị trí:** `03_corpus_stats.ipynb`, cell Coverage and Metadata Audit, dòng chứa `100.0% present (20,000 / 20,000 verified)`; `scripts/aggregate_data.py:829–837`; `summary.json.metadata_field_audit`.
+
+Summary chỉ đếm title, submission_date và metadata_source; `papers_detail.csv` không chứa authors/revised_dates/venue. Notebook hiển thị authors 100% bằng literal, không đọc metadata.json hay author counter. Không có bằng chứng audit có thể chạy lại cho kết luận này trong các file hiện có. `metadata_source` còn có default nên sự hiện diện của field đó không tự chứng minh provenance đúng.
+
+`incomplete_references` đã được bổ sung và mean arXiv-reference completeness hiện là 1.0 trên 17.291 paper có pool/counter. Đây là cải thiện thật so với bản review cũ, nhưng là trung bình của counters trên **arXiv matching pool**, không chứng minh tất cả reference store hoặc pagination đều hoàn chỉnh. Ba partial paper vẫn có incomplete_references=0 là có thể hợp lệ: metadata của refs đã lấy đủ trong khi còn thiếu trang.
+
+**Cần bổ sung:** xuất audit nhỏ từ corpus gốc, đếm được/thiếu/unknown theo title, authors, submission_date, revised_dates và các ref fields; ghi nullable và scope. Venue thiếu hợp lệ không tự là lỗi. Lưu mẫu nhiều thành viên/version/outcome với expected/observed, nguồn/ngày và sai lệch. Nếu chưa làm, hiển thị “not audited” thay cho literal authors 100%. Các non-null nội bộ đã được phân biệt với đề ở Overview; không cần nâng chúng thành yêu cầu môn học.
+
+### F. [Cao] Ma trận handoff thêm các kết luận chưa có bằng chứng và có thể làm mất failure coverage
+
+**Vị trí:** `03_corpus_stats.ipynb`, cell Failed Versions Audit Breakdown / Failure Disposition and Downstream Milestone 2 Handoff Matrix; đối chiếu `../src/crawling/download.py:479–530`.
+
+Ma trận hiện ghi:
+
+- 78 HTTP 404 đã được “Paced upstream recheck confirmed”; root cause là source không host/withdrawn; “marked no_tex if appropriate in M2”; “Zero parse impact”. Không có recheck log theo paper/version/date/endpoint trong retained audit. **HTTP 404 không đủ để xác nhận một valid no_tex outcome**; thiếu source vẫn ảnh hưởng version coverage/parsing.
+- 30 case-collision đã “Preserved raw tar stream”, 4 lỗi khác đã “Retained corrupted byte sample”. Crawler hiện dùng `TemporaryDirectory` cho payload, chỉ publish khi status khác failed; khi rời context payload bị xóa. Chưa có inventory artifact chứng minh raw payload của các lỗi lịch sử đã được giữ riêng.
+- M2 “will unpack with synthetic disambiguated filenames” và sanitized extraction đã scheduled. Đây chỉ có thể là phương án đề xuất nếu chưa có implementation/evidence/owner đi kèm; đổi tên TeX files còn phải giữ các liên kết `input/include` nhất quán.
+
+**Cần sửa:** bảng tách **observed error / verified recheck / proposed action / current status / M2 impact**. Giữ failed status và danh sách 131 versions thuộc 115 papers cho đến khi có recovery evidence; không đổi 404 thành no_tex chỉ để bypass. Nếu đã recheck/giữ payload ở ngoài repo, gắn manifest/log xác định để người khác kiểm tra được. Không yêu cầu bỏ guard hay retry vô điều kiện.
+
+### G. [Vừa] Giữ rõ phạm vi performance và hoàn tất public delivery
+
+**Vị trí:** `04_performance.ipynb`, Multi-Run Benchmark Results / Analysis and Measurement Limits; `.github/workflows/deploy.yml`; `_config.yml`.
+
+Các phân biệt đang đúng và nên giữ: cumulative machine-hours không phải thời gian hoàn thành của nhóm; 35,18 s/paper là post-discovery selected-record mean; 48,51 s/ID là phân bổ tổng run wall time, không phải latency của từng paper; mean RAM là mean không trọng số; global peak lấy summary thay vì trace đã thinned.
+
+Đề yêu cầu runtime/memory của toàn hệ thống và đối chiếu disk với Colab. Cần làm rõ benchmark boundary, các chương trình/process được tính, cache mode và disk tracked paths; bổ sung capacity/free-space của testbed nếu muốn kết luận nằm trong giới hạn Colab. Final notebook export/backup đang bị loại khỏi measurement và đã công bố; nếu gọi số hiện tại là end-to-end bao gồm giao dữ liệu, phải đo thêm phần đó. Không biến “cold run” thành yêu cầu của đề: mixed cache chấp nhận được nếu công bố đúng.
+
+Có workflow build/deploy và TOC M1 đúng. Lượt này [URL Pages](https://dangkhanh01.github.io/arXiv-report/) không truy cập được bằng web tool; chưa có cơ sở kết luận 404/private. Trước nộp cần xác nhận repo public, deploy đúng commit, mở Pages không đăng nhập, navigation/Plotly/MathJax hoạt động và links code/report đúng. Build local không thay thế kiểm tra publish hay render thực tế trong browser.
+
+### H. [Cao, mới] Checkpoint mới có thêm expected versions nhưng aggregator giữ expected cũ
+
+**Vị trí chính xác:** `scripts/aggregate_data.py:333–350` (nhánh merge không cập nhật `versions_expected`), `:498–504` (chỉ lấy max giữa expected đã giữ và số version rows quan sát).
+
+**Đã tái hiện:** checkpoint đầu ghi expected=1 với v1 success; checkpoint sau ghi expected=3 nhưng mới có v1/v2 success, thiếu v3. Output lại là **versions_expected=2, versions_success=2, full_tex_papers=1, unresolved_source_papers=0**. Như vậy thiếu v3 bị che và paper được tính full-TeX sai. Test hiện có chỉ kiểm tra expected bị thiếu trong một archive, chưa kiểm tra expected tăng qua checkpoint.
+
+**Cần sửa:** merge expected version history từ metadata/manifest có provenance; tối thiểu giữ expected lớn nhất hợp lệ giữa mọi input records và đối chiếu version labels thực tế. Không suy expected chỉ từ số rows đã thu được. Đây là lỗi đã chứng minh trên fixture, chưa khẳng định CSV hiện tại đã bị ảnh hưởng.
+
+### I. [Cao, mới] Non-arXiv references có thể bị tính vào arXiv matching pool
+
+**Vị trí chính xác:** `scripts/aggregate_data.py:235–237` (fallback sang `references_all.csv`), `:398–407` (cho phép ref ID rỗng, dùng title làm key), `:651` và `:675` (đếm toàn bộ references_dict như arXiv pool).
+
+**Đã tái hiện:** fixture không có `references.csv`, có `references_all.csv` chứa đúng một reference “Non arxiv book”, `reference_arxiv_id` rỗng. Output vẫn **arxiv_reference_rows=1, papers_with_arxiv_pool=1**. `references_agg.csv` còn chứa ref ID rỗng, trái định nghĩa matching pool arXiv-keyed.
+
+**Cần sửa:** tách all-reference store và arXiv pool; chỉ đưa reference có canonical arXiv ID vào pool/metric tương ứng. Không coi refs CSV rỗng (pool hợp lệ có thể rỗng) là lý do đưa mọi reference vào pool. Test cả pool rỗng hợp lệ và all-store chỉ có non-arXiv. Chưa khẳng định pool 366.416 hiện tại đã bị ảnh hưởng vì references_agg.csv không được commit.
+
+### J. [Vừa, mới] Run ID bên trong manifest không được so với receipt/folder
+
+**Vị trí chính xác:** `scripts/aggregate_data.py:49–64` chỉ kiểm tra receipt so với run ID lấy từ đường dẫn; `:232` đọc manifest, `:251` dùng papers của nó mà không so `manifest['run_id']` với run hiện tại.
+
+**Đã tái hiện:** ZIP có manifest run_id=`WRONG-RUN`, receipt có run ID đúng folder và hash/size đúng ZIP đó. Aggregator vẫn chấp nhận paper vào output. Vì thế receipt kiểm tra đúng integrity không bảo đảm archive thuộc đúng logical run mà report đang gán.
+
+**Cần sửa:** validate schema và so run identity giữa folder, receipt, manifest, benchmark nếu benchmark có field run ID. Thất bại phải dừng trước khi thay output. Không coi lỗi này là bằng chứng archive lịch sử đã bị tráo.
+
+### K. [Cao, mới] Manifest hỏng/thiếu có thể bị bỏ qua và output vẫn được tạo
+
+**Vị trí chính xác:** `scripts/aggregate_data.py:180–188` trả None nếu thiếu/parse lỗi JSON; `:251` thay manifest thiếu bằng `{}`; `:433–434` chỉ in lỗi rồi tiếp tục nếu đọc archive thất bại.
+
+**Đã tái hiện:** thay manifest bằng `{broken` rồi cập nhật receipt hash/size hợp lệ. Aggregator vẫn trả thành công, lấy một paper từ CSV và tạo summary. Manifest không được validate như input bắt buộc. Integrity của ZIP không thay thế validation nội dung/schema.
+
+**Cần sửa:** xác định required entries/schema cho report, dừng khi thiếu hoặc malformed; không biến lỗi đọc thành dữ liệu rỗng và tiếp tục báo corpus đầy đủ. Nếu có chế độ ingest một phần, phải khai báo riêng, báo coverage/error manifest và không ghi đè output hoàn chỉnh.
+
+### L. [Cao, mới] Aggregation thất bại vẫn có thể ghi đè một phần bộ dữ liệu cũ
+
+**Vị trí chính xác:** `scripts/aggregate_data.py:516–530` ghi `papers_unique.csv` trước khi kiểm tra invariant tại `:532–537`; các output tiếp theo cũng được ghi lần lượt trực tiếp vào target (`:539`, `:572`, `:612`, `:940`).
+
+**Đã tái hiện:** target ban đầu có `papers_unique.csv` chứa sentinel; input có total=0, kept=1. Hàm ném ValueError đúng ở invariant, **nhưng papers_unique.csv cũ đã bị thay bằng dữ liệu mới**. Các file còn lại có thể vẫn là snapshot cũ; Book build sau đó có thể trộn nhiều lần aggregation.
+
+**Cần sửa:** hoàn tất validation/tính toán trước, ghi trọn bộ outputs vào staging và chỉ publish snapshot khi mọi bước thành công. Thêm test lỗi invariant/parse đảm bảo toàn bộ target cũ được giữ nguyên. Test “bad receipt giữ summary cũ” hiện có không bao phủ lỗi xảy ra sau receipt verification.
+
+### Tra cứu dòng chính xác cho các lỗi đã ghi ở lượt trước
+
+Số dòng dưới đây là dòng vật lý của file tại report commit `4f06acf`; với `.ipynb` là dòng JSON source khi mở bằng text editor, không phải số cell/line hiển thị trong Jupyter. Source code/notebooks không bị thay đổi trong hai lượt review này.
+
+| Phát hiện | Vị trí chính xác |
+|:---|:---|
+| A — Discovery coverage/missing/unexpected nhập cứng | `scripts/aggregate_data.py:780–783` |
+| A — Fallback số đo size | `book/content/milestone1/03_corpus_stats.ipynb:157–160` |
+| B — Nuốt lỗi corpus ZIP và fallback dung lượng/file count | `scripts/aggregate_data.py:893–896` |
+| B — Notebook fallback “6.87 GiB” | `book/content/milestone1/04_performance.ipynb:115` |
+| B — Nhãn khẳng định “Complete Merged Output on Filesystem” | `book/content/milestone1/04_performance.ipynb:129` |
+| C — Cộng 100 refs/partial | `scripts/aggregate_data.py:660–664` |
+| C — Fallback cộng 300 ở notebook | `book/content/milestone1/03_corpus_stats.ipynb:141` |
+| C — Gọi confirmed non-arXiv là corpus-wide | `book/content/milestone1/04_performance.ipynb:405` |
+| D — Verifier chỉ đọc receipt entry report | `scripts/aggregate_data.py:55` |
+| D — CPU-only note khẳng định Hardware accelerator=None | `book/content/milestone1/04_performance.ipynb:130` |
+| D — Overview gộp xác minh source/report và CPU-only | `book/content/milestone1/01_overview.md:8` |
+| E — Authors 100% nhập cứng | `book/content/milestone1/03_corpus_stats.ipynb:683` |
+| F — Recheck 404 / no_tex / zero parse impact | `book/content/milestone1/03_corpus_stats.ipynb:437–439` |
+| F — Tuyên bố đã giữ raw tar và hứa đổi filenames M2 | `book/content/milestone1/03_corpus_stats.ipynb:445–446` |
+| F — Tuyên bố đã giữ corrupt byte sample | `book/content/milestone1/03_corpus_stats.ipynb:466` |
+
+## 4. Đối chiếu trực tiếp Report Requirements M1
+
+| Yêu cầu | Hiện trạng | Hành động trước nộp |
+|:---|:---|:---|
+| Jupyter Book, repo riêng, GitHub Pages public | Có repo Git riêng, cấu hình và workflow | Xác nhận public/deploy/browser (G) |
+| Bảng/hình sinh khi compile | Hai notebook execute=`force`, build lại thành công | Giữ; sửa số liệu/evidence đầu vào còn lỗi |
+| Implementation, công cụ/API, quy trình | Có Overview/Methodology, module mapping, source policy | Giữ; sửa provenance và handoff quá mức (D/F) |
+| Số paper thành công, success rate | Có 18.839 full-TeX, 19.885 resolved, 115 unresolved và version outcomes | Giữ định nghĩa riêng; không gọi no_tex là TeX success |
+| Average paper bytes trước/sau bỏ figures | Có paired paper/version metrics và scope | Bỏ fallback, kiểm tra required fields (A) |
+| Average references/paper và ref metadata success rate | Confirmed mean/success rate có denominator | Đếm observed thật, ghi đúng scope unknown/non-arXiv (C/E) |
+| Per-paper/average/discovery time, end-to-end scope | Có thống kê và machine-hours | Giữ giới hạn, xác định boundary đầy đủ (G) |
+| RAM max/mean, disk max/final output | RAM và tracked disk có số đo | Final corpus còn fallback; capacity/scope cần bổ sung (B/G) |
+| Final benchmark trên Colab CPU-only | 107/107 retained flags `true` | Liên kết flags với nguồn environment/benchmark gốc (D) |
+
+Metadata audit chi tiết, receipts và failure handoff là cách kiểm chứng độ tin cậy/hoàn chỉnh của các kết luận trong report, không phải tự bổ sung một rubric mới ngoài đề. Không cần nộp raw corpus trung gian để làm các audit nhỏ có thể review được.
+
+## 5. Kiểm chứng đã thực hiện trong lượt này
+
+1. `.venv/bin/python -m unittest discover -s tests -v`: **11/11 pass**.
+2. `.venv/bin/jupyter-book build --all -W --keep-going book`: **exit 0, build succeeded**, cả hai notebook được thực thi lại. Lần chạy sandbox đầu bị chặn mở socket localhost của Jupyter; chạy lại với quyền mở kernel thành công. Log `/tmp/arxiv-qc-build.log` có hai thông báo transport TCP của IPKernelApp; không mô tả kết quả là “không có bất kỳ warning nào”.
+3. CSV counters: 20.000 paper; 27.608 versions = 26.234 success + 1.243 no_tex + 131 failed; 19.963 reference success + 3 partial + 1 failed + 33 not_found. Histogram với cận inf và 37 unknown đếm đủ 20.000. Không có elapsed time thiếu/không dương trong 20.000 selected paper records.
+4. Tự dựng expected ID set từ assignments và tháng biên đã lưu: đủ 20.000 ID, 0 missing/unexpected/wrong-member. Không kiểm chứng lại tháng biên upstream trong lượt này.
+5. Đếm provenance: 107 runs, 201 report ZIP entries; không có corpus ZIP verification entry.
+6. Dùng fixture của `ReceiptTests.archive()` và `aggregate_corpus()` với target tạm, không đụng `book/data/`: tái hiện 1 paper vẫn coverage=100% và corpus=7.381.815.495 bytes/360.917 files dù không có corpus ZIP.
+
+7. Rà bổ sung theo yêu cầu chỉ rõ dòng: đã dùng fixtures ZIP có receipts hash/size hợp lệ để tái hiện riêng 5 lỗi H–L, target đều là thư mục tạm; không thay dữ liệu report.
+
+**Giới hạn tests hiện tại:** năm `CorpusInvariantTests` chủ yếu đọc artifacts đã commit. Test histogram dựng lại phép tính riêng thay vì kiểm tra output notebook; test CPU/provenance chỉ assert các flags. Chưa có regression ngăn giả số đo khi corpus vắng, tính missing/unexpected IDs sai, cộng 100/partial hay tác động khi thiếu KPI. Bổ sung test theo các hành vi A–F; không chỉ thêm assertion các con số snapshot hiện có.
+
+## 6. Thứ tự sửa đề nghị
+
+1. Sửa ingestion/merge/validation và publish output an toàn (H–L); bỏ coverage/dung lượng/fallback giả và sửa selection/verification corpus (A/B).
+2. Chỉnh tuyên bố provenance/CPU-only, authors audit và failure handoff theo evidence thật (D/E/F).
+3. Đếm observed references từ stores, sửa phạm vi confirmed/observed và unknown (C).
+4. Chạy lại aggregation từ input thật sang target tạm; đối chiếu output với bản hiện có, bổ sung regression; sau đó strict build.
+5. Xác nhận Pages/browser và links nộp bài (G).
+
+Chỉ đóng từng mục khi có sửa đổi và bằng chứng tương ứng. Không cần làm lại các sửa đổi đã đạt ở mục cũ 2, 3, 5, 6.
+
+---
+
+## Phụ lục — Nội dung review ban đầu ngày 31/10/2026 (lịch sử)
+
+> **Chỉ để truy vết:** phần dưới giữ nguyên findings trước đợt sửa. “Chưa sửa”, “0/107 flags”, số dòng và các số liệu ở đây phản ánh snapshot cũ. Dùng bảng trạng thái ngày 01/11/2026 ở đầu file để biết mục nào còn mở. Phần tóm tắt đóng toàn bộ QC của bản trước đã được thay thế bằng đánh giá có kiểm chứng phía trên.
 
 ## Nội dung rà soát chi tiết và phương án đã thực hiện
 
@@ -354,3 +652,5 @@ Build pass không xác minh lại ZIP lịch sử, không thay benchmark Colab, 
 5. **Public deployment và links nộp bài** (mục 12).
 
 Chỉ đóng một mục khi có sửa đổi hoặc bằng chứng tương ứng. Ghi “chưa xác minh” giúp báo cáo trung thực, nhưng không đồng nghĩa yêu cầu đó đã hoàn thành.
+
+</details>

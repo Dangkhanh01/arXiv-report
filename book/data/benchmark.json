@@ -12,8 +12,8 @@
   "final_disk_bytes": 23259066601,
   "sum_run_final_disk_bytes": 23259066601,
   "merged_corpus_tex_bib_bytes": 5424427008.0,
-  "merged_corpus_uncompressed_bytes": 7381815495,
-  "merged_corpus_file_count": 360917,
+  "merged_corpus_uncompressed_bytes": null,
+  "merged_corpus_file_count": null,
   "multi_run_summary": {
     "total_runs": 107,
     "median_wall_seconds": 1284.9864028199954,
@@ -23,8 +23,8 @@
     "total_discovery_elapsed_seconds": 75373.87129892097,
     "sum_run_final_disk_bytes": 23259066601,
     "merged_corpus_tex_bib_bytes": 5424427008.0,
-    "merged_corpus_uncompressed_bytes": 7381815495,
-    "merged_corpus_file_count": 360917
+    "merged_corpus_uncompressed_bytes": null,
+    "merged_corpus_file_count": null
   },
   "runs": [
     {
@@ -1632,5 +1632,10 @@
       "total_papers": 0,
       "discovery_elapsed_seconds": 326.195352078
     }
-  ]
+  ],
+  "merged_corpus_measurement_status": "not measured: original corpus/selected merged filesystem tree unavailable in this workspace",
+  "verified_corpus_archive_count": 0,
+  "disk_capacity_bytes": null,
+  "tracked_paths": null,
+  "historical_evidence_status": "Retained run flags and receipt-verification records; original archives/environment have not been reverified in this workspace."
 }

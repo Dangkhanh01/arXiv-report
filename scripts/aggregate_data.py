@@ -19,6 +19,15 @@ Usage:
 
 import argparse
 import csv
+import io
+import math
+import os
+import re
+import tempfile
+import statistics
+import warnings
+from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 import hashlib
 import json
 from pathlib import Path
@@ -46,12 +55,12 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def verify_report_archive(path: Path, run_id: str) -> Dict[str, Any]:
+def verify_report_archive(path: Path, run_id: str, kind: str = "report") -> Dict[str, Any]:
     """Match an input report ZIP to its adjacent crawler completion receipt."""
     receipt_path = path.with_name("backup_receipt.json")
     try:
         receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-        entry = receipt["archives"]["report"]
+        entry = receipt["archives"][kind]
         expected_hash = entry["sha256"]
         expected_bytes = entry["bytes"]
         if (receipt["run_id"] != run_id or entry["filename"] != path.name
@@ -67,7 +76,7 @@ def verify_report_archive(path: Path, run_id: str) -> Dict[str, Any]:
     if actual_hash != expected_hash.lower():
         raise ValueError(f"Report ZIP SHA-256 differs from receipt: {path}")
     return {"receipt_path": str(receipt_path), "bytes": expected_bytes,
-            "sha256": actual_hash, "verified": True}
+            "sha256": actual_hash, "verified": True, "kind": kind}
 
 
 def find_default_source() -> Path:
@@ -164,35 +173,140 @@ def collect_runs(source_dir: Path) -> List[Dict[str, Any]]:
     return discovered
 
 
-def parse_csv_from_zip(z: zipfile.ZipFile, filename: str) -> List[Dict[str, str]]:
-    """Extract and parse CSV from zip archive into list of dicts, ensuring string types."""
-    if filename not in z.namelist():
-        return []
+def safe_int(value, default=0):
+    if value is None or value == "":
+        return default
     try:
-        content = z.read(filename).decode("utf-8", errors="replace")
-        reader = csv.DictReader(content.splitlines())
-        return list(reader)
-    except Exception as e:
-        print(f"[WARN] Failed to parse {filename} in zip: {e}")
-        return []
+        number = Decimal(str(value))
+        if not number.is_finite() or number < 0 or number != number.to_integral_value():
+            raise ValueError(f"Expected nonnegative integer, got {value!r}")
+        return int(number)
+    except InvalidOperation as exc:
+        raise ValueError(f"Invalid integer: {value!r}") from exc
 
 
-def parse_json_from_zip(z: zipfile.ZipFile, filename: str) -> Optional[Any]:
-    """Extract and parse JSON from zip archive."""
+def safe_float(value):
+    if value is None or value == "":
+        return None
+    number = float(value)
+    if not math.isfinite(number) or number < 0:
+        raise ValueError(f"Invalid nonnegative measurement: {value!r}")
+    return number
+
+
+def canonical_arxiv_id(value):
+    value = re.sub(r"v[1-9][0-9]*$", "", str(value or "").strip())
+    if value and not re.fullmatch(r"(?:[0-9]{4}\.[0-9]{4,5}|[A-Za-z][A-Za-z0-9.-]*/[0-9]{7})", value):
+        raise ValueError(f"Invalid arXiv ID: {value!r}")
+    return value
+
+
+def assignment_coverage(papers, assignment_path=None):
+    path = Path(assignment_path) if assignment_path else Path(__file__).resolve().parents[1] / "config/assignments.json"
+    spec = json.loads(path.read_text(encoding="utf-8"))
+    if spec.get("schema_version") != 1:
+        raise ValueError("Unsupported assignment manifest")
+    expected = {}
+    for row in spec["ranges"]:
+        month, end = row["start_month"], row["end_month"]
+        while month <= end:
+            lo = row["start_id"] if month == row["start_month"] else 1
+            hi = row["end_id"] if month == end else spec["month_end_ids"][month]
+            if not 1 <= lo <= hi <= 99999:
+                raise ValueError("Invalid assignment range")
+            for number in range(lo, hi + 1):
+                identifier = month[2:4] + month[5:7] + f".{number:05d}"
+                if identifier in expected:
+                    raise ValueError(f"Overlapping assignment: {identifier}")
+                expected[identifier] = row["member"]
+            year, number = map(int, month.split("-"))
+            month = f"{year + (number == 12):04d}-{number % 12 + 1:02d}"
+    if not expected:
+        raise ValueError("Empty assignment manifest")
+    actual = set(papers)
+    resolved = {pid for pid, paper in papers.items() if str(paper.get("title") or "").strip()
+                and str(paper.get("submission_date") or "").strip()}
+    return {
+        "id_discovery_coverage": len(set(expected) & resolved) / len(expected),
+        "assigned_ids_target": len(expected),
+        "missing_assigned_ids_count": len(set(expected) - actual),
+        "unexpected_ids_count": len(actual - set(expected)),
+        "invalid_assigned_metadata_count": len((set(expected) & actual) - resolved),
+        "wrong_member_ids_count": sum(papers[pid]["member"] != expected[pid] for pid in actual & set(expected)),
+        "assignment_manifest_sha256": sha256_file(path),
+        "assigned_member_targets": dict(Counter(expected.values())),
+    }
+
+
+def parse_csv_from_zip(z, filename, required=False, columns=()):
     if filename not in z.namelist():
-        return None
-    try:
-        return json.loads(z.read(filename).decode("utf-8", errors="replace"))
-    except Exception as e:
-        print(f"[WARN] Failed to parse {filename} in zip: {e}")
-        return None
+        if required:
+            raise ValueError(f"Missing required {filename} in {z.filename}")
+        return []
+    reader = csv.DictReader(io.StringIO(z.read(filename).decode("utf-8")), strict=True)
+    headers = reader.fieldnames or []
+    if len(headers) != len(set(headers)) or not set(columns) <= set(headers):
+        raise ValueError(f"Invalid columns for {filename}: {headers}")
+    rows = list(reader)
+    if any(None in row or any(value is None for value in row.values()) for row in rows):
+        raise ValueError(f"Malformed CSV rows in {filename}")
+    return rows
 
 
-def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
-    """Core aggregation pipeline processing all runs into book/data/ files."""
+def parse_json_from_zip(z, filename, required=False):
+    if filename not in z.namelist():
+        if required:
+            raise ValueError(f"Missing required {filename} in {z.filename}")
+        return None
+    value = json.loads(z.read(filename).decode("utf-8"))
+    return value
+
+
+def aggregate_corpus(source_dir, target_dir, assignment_path=None):
+    """Build a complete snapshot off-target; roll back ordinary publication failures.
+
+    The directory swap is not a lock for concurrent writers/readers. Run ingestion
+    before Book builds; an interrupted publication retains its sibling backup.
+    """
+    target = Path(target_dir).absolute()
+    if target.is_symlink() or (target.exists() and not target.is_dir()):
+        raise ValueError("Target must be a real directory")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=f".{target.name}-stage-", dir=target.parent) as work:
+        staged = Path(work) / "snapshot"
+        result = _aggregate_corpus(Path(source_dir), staged, assignment_path)
+        # Keep the backup outside TemporaryDirectory so an interrupted swap does
+        # not destroy the previous snapshot during cleanup.
+        backup = target.with_name(f".{target.name}-previous")
+        if backup.exists():
+            raise ValueError(f"Recover or remove previous interrupted snapshot first: {backup}")
+        had_target = target.exists()
+        if had_target:
+            os.replace(target, backup)
+        try:
+            os.replace(staged, target)
+        except BaseException:
+            if had_target:
+                os.replace(backup, target)
+            raise
+        if had_target:
+            try:
+                shutil.rmtree(backup)
+            except OSError:
+                warnings.warn(f"Snapshot published; old backup requires cleanup: {backup}", RuntimeWarning)
+        return result
+
+
+def _aggregate_corpus(source_dir, target_dir, assignment_path=None):
+    """Validate and materialize an unpublished snapshot."""
     print(f"[INFO] Scanning runs from {source_dir}...")
     run_configs = collect_runs(source_dir)
     print(f"[INFO] Discovered {len(run_configs)} total run entries.")
+
+    if not run_configs:
+        raise ValueError("No report runs discovered; refusing to replace existing data")
+    if len({item["run_id"] for item in run_configs}) != len(run_configs):
+        raise ValueError("Duplicate run ID across member/account directories")
 
     # Validate every selected checkpoint/final archive before replacing any data.
     # A checksum calculated without comparison is not verification.
@@ -205,6 +319,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     papers_dict: Dict[str, Dict[str, Any]] = {}
     versions_dict: Dict[Tuple[str, str], Dict[str, Any]] = {}
     references_dict: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    references_by_paper = {}
     resource_samples: List[Dict[str, Any]] = []
     benchmark_runs: List[Dict[str, Any]] = []
     run_metadata: List[Dict[str, Any]] = []
@@ -229,13 +344,25 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             processed_zip_count += 1
             try:
                 with zipfile.ZipFile(zpath, "r") as z:
-                    manifest = parse_json_from_zip(z, "manifest.json")
-                    papers_csv_rows = parse_csv_from_zip(z, "papers.csv")
-                    versions_csv_rows = parse_csv_from_zip(z, "versions.csv")
-                    refs_csv_rows = parse_csv_from_zip(z, "references.csv")
-                    if not refs_csv_rows:
-                        refs_csv_rows = parse_csv_from_zip(z, "references_all.csv")
-                    bench_data = parse_json_from_zip(z, "benchmark.json")
+                    manifest = parse_json_from_zip(z, "manifest.json", required=True)
+                    if not isinstance(manifest, dict) or manifest.get("run_id") != run_id or not isinstance(manifest.get("papers"), dict):
+                        raise ValueError("Manifest schema/run ID mismatch")
+                    papers_csv_rows = parse_csv_from_zip(z, "papers.csv", required=True, columns=("arxiv_id", "versions_expected", "reference_status", "total_references", "kept_references"))
+                    versions_csv_rows = parse_csv_from_zip(z, "versions.csv", required=True, columns=("arxiv_id", "version", "status"))
+                    all_refs_rows = parse_csv_from_zip(z, "references_all.csv", columns=("arxiv_id", "reference_arxiv_id"))
+                    refs_csv_rows = (parse_csv_from_zip(z, "references.csv", columns=("arxiv_id", "reference_arxiv_id"))
+                                     if "references.csv" in z.namelist() else all_refs_rows)
+                    observed_counts = Counter(row["arxiv_id"] for row in all_refs_rows)
+                    bench_data = parse_json_from_zip(z, "benchmark.json", required=True)
+                    if not isinstance(bench_data, dict) or ("run_id" in bench_data and bench_data["run_id"] != run_id):
+                        raise ValueError("Benchmark schema/run ID mismatch")
+                    if bench_data.get("cpu_only") is not None and type(bench_data["cpu_only"]) is not bool:
+                        raise ValueError("cpu_only must be boolean or null")
+                    for key in ("wall_seconds", "ram_peak_bytes", "ram_mean_bytes", "disk_peak_bytes", "final_disk_bytes"):
+                        bench_data[key] = safe_float(bench_data.get(key))
+                    for row in papers_csv_rows + versions_csv_rows + refs_csv_rows + all_refs_rows:
+                        if row.get("run_id") and row["run_id"] != run_id:
+                            raise ValueError("CSV run ID mismatch")
 
                     # Handle discovery time
                     if manifest and "discovery" in manifest:
@@ -246,14 +373,16 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
 
                     # 1. Process Papers
                     # Build lookup from papers.csv rows
-                    p_csv_lookup = {r["arxiv_id"]: r for r in papers_csv_rows if "arxiv_id" in r}
+                    p_csv_lookup = {r["arxiv_id"]: r for r in papers_csv_rows}
+                    if len(p_csv_lookup) != len(papers_csv_rows) or set(p_csv_lookup) != set(manifest["papers"]):
+                        raise ValueError("Duplicate IDs or manifest/papers.csv ID mismatch")
 
                     manifest_papers = manifest.get("papers", {}) if manifest else {}
 
                     # Union of all arxiv_ids in this zip
                     all_pids = set(manifest_papers.keys()) | set(p_csv_lookup.keys())
-                    for pid in all_pids:
-                        pid_str = str(pid).strip()
+                    for pid in sorted(all_pids):
+                        pid_str = canonical_arxiv_id(pid)
                         if not pid_str:
                             continue
 
@@ -265,28 +394,15 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                         title = meta.get("title") or csv_info.get("title") or ""
                         submission_date = meta.get("submission_date") or csv_info.get("submission_date") or ""
 
-                        # Convert elapsed_seconds safely
-                        elapsed_sec = None
-                        if "elapsed_seconds" in csv_info and csv_info["elapsed_seconds"]:
-                            try:
-                                elapsed_sec = float(csv_info["elapsed_seconds"])
-                            except ValueError:
-                                pass
-                        elif "elapsed_seconds" in p_info and p_info["elapsed_seconds"] is not None:
-                            try:
-                                elapsed_sec = float(p_info["elapsed_seconds"])
-                            except ValueError:
-                                pass
+                        # Missing timings remain unknown; malformed values reject ingestion.
+                        elapsed_sec = safe_float(csv_info.get("elapsed_seconds") or p_info.get("elapsed_seconds"))
 
-                        def safe_int(val, default=0):
-                            if val is None or val == "":
-                                return default
-                            try:
-                                return int(float(val))
-                            except (ValueError, TypeError):
-                                return default
-
-                        v_exp = safe_int(csv_info.get("versions_expected"), default=1)
+                        v_exp = safe_int(csv_info.get("versions_expected"), default=None)
+                        if v_exp is None or v_exp < 1:
+                            raise ValueError(f"Missing/invalid expected versions for {pid_str}")
+                        record_versions = rec.get("versions", [])
+                        if record_versions:
+                            v_exp = max(v_exp, max(safe_int(v) for v in record_versions))
                         v_suc = safe_int(csv_info.get("versions_success"), default=0)
                         v_notex = safe_int(csv_info.get("versions_no_tex"), default=0)
                         v_fail = safe_int(csv_info.get("versions_failed"), default=0)
@@ -303,6 +419,24 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
 
                         source_status = csv_info.get("source_status") or "unknown"
                         ref_status = csv_info.get("reference_status") or "unknown"
+                        if ref_status not in ref_priority:
+                            raise ValueError(f"Invalid reference status: {ref_status}")
+                        ref_result = p_info.get("references") or {}
+                        if not isinstance(ref_result, dict):
+                            raise ValueError("Invalid reference result")
+                        if ref_result.get("pagination_complete") is False or ref_status in ("failed", "not_found", "pending", "unknown"):
+                            t_refs = None
+                        observed_refs = t_refs
+                        if isinstance(ref_result.get("all_references"), list):
+                            observed_refs = len(ref_result["all_references"])
+                        if "references_all.csv" in z.namelist():
+                            observed_refs = observed_counts[pid_str]
+                        if t_refs is not None and observed_refs is not None and t_refs != observed_refs:
+                            raise ValueError(f"Reference total/store mismatch for {pid_str}")
+                        if observed_refs is not None and observed_refs < k_refs:
+                            raise ValueError(f"Observed reference count below kept for {pid_str}")
+                        if inc_refs is not None and inc_refs > k_refs:
+                            raise ValueError(f"Incomplete reference count exceeds kept for {pid_str}")
 
                         paper_record = {
                             "arxiv_id": pid_str,
@@ -311,7 +445,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                             "run_id": run_id,
                             "title": title,
                             "submission_date": submission_date,
-                            "metadata_source": csv_info.get("metadata_source", "oai-pmh/arXivRaw"),
+                            "metadata_source": csv_info.get("metadata_source") or manifest.get("metadata_source"),
                             "elapsed_seconds": elapsed_sec,
                             "source_status": source_status,
                             "reference_status": ref_status,
@@ -321,6 +455,9 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                             "versions_failed": v_fail,
                             "versions_pending": v_pend,
                             "total_references": t_refs,
+                            "observed_reference_rows": observed_refs,
+                            "_metadata": meta,
+                            "_reference_snapshot": (run_id, str(zpath)),
                             "kept_references": k_refs,
                             "incomplete_references": inc_refs,
                         }
@@ -331,6 +468,9 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                             run_papers_count += 1
                         else:
                             existing = papers_dict[pid_str]
+                            if existing["member"] != member:
+                                raise ValueError(f"Paper assigned to multiple members: {pid_str}")
+                            existing["versions_expected"] = max(existing["versions_expected"], v_exp)
                             cur_r_prio = ref_priority.get(existing.get("reference_status"), 0)
                             new_r_prio = ref_priority.get(ref_status, 0)
                             if (new_r_prio > cur_r_prio) or (
@@ -341,6 +481,9 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                                 existing["kept_references"] = k_refs
                                 existing["incomplete_references"] = inc_refs
                                 existing["run_id"] = run_id
+                                existing["account"] = account
+                                existing["observed_reference_rows"] = observed_refs
+                                existing["_reference_snapshot"] = (run_id, str(zpath))
 
                             if not existing.get("title") and title:
                                 existing["title"] = title
@@ -350,20 +493,20 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                                 existing["elapsed_seconds"] = elapsed_sec
 
                     # 2. Process Versions
+                    seen_versions = set()
                     for v_row in versions_csv_rows:
                         pid = str(v_row.get("arxiv_id", "")).strip()
-                        ver = str(v_row.get("version", "")).strip()
-                        if not pid or not ver:
-                            continue
+                        ver = str(safe_int(v_row.get("version")))
+                        if pid not in p_csv_lookup or int(ver) < 1:
+                            raise ValueError("Invalid version ID or orphan version")
 
                         status = v_row.get("status", "unknown")
+                        if status not in status_priority:
+                            raise ValueError(f"Invalid version status: {status}")
                         v_key = (pid, ver)
-
-                        def safe_float(v):
-                            try:
-                                return float(v) if v is not None and v != "" else None
-                            except ValueError:
-                                return None
+                        if v_key in seen_versions:
+                            raise ValueError("Duplicate version key inside one report")
+                        seen_versions.add(v_key)
 
                         v_entry = {
                             "run_id": run_id,
@@ -390,27 +533,25 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                             if new_prio > cur_prio:
                                 versions_dict[v_key] = v_entry
 
-                    # 3. Process References
+                    # Select a complete reference snapshot per paper; do not union
+                    # stale citation sets from unrelated retries.
+                    for pid in all_pids:
+                        if papers_dict[pid]["_reference_snapshot"] == (run_id, str(zpath)):
+                            references_by_paper[pid] = {}
                     for r_row in refs_csv_rows:
-                        pid = str(r_row.get("arxiv_id", "")).strip()
-                        ref_id = str(r_row.get("reference_arxiv_id", "")).strip()
-                        ref_title = r_row.get("title", "").strip()
-                        if not pid or (not ref_id and not ref_title):
+                        pid = r_row["arxiv_id"].strip()
+                        if pid not in p_csv_lookup:
+                            raise ValueError("Orphan reference row")
+                        if papers_dict[pid]["_reference_snapshot"] != (run_id, str(zpath)):
                             continue
-
-                        # Composite key for reference
-                        ref_key = (pid, ref_id if ref_id else ref_title[:50])
-                        if ref_key not in references_dict:
-                            references_dict[ref_key] = {
-                                "run_id": run_id,
-                                "arxiv_id": pid,
-                                "reference_arxiv_id": ref_id,
-                                "title": ref_title,
-                                "authors": r_row.get("authors", ""),
-                                "submission_date": r_row.get("submission_date", ""),
-                                "semantic_scholar_id": r_row.get("semantic_scholar_id", ""),
-                                "publication_date": r_row.get("publication_date", ""),
-                            }
+                        ref_id = canonical_arxiv_id(r_row.get("reference_arxiv_id"))
+                        if not ref_id:
+                            continue
+                        references_by_paper[pid][ref_id] = {
+                            "run_id": run_id, "arxiv_id": pid, "reference_arxiv_id": ref_id,
+                            **{key: r_row.get(key, "") for key in
+                               ("title", "authors", "submission_date", "semantic_scholar_id", "publication_date")},
+                        }
 
                     # 4. Track latest benchmark data across zips for this run
                     if bench_data:
@@ -431,7 +572,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                         }
 
             except Exception as e:
-                print(f"[ERROR] Failed to read {zpath}: {e}")
+                raise ValueError(f"Invalid report archive {zpath}: {e}") from e
 
         # 5. Extract Resource Samples strictly from the FINAL zip of the run
         # This completely eliminates duplicated sample chains across incremental checkpoints.
@@ -462,7 +603,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             print(f"[WARN] Failed to read resource samples from {last_zpath}: {e}")
 
         if run_bench_entry:
-            run_bench_entry["total_papers"] = run_papers_count
+            run_bench_entry["new_unique_papers"] = run_papers_count
             run_bench_entry["discovery_elapsed_seconds"] = run_discovery_seconds
             benchmark_runs.append(run_bench_entry)
 
@@ -481,6 +622,14 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
                                   for path in zip_paths],
         })
 
+    if not papers_dict:
+        raise ValueError("No paper records found; refusing to publish an empty corpus")
+    for pid, paper in papers_dict.items():
+        pool = references_by_paper.get(pid, {})
+        if len(pool) != paper["kept_references"]:
+            raise ValueError(f"Selected arXiv reference pool/count mismatch for {pid}")
+        references_dict.update({(pid, key): row for key, row in pool.items()})
+    coverage = assignment_coverage(papers_dict, assignment_path)
     print(f"\n[INFO] Extracted {len(papers_dict):,} unique papers across all runs.")
     print(f"[INFO] Extracted {len(versions_dict):,} unique version entries.")
     print(f"[INFO] Extracted {len(references_dict):,} unique reference records.")
@@ -495,11 +644,13 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
 
     for pid, p in papers_dict.items():
         v_list = paper_versions_map.get(pid, [])
-        v_exp = len(v_list)
+        v_exp = max((int(v["version"]) for v in v_list), default=0)
         v_suc = sum(1 for v in v_list if v["status"] == "success")
         v_notex = sum(1 for v in v_list if v["status"] == "no_tex")
         v_fail = sum(1 for v in v_list if v["status"] == "failed")
         v_pend = sum(1 for v in v_list if v["status"] == "pending")
+        missing_versions = max(p["versions_expected"], v_exp) - len(v_list)
+        p["versions_missing"] = missing_versions
 
         p["versions_expected"] = max(p.get("versions_expected", 0), v_exp)
         p["versions_success"] = v_suc
@@ -543,7 +694,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
             "arxiv_id", "member", "account", "run_id", "title", "submission_date",
             "metadata_source", "elapsed_seconds", "source_status", "reference_status",
             "versions_expected", "versions_success", "versions_no_tex", "versions_failed",
-            "versions_pending", "total_references", "kept_references", "incomplete_references"
+            "versions_pending", "versions_missing", "total_references", "kept_references", "incomplete_references", "observed_reference_rows"
         ]
         writer = csv.DictWriter(f, fieldnames=fields)
         writer.writeheader()
@@ -657,11 +808,12 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     total_extracted_refs_confirmed = sum(
         p["total_references"] for p in papers_dict.values() if p.get("total_references") is not None
     )
-    # The 3 partial papers have 100 citations observed from page 1 of references_all.json
-    observed_partial_refs = sum(
-        100 for p in papers_dict.values() if p.get("reference_status") == "partial"
+    observed_counts = [p["observed_reference_rows"] for p in papers_dict.values()]
+    total_extracted_refs_observed = (sum(observed_counts) if all(v is not None for v in observed_counts) else None)
+    observed_reference_lower_bound = sum(
+        p["observed_reference_rows"] if p["observed_reference_rows"] is not None else p["kept_references"]
+        for p in papers_dict.values()
     )
-    total_extracted_refs_observed = total_extracted_refs_confirmed + observed_partial_refs
 
     # Backward compatibility: total_extracted_refs is the confirmed reference count
     total_extracted_refs = total_extracted_refs_confirmed
@@ -678,7 +830,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
 
     completed_papers_count = sum(1 for p in papers_dict.values() if p.get("total_references") is not None)
     mean_refs_confirmed = total_extracted_refs_confirmed / completed_papers_count if completed_papers_count else 0.0
-    mean_refs_observed = total_extracted_refs_observed / len(papers_dict) if papers_dict else 0.0
+    mean_refs_observed = total_extracted_refs_observed / len(papers_dict) if total_extracted_refs_observed is not None else None
     mean_arxiv_refs = total_kept_refs / len(papers_dict) if papers_dict else 0.0
 
     # Audit reference completeness rate: (kept - incomplete) / kept
@@ -775,12 +927,22 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
         for m, data in member_breakdown.items()
     }
 
+    paper_field_audit = {}
+    for field in ("title", "authors", "submission_date", "revised_dates", "venue"):
+        audited = [p["_metadata"][field] for p in papers_dict.values() if field in p["_metadata"]]
+        present = sum(bool(v) or (field == "revised_dates" and isinstance(v, list)) for v in audited)
+        paper_field_audit[field] = {"audited": len(audited), "present": present,
+                                    "missing": len(audited) - present, "unknown": len(papers_dict) - len(audited)}
+    reference_field_audit = {}
+    for field in ("title", "authors", "submission_date", "semantic_scholar_id"):
+        present = sum(bool(str(r.get(field) or "").strip()) and str(r.get(field)).strip() != "[]"
+                      for r in references_dict.values())
+        reference_field_audit[field] = {"audited": len(references_dict), "present": present,
+                                       "missing": len(references_dict) - present}
+
     summary_data = {
         "papers_discovered": papers_discovered,
-        "id_discovery_coverage": 1.0,
-        "assigned_ids_target": 20000,
-        "missing_assigned_ids_count": 0,
-        "unexpected_ids_count": 0,
+        **coverage,
         "selected_runs_total": len(set(p["run_id"] for p in papers_dict.values())),
         "benchmark_runs_total": len(benchmark_runs),
         "full_tex_papers": full_tex_papers,
@@ -796,6 +958,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
         "versions_no_tex": v_notex,
         "versions_failed": v_failed,
         "versions_pending": v_pending,
+        "versions_missing": sum(p["versions_missing"] for p in papers_dict.values()),
         "source_coverage_rate": (v_success + v_notex) / versions_expected if versions_expected else 0.0,
 
         "reference_jobs_success": ref_jobs_success,
@@ -812,6 +975,8 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
         "total_extracted_references": total_extracted_refs,
         "total_extracted_references_confirmed": total_extracted_refs_confirmed,
         "total_extracted_references_observed": total_extracted_refs_observed,
+        "observed_reference_lower_bound": observed_reference_lower_bound,
+        "unknown_reference_total_papers": sum(v is None for v in observed_counts),
         "confirmed_reference_papers_count": completed_papers_count,
         "crawled_reference_rows": total_extracted_refs,
         "arxiv_reference_rows": arxiv_ref_rows,
@@ -827,6 +992,9 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
         "reference_completeness_denominator": len(comp_list),
 
         "metadata_field_audit": {
+            "paper_fields": paper_field_audit,
+            "reference_fields": reference_field_audit,
+            "scope": "Field presence in selected manifest/pool; no independent upstream correctness audit",
             "total_papers_audited": len(papers_dict),
             "title_present": sum(1 for p in papers_dict.values() if p.get("title")),
             "submission_date_present": sum(1 for p in papers_dict.values() if p.get("submission_date")),
@@ -860,40 +1028,46 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     }
 
     summary_path = target_dir / "summary.json"
-    summary_path.write_text(json.dumps(summary_data, indent=2, ensure_ascii=False), encoding="utf-8")
+    summary_path.write_text(json.dumps(summary_data, indent=2, ensure_ascii=False, allow_nan=False), encoding="utf-8")
     print(f"[SYNC] Wrote {summary_path.name}")
 
     # -------------------------------------------------------------
     # Compute Aggregated Benchmark (Issues #5, #6, #8)
     # -------------------------------------------------------------
-    wall_times = [r["wall_seconds"] for r in benchmark_runs if r.get("wall_seconds")]
-    peak_rams = [r["ram_peak_bytes"] for r in benchmark_runs if r.get("ram_peak_bytes")]
-    mean_rams = [r["ram_mean_bytes"] for r in benchmark_runs if r.get("ram_mean_bytes")]
-    peak_disks = [r["disk_peak_bytes"] for r in benchmark_runs if r.get("disk_peak_bytes")]
-    final_disks = [r["final_disk_bytes"] for r in benchmark_runs if r.get("final_disk_bytes")]
+    wall_times = [r["wall_seconds"] for r in benchmark_runs if r.get("wall_seconds") is not None]
+    peak_rams = [r["ram_peak_bytes"] for r in benchmark_runs if r.get("ram_peak_bytes") is not None]
+    mean_rams = [r["ram_mean_bytes"] for r in benchmark_runs if r.get("ram_mean_bytes") is not None]
+    peak_disks = [r["disk_peak_bytes"] for r in benchmark_runs if r.get("disk_peak_bytes") is not None]
+    final_disks = [r["final_disk_bytes"] for r in benchmark_runs if r.get("final_disk_bytes") is not None]
 
     wall_times_sorted = sorted(wall_times)
-    median_wall = wall_times_sorted[len(wall_times_sorted) // 2] if wall_times_sorted else 0.0
-    total_wall = sum(wall_times)
+    median_wall = statistics.median(wall_times_sorted) if wall_times_sorted else None
+    total_wall = sum(wall_times) if len(wall_times) == len(benchmark_runs) else None
 
     merged_tex_bib_bytes = sum(v["source_bytes_after"] for v in versions_dict.values() if v.get("source_bytes_after"))
-    sum_final_disks = sum(final_disks) if final_disks else 0
+    sum_final_disks = sum(final_disks) if len(final_disks) == len(benchmark_runs) else None
 
-    # Calculate merged corpus uncompressed filesystem footprint from corpus.zip archives if present
-    corpus_files = {}
+    # Final merged filesystem size requires an actual merged tree and a defined
+    # selection policy. ZIP central-directory sizes are not that measurement.
+    corpus_archive_count = 0
     for item in run_configs:
+        corpus_evidence = []
         for zpath in item["zip_paths"]:
-            czpath = zpath.with_name("corpus.zip")
-            if czpath.is_file():
-                try:
-                    with zipfile.ZipFile(czpath, "r") as cz:
-                        for info in cz.infolist():
-                            if not info.is_dir():
-                                corpus_files[info.filename] = info.file_size
-                except Exception:
-                    pass
-    merged_corpus_uncompressed_bytes = sum(corpus_files.values()) if corpus_files else 7381815495
-    merged_corpus_file_count = len(corpus_files) if corpus_files else 360917
+            corpus_path = zpath.with_name("corpus.zip")
+            if corpus_path.is_file():
+                evidence = verify_report_archive(corpus_path, item["run_id"], kind="corpus")
+                with zipfile.ZipFile(corpus_path) as archive:
+                    bad_member = archive.testzip()
+                    if bad_member is not None:
+                        raise ValueError(f"Invalid corpus member: {bad_member}")
+                corpus_evidence.append(dict(path=str(corpus_path), **evidence))
+                corpus_archive_count += 1
+        for run in run_metadata:
+            if run["run_id"] == item["run_id"] and run["member"] == item["member"] and run["account"] == item["account"]:
+                run["verified_corpus_archives"] = corpus_evidence
+    run_meta_path.write_text(json.dumps(run_metadata, indent=2, ensure_ascii=False), encoding="utf-8")
+    merged_corpus_uncompressed_bytes = None
+    merged_corpus_file_count = None
 
     cpu_flags = [r.get("cpu_only") for r in benchmark_runs]
     cpu_only = (False if any(value is False for value in cpu_flags) else
@@ -913,21 +1087,27 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
         "sampling_interval_seconds": 0.25,
         "wall_seconds": total_wall,
         "median_wall_seconds": median_wall,
-        "ram_peak_bytes": max(peak_rams) if peak_rams else 0,
-        "ram_mean_bytes": sum(mean_rams) / len(mean_rams) if mean_rams else 0,
-        "disk_peak_bytes": max(peak_disks) if peak_disks else 0,
+        "ram_peak_bytes": max(peak_rams) if peak_rams else None,
+        "ram_mean_bytes": sum(mean_rams) / len(mean_rams) if mean_rams else None,
+        "disk_peak_bytes": max(peak_disks) if peak_disks else None,
         "final_disk_bytes": sum_final_disks,
         "sum_run_final_disk_bytes": sum_final_disks,
         "merged_corpus_tex_bib_bytes": merged_tex_bib_bytes,
         "merged_corpus_uncompressed_bytes": merged_corpus_uncompressed_bytes,
         "merged_corpus_file_count": merged_corpus_file_count,
+        "merged_corpus_measurement_status": "not measured: no selected merged filesystem tree",
+        "verified_corpus_archive_count": corpus_archive_count,
+        "disk_capacity_bytes": None,
+        "tracked_paths": None,
+        "measurement_run_counts": {key: sum(r.get(key) is not None for r in benchmark_runs)
+                                   for key in ("wall_seconds", "ram_peak_bytes", "ram_mean_bytes", "disk_peak_bytes", "final_disk_bytes")},
         # Multi-run aggregation details:
         "multi_run_summary": {
             "total_runs": len(benchmark_runs),
             "median_wall_seconds": median_wall,
             "total_wall_seconds": total_wall,
-            "max_ram_peak_bytes": max(peak_rams) if peak_rams else 0,
-            "mean_ram_bytes_across_runs": sum(mean_rams) / len(mean_rams) if mean_rams else 0,
+            "max_ram_peak_bytes": max(peak_rams) if peak_rams else None,
+            "mean_ram_bytes_across_runs": sum(mean_rams) / len(mean_rams) if mean_rams else None,
             "total_discovery_elapsed_seconds": sum(r.get("discovery_elapsed_seconds", 0) for r in benchmark_runs),
             "sum_run_final_disk_bytes": sum_final_disks,
             "merged_corpus_tex_bib_bytes": merged_tex_bib_bytes,
@@ -938,7 +1118,7 @@ def aggregate_corpus(source_dir: Path, target_dir: Path) -> Dict[str, Any]:
     }
 
     benchmark_path = target_dir / "benchmark.json"
-    benchmark_path.write_text(json.dumps(benchmark_data, indent=2, ensure_ascii=False), encoding="utf-8")
+    benchmark_path.write_text(json.dumps(benchmark_data, indent=2, ensure_ascii=False, allow_nan=False), encoding="utf-8")
     print(f"[SYNC] Wrote {benchmark_path.name} ({len(benchmark_runs)} runs documented)")
 
     return {
@@ -953,6 +1133,7 @@ def main():
     parser.add_argument("--source", type=str, default=None, help="Path to input directory containing member data.")
     parser.add_argument("--target", type=str, default=None, help="Destination directory (default: book/data).")
     parser.add_argument("--build", action="store_true", help="Rebuild Jupyter Book immediately.")
+    parser.add_argument("--assignments", type=Path, help="Versioned assignment manifest (default: config/assignments.json)")
     args = parser.parse_args()
 
     repo_root = Path(__file__).resolve().parent.parent
@@ -973,7 +1154,7 @@ def main():
     print(f"Source Directory: {source_dir}")
     print(f"Target Directory: {target_dir}")
 
-    results = aggregate_corpus(source_dir, target_dir)
+    results = aggregate_corpus(source_dir, target_dir, args.assignments)
 
     print("\n---------------- Aggregated Corpus Audit ----------------")
     s = results["summary"]
@@ -993,7 +1174,8 @@ def main():
     print(f"• All-Resolved Size Reduction:   {s['size_reduction_ratio']*100:.2f}% (N = {s['source_size_denominator']:,} versions)")
     print(f"• Avg Paired Source Before/After:{s['average_source_bytes_before']/(1024):,.1f} KiB -> {s['average_source_bytes_after']/(1024):,.1f} KiB")
     print(f"• Merged Corpus TeX/Bib Size:    {b['merged_corpus_tex_bib_bytes']/(1024**3):.2f} GiB")
-    print(f"• Sum of Run Final Disks:        {b['sum_run_final_disk_bytes']/(1024**3):.2f} GiB")
+    disk = b['sum_run_final_disk_bytes']
+    print("• Sum of Run Final Disks:        " + (f"{disk/(1024**3):.2f} GiB" if disk is not None else "Not measured for all runs"))
     print(f"• Member Breakdown:")
     for m, mdata in s.get("member_breakdown", {}).items():
         print(f"    - {m:<10}: {mdata['papers']:,} papers ({mdata['runs_count']} runs across {mdata['accounts_count']} accounts)")
@@ -1002,7 +1184,7 @@ def main():
 
     if args.build:
         print("=== Building Jupyter Book ===")
-        venv_jb = repo_root.parent / ".venv/Scripts/jupyter-book.exe"
+        venv_jb = Path(sys.executable).with_name("jupyter-book.exe" if os.name == "nt" else "jupyter-book")
         jb_cmd = str(venv_jb) if venv_jb.is_file() else "jupyter-book"
         res = subprocess.run([jb_cmd, "build", "--all", str(repo_root / "book")], check=False)
         if res.returncode == 0:

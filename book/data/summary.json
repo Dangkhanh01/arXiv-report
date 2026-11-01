@@ -31,14 +31,14 @@
   "reference_success_rate": 0.99815,
   "total_extracted_references": 734157,
   "total_extracted_references_confirmed": 734157,
-  "total_extracted_references_observed": 734457,
+  "total_extracted_references_observed": null,
   "confirmed_reference_papers_count": 19963,
   "crawled_reference_rows": 734157,
   "arxiv_reference_rows": 366416,
   "non_arxiv_reference_rows": 367904,
   "average_reference_count": 36.77588538796774,
   "average_reference_count_confirmed": 36.77588538796774,
-  "average_reference_count_observed": 36.72285,
+  "average_reference_count_observed": null,
   "average_arxiv_reference_count": 18.3208,
   "reference_count_denominator": 19963,
   "all_papers_count": 20000,
@@ -50,7 +50,41 @@
     "submission_date_present": 20000,
     "metadata_source_present": 20000,
     "missing_titles": 0,
-    "missing_submission_dates": 0
+    "missing_submission_dates": 0,
+    "paper_fields": {
+      "title": {
+        "audited": 20000,
+        "present": 20000,
+        "missing": 0,
+        "unknown": 0
+      },
+      "authors": {
+        "audited": 0,
+        "present": 0,
+        "missing": 0,
+        "unknown": 20000
+      },
+      "submission_date": {
+        "audited": 20000,
+        "present": 20000,
+        "missing": 0,
+        "unknown": 0
+      },
+      "revised_dates": {
+        "audited": 0,
+        "present": 0,
+        "missing": 0,
+        "unknown": 20000
+      },
+      "venue": {
+        "audited": 0,
+        "present": 0,
+        "missing": 0,
+        "unknown": 20000
+      }
+    },
+    "reference_fields": null,
+    "scope": "Title/date presence from retained CSV; authors/revisions/venue and reference fields need original stores. Completeness counters do not verify correctness."
   },
   "average_paper_processing_seconds": 35.17839919547023,
   "paper_time_denominator": 20000,
@@ -97,5 +131,17 @@
       "runs_count": 18,
       "benchmark_runs_count": 20
     }
-  }
+  },
+  "invalid_assigned_metadata_count": 0,
+  "wrong_member_ids_count": 0,
+  "assignment_manifest_sha256": "f98d18169e3d6ae039247beb437e8bc3ffc4635ab15be2724244a1d760c29ae0",
+  "assigned_member_targets": {
+    "Danh": 5000,
+    "Khánh": 5000,
+    "Khang": 5000,
+    "Nguyên": 5000
+  },
+  "versions_missing": 0,
+  "observed_reference_lower_bound": 734320,
+  "unknown_reference_total_papers": 37
 }

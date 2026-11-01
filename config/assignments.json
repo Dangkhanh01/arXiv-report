@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "source": "arXivProject/src/crawling/assignments.py; boundary verification recorded 2026-10-18",
+  "ranges": [
+    {
+      "member": "Danh",
+      "start_month": "2026-06",
+      "start_id": 15734,
+      "end_month": "2026-06",
+      "end_id": 20733
+    },
+    {
+      "member": "Khánh",
+      "start_month": "2026-02",
+      "start_id": 19870,
+      "end_month": "2026-03",
+      "end_id": 579
+    },
+    {
+      "member": "Khang",
+      "start_month": "2026-09",
+      "start_id": 2834,
+      "end_month": "2026-09",
+      "end_id": 7833
+    },
+    {
+      "member": "Nguyên",
+      "start_month": "2026-01",
+      "start_id": 23156,
+      "end_month": "2026-02",
+      "end_id": 4869
+    }
+  ],
+  "month_end_ids": {
+    "2026-01": 23286,
+    "2026-02": 24290
+  }
+}
