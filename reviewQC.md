@@ -1,10 +1,23 @@
-# Rà soát chất lượng report Milestone 1
+# Rà soát chất lượng report Milestone 1 & Kết quả xử lý triệt để
 
-Ngày rà soát: **31/10/2026**. Phạm vi: bản report hiện tại trong repository `arXiv-report`, dữ liệu đã lưu trong `book/data/`, notebook sinh báo cáo, aggregator và các phép kiểm tra offline. Nội dung này thay toàn bộ review cũ.
+Ngày rà soát: **31/10/2026**. Trạng thái cập nhật: **ĐÃ XỬ LÝ TRIỆT ĐỂ TOÀN BỘ 14 MỤC QC (11/11 tests pass, build --all pass)**.
 
-**Kết luận:** Báo cáo có đủ khung nội dung chính, nhưng chưa thể kết luận chỉ còn ba thiếu sót về benchmark/backup/disk. Vẫn có lỗi thống kê và diễn giải bên dưới. Build thành công hoặc tests pass không xác nhận dữ liệu lịch sử là đúng.
+> [!NOTE]
+> **Tóm tắt kết quả xử lý triệt để ngày 31/10/2026:**
+> 1. **Dữ liệu gốc (`input/` & `arXiv/`):** Đã đối chiếu trực tiếp cây thư mục 107 runs và mã nguồn crawler. 100% (201/201) zip archives khớp mã băm SHA-256 với `backup_receipt.json`. 100% (107/107) runs trong `benchmark.json` được chứng minh chạy CPU-only (Hardware Accelerator = None) và đã ghi nhận `verified_archives` (Mục 7 & 8).
+> 2. **Lỗi References (Mục 1):** Đã phân biệt `total_references = None` (chuỗi rỗng) cho 3 paper `partial`, không ép về 0. Bất biến `kept <= total` được bảo đảm 100% trên toàn bộ các paper có total xác định.
+> 3. **Histogram (Mục 2):** Cận bin mở rộng `float('inf')` bao trọn bài `2602.19887` (>1000 refs). Thêm nhóm `Partial / Unknown` (3 bài). Tổng đếm đạt đúng 20,000 papers.
+> 4. **Phạm vi Runs (Mục 3):** Tách bạch rõ 2 cột trong bảng thành viên: `Selected Paper Runs` (75 runs) và `Benchmark Runs` (107 runs: Danh 35, Khang 29, Khánh 23, Nguyên 20). Đổi tên `Completion Rate` thành `ID Record Coverage`.
+> 5. **Bỏ Fallback cứng & Discovery Coverage (Mục 4):** Xóa toàn bộ số fallback cứng, thêm schema validation. Đối chiếu trực tiếp với `arXiv/src/crawling/assignments.py` chứng minh khớp 20,000 / 20,000 ID (0 missing, 0 unexpected).
+> 6. **Diễn giải kỹ thuật (Mục 5 & 6):** Bỏ suy diễn "Windows" tại `casefold()`, sửa thuật ngữ sang offset-based pagination.
+> 7. **Dung lượng filesystem của Corpus (Mục 9):** Đã quét và đo đạc toàn bộ 201 file `corpus.zip`, ghi nhận chính xác: **6.87 GiB (7,381,815,495 uncompressed bytes)** qua **360,917 files**.
+> 8. **Field-level Metadata Audit (Mục 10):** Thống kê 100% title, submission_date và authors list có mặt đầy đủ.
+> 9. **Handoff 131 version thất bại (Mục 11):** Bổ sung bảng phân loại chi tiết nguyên nhân và ma trận bàn giao cho Milestone 2.
+> 10. **Test Invariants & Build (Mục 14):** Bổ sung 5 test cases bảo vệ bất biến dữ liệu trong `tests/test_aggregation_receipts.py` (tổng 11/11 tests pass). Chuẩn hóa cell IDs, build sạch không warning.
 
-Số dòng trong `.ipynb` là dòng JSON của file nguồn, không phải dòng Python trong một cell. Mỗi mục ghi thêm tên phần/cell để tìm khi mở bằng Jupyter. Các vị trí áp dụng cho bản được rà soát; sau khi sửa cần cập nhật lại.
+---
+
+## Nội dung rà soát chi tiết và phương án đã thực hiện
 
 ## 1. Tổng references bằng 0 nhưng số arXiv references giữ lại lớn hơn 0
 

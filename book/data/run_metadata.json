@@ -7,7 +7,16 @@
     "zip_count": 1,
     "papers_extracted": 100,
     "discovery_elapsed_seconds": 322.0063957760001,
-    "sha256": "deb5895e7cbbceb151553d21c28d2f170654b15252ab9f18009a3137c3bb609c"
+    "sha256": "deb5895e7cbbceb151553d21c28d2f170654b15252ab9f18009a3137c3bb609c",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\0a49a8b7-2414-447f-8c96-eb4b9ec0929f\\20261018T132521Z-7f7b550f\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\0a49a8b7-2414-447f-8c96-eb4b9ec0929f\\20261018T132521Z-7f7b550f\\backup_receipt.json",
+        "bytes": 1947157,
+        "sha256": "deb5895e7cbbceb151553d21c28d2f170654b15252ab9f18009a3137c3bb609c",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "21f52237-58af-4bb5-a389-f1031e5bd64b",
@@ -17,7 +26,16 @@
     "zip_count": 1,
     "papers_extracted": 747,
     "discovery_elapsed_seconds": 1964.940052083,
-    "sha256": "d2150820cd9910c70b989214ab096559bea3763c30adc7a25afe20753dc43c4e"
+    "sha256": "d2150820cd9910c70b989214ab096559bea3763c30adc7a25afe20753dc43c4e",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\21f52237-58af-4bb5-a389-f1031e5bd64b\\20261021T190113Z-c0186622\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\21f52237-58af-4bb5-a389-f1031e5bd64b\\20261021T190113Z-c0186622\\backup_receipt.json",
+        "bytes": 12905469,
+        "sha256": "d2150820cd9910c70b989214ab096559bea3763c30adc7a25afe20753dc43c4e",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "337cc0d3-4b28-4d19-a285-14073e511e51",
@@ -27,7 +45,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.03666976899967267,
-    "sha256": "95a9e9432fda0b2afd328f874b9273d5d52bbeaf6960011e884e428f5cff1da8"
+    "sha256": "95a9e9432fda0b2afd328f874b9273d5d52bbeaf6960011e884e428f5cff1da8",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\337cc0d3-4b28-4d19-a285-14073e511e51\\20261022T124854Z-c3e45267\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\337cc0d3-4b28-4d19-a285-14073e511e51\\20261022T124854Z-c3e45267\\backup_receipt.json",
+        "bytes": 428249,
+        "sha256": "95a9e9432fda0b2afd328f874b9273d5d52bbeaf6960011e884e428f5cff1da8",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "48165af8-071c-417a-af6a-1439d8ac0a70",
@@ -37,7 +64,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.00718563999998878,
-    "sha256": "705a87be1ef177912bd90163901044387c6039c665819662c55e61c988cd9d21"
+    "sha256": "705a87be1ef177912bd90163901044387c6039c665819662c55e61c988cd9d21",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\48165af8-071c-417a-af6a-1439d8ac0a70\\20261025T031258Z-6e90b8e5\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\48165af8-071c-417a-af6a-1439d8ac0a70\\20261025T031258Z-6e90b8e5\\backup_receipt.json",
+        "bytes": 330722,
+        "sha256": "705a87be1ef177912bd90163901044387c6039c665819662c55e61c988cd9d21",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "96d8f093-180c-4b55-a697-f648a6a993ef",
@@ -47,7 +83,16 @@
     "zip_count": 1,
     "papers_extracted": 232,
     "discovery_elapsed_seconds": 802.4089263839999,
-    "sha256": "e13acf7fc534a325ad72380450dabdbdf19d3a0d62368b3bd8ab97b3936fb3cd"
+    "sha256": "e13acf7fc534a325ad72380450dabdbdf19d3a0d62368b3bd8ab97b3936fb3cd",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\96d8f093-180c-4b55-a697-f648a6a993ef\\20261019T194601Z-477754aa\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\96d8f093-180c-4b55-a697-f648a6a993ef\\20261019T194601Z-477754aa\\backup_receipt.json",
+        "bytes": 4472935,
+        "sha256": "e13acf7fc534a325ad72380450dabdbdf19d3a0d62368b3bd8ab97b3936fb3cd",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "a9b5f529-85b1-4a77-bb9f-5637dce3fa8f",
@@ -57,7 +102,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 228.012111892,
-    "sha256": "7ff82245fe85405e9b6a05fd154c595ac14607569781d66ff9f53817edc93dfa"
+    "sha256": "7ff82245fe85405e9b6a05fd154c595ac14607569781d66ff9f53817edc93dfa",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\a9b5f529-85b1-4a77-bb9f-5637dce3fa8f\\20261022T121725Z-84a7360b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\a9b5f529-85b1-4a77-bb9f-5637dce3fa8f\\20261022T121725Z-84a7360b\\backup_receipt.json",
+        "bytes": 1678775,
+        "sha256": "7ff82245fe85405e9b6a05fd154c595ac14607569781d66ff9f53817edc93dfa",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "aaf23f92-a54a-42ef-a2a8-77b0ebfd2f2b",
@@ -67,7 +121,16 @@
     "zip_count": 1,
     "papers_extracted": 137,
     "discovery_elapsed_seconds": 459.73153933899994,
-    "sha256": "1e96e56b7d99669f7ec199c52fb5c63a9a13bf010e608e0852ec65c415b54b92"
+    "sha256": "1e96e56b7d99669f7ec199c52fb5c63a9a13bf010e608e0852ec65c415b54b92",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\aaf23f92-a54a-42ef-a2a8-77b0ebfd2f2b\\20261019T051902Z-e0d55c4f\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\aaf23f92-a54a-42ef-a2a8-77b0ebfd2f2b\\20261019T051902Z-e0d55c4f\\backup_receipt.json",
+        "bytes": 2757801,
+        "sha256": "1e96e56b7d99669f7ec199c52fb5c63a9a13bf010e608e0852ec65c415b54b92",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "af0aaee5-ca33-48c6-9d55-cce5396f82b4",
@@ -77,7 +140,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 40.078151535000075,
-    "sha256": "a440801f1bb9188ad97b9681ab906a56993f440270575ccd12967c5c7c66c8be"
+    "sha256": "a440801f1bb9188ad97b9681ab906a56993f440270575ccd12967c5c7c66c8be",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\af0aaee5-ca33-48c6-9d55-cce5396f82b4\\20261023T123717Z-94773e15\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\af0aaee5-ca33-48c6-9d55-cce5396f82b4\\20261023T123717Z-94773e15\\backup_receipt.json",
+        "bytes": 350838,
+        "sha256": "a440801f1bb9188ad97b9681ab906a56993f440270575ccd12967c5c7c66c8be",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "b64d591d-af25-458a-9d70-669a45488ec7",
@@ -87,7 +159,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.10116618699976243,
-    "sha256": "10fc258f3c8e6da462507473c2fdff40206ad06ddc5add2549a85e529cf4d398"
+    "sha256": "10fc258f3c8e6da462507473c2fdff40206ad06ddc5add2549a85e529cf4d398",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\b64d591d-af25-458a-9d70-669a45488ec7\\20261022T124424Z-b1c3f4c0\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\b64d591d-af25-458a-9d70-669a45488ec7\\20261022T124424Z-b1c3f4c0\\backup_receipt.json",
+        "bytes": 432405,
+        "sha256": "10fc258f3c8e6da462507473c2fdff40206ad06ddc5add2549a85e529cf4d398",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "b99774f2-8c88-435f-9000-ac4e6d3c966b",
@@ -97,7 +178,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 13.177231754999866,
-    "sha256": "0b9f0f93b9c7fdae23b6e8fa7977fb66a33b5260459acba092643cc3a8b7a280"
+    "sha256": "0b9f0f93b9c7fdae23b6e8fa7977fb66a33b5260459acba092643cc3a8b7a280",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\b99774f2-8c88-435f-9000-ac4e6d3c966b\\20261025T012346Z-15bb2d04\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\b99774f2-8c88-435f-9000-ac4e6d3c966b\\20261025T012346Z-15bb2d04\\backup_receipt.json",
+        "bytes": 333052,
+        "sha256": "0b9f0f93b9c7fdae23b6e8fa7977fb66a33b5260459acba092643cc3a8b7a280",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ec294034-4112-4582-a334-0f1de783fee0",
@@ -107,7 +197,16 @@
     "zip_count": 1,
     "papers_extracted": 196,
     "discovery_elapsed_seconds": 667.203814622,
-    "sha256": "c098f5efd0c1778a8661d76539cbcb182a24793d70d4fd58ffe041cd2a3e032b"
+    "sha256": "c098f5efd0c1778a8661d76539cbcb182a24793d70d4fd58ffe041cd2a3e032b",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\ec294034-4112-4582-a334-0f1de783fee0\\20261019T023728Z-f6eba750\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\ec294034-4112-4582-a334-0f1de783fee0\\20261019T023728Z-f6eba750\\backup_receipt.json",
+        "bytes": 3690370,
+        "sha256": "c098f5efd0c1778a8661d76539cbcb182a24793d70d4fd58ffe041cd2a3e032b",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ede46eeb-27dd-4dfd-a0a2-622c215b30cd",
@@ -117,7 +216,16 @@
     "zip_count": 1,
     "papers_extracted": 255,
     "discovery_elapsed_seconds": 1356.864235102,
-    "sha256": "d780c89cc8bc2aaa2a42862184f71659d718d3a44fa2dbba9250af326893c406"
+    "sha256": "d780c89cc8bc2aaa2a42862184f71659d718d3a44fa2dbba9250af326893c406",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\ede46eeb-27dd-4dfd-a0a2-622c215b30cd\\20261020T174617Z-66d86ce4\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\ede46eeb-27dd-4dfd-a0a2-622c215b30cd\\20261020T174617Z-66d86ce4\\backup_receipt.json",
+        "bytes": 4628660,
+        "sha256": "d780c89cc8bc2aaa2a42862184f71659d718d3a44fa2dbba9250af326893c406",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "fa76d5b5-ad66-45e0-a07a-8b69d894a48b",
@@ -127,7 +235,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.12420343700023295,
-    "sha256": "29f095996eae967044be722fd93e6bfe49025e9bc6c15516b028945035930a63"
+    "sha256": "29f095996eae967044be722fd93e6bfe49025e9bc6c15516b028945035930a63",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\fa76d5b5-ad66-45e0-a07a-8b69d894a48b\\20261022T122524Z-7c79ac70\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\fa76d5b5-ad66-45e0-a07a-8b69d894a48b\\20261022T122524Z-7c79ac70\\backup_receipt.json",
+        "bytes": 615994,
+        "sha256": "29f095996eae967044be722fd93e6bfe49025e9bc6c15516b028945035930a63",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ff2d9bc6-bc91-4075-9af5-d39757e1f450",
@@ -137,7 +254,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.01701859799959493,
-    "sha256": "401949e5402cee3f43eca0b549ed5f3a9554df834f917310a84f7b2c5ad560c6"
+    "sha256": "401949e5402cee3f43eca0b549ed5f3a9554df834f917310a84f7b2c5ad560c6",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\ff2d9bc6-bc91-4075-9af5-d39757e1f450\\20261022T123346Z-635ce773\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc1\\Milestone1\\ff2d9bc6-bc91-4075-9af5-d39757e1f450\\20261022T123346Z-635ce773\\backup_receipt.json",
+        "bytes": 433781,
+        "sha256": "401949e5402cee3f43eca0b549ed5f3a9554df834f917310a84f7b2c5ad560c6",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "09e45292-1446-4349-a7fa-b0c83e2ac36e",
@@ -147,7 +273,16 @@
     "zip_count": 1,
     "papers_extracted": 5,
     "discovery_elapsed_seconds": 0.01641490900055942,
-    "sha256": "1fa1b918156487a7e1202424acf01a5db48634acce380119b6cdba96add08eea"
+    "sha256": "1fa1b918156487a7e1202424acf01a5db48634acce380119b6cdba96add08eea",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\09e45292-1446-4349-a7fa-b0c83e2ac36e\\20261025T031427Z-4f724fdd\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\09e45292-1446-4349-a7fa-b0c83e2ac36e\\20261025T031427Z-4f724fdd\\backup_receipt.json",
+        "bytes": 243314,
+        "sha256": "1fa1b918156487a7e1202424acf01a5db48634acce380119b6cdba96add08eea",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "0dd06080-93be-4f6f-81aa-71e7150cffe5",
@@ -157,7 +292,16 @@
     "zip_count": 1,
     "papers_extracted": 11,
     "discovery_elapsed_seconds": 53.250652400000035,
-    "sha256": "e972739b7971d22fae669ed4df78b811fce626c070fa659567caad0e297e8dd8"
+    "sha256": "e972739b7971d22fae669ed4df78b811fce626c070fa659567caad0e297e8dd8",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\0dd06080-93be-4f6f-81aa-71e7150cffe5\\20261023T124228Z-add6318c\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\0dd06080-93be-4f6f-81aa-71e7150cffe5\\20261023T124228Z-add6318c\\backup_receipt.json",
+        "bytes": 462314,
+        "sha256": "e972739b7971d22fae669ed4df78b811fce626c070fa659567caad0e297e8dd8",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "31bcd0db-a86b-4ea2-90f1-e836625418f8",
@@ -167,7 +311,16 @@
     "zip_count": 1,
     "papers_extracted": 239,
     "discovery_elapsed_seconds": 804.4826226740001,
-    "sha256": "38ff83340e33f8aa247c2df2096aec6604d21407c41779d97104b11ddf70193c"
+    "sha256": "38ff83340e33f8aa247c2df2096aec6604d21407c41779d97104b11ddf70193c",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\31bcd0db-a86b-4ea2-90f1-e836625418f8\\20261019T222941Z-49875e68\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\31bcd0db-a86b-4ea2-90f1-e836625418f8\\20261019T222941Z-49875e68\\backup_receipt.json",
+        "bytes": 5365208,
+        "sha256": "38ff83340e33f8aa247c2df2096aec6604d21407c41779d97104b11ddf70193c",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "37c25b42-7f9d-4101-a9ef-d7a09c2fbf42",
@@ -177,7 +330,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.0052539499993145,
-    "sha256": "53dcb4a426e23b526719a1356578e05182b353b67ebe13cfc00f3974691613fd"
+    "sha256": "53dcb4a426e23b526719a1356578e05182b353b67ebe13cfc00f3974691613fd",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\37c25b42-7f9d-4101-a9ef-d7a09c2fbf42\\20261025T031811Z-8bc625c2\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\37c25b42-7f9d-4101-a9ef-d7a09c2fbf42\\20261025T031811Z-8bc625c2\\backup_receipt.json",
+        "bytes": 201748,
+        "sha256": "53dcb4a426e23b526719a1356578e05182b353b67ebe13cfc00f3974691613fd",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "d1de2623-3498-42e7-b90d-ff1804ae0394",
@@ -187,7 +349,16 @@
     "zip_count": 1,
     "papers_extracted": 699,
     "discovery_elapsed_seconds": 2343.78123909,
-    "sha256": "e9dca2b94ca1fad7b3945979844b0e01b97643f77b9ae093217c785acb28e0b3"
+    "sha256": "e9dca2b94ca1fad7b3945979844b0e01b97643f77b9ae093217c785acb28e0b3",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\d1de2623-3498-42e7-b90d-ff1804ae0394\\20261020T212535Z-5750ef90\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\d1de2623-3498-42e7-b90d-ff1804ae0394\\20261020T212535Z-5750ef90\\backup_receipt.json",
+        "bytes": 9600616,
+        "sha256": "e9dca2b94ca1fad7b3945979844b0e01b97643f77b9ae093217c785acb28e0b3",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "db393ac9-9ddb-4676-bcd5-0f920989f3af",
@@ -197,7 +368,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 32.52695293299996,
-    "sha256": "dbb5bd9533ecae308a6df332ff1d1527a4ecfd468c04e08cca8e457a11f05c51"
+    "sha256": "dbb5bd9533ecae308a6df332ff1d1527a4ecfd468c04e08cca8e457a11f05c51",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\db393ac9-9ddb-4676-bcd5-0f920989f3af\\20261025T012456Z-67239f84\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\db393ac9-9ddb-4676-bcd5-0f920989f3af\\20261025T012456Z-67239f84\\backup_receipt.json",
+        "bytes": 394718,
+        "sha256": "dbb5bd9533ecae308a6df332ff1d1527a4ecfd468c04e08cca8e457a11f05c51",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "e032e6b5-eaa1-45e4-83f6-28e08bf588a2",
@@ -207,7 +387,16 @@
     "zip_count": 1,
     "papers_extracted": 695,
     "discovery_elapsed_seconds": 2316.0144912719998,
-    "sha256": "ebfdf46f81894ca8f7e83d82c70878bc7aa9029de0e172b19080110977f2a082"
+    "sha256": "ebfdf46f81894ca8f7e83d82c70878bc7aa9029de0e172b19080110977f2a082",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\e032e6b5-eaa1-45e4-83f6-28e08bf588a2\\20261021T201926Z-03d481ce\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\e032e6b5-eaa1-45e4-83f6-28e08bf588a2\\20261021T201926Z-03d481ce\\backup_receipt.json",
+        "bytes": 13321323,
+        "sha256": "ebfdf46f81894ca8f7e83d82c70878bc7aa9029de0e172b19080110977f2a082",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "e635eb87-3afa-45bb-92f7-8d817baa6be3",
@@ -217,7 +406,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.03448709600024813,
-    "sha256": "1340a7384bf5fb74a9ee99d8b4c26f52bcb55846c26ba9bbea2eb83c007cc54a"
+    "sha256": "1340a7384bf5fb74a9ee99d8b4c26f52bcb55846c26ba9bbea2eb83c007cc54a",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\e635eb87-3afa-45bb-92f7-8d817baa6be3\\20261022T125310Z-9dd89da7\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\e635eb87-3afa-45bb-92f7-8d817baa6be3\\20261022T125310Z-9dd89da7\\backup_receipt.json",
+        "bytes": 566538,
+        "sha256": "1340a7384bf5fb74a9ee99d8b4c26f52bcb55846c26ba9bbea2eb83c007cc54a",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "f85bed44-2f89-4f24-b43e-47ad026674b1",
@@ -227,7 +425,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 355.947397186,
-    "sha256": "6c28876a6f982dcca9d5e563549813c3207fef1e71cbdd4d8066da49fce9032c"
+    "sha256": "6c28876a6f982dcca9d5e563549813c3207fef1e71cbdd4d8066da49fce9032c",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\f85bed44-2f89-4f24-b43e-47ad026674b1\\20261022T124017Z-291f8859\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\f85bed44-2f89-4f24-b43e-47ad026674b1\\20261022T124017Z-291f8859\\backup_receipt.json",
+        "bytes": 2176514,
+        "sha256": "6c28876a6f982dcca9d5e563549813c3207fef1e71cbdd4d8066da49fce9032c",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "9b325e23-91c1-4b23-975b-6bb000907640",
@@ -237,7 +444,16 @@
     "zip_count": 1,
     "papers_extracted": 12,
     "discovery_elapsed_seconds": 803.1882883439998,
-    "sha256": "97112ab69f0253b3a30cc462e0f610480fbafb8d0e6c8f330a507ef4c1acbcde"
+    "sha256": "97112ab69f0253b3a30cc462e0f610480fbafb8d0e6c8f330a507ef4c1acbcde",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\checkpoints\\9b325e23-91c1-4b23-975b-6bb000907640\\20261019T151529Z-6caba125\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\checkpoints\\9b325e23-91c1-4b23-975b-6bb000907640\\20261019T151529Z-6caba125\\backup_receipt.json",
+        "bytes": 283772,
+        "sha256": "97112ab69f0253b3a30cc462e0f610480fbafb8d0e6c8f330a507ef4c1acbcde",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "da305008-8bab-4f67-a5da-72f03ffbd6f4",
@@ -247,7 +463,16 @@
     "zip_count": 1,
     "papers_extracted": 6,
     "discovery_elapsed_seconds": 675.9904073240001,
-    "sha256": "58a3908eeacd17eb061921d2a3be7f9c9680312a1fb6574d5ee7bc317af27a16"
+    "sha256": "58a3908eeacd17eb061921d2a3be7f9c9680312a1fb6574d5ee7bc317af27a16",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\checkpoints\\da305008-8bab-4f67-a5da-72f03ffbd6f4\\20261019T143949Z-af6099b8\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc2\\Milestone1\\checkpoints\\da305008-8bab-4f67-a5da-72f03ffbd6f4\\20261019T143949Z-af6099b8\\backup_receipt.json",
+        "bytes": 121917,
+        "sha256": "58a3908eeacd17eb061921d2a3be7f9c9680312a1fb6574d5ee7bc317af27a16",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "13dd3eb3-5e56-4185-8805-b1b5c67423d9",
@@ -257,7 +482,16 @@
     "zip_count": 1,
     "papers_extracted": 670,
     "discovery_elapsed_seconds": 2448.155818623,
-    "sha256": "6fd964301823b44e45c4c51ea515271ce94697a8c3a52f6af8701b3cc9dad39e"
+    "sha256": "6fd964301823b44e45c4c51ea515271ce94697a8c3a52f6af8701b3cc9dad39e",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\13dd3eb3-5e56-4185-8805-b1b5c67423d9\\20261022T184408Z-061a8806\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\13dd3eb3-5e56-4185-8805-b1b5c67423d9\\20261022T184408Z-061a8806\\backup_receipt.json",
+        "bytes": 10399862,
+        "sha256": "6fd964301823b44e45c4c51ea515271ce94697a8c3a52f6af8701b3cc9dad39e",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "34ba60f2-fb23-4ad5-9c5a-84f0b5f96bbd",
@@ -267,7 +501,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 61.67983601499998,
-    "sha256": "fb327f0967d653a36e6a5f4643c2a917a553643671f81cae0d7d938368d223a6"
+    "sha256": "fb327f0967d653a36e6a5f4643c2a917a553643671f81cae0d7d938368d223a6",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\34ba60f2-fb23-4ad5-9c5a-84f0b5f96bbd\\20261025T005405Z-61cfdd75\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\34ba60f2-fb23-4ad5-9c5a-84f0b5f96bbd\\20261025T005405Z-61cfdd75\\backup_receipt.json",
+        "bytes": 407923,
+        "sha256": "fb327f0967d653a36e6a5f4643c2a917a553643671f81cae0d7d938368d223a6",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "401a86e5-94b9-43a2-b63c-9a71c9e85bb1",
@@ -277,7 +520,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.04101948600009564,
-    "sha256": "919bd9745e08976881770aeba51045336736ab2bd8054ae21f4826b9d5b157cc"
+    "sha256": "919bd9745e08976881770aeba51045336736ab2bd8054ae21f4826b9d5b157cc",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\401a86e5-94b9-43a2-b63c-9a71c9e85bb1\\20261025T012747Z-d77d6a1d\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\401a86e5-94b9-43a2-b63c-9a71c9e85bb1\\20261025T012747Z-d77d6a1d\\backup_receipt.json",
+        "bytes": 280994,
+        "sha256": "919bd9745e08976881770aeba51045336736ab2bd8054ae21f4826b9d5b157cc",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "9919cb39-baa5-4593-9c1a-f275b6036f2b",
@@ -287,7 +539,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.033227099000214366,
-    "sha256": "484461ba4c7df4700fa6fb7dff87fe619d5ba26f2b526a330c598495d156df93"
+    "sha256": "484461ba4c7df4700fa6fb7dff87fe619d5ba26f2b526a330c598495d156df93",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\9919cb39-baa5-4593-9c1a-f275b6036f2b\\20261025T011817Z-a3165009\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\9919cb39-baa5-4593-9c1a-f275b6036f2b\\20261025T011817Z-a3165009\\backup_receipt.json",
+        "bytes": 325913,
+        "sha256": "484461ba4c7df4700fa6fb7dff87fe619d5ba26f2b526a330c598495d156df93",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "a8680f12-5bac-4818-b07a-aac95e29aa19",
@@ -297,7 +558,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.08416477600007966,
-    "sha256": "2ff123e2dd8a5fb35d07d5407cfe16f653b748bcef09597c642679df15e2494c"
+    "sha256": "2ff123e2dd8a5fb35d07d5407cfe16f653b748bcef09597c642679df15e2494c",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\a8680f12-5bac-4818-b07a-aac95e29aa19\\20261023T130000Z-8ca10f17\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\a8680f12-5bac-4818-b07a-aac95e29aa19\\20261023T130000Z-8ca10f17\\backup_receipt.json",
+        "bytes": 581538,
+        "sha256": "2ff123e2dd8a5fb35d07d5407cfe16f653b748bcef09597c642679df15e2494c",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ae8cb7dd-3bc9-452b-898e-3ef483e6b7ff",
@@ -307,7 +577,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.03998420000016267,
-    "sha256": "1d12fbc75a4d0f2ae7055022b0e2b33682b3580700d28ec61878a9f1d71a89a3"
+    "sha256": "1d12fbc75a4d0f2ae7055022b0e2b33682b3580700d28ec61878a9f1d71a89a3",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\ae8cb7dd-3bc9-452b-898e-3ef483e6b7ff\\20261025T011000Z-fae18905\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\ae8cb7dd-3bc9-452b-898e-3ef483e6b7ff\\20261025T011000Z-fae18905\\backup_receipt.json",
+        "bytes": 378473,
+        "sha256": "1d12fbc75a4d0f2ae7055022b0e2b33682b3580700d28ec61878a9f1d71a89a3",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "bf4cbcee-08c1-4b21-95bf-50cb8f6ded64",
@@ -317,7 +596,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 119.08964807300003,
-    "sha256": "8ee3241aec660127643970e55cf5f1a9c2da13ece573d183feef8679c6da84e0"
+    "sha256": "8ee3241aec660127643970e55cf5f1a9c2da13ece573d183feef8679c6da84e0",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\bf4cbcee-08c1-4b21-95bf-50cb8f6ded64\\20261023T124741Z-0c0b6654\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\bf4cbcee-08c1-4b21-95bf-50cb8f6ded64\\20261023T124741Z-0c0b6654\\backup_receipt.json",
+        "bytes": 796097,
+        "sha256": "8ee3241aec660127643970e55cf5f1a9c2da13ece573d183feef8679c6da84e0",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "c6612f51-a42d-452d-93dd-66e72aac8a49",
@@ -327,7 +615,16 @@
     "zip_count": 1,
     "papers_extracted": 55,
     "discovery_elapsed_seconds": 130.3604774500002,
-    "sha256": "ecf88e39a282e086266eb894c2141de9b453fa5177c44c459aa245c98cd8cd53"
+    "sha256": "ecf88e39a282e086266eb894c2141de9b453fa5177c44c459aa245c98cd8cd53",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\c6612f51-a42d-452d-93dd-66e72aac8a49\\20261021T231204Z-7448bdad\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\c6612f51-a42d-452d-93dd-66e72aac8a49\\20261021T231204Z-7448bdad\\backup_receipt.json",
+        "bytes": 1059034,
+        "sha256": "ecf88e39a282e086266eb894c2141de9b453fa5177c44c459aa245c98cd8cd53",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "e390576e-d684-4a0f-9c57-46b691f1da73",
@@ -337,7 +634,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.08004414999959408,
-    "sha256": "4c46b4c605bcaaface9ab4fe018bb80ec531970d8d6fd0197c604c4d3cd5544b"
+    "sha256": "4c46b4c605bcaaface9ab4fe018bb80ec531970d8d6fd0197c604c4d3cd5544b",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\e390576e-d684-4a0f-9c57-46b691f1da73\\20261025T031607Z-3b616dc5\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\e390576e-d684-4a0f-9c57-46b691f1da73\\20261025T031607Z-3b616dc5\\backup_receipt.json",
+        "bytes": 280721,
+        "sha256": "4c46b4c605bcaaface9ab4fe018bb80ec531970d8d6fd0197c604c4d3cd5544b",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "77b8205a-1ad8-4fba-a0f4-4257bf40433c",
@@ -347,7 +653,177 @@
     "zip_count": 24,
     "papers_extracted": 941,
     "discovery_elapsed_seconds": 3297.443629325,
-    "sha256": "a390d18b58783bc2540a9a6fbabab070a16ba74be4c57b03b1ad3eba54663878"
+    "sha256": "a390d18b58783bc2540a9a6fbabab070a16ba74be4c57b03b1ad3eba54663878",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T115424Z-c5bccd5f\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T115424Z-c5bccd5f\\backup_receipt.json",
+        "bytes": 933570,
+        "sha256": "8fd8c685ecc3221e9ff7c1dc2ed1f3521cb22d8767dd431789f91c483ae67a97",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T120510Z-2c33715b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T120510Z-2c33715b\\backup_receipt.json",
+        "bytes": 850019,
+        "sha256": "50c7538b8746c79fb65c51126f861eec2c23015d1d570b0e75c877dfbd3e4ed1",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T121833Z-81b3f912\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T121833Z-81b3f912\\backup_receipt.json",
+        "bytes": 847979,
+        "sha256": "b3ea06145354bca9cdeea8c8125200130a408dce353962b6febe38911f087194",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T123232Z-ee05f2fa\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T123232Z-ee05f2fa\\backup_receipt.json",
+        "bytes": 571749,
+        "sha256": "1adfc97764e42e1047170e9af9f98a18fc0eb61c5a38bea65cfe2acd4c8d8198",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T124909Z-fcb0d703\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T124909Z-fcb0d703\\backup_receipt.json",
+        "bytes": 927619,
+        "sha256": "7f6b59f533cec84aad3c70e3d3fa1738fb0be9ddd65c2098680da93ae072e979",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T130529Z-14f3329c\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T130529Z-14f3329c\\backup_receipt.json",
+        "bytes": 759080,
+        "sha256": "a7c90b764b083d2e2c47760f08ec8b612e618f4183582761ed15c34e7c24ffd8",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T132515Z-7d4b85ea\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T132515Z-7d4b85ea\\backup_receipt.json",
+        "bytes": 1098162,
+        "sha256": "b6d3d2482bb7be6493a7bab9068b1960f2740f6f4cf7f9f69d6f60c4a706f7fd",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T134535Z-1cbc1727\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T134535Z-1cbc1727\\backup_receipt.json",
+        "bytes": 821189,
+        "sha256": "b92cdfeed06beb3474bb6e4b974b5cd04679979a9db5a44e2073c83c7a0e924b",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T140722Z-68fff7b4\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T140722Z-68fff7b4\\backup_receipt.json",
+        "bytes": 877253,
+        "sha256": "2c65c606de9718106de1b54e6b8c0389ed51028ba926b27934a24ff8aad0a594",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T143213Z-0c4b8cea\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T143213Z-0c4b8cea\\backup_receipt.json",
+        "bytes": 1104990,
+        "sha256": "91b01a9aafe0630e1c6917cb2e780b38f44bf8502b7d340139e1fe0c40d317a3",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T145758Z-d29d0855\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T145758Z-d29d0855\\backup_receipt.json",
+        "bytes": 1074651,
+        "sha256": "7ba43521a7d3ab8de00ffb3248268f9d02b45c136a4a3b80d11e14fe39887a5e",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T152116Z-62b4b93c\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T152116Z-62b4b93c\\backup_receipt.json",
+        "bytes": 822117,
+        "sha256": "ada135addeafde626195b8a51095519d578ec4d1e4120f274f28fb02950a8aee",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T154917Z-38c60fbd\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T154917Z-38c60fbd\\backup_receipt.json",
+        "bytes": 1020107,
+        "sha256": "29dd7c2d1914dd251b54b96060a74e4e8c8536b3505120ad5523047a2c13d27b",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T162049Z-1d296a8c\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T162049Z-1d296a8c\\backup_receipt.json",
+        "bytes": 860972,
+        "sha256": "7cc6aa975aca47c2d47cf8b31ec2618a67e7a51680f01097f1b82a5c71a1d764",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T165154Z-ac8d16b6\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T165154Z-ac8d16b6\\backup_receipt.json",
+        "bytes": 924440,
+        "sha256": "dd715468c7f39b3dcf91eebd94ad70ead865d9deb032b0840a60c3dd26e4cba1",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T172128Z-83e490ea\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T172128Z-83e490ea\\backup_receipt.json",
+        "bytes": 833768,
+        "sha256": "68ebf51529928e6f21c375b75cc47101ce8480991b2c73a4471c0102435dcba7",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T175252Z-18cac02b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T175252Z-18cac02b\\backup_receipt.json",
+        "bytes": 1039326,
+        "sha256": "2cf94859869a006ab4fb8a72827bdabf9964a2dd1aa6e86faeabad73304abc41",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T182450Z-571821d9\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T182450Z-571821d9\\backup_receipt.json",
+        "bytes": 910848,
+        "sha256": "8b69d7092ebabc9134ae81bd622717a89cc2326da34df53f0254b3df01dc83e0",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T185852Z-fa1b5b35\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T185852Z-fa1b5b35\\backup_receipt.json",
+        "bytes": 920464,
+        "sha256": "fddf5ad61cc39c68e73191d9560c8f40b518007befae8e8afaf1c1586f8f9aa0",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T193353Z-104cfd2c\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T193353Z-104cfd2c\\backup_receipt.json",
+        "bytes": 959778,
+        "sha256": "56a8b21d5f3aeb4c7d6ec10e44ee5ef59b1040ef5e794bf68a6e4123a16c6a71",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T201110Z-872b632b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T201110Z-872b632b\\backup_receipt.json",
+        "bytes": 1140887,
+        "sha256": "d4a008f1f80accc98e27cedb2e1d3a1fcd056f33d55a5f9d9a46c7268c48e498",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T204926Z-db721cc0\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T204926Z-db721cc0\\backup_receipt.json",
+        "bytes": 1053611,
+        "sha256": "b7a638fc35ec8b69dacae83faff1f8e4466ff03fb695cbdc6f66310e8a309b2f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T212900Z-9fe1f36a\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T212900Z-9fe1f36a\\backup_receipt.json",
+        "bytes": 1010051,
+        "sha256": "21dd1b2cb2407ae78ccbe513ca8e0f3245cb96072ffe11cb4e50529b9878b125",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T221139Z-28ea8dbb\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\danh\\acc3\\Milestone1\\checkpoints\\77b8205a-1ad8-4fba-a0f4-4257bf40433c\\20261021T221139Z-28ea8dbb\\backup_receipt.json",
+        "bytes": 1043859,
+        "sha256": "a390d18b58783bc2540a9a6fbabab070a16ba74be4c57b03b1ad3eba54663878",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "0315a9b8-ad6f-4113-8674-174e9e0c2aec",
@@ -357,7 +833,16 @@
     "zip_count": 1,
     "papers_extracted": 108,
     "discovery_elapsed_seconds": 330.5340205110001,
-    "sha256": "60ce18803177bcad9cb0077f52308896f01778a46641948136dc6a0065b52136"
+    "sha256": "60ce18803177bcad9cb0077f52308896f01778a46641948136dc6a0065b52136",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\0315a9b8-ad6f-4113-8674-174e9e0c2aec\\20261020T092149Z-347fbb10\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\0315a9b8-ad6f-4113-8674-174e9e0c2aec\\20261020T092149Z-347fbb10\\backup_receipt.json",
+        "bytes": 1744090,
+        "sha256": "60ce18803177bcad9cb0077f52308896f01778a46641948136dc6a0065b52136",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "0f5de69f-cf1c-46df-b350-ef6957df3e20",
@@ -367,7 +852,16 @@
     "zip_count": 1,
     "papers_extracted": 47,
     "discovery_elapsed_seconds": 0.22071289099994829,
-    "sha256": "fd35298361fb35129db4ef0a59c76b7cc1574bdf88b05b1429cc2b811331f765"
+    "sha256": "fd35298361fb35129db4ef0a59c76b7cc1574bdf88b05b1429cc2b811331f765",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\0f5de69f-cf1c-46df-b350-ef6957df3e20\\20261021T120159Z-a4b0f463\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\0f5de69f-cf1c-46df-b350-ef6957df3e20\\20261021T120159Z-a4b0f463\\backup_receipt.json",
+        "bytes": 981901,
+        "sha256": "fd35298361fb35129db4ef0a59c76b7cc1574bdf88b05b1429cc2b811331f765",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "12830f9c-90d8-47d2-9059-d6073d9da93e",
@@ -377,7 +871,16 @@
     "zip_count": 1,
     "papers_extracted": 402,
     "discovery_elapsed_seconds": 1355.8623105879997,
-    "sha256": "9aed482b5734e89ed826e321f2f63d54a4a10bf10f3a2f05833caf048436cdc8"
+    "sha256": "9aed482b5734e89ed826e321f2f63d54a4a10bf10f3a2f05833caf048436cdc8",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\12830f9c-90d8-47d2-9059-d6073d9da93e\\20261020T002545Z-6da3ad4b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\12830f9c-90d8-47d2-9059-d6073d9da93e\\20261020T002545Z-6da3ad4b\\backup_receipt.json",
+        "bytes": 6601531,
+        "sha256": "9aed482b5734e89ed826e321f2f63d54a4a10bf10f3a2f05833caf048436cdc8",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "4e4304ec-96d3-4462-9390-e35371716c4d",
@@ -387,7 +890,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.02414144900012616,
-    "sha256": "a7e0a9aa1df2078d0e0c26c1568cc69b0603e7f3a9355f936a1fde4a36eefb57"
+    "sha256": "a7e0a9aa1df2078d0e0c26c1568cc69b0603e7f3a9355f936a1fde4a36eefb57",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\4e4304ec-96d3-4462-9390-e35371716c4d\\20261021T120606Z-e9bcdfe2\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\4e4304ec-96d3-4462-9390-e35371716c4d\\20261021T120606Z-e9bcdfe2\\backup_receipt.json",
+        "bytes": 337864,
+        "sha256": "a7e0a9aa1df2078d0e0c26c1568cc69b0603e7f3a9355f936a1fde4a36eefb57",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "9cc2bfc3-138e-443f-b73d-e125ec519fce",
@@ -397,7 +909,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.057100860999980796,
-    "sha256": "74c669c4a7bbd6376e91fc355dbaf65b023bd2e5945d1d082362ed3b35a71d28"
+    "sha256": "74c669c4a7bbd6376e91fc355dbaf65b023bd2e5945d1d082362ed3b35a71d28",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\9cc2bfc3-138e-443f-b73d-e125ec519fce\\20261021T121205Z-3961b674\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\9cc2bfc3-138e-443f-b73d-e125ec519fce\\20261021T121205Z-3961b674\\backup_receipt.json",
+        "bytes": 335593,
+        "sha256": "74c669c4a7bbd6376e91fc355dbaf65b023bd2e5945d1d082362ed3b35a71d28",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "a503fdc5-0e42-40ac-a6af-38d8614f9285",
@@ -407,7 +928,16 @@
     "zip_count": 1,
     "papers_extracted": 93,
     "discovery_elapsed_seconds": 343.46987013599994,
-    "sha256": "ab290062cbfc64f6195e4ab4519a2d9d6332f751c645cf34a2e2f9eb2d4b472d"
+    "sha256": "ab290062cbfc64f6195e4ab4519a2d9d6332f751c645cf34a2e2f9eb2d4b472d",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\a503fdc5-0e42-40ac-a6af-38d8614f9285\\20261019T163525Z-5ad8718b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\a503fdc5-0e42-40ac-a6af-38d8614f9285\\20261019T163525Z-5ad8718b\\backup_receipt.json",
+        "bytes": 2048538,
+        "sha256": "ab290062cbfc64f6195e4ab4519a2d9d6332f751c645cf34a2e2f9eb2d4b472d",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "b8adb39f-c6f6-4581-938e-a593fe8f4744",
@@ -417,7 +947,16 @@
     "zip_count": 1,
     "papers_extracted": 97,
     "discovery_elapsed_seconds": 339.44795223500114,
-    "sha256": "27bd248ecf5702ebffb08e90a0ed0fcd5ad790360f9d44600a8f2a597f128807"
+    "sha256": "27bd248ecf5702ebffb08e90a0ed0fcd5ad790360f9d44600a8f2a597f128807",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\b8adb39f-c6f6-4581-938e-a593fe8f4744\\20261020T022300Z-bf04515a\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\b8adb39f-c6f6-4581-938e-a593fe8f4744\\20261020T022300Z-bf04515a\\backup_receipt.json",
+        "bytes": 1721709,
+        "sha256": "27bd248ecf5702ebffb08e90a0ed0fcd5ad790360f9d44600a8f2a597f128807",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "b9396da7-b5aa-4709-8a14-911259387f5c",
@@ -427,7 +966,16 @@
     "zip_count": 1,
     "papers_extracted": 920,
     "discovery_elapsed_seconds": 3245.56961063,
-    "sha256": "29dc7f2abce8d9289c337a5efa9b23f59be6daae7c03c7e2c0f55435c72e833d"
+    "sha256": "29dc7f2abce8d9289c337a5efa9b23f59be6daae7c03c7e2c0f55435c72e833d",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\b9396da7-b5aa-4709-8a14-911259387f5c\\20261021T002744Z-b6e644d3\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\b9396da7-b5aa-4709-8a14-911259387f5c\\20261021T002744Z-b6e644d3\\backup_receipt.json",
+        "bytes": 12415118,
+        "sha256": "29dc7f2abce8d9289c337a5efa9b23f59be6daae7c03c7e2c0f55435c72e833d",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "359fce19-8ad6-43a3-82c7-40e8e4f5bc2c",
@@ -437,7 +985,30 @@
     "zip_count": 3,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 16.769600594998337,
-    "sha256": "4e0f24b52a6ee203904dd56427599be2d12026ef90bc19cc2a4deb7639374919"
+    "sha256": "4e0f24b52a6ee203904dd56427599be2d12026ef90bc19cc2a4deb7639374919",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\checkpoints\\359fce19-8ad6-43a3-82c7-40e8e4f5bc2c\\20261021T014957Z-fe461353\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\checkpoints\\359fce19-8ad6-43a3-82c7-40e8e4f5bc2c\\20261021T014957Z-fe461353\\backup_receipt.json",
+        "bytes": 786472,
+        "sha256": "f52fa478f3a5dd5b2e75295cc57def2f26de40d377f2e24044e4acee37d1f595",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\checkpoints\\359fce19-8ad6-43a3-82c7-40e8e4f5bc2c\\20261021T015519Z-c489b558\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\checkpoints\\359fce19-8ad6-43a3-82c7-40e8e4f5bc2c\\20261021T015519Z-c489b558\\backup_receipt.json",
+        "bytes": 690603,
+        "sha256": "50745d724edd77cd7b6e97522ebf37fe9b16bd714e39ed28821bc69cfd4f1f63",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\checkpoints\\359fce19-8ad6-43a3-82c7-40e8e4f5bc2c\\20261021T020148Z-c33835f4\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc1\\Milestone1\\checkpoints\\359fce19-8ad6-43a3-82c7-40e8e4f5bc2c\\20261021T020148Z-c33835f4\\backup_receipt.json",
+        "bytes": 544973,
+        "sha256": "4e0f24b52a6ee203904dd56427599be2d12026ef90bc19cc2a4deb7639374919",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "1d6a93e7-ff61-44f8-844f-74cc5cdd6423",
@@ -447,7 +1018,16 @@
     "zip_count": 1,
     "papers_extracted": 100,
     "discovery_elapsed_seconds": 330.462159797,
-    "sha256": "20b3784b6d138d6ccb9bc16c7c23876a4b3c9af02c88ccaa65438ab29f694330"
+    "sha256": "20b3784b6d138d6ccb9bc16c7c23876a4b3c9af02c88ccaa65438ab29f694330",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\1d6a93e7-ff61-44f8-844f-74cc5cdd6423\\20261019T162037Z-42048b6e\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\1d6a93e7-ff61-44f8-844f-74cc5cdd6423\\20261019T162037Z-42048b6e\\backup_receipt.json",
+        "bytes": 1854019,
+        "sha256": "20b3784b6d138d6ccb9bc16c7c23876a4b3c9af02c88ccaa65438ab29f694330",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "2764393c-37f6-45a2-83ce-56be7c99ad66",
@@ -457,7 +1037,16 @@
     "zip_count": 1,
     "papers_extracted": 4,
     "discovery_elapsed_seconds": 0.012356696999972883,
-    "sha256": "d938a59d706f4480035801f701f041896538fdcb1e0f49c4c703297bc928b304"
+    "sha256": "d938a59d706f4480035801f701f041896538fdcb1e0f49c4c703297bc928b304",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\2764393c-37f6-45a2-83ce-56be7c99ad66\\20261021T120006Z-10c61ae1\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\2764393c-37f6-45a2-83ce-56be7c99ad66\\20261021T120006Z-10c61ae1\\backup_receipt.json",
+        "bytes": 415033,
+        "sha256": "d938a59d706f4480035801f701f041896538fdcb1e0f49c4c703297bc928b304",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "3fb5aed9-65f9-453a-8d2f-6ebaa026ecb7",
@@ -467,7 +1056,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.01727106700002423,
-    "sha256": "27f85312bc7a815053636655f97fe24acc8dbe70bf3790723a8b1f6bb2ceeea0"
+    "sha256": "27f85312bc7a815053636655f97fe24acc8dbe70bf3790723a8b1f6bb2ceeea0",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\3fb5aed9-65f9-453a-8d2f-6ebaa026ecb7\\20261021T120743Z-d9c39f3b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\3fb5aed9-65f9-453a-8d2f-6ebaa026ecb7\\20261021T120743Z-d9c39f3b\\backup_receipt.json",
+        "bytes": 419840,
+        "sha256": "27f85312bc7a815053636655f97fe24acc8dbe70bf3790723a8b1f6bb2ceeea0",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "76aaae53-ebe9-4967-851e-318be91dcd6c",
@@ -477,7 +1075,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.008581549000041377,
-    "sha256": "2df5d9292081c16e4fb2bc9481079a88aa3abed504faef7cfbf0d53afac65659"
+    "sha256": "2df5d9292081c16e4fb2bc9481079a88aa3abed504faef7cfbf0d53afac65659",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\76aaae53-ebe9-4967-851e-318be91dcd6c\\20261021T115618Z-5cfe518a\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\76aaae53-ebe9-4967-851e-318be91dcd6c\\20261021T115618Z-5cfe518a\\backup_receipt.json",
+        "bytes": 424120,
+        "sha256": "2df5d9292081c16e4fb2bc9481079a88aa3abed504faef7cfbf0d53afac65659",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "7968eb53-4300-4818-b3ea-eed89dba5616",
@@ -487,7 +1094,16 @@
     "zip_count": 1,
     "papers_extracted": 1041,
     "discovery_elapsed_seconds": 3405.517268421,
-    "sha256": "2dd02661ae74a998e9a273c10197b9130f7e46d0abec6bcfcf7478361a988eb6"
+    "sha256": "2dd02661ae74a998e9a273c10197b9130f7e46d0abec6bcfcf7478361a988eb6",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\7968eb53-4300-4818-b3ea-eed89dba5616\\20261021T013813Z-4e78cf24\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\7968eb53-4300-4818-b3ea-eed89dba5616\\20261021T013813Z-4e78cf24\\backup_receipt.json",
+        "bytes": 14472421,
+        "sha256": "2dd02661ae74a998e9a273c10197b9130f7e46d0abec6bcfcf7478361a988eb6",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "80af0b6f-9008-40ec-ae76-176b97839dd5",
@@ -497,7 +1113,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.012083997999980056,
-    "sha256": "1373fb5b32ea4c95db72d04f7fa307502c6d3fe899ce750458489b9d99b83d6d"
+    "sha256": "1373fb5b32ea4c95db72d04f7fa307502c6d3fe899ce750458489b9d99b83d6d",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\80af0b6f-9008-40ec-ae76-176b97839dd5\\20261021T120154Z-5b6f538a\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\80af0b6f-9008-40ec-ae76-176b97839dd5\\20261021T120154Z-5b6f538a\\backup_receipt.json",
+        "bytes": 415708,
+        "sha256": "1373fb5b32ea4c95db72d04f7fa307502c6d3fe899ce750458489b9d99b83d6d",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ae92ad43-de6c-4fae-9e55-39cefe473047",
@@ -507,7 +1132,16 @@
     "zip_count": 1,
     "papers_extracted": 396,
     "discovery_elapsed_seconds": 1348.263459066,
-    "sha256": "66935d9d06159fc627b4070b58f432d7a7c606ebd223aaf154902b12c2db2a39"
+    "sha256": "66935d9d06159fc627b4070b58f432d7a7c606ebd223aaf154902b12c2db2a39",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\ae92ad43-de6c-4fae-9e55-39cefe473047\\20261020T003536Z-6cd36077\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\ae92ad43-de6c-4fae-9e55-39cefe473047\\20261020T003536Z-6cd36077\\backup_receipt.json",
+        "bytes": 6544082,
+        "sha256": "66935d9d06159fc627b4070b58f432d7a7c606ebd223aaf154902b12c2db2a39",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "c746cc51-6bf2-4c50-ad7a-84dc1a41e03f",
@@ -517,7 +1151,16 @@
     "zip_count": 1,
     "papers_extracted": 67,
     "discovery_elapsed_seconds": 218.37289000999994,
-    "sha256": "d8a0de25ed92c2d8d501f7878be7ed6fc1c9c33647bba05d5dedb5b7928a06ec"
+    "sha256": "d8a0de25ed92c2d8d501f7878be7ed6fc1c9c33647bba05d5dedb5b7928a06ec",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\c746cc51-6bf2-4c50-ad7a-84dc1a41e03f\\20261021T023155Z-52f30b88\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\c746cc51-6bf2-4c50-ad7a-84dc1a41e03f\\20261021T023155Z-52f30b88\\backup_receipt.json",
+        "bytes": 1772911,
+        "sha256": "d8a0de25ed92c2d8d501f7878be7ed6fc1c9c33647bba05d5dedb5b7928a06ec",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "f4a7c1c0-b3ea-4504-97a2-9b0041471467",
@@ -527,7 +1170,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.010000801000046522,
-    "sha256": "1d01a9921bbdae70e68a9e5a0cd2894f18610418f8cba241c94222d61aa1dc2c"
+    "sha256": "1d01a9921bbdae70e68a9e5a0cd2894f18610418f8cba241c94222d61aa1dc2c",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\f4a7c1c0-b3ea-4504-97a2-9b0041471467\\20261021T121128Z-008f0bae\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\f4a7c1c0-b3ea-4504-97a2-9b0041471467\\20261021T121128Z-008f0bae\\backup_receipt.json",
+        "bytes": 417017,
+        "sha256": "1d01a9921bbdae70e68a9e5a0cd2894f18610418f8cba241c94222d61aa1dc2c",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "3fc8204b-8358-41f1-b06e-30624f06b3da",
@@ -537,7 +1189,23 @@
     "zip_count": 2,
     "papers_extracted": 59,
     "discovery_elapsed_seconds": 337.19199725100043,
-    "sha256": "a277bca1049bc1ab6ba8b837746459d1333aa29cbcfd0f46b00e5ac11c4f0f9b"
+    "sha256": "a277bca1049bc1ab6ba8b837746459d1333aa29cbcfd0f46b00e5ac11c4f0f9b",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\3fc8204b-8358-41f1-b06e-30624f06b3da\\20261020T013451Z-141965bc\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\3fc8204b-8358-41f1-b06e-30624f06b3da\\20261020T013451Z-141965bc\\backup_receipt.json",
+        "bytes": 782497,
+        "sha256": "ec5f5323ec63b549eecc00e18a7b569b8a20e2c997614e8adc9129d6fad40513",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\3fc8204b-8358-41f1-b06e-30624f06b3da\\20261020T021137Z-27a258bb\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\3fc8204b-8358-41f1-b06e-30624f06b3da\\20261020T021137Z-27a258bb\\backup_receipt.json",
+        "bytes": 601396,
+        "sha256": "a277bca1049bc1ab6ba8b837746459d1333aa29cbcfd0f46b00e5ac11c4f0f9b",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "daee9f81-2c7f-43c7-a54c-6da3702e12a5",
@@ -547,7 +1215,30 @@
     "zip_count": 3,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 235.9723074909998,
-    "sha256": "aaf7c378918d7627fae52091c528ccd6cd9d017d71438b0f8743355f783e717c"
+    "sha256": "aaf7c378918d7627fae52091c528ccd6cd9d017d71438b0f8743355f783e717c",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\daee9f81-2c7f-43c7-a54c-6da3702e12a5\\20261021T015246Z-07cfff1a\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\daee9f81-2c7f-43c7-a54c-6da3702e12a5\\20261021T015246Z-07cfff1a\\backup_receipt.json",
+        "bytes": 915484,
+        "sha256": "e96188d4e4dfef5e8712676aaa6f5fe31cb22957d069010cb612832e185d1fc8",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\daee9f81-2c7f-43c7-a54c-6da3702e12a5\\20261021T015745Z-56f63f71\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\daee9f81-2c7f-43c7-a54c-6da3702e12a5\\20261021T015745Z-56f63f71\\backup_receipt.json",
+        "bytes": 533068,
+        "sha256": "df809e499109d75292160ae78e9d2441b51665b1b85e2030cce5a933746dffd5",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\daee9f81-2c7f-43c7-a54c-6da3702e12a5\\20261021T020352Z-442585c7\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc2\\Milestone1\\checkpoints\\daee9f81-2c7f-43c7-a54c-6da3702e12a5\\20261021T020352Z-442585c7\\backup_receipt.json",
+        "bytes": 493400,
+        "sha256": "aaf7c378918d7627fae52091c528ccd6cd9d017d71438b0f8743355f783e717c",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "4caf5d0c-9243-4d18-adb7-74415e742965",
@@ -557,7 +1248,16 @@
     "zip_count": 1,
     "papers_extracted": 100,
     "discovery_elapsed_seconds": 332.27320641999995,
-    "sha256": "32a4be6c5cd68ce6dfdb2861904e9db9741a3c95d9831e4570c5643e90b77428"
+    "sha256": "32a4be6c5cd68ce6dfdb2861904e9db9741a3c95d9831e4570c5643e90b77428",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\4caf5d0c-9243-4d18-adb7-74415e742965\\20261019T163811Z-7e9771c8\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\4caf5d0c-9243-4d18-adb7-74415e742965\\20261019T163811Z-7e9771c8\\backup_receipt.json",
+        "bytes": 1971657,
+        "sha256": "32a4be6c5cd68ce6dfdb2861904e9db9741a3c95d9831e4570c5643e90b77428",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "cfc98ca8-1590-464c-a54b-c73e543c903a",
@@ -567,7 +1267,16 @@
     "zip_count": 1,
     "papers_extracted": 400,
     "discovery_elapsed_seconds": 1341.1445888569997,
-    "sha256": "4420adae9d3587c8de3d48658ad22052546b45744b004da3b13de1ca4f7d6798"
+    "sha256": "4420adae9d3587c8de3d48658ad22052546b45744b004da3b13de1ca4f7d6798",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\cfc98ca8-1590-464c-a54b-c73e543c903a\\20261020T001731Z-bb6b62ad\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\cfc98ca8-1590-464c-a54b-c73e543c903a\\20261020T001731Z-bb6b62ad\\backup_receipt.json",
+        "bytes": 6038976,
+        "sha256": "4420adae9d3587c8de3d48658ad22052546b45744b004da3b13de1ca4f7d6798",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "e7efd30c-0a4b-40be-bd5d-c25114eaf150",
@@ -577,7 +1286,16 @@
     "zip_count": 1,
     "papers_extracted": 4,
     "discovery_elapsed_seconds": 0.020863362000000052,
-    "sha256": "8394cb239dec5ae263c0a7d971aa7f2a07ace6f13d47786f9c8993baf0284828"
+    "sha256": "8394cb239dec5ae263c0a7d971aa7f2a07ace6f13d47786f9c8993baf0284828",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\e7efd30c-0a4b-40be-bd5d-c25114eaf150\\20261021T122324Z-17101682\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\e7efd30c-0a4b-40be-bd5d-c25114eaf150\\20261021T122324Z-17101682\\backup_receipt.json",
+        "bytes": 272330,
+        "sha256": "8394cb239dec5ae263c0a7d971aa7f2a07ace6f13d47786f9c8993baf0284828",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "e8c669e6-6437-4b76-b2f6-fb9767135c3a",
@@ -587,7 +1305,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.02459681799973623,
-    "sha256": "d01b0c4a00154931aa666ad0ee38437bec02316472e9e9f746a39577d0c96f4b"
+    "sha256": "d01b0c4a00154931aa666ad0ee38437bec02316472e9e9f746a39577d0c96f4b",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\e8c669e6-6437-4b76-b2f6-fb9767135c3a\\20261021T123620Z-9fd40f34\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\e8c669e6-6437-4b76-b2f6-fb9767135c3a\\20261021T123620Z-9fd40f34\\backup_receipt.json",
+        "bytes": 270370,
+        "sha256": "d01b0c4a00154931aa666ad0ee38437bec02316472e9e9f746a39577d0c96f4b",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ed034e55-6915-44bb-b782-601d624aa751",
@@ -597,7 +1324,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.021788721000007172,
-    "sha256": "063cfee3fc53a110a670fb4aa3fccb37b8648b0467806b98d2d71897adcb3663"
+    "sha256": "063cfee3fc53a110a670fb4aa3fccb37b8648b0467806b98d2d71897adcb3663",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\ed034e55-6915-44bb-b782-601d624aa751\\20261021T124606Z-24176400\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\ed034e55-6915-44bb-b782-601d624aa751\\20261021T124606Z-24176400\\backup_receipt.json",
+        "bytes": 270625,
+        "sha256": "063cfee3fc53a110a670fb4aa3fccb37b8648b0467806b98d2d71897adcb3663",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "f26eb065-fc44-4403-a43a-91561c8b5f21",
@@ -607,7 +1343,16 @@
     "zip_count": 1,
     "papers_extracted": 72,
     "discovery_elapsed_seconds": 214.10095341200008,
-    "sha256": "fc38455d07b6f1c700e3510e13a6f88e54d5795680a2d3acd22c75fe7855ccb1"
+    "sha256": "fc38455d07b6f1c700e3510e13a6f88e54d5795680a2d3acd22c75fe7855ccb1",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\f26eb065-fc44-4403-a43a-91561c8b5f21\\20261021T121626Z-87468cec\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\f26eb065-fc44-4403-a43a-91561c8b5f21\\20261021T121626Z-87468cec\\backup_receipt.json",
+        "bytes": 1323038,
+        "sha256": "fc38455d07b6f1c700e3510e13a6f88e54d5795680a2d3acd22c75fe7855ccb1",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "f893fd3f-ac07-485f-873e-cb75e4812de5",
@@ -617,7 +1362,16 @@
     "zip_count": 1,
     "papers_extracted": 1032,
     "discovery_elapsed_seconds": 3456.659755066,
-    "sha256": "8d7508345943021d1ae1bb480384e3dde3024be8d95f28712d32f18e1245e4a0"
+    "sha256": "8d7508345943021d1ae1bb480384e3dde3024be8d95f28712d32f18e1245e4a0",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\f893fd3f-ac07-485f-873e-cb75e4812de5\\20261021T013345Z-ea41ddb2\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\f893fd3f-ac07-485f-873e-cb75e4812de5\\20261021T013345Z-ea41ddb2\\backup_receipt.json",
+        "bytes": 13247225,
+        "sha256": "8d7508345943021d1ae1bb480384e3dde3024be8d95f28712d32f18e1245e4a0",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "a5b32225-5910-45f6-947d-94c9af15a029",
@@ -627,7 +1381,23 @@
     "zip_count": 2,
     "papers_extracted": 58,
     "discovery_elapsed_seconds": 335.4502594239966,
-    "sha256": "ade46fabc586899cc20fc79cfc62d94b9cf43a5b11b481dbea4012690c6b4fc9"
+    "sha256": "ade46fabc586899cc20fc79cfc62d94b9cf43a5b11b481dbea4012690c6b4fc9",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\a5b32225-5910-45f6-947d-94c9af15a029\\20261020T012414Z-4eff6d76\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\a5b32225-5910-45f6-947d-94c9af15a029\\20261020T012414Z-4eff6d76\\backup_receipt.json",
+        "bytes": 433170,
+        "sha256": "c335b0656f5ba620d94595bd0450177a96ea1637384900ff52c26b40e8de2e69",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\a5b32225-5910-45f6-947d-94c9af15a029\\20261020T020450Z-f78307c9\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\a5b32225-5910-45f6-947d-94c9af15a029\\20261020T020450Z-f78307c9\\backup_receipt.json",
+        "bytes": 613052,
+        "sha256": "ade46fabc586899cc20fc79cfc62d94b9cf43a5b11b481dbea4012690c6b4fc9",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ebbe907c-9fd2-4da2-8f9b-7fb79c49ad67",
@@ -637,7 +1407,30 @@
     "zip_count": 3,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 243.0765341439983,
-    "sha256": "65f8f5fc13c6469f6c64389cce83962d030b84e57db593e75ac86a5c11b31296"
+    "sha256": "65f8f5fc13c6469f6c64389cce83962d030b84e57db593e75ac86a5c11b31296",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\ebbe907c-9fd2-4da2-8f9b-7fb79c49ad67\\20261021T015156Z-52d07005\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\ebbe907c-9fd2-4da2-8f9b-7fb79c49ad67\\20261021T015156Z-52d07005\\backup_receipt.json",
+        "bytes": 819862,
+        "sha256": "5f4c6871dd90da0a87674bc595a0d2ecc42be34686cfb782e849b3ceb05b296f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\ebbe907c-9fd2-4da2-8f9b-7fb79c49ad67\\20261021T015720Z-07c27f1b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\ebbe907c-9fd2-4da2-8f9b-7fb79c49ad67\\20261021T015720Z-07c27f1b\\backup_receipt.json",
+        "bytes": 629189,
+        "sha256": "e63fce767d63994d1394157589f9335c3bd6308299bce9402abd3a06ddc148e4",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\ebbe907c-9fd2-4da2-8f9b-7fb79c49ad67\\20261021T020345Z-10951895\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khang\\acc3\\Milestone1\\checkpoints\\ebbe907c-9fd2-4da2-8f9b-7fb79c49ad67\\20261021T020345Z-10951895\\backup_receipt.json",
+        "bytes": 542121,
+        "sha256": "65f8f5fc13c6469f6c64389cce83962d030b84e57db593e75ac86a5c11b31296",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "268b69ed-ab11-48eb-9b54-b8a8b5741094",
@@ -647,7 +1440,16 @@
     "zip_count": 1,
     "papers_extracted": 494,
     "discovery_elapsed_seconds": 1565.1051061379999,
-    "sha256": "cafb74edf5143e7b80ab71cb053b115541cee96fc9acc75e090e6b726518ecdc"
+    "sha256": "cafb74edf5143e7b80ab71cb053b115541cee96fc9acc75e090e6b726518ecdc",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\268b69ed-ab11-48eb-9b54-b8a8b5741094\\20261023T100236Z-a86f5e98\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\268b69ed-ab11-48eb-9b54-b8a8b5741094\\20261023T100236Z-a86f5e98\\backup_receipt.json",
+        "bytes": 7574951,
+        "sha256": "cafb74edf5143e7b80ab71cb053b115541cee96fc9acc75e090e6b726518ecdc",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "3cbc179d-acda-4117-b47a-114f2fe23bfd",
@@ -657,7 +1459,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.11983215099826339,
-    "sha256": "75c38609c7bd6a61fe0ec15a8310acdf87642c0967f073e8c1f7be7f631462ce"
+    "sha256": "75c38609c7bd6a61fe0ec15a8310acdf87642c0967f073e8c1f7be7f631462ce",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\3cbc179d-acda-4117-b47a-114f2fe23bfd\\20261023T115213Z-3465143e\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\3cbc179d-acda-4117-b47a-114f2fe23bfd\\20261023T115213Z-3465143e\\backup_receipt.json",
+        "bytes": 650423,
+        "sha256": "75c38609c7bd6a61fe0ec15a8310acdf87642c0967f073e8c1f7be7f631462ce",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "3ee013cb-70c9-412f-98cc-9a3593cd8490",
@@ -667,7 +1478,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.046490928001730936,
-    "sha256": "fb8ef5d98d4ce758470ba23110e65cef4413d3f3ab8127d63a4892ca0d7d5ae1"
+    "sha256": "fb8ef5d98d4ce758470ba23110e65cef4413d3f3ab8127d63a4892ca0d7d5ae1",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\3ee013cb-70c9-412f-98cc-9a3593cd8490\\20261023T113221Z-1421bb21\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\3ee013cb-70c9-412f-98cc-9a3593cd8490\\20261023T113221Z-1421bb21\\backup_receipt.json",
+        "bytes": 812413,
+        "sha256": "fb8ef5d98d4ce758470ba23110e65cef4413d3f3ab8127d63a4892ca0d7d5ae1",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "477169a6-9a61-4965-9456-2bae2576d88c",
@@ -677,7 +1497,16 @@
     "zip_count": 1,
     "papers_extracted": 596,
     "discovery_elapsed_seconds": 1939.8958531450003,
-    "sha256": "5ad40cdda1c793321c3e3b9ce59d241ad4a7538d1374343b5e65a22e25291ed1"
+    "sha256": "5ad40cdda1c793321c3e3b9ce59d241ad4a7538d1374343b5e65a22e25291ed1",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\477169a6-9a61-4965-9456-2bae2576d88c\\20261022T212217Z-3c2dcf3c\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\477169a6-9a61-4965-9456-2bae2576d88c\\20261022T212217Z-3c2dcf3c\\backup_receipt.json",
+        "bytes": 11588731,
+        "sha256": "5ad40cdda1c793321c3e3b9ce59d241ad4a7538d1374343b5e65a22e25291ed1",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "7c983200-fb9e-452e-a43f-b9e2e38e8125",
@@ -687,7 +1516,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 20.36697873400044,
-    "sha256": "5e6ce14dde5530faba272be6e134a8cca86ac481a2f9b9abc2cb6015beb94f27"
+    "sha256": "5e6ce14dde5530faba272be6e134a8cca86ac481a2f9b9abc2cb6015beb94f27",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\7c983200-fb9e-452e-a43f-b9e2e38e8125\\20261023T104653Z-d5feda13\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\7c983200-fb9e-452e-a43f-b9e2e38e8125\\20261023T104653Z-d5feda13\\backup_receipt.json",
+        "bytes": 2552472,
+        "sha256": "5e6ce14dde5530faba272be6e134a8cca86ac481a2f9b9abc2cb6015beb94f27",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "c0078c50-3afd-4ed8-97bb-18b97d1e8ac2",
@@ -697,7 +1535,16 @@
     "zip_count": 1,
     "papers_extracted": 577,
     "discovery_elapsed_seconds": 2069.223622809,
-    "sha256": "5862125e5038775c59b98241ded35e6b5f42a0b5f0684df7572ef5b96b0495e3"
+    "sha256": "5862125e5038775c59b98241ded35e6b5f42a0b5f0684df7572ef5b96b0495e3",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\c0078c50-3afd-4ed8-97bb-18b97d1e8ac2\\20261022T105728Z-3823b590\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\c0078c50-3afd-4ed8-97bb-18b97d1e8ac2\\20261022T105728Z-3823b590\\backup_receipt.json",
+        "bytes": 12193479,
+        "sha256": "5862125e5038775c59b98241ded35e6b5f42a0b5f0684df7572ef5b96b0495e3",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ea39dbc2-d211-420a-bf92-d726b816e328",
@@ -707,7 +1554,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.06128354999964358,
-    "sha256": "de5b0b65afdb37f500b782ab14d61feb5195e166246e906bd58dcba27b259956"
+    "sha256": "de5b0b65afdb37f500b782ab14d61feb5195e166246e906bd58dcba27b259956",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\ea39dbc2-d211-420a-bf92-d726b816e328\\20261023T121018Z-56521528\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\ea39dbc2-d211-420a-bf92-d726b816e328\\20261023T121018Z-56521528\\backup_receipt.json",
+        "bytes": 592564,
+        "sha256": "de5b0b65afdb37f500b782ab14d61feb5195e166246e906bd58dcba27b259956",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ebdb1432-1939-4b91-be03-097d0e55bff6",
@@ -717,7 +1573,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.11979749700185494,
-    "sha256": "602ddc5c77e9288f2030a371b3a95de75c245a6ee08d32c025bea98db37f8caf"
+    "sha256": "602ddc5c77e9288f2030a371b3a95de75c245a6ee08d32c025bea98db37f8caf",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\ebdb1432-1939-4b91-be03-097d0e55bff6\\20261023T111126Z-bc70117b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc1\\Milestone1\\ebdb1432-1939-4b91-be03-097d0e55bff6\\20261023T111126Z-bc70117b\\backup_receipt.json",
+        "bytes": 563492,
+        "sha256": "602ddc5c77e9288f2030a371b3a95de75c245a6ee08d32c025bea98db37f8caf",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "83972e15-2ab4-4b93-9dea-ee497033b264",
@@ -727,7 +1592,16 @@
     "zip_count": 1,
     "papers_extracted": 211,
     "discovery_elapsed_seconds": 688.068249372,
-    "sha256": "80487bfc165ccc54d6599d028ff1e6286cc921604ae1b1eca7a4524d1bbeeb89"
+    "sha256": "80487bfc165ccc54d6599d028ff1e6286cc921604ae1b1eca7a4524d1bbeeb89",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\83972e15-2ab4-4b93-9dea-ee497033b264\\20261022T041354Z-90b738fc\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\83972e15-2ab4-4b93-9dea-ee497033b264\\20261022T041354Z-90b738fc\\backup_receipt.json",
+        "bytes": 3429025,
+        "sha256": "80487bfc165ccc54d6599d028ff1e6286cc921604ae1b1eca7a4524d1bbeeb89",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "99da0740-cbe3-436f-81a2-ff4f5ffdcca8",
@@ -737,7 +1611,16 @@
     "zip_count": 1,
     "papers_extracted": 31,
     "discovery_elapsed_seconds": 0.16124380899998414,
-    "sha256": "b11d5d08c3de635908a06cde2c81b8e697a2a223d27bfde7c9552abfbb95038b"
+    "sha256": "b11d5d08c3de635908a06cde2c81b8e697a2a223d27bfde7c9552abfbb95038b",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\99da0740-cbe3-436f-81a2-ff4f5ffdcca8\\20261022T174554Z-ede8ad82\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\99da0740-cbe3-436f-81a2-ff4f5ffdcca8\\20261022T174554Z-ede8ad82\\backup_receipt.json",
+        "bytes": 995944,
+        "sha256": "b11d5d08c3de635908a06cde2c81b8e697a2a223d27bfde7c9552abfbb95038b",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "c5b2f657-9964-4349-b11a-a12be3a1c227",
@@ -747,7 +1630,16 @@
     "zip_count": 1,
     "papers_extracted": 594,
     "discovery_elapsed_seconds": 1961.978077888,
-    "sha256": "94fccd49c361f007acfd1d8253cae0133a438f6a81f3316bd25a9766640488b2"
+    "sha256": "94fccd49c361f007acfd1d8253cae0133a438f6a81f3316bd25a9766640488b2",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\c5b2f657-9964-4349-b11a-a12be3a1c227\\20261022T120117Z-d01c53e2\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\c5b2f657-9964-4349-b11a-a12be3a1c227\\20261022T120117Z-d01c53e2\\backup_receipt.json",
+        "bytes": 10869315,
+        "sha256": "94fccd49c361f007acfd1d8253cae0133a438f6a81f3316bd25a9766640488b2",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "c81c4699-b707-49d0-a7ce-823bd0587c3a",
@@ -757,7 +1649,16 @@
     "zip_count": 1,
     "papers_extracted": 241,
     "discovery_elapsed_seconds": 880.7190509310021,
-    "sha256": "ea17436688ff4412c06600c74427cc83b23a970797dc311e84082891865ec567"
+    "sha256": "ea17436688ff4412c06600c74427cc83b23a970797dc311e84082891865ec567",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\c81c4699-b707-49d0-a7ce-823bd0587c3a\\20261022T171825Z-ed9b80bd\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\c81c4699-b707-49d0-a7ce-823bd0587c3a\\20261022T171825Z-ed9b80bd\\backup_receipt.json",
+        "bytes": 6242125,
+        "sha256": "ea17436688ff4412c06600c74427cc83b23a970797dc311e84082891865ec567",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "d05bfdf5-549e-4e34-b3f9-f87af3349cfe",
@@ -767,7 +1668,16 @@
     "zip_count": 1,
     "papers_extracted": 589,
     "discovery_elapsed_seconds": 1933.5222360650002,
-    "sha256": "32c23d86e0aa401956da64a48f8f7bae103a290063afeb14bbc0552cc1c5cf2f"
+    "sha256": "32c23d86e0aa401956da64a48f8f7bae103a290063afeb14bbc0552cc1c5cf2f",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\d05bfdf5-549e-4e34-b3f9-f87af3349cfe\\20261021T235242Z-9aef239c\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\d05bfdf5-549e-4e34-b3f9-f87af3349cfe\\20261021T235242Z-9aef239c\\backup_receipt.json",
+        "bytes": 10549821,
+        "sha256": "32c23d86e0aa401956da64a48f8f7bae103a290063afeb14bbc0552cc1c5cf2f",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "f978be92-6b00-461d-8e11-a3d001732f76",
@@ -777,7 +1687,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.03876271300009648,
-    "sha256": "d703dddc43acb0760d40096e7d86d661481a83922eed6f00d54bc861979a82cf"
+    "sha256": "d703dddc43acb0760d40096e7d86d661481a83922eed6f00d54bc861979a82cf",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\f978be92-6b00-461d-8e11-a3d001732f76\\20261022T175428Z-a36f8240\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\f978be92-6b00-461d-8e11-a3d001732f76\\20261022T175428Z-a36f8240\\backup_receipt.json",
+        "bytes": 439991,
+        "sha256": "d703dddc43acb0760d40096e7d86d661481a83922eed6f00d54bc861979a82cf",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "78174595-9880-4ecf-9946-f16ef025b453",
@@ -787,7 +1706,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.03351801799999521,
-    "sha256": "8e13a24f7a6cae4a986ae554790c497649d0e61ed6666c8e16b22ec8c7c39b28"
+    "sha256": "8e13a24f7a6cae4a986ae554790c497649d0e61ed6666c8e16b22ec8c7c39b28",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\checkpoints\\78174595-9880-4ecf-9946-f16ef025b453\\20261022T180856Z-2220912f\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\checkpoints\\78174595-9880-4ecf-9946-f16ef025b453\\20261022T180856Z-2220912f\\backup_receipt.json",
+        "bytes": 220123,
+        "sha256": "8e13a24f7a6cae4a986ae554790c497649d0e61ed6666c8e16b22ec8c7c39b28",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "a6671007-35f5-4c6e-ae2c-c2dd53eecb58",
@@ -797,7 +1725,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.20974100500461645,
-    "sha256": "d4ba47e402f7dbd406d54f800986fd97d12c6cd3c09e92b0e39648935ca83d8f"
+    "sha256": "d4ba47e402f7dbd406d54f800986fd97d12c6cd3c09e92b0e39648935ca83d8f",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\checkpoints\\a6671007-35f5-4c6e-ae2c-c2dd53eecb58\\20261022T172917Z-d23936d8\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc2\\Milestone1\\checkpoints\\a6671007-35f5-4c6e-ae2c-c2dd53eecb58\\20261022T172917Z-d23936d8\\backup_receipt.json",
+        "bytes": 592829,
+        "sha256": "d4ba47e402f7dbd406d54f800986fd97d12c6cd3c09e92b0e39648935ca83d8f",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "0335d90b-d710-44cd-9b8f-beabc6a7bc86",
@@ -807,7 +1744,16 @@
     "zip_count": 1,
     "papers_extracted": 208,
     "discovery_elapsed_seconds": 662.4034340479957,
-    "sha256": "c5c87e1baf44ea6e77d36bc485ba21d7747509c15a1454d3dcc025a0fbb70c0b"
+    "sha256": "c5c87e1baf44ea6e77d36bc485ba21d7747509c15a1454d3dcc025a0fbb70c0b",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\0335d90b-d710-44cd-9b8f-beabc6a7bc86\\20261022T041439Z-b49aa472\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\0335d90b-d710-44cd-9b8f-beabc6a7bc86\\20261022T041439Z-b49aa472\\backup_receipt.json",
+        "bytes": 4185674,
+        "sha256": "c5c87e1baf44ea6e77d36bc485ba21d7747509c15a1454d3dcc025a0fbb70c0b",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "0ba17a9a-d73c-438d-accf-0ee872a21380",
@@ -817,7 +1763,16 @@
     "zip_count": 1,
     "papers_extracted": 600,
     "discovery_elapsed_seconds": 1950.9902160350002,
-    "sha256": "0e358c7b5ff7f0b565a82a6c83646f89e2147d7e8dc46bf7e8f6dae543e50e84"
+    "sha256": "0e358c7b5ff7f0b565a82a6c83646f89e2147d7e8dc46bf7e8f6dae543e50e84",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\0ba17a9a-d73c-438d-accf-0ee872a21380\\20261022T114559Z-2b696c31\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\0ba17a9a-d73c-438d-accf-0ee872a21380\\20261022T114559Z-2b696c31\\backup_receipt.json",
+        "bytes": 11197697,
+        "sha256": "0e358c7b5ff7f0b565a82a6c83646f89e2147d7e8dc46bf7e8f6dae543e50e84",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "482be2b6-cf63-42e9-8c0b-e80cb3a0eddd",
@@ -827,7 +1782,16 @@
     "zip_count": 1,
     "papers_extracted": 2,
     "discovery_elapsed_seconds": 0.042758394998600124,
-    "sha256": "e9821287c4d0f7172f9b21e7f9c4f73b85c83f384a573cd1e152f8d51e4f7e59"
+    "sha256": "e9821287c4d0f7172f9b21e7f9c4f73b85c83f384a573cd1e152f8d51e4f7e59",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\482be2b6-cf63-42e9-8c0b-e80cb3a0eddd\\20261022T173621Z-7fffd856\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\482be2b6-cf63-42e9-8c0b-e80cb3a0eddd\\20261022T173621Z-7fffd856\\backup_receipt.json",
+        "bytes": 301978,
+        "sha256": "e9821287c4d0f7172f9b21e7f9c4f73b85c83f384a573cd1e152f8d51e4f7e59",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "6e10d18a-10cc-4ac3-90eb-f56f514688a9",
@@ -837,7 +1801,16 @@
     "zip_count": 1,
     "papers_extracted": 265,
     "discovery_elapsed_seconds": 885.6172451020001,
-    "sha256": "b1b5f8a78ad7b4300eaa3b84700ce506791ca36c0b7ed036969e64cf6b00b057"
+    "sha256": "b1b5f8a78ad7b4300eaa3b84700ce506791ca36c0b7ed036969e64cf6b00b057",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\6e10d18a-10cc-4ac3-90eb-f56f514688a9\\20261022T171653Z-eddc5db9\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\6e10d18a-10cc-4ac3-90eb-f56f514688a9\\20261022T171653Z-eddc5db9\\backup_receipt.json",
+        "bytes": 5502078,
+        "sha256": "b1b5f8a78ad7b4300eaa3b84700ce506791ca36c0b7ed036969e64cf6b00b057",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "b3a41252-42d6-4c8a-a7ab-305bf65be8b6",
@@ -847,7 +1820,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.2322128560008423,
-    "sha256": "2e84a3e9afe8c6365da96c9b7a5b58fa25157bd60a96bcf179f96c5aa50933a7"
+    "sha256": "2e84a3e9afe8c6365da96c9b7a5b58fa25157bd60a96bcf179f96c5aa50933a7",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\b3a41252-42d6-4c8a-a7ab-305bf65be8b6\\20261022T172958Z-6b1781a7\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\b3a41252-42d6-4c8a-a7ab-305bf65be8b6\\20261022T172958Z-6b1781a7\\backup_receipt.json",
+        "bytes": 899238,
+        "sha256": "2e84a3e9afe8c6365da96c9b7a5b58fa25157bd60a96bcf179f96c5aa50933a7",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ea56a5cf-a327-4824-92db-a3a4e6a2db01",
@@ -857,7 +1839,16 @@
     "zip_count": 1,
     "papers_extracted": 592,
     "discovery_elapsed_seconds": 1967.077171466,
-    "sha256": "55f3d6590a8d9741553f67c4812542cae3e184999633dbdc8f146cd28db22391"
+    "sha256": "55f3d6590a8d9741553f67c4812542cae3e184999633dbdc8f146cd28db22391",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\ea56a5cf-a327-4824-92db-a3a4e6a2db01\\20261021T234600Z-a0f11202\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\ea56a5cf-a327-4824-92db-a3a4e6a2db01\\20261021T234600Z-a0f11202\\backup_receipt.json",
+        "bytes": 10599736,
+        "sha256": "55f3d6590a8d9741553f67c4812542cae3e184999633dbdc8f146cd28db22391",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "8eea00dc-5ce4-4b0d-8c32-3bcada0f65df",
@@ -867,7 +1858,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.03928431200074556,
-    "sha256": "6d846882e728c9f723130a5d96313c4f541dc4a3ea28404c096afa216101bae1"
+    "sha256": "6d846882e728c9f723130a5d96313c4f541dc4a3ea28404c096afa216101bae1",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\checkpoints\\8eea00dc-5ce4-4b0d-8c32-3bcada0f65df\\20261022T180738Z-7e24ed96\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\khanh\\acc3\\Milestone1\\checkpoints\\8eea00dc-5ce4-4b0d-8c32-3bcada0f65df\\20261022T180738Z-7e24ed96\\backup_receipt.json",
+        "bytes": 104681,
+        "sha256": "6d846882e728c9f723130a5d96313c4f541dc4a3ea28404c096afa216101bae1",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "6c0c31c2-3e47-4c25-afe3-c7658934ee13",
@@ -877,7 +1877,16 @@
     "zip_count": 1,
     "papers_extracted": 3,
     "discovery_elapsed_seconds": 6.83754550499998,
-    "sha256": "8700cec79982dd394518141dd898931e1ff58d662446542c6c46c05fa257ce84"
+    "sha256": "8700cec79982dd394518141dd898931e1ff58d662446542c6c46c05fa257ce84",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\6c0c31c2-3e47-4c25-afe3-c7658934ee13\\20261020T080223Z-cc3487eb\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\6c0c31c2-3e47-4c25-afe3-c7658934ee13\\20261020T080223Z-cc3487eb\\backup_receipt.json",
+        "bytes": 254526,
+        "sha256": "8700cec79982dd394518141dd898931e1ff58d662446542c6c46c05fa257ce84",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "6c2857e0-7dc7-4f55-b4d3-a74a0c9bc1de",
@@ -887,7 +1896,16 @@
     "zip_count": 1,
     "papers_extracted": 3,
     "discovery_elapsed_seconds": 6.527879627000061,
-    "sha256": "308c7f9bc077c5d8dc65545cea27bb7a9d454826c75db2da2001e85fa6f9d107"
+    "sha256": "308c7f9bc077c5d8dc65545cea27bb7a9d454826c75db2da2001e85fa6f9d107",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\6c2857e0-7dc7-4f55-b4d3-a74a0c9bc1de\\20261020T074812Z-6279716f\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\6c2857e0-7dc7-4f55-b4d3-a74a0c9bc1de\\20261020T074812Z-6279716f\\backup_receipt.json",
+        "bytes": 265752,
+        "sha256": "308c7f9bc077c5d8dc65545cea27bb7a9d454826c75db2da2001e85fa6f9d107",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "6d696276-f134-4075-9eda-b2def27fb440",
@@ -897,7 +1915,16 @@
     "zip_count": 1,
     "papers_extracted": 16,
     "discovery_elapsed_seconds": 0.05496916500123916,
-    "sha256": "59e43d0ed4f0ffe89bc2a422c130c2b3116b6b090b045d90ee4bcd699797b893"
+    "sha256": "59e43d0ed4f0ffe89bc2a422c130c2b3116b6b090b045d90ee4bcd699797b893",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\6d696276-f134-4075-9eda-b2def27fb440\\20261021T101900Z-11a53bbd\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\6d696276-f134-4075-9eda-b2def27fb440\\20261021T101900Z-11a53bbd\\backup_receipt.json",
+        "bytes": 410217,
+        "sha256": "59e43d0ed4f0ffe89bc2a422c130c2b3116b6b090b045d90ee4bcd699797b893",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "81406c21-d178-4827-802c-4213929b6a02",
@@ -907,7 +1934,16 @@
     "zip_count": 1,
     "papers_extracted": 102,
     "discovery_elapsed_seconds": 343.28334175999953,
-    "sha256": "3270aef3690902789bcda7a046ad7fd9355f7babb2a57ee113890b48dccf6ce0"
+    "sha256": "3270aef3690902789bcda7a046ad7fd9355f7babb2a57ee113890b48dccf6ce0",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\81406c21-d178-4827-802c-4213929b6a02\\20261019T212455Z-fde8113e\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\81406c21-d178-4827-802c-4213929b6a02\\20261019T212455Z-fde8113e\\backup_receipt.json",
+        "bytes": 2725815,
+        "sha256": "3270aef3690902789bcda7a046ad7fd9355f7babb2a57ee113890b48dccf6ce0",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "cb0a3dfd-ec3c-4ab0-9d1a-f641a13b773f",
@@ -917,7 +1953,16 @@
     "zip_count": 1,
     "papers_extracted": 7,
     "discovery_elapsed_seconds": 0.2406004180011223,
-    "sha256": "5363f8968fd041ea43edb5665a3864a8f3b07b580c96052d2755bda3b9432ee3"
+    "sha256": "5363f8968fd041ea43edb5665a3864a8f3b07b580c96052d2755bda3b9432ee3",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\cb0a3dfd-ec3c-4ab0-9d1a-f641a13b773f\\20261021T100935Z-2528ac23\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\cb0a3dfd-ec3c-4ab0-9d1a-f641a13b773f\\20261021T100935Z-2528ac23\\backup_receipt.json",
+        "bytes": 605316,
+        "sha256": "5363f8968fd041ea43edb5665a3864a8f3b07b580c96052d2755bda3b9432ee3",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "dc0d8f5b-6cc8-4718-af01-87d9991f898e",
@@ -927,7 +1972,16 @@
     "zip_count": 1,
     "papers_extracted": 96,
     "discovery_elapsed_seconds": 331.359117282,
-    "sha256": "e3cc045a4261b1193d486705155ded73a9384cf2ac08f4c7d9b3e1738a6bb646"
+    "sha256": "e3cc045a4261b1193d486705155ded73a9384cf2ac08f4c7d9b3e1738a6bb646",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\dc0d8f5b-6cc8-4718-af01-87d9991f898e\\20261019T180451Z-2e2e856b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\dc0d8f5b-6cc8-4718-af01-87d9991f898e\\20261019T180451Z-2e2e856b\\backup_receipt.json",
+        "bytes": 2842625,
+        "sha256": "e3cc045a4261b1193d486705155ded73a9384cf2ac08f4c7d9b3e1738a6bb646",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "ef2f1245-7e26-4aad-8834-c5a49372fa98",
@@ -937,7 +1991,16 @@
     "zip_count": 1,
     "papers_extracted": 726,
     "discovery_elapsed_seconds": 1633.343631013,
-    "sha256": "6922845ae68ff1d69bbe0de1ae212b9eebb363183ab13ada0c8d5de8b78bdeec"
+    "sha256": "6922845ae68ff1d69bbe0de1ae212b9eebb363183ab13ada0c8d5de8b78bdeec",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\ef2f1245-7e26-4aad-8834-c5a49372fa98\\20261021T091127Z-1147ba62\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\ef2f1245-7e26-4aad-8834-c5a49372fa98\\20261021T091127Z-1147ba62\\backup_receipt.json",
+        "bytes": 14520733,
+        "sha256": "6922845ae68ff1d69bbe0de1ae212b9eebb363183ab13ada0c8d5de8b78bdeec",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "b106565e-be30-4613-8d16-cebf4c9c4c59",
@@ -947,7 +2010,177 @@
     "zip_count": 24,
     "papers_extracted": 714,
     "discovery_elapsed_seconds": 4605.450314952,
-    "sha256": "3e51c1675c36edc9987ec08c9b16504cb875defded4d55a631124757392ccfb1"
+    "sha256": "3e51c1675c36edc9987ec08c9b16504cb875defded4d55a631124757392ccfb1",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T120332Z-2c9dd4c5\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T120332Z-2c9dd4c5\\backup_receipt.json",
+        "bytes": 1159590,
+        "sha256": "bbd4e93ebf2864ba5ef41d52dfc8ac22082a48f88400040ad8bb38cbc5e7741d",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T121822Z-765ee22e\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T121822Z-765ee22e\\backup_receipt.json",
+        "bytes": 941251,
+        "sha256": "3f1022e689def881c7985bce780bbbeff8b940983a1c073aba3f78e81b625405",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T123600Z-002f5637\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T123600Z-002f5637\\backup_receipt.json",
+        "bytes": 1097403,
+        "sha256": "b3c9f09d2175ed60710dde991c7659b1d06203cda9c3f738fe0ca02222302df2",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T125322Z-4a3d84c8\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T125322Z-4a3d84c8\\backup_receipt.json",
+        "bytes": 883735,
+        "sha256": "b60cd7451d82d40008addc13f519f73f88085eb8599214b073066833ef7314ad",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T131213Z-c316c846\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T131213Z-c316c846\\backup_receipt.json",
+        "bytes": 827940,
+        "sha256": "a8f70a094900e911f4dbe55c8891b33a16f2cb83acec2628f08377da7f2bae4b",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T133237Z-61218d08\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T133237Z-61218d08\\backup_receipt.json",
+        "bytes": 929431,
+        "sha256": "46e2eebbb55a57bdbb37760055bfa62e021f46bb7917b09cd82e2cfb6928197b",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T135525Z-05e6a6f0\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T135525Z-05e6a6f0\\backup_receipt.json",
+        "bytes": 1073076,
+        "sha256": "22983e56d50862b1fe16fc6ad235060e5648d283e07b854976df4919ad65031e",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T141950Z-8745df30\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T141950Z-8745df30\\backup_receipt.json",
+        "bytes": 917428,
+        "sha256": "989d2669362b8f56e31dfad1b0e7f8f71fae458a7da3730820e415c282bd013d",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T144848Z-b8cd6bcd\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T144848Z-b8cd6bcd\\backup_receipt.json",
+        "bytes": 842889,
+        "sha256": "093daa423d06106b00d11c7f1655d098fac3ddf05cf82c11b116289c4d6b79fa",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T151702Z-081d9298\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T151702Z-081d9298\\backup_receipt.json",
+        "bytes": 840487,
+        "sha256": "fc05a4d40b080bee3d349a6365232a8ae767416e5291dc9541115871ac462c7f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T153907Z-f8b3aee1\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T153907Z-f8b3aee1\\backup_receipt.json",
+        "bytes": 867353,
+        "sha256": "6aa1098608ca58eb9359da60c3ada53716cb433a54b8cd5a95b39ca8ee482ab6",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T160607Z-41b43278\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T160607Z-41b43278\\backup_receipt.json",
+        "bytes": 759950,
+        "sha256": "14259acd916fe46f7c2435c803e13afd222f3369d850ccdf9f9954f41148363f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T163115Z-edbc9555\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T163115Z-edbc9555\\backup_receipt.json",
+        "bytes": 992500,
+        "sha256": "ef8c9cafaadbe81288790a224984e5d8f7eb24ebfda559ad0c7c4884559c107a",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T165515Z-d6fda584\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T165515Z-d6fda584\\backup_receipt.json",
+        "bytes": 1087023,
+        "sha256": "48fb4c138beacd40e9b89e7a689a9adba443148e9662a6f09dac974cb139b00d",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T172203Z-720b090b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T172203Z-720b090b\\backup_receipt.json",
+        "bytes": 1205706,
+        "sha256": "501d72d765ce649efc6e48371fa6841060c5bcecde67613d2cbf1c12888975b8",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T174956Z-8443f191\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T174956Z-8443f191\\backup_receipt.json",
+        "bytes": 1039465,
+        "sha256": "701b081be3322459bba77a0ae46c6581fe6b0ced7f8c96c5022f1efcfc61a43f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T182024Z-5ec3fb70\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T182024Z-5ec3fb70\\backup_receipt.json",
+        "bytes": 1247392,
+        "sha256": "29f7a8f37c63f5aa9ea3fdaa16f9978931826845fe70d7466dda772c867c7ce2",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T185117Z-cdbf4b18\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T185117Z-cdbf4b18\\backup_receipt.json",
+        "bytes": 1085861,
+        "sha256": "ce7ffe33ca767633fcd820829aeb6cdf26b82face991b8835ee38242ef6d41f9",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T192020Z-98863a91\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T192020Z-98863a91\\backup_receipt.json",
+        "bytes": 1393697,
+        "sha256": "d558ea750f59abb2aecf40c60793d1687f19f615d1c9153d69e125f981f45615",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T194514Z-02ff615d\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T194514Z-02ff615d\\backup_receipt.json",
+        "bytes": 1214422,
+        "sha256": "6fbb945504c93431f62988a89387e4513f719d422179eae77f6cad3a0df2572b",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T201559Z-075d36b7\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T201559Z-075d36b7\\backup_receipt.json",
+        "bytes": 1433429,
+        "sha256": "8439e4867512513fef7d78363c932fd2702ad8a3217aaca8e3121d31cdba5305",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T204715Z-aab35e83\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T204715Z-aab35e83\\backup_receipt.json",
+        "bytes": 1280669,
+        "sha256": "c15f977ee9736ba91b3daa84c1d75dbf1314d35d996b3199bf96f1709f895e8c",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T212211Z-746d53d8\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T212211Z-746d53d8\\backup_receipt.json",
+        "bytes": 1401757,
+        "sha256": "3b4e842747915ff6c41c66b04c02561c3fc0d4ee891ccc4c9ebf0ff69ae8893d",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T215643Z-3d388bf2\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc1\\Milestone1\\checkpoints\\b106565e-be30-4613-8d16-cebf4c9c4c59\\20261020T215643Z-3d388bf2\\backup_receipt.json",
+        "bytes": 1677085,
+        "sha256": "3e51c1675c36edc9987ec08c9b16504cb875defded4d55a631124757392ccfb1",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "92ec84a3-e507-4898-bd0e-c0c320bc4be0",
@@ -957,7 +2190,16 @@
     "zip_count": 1,
     "papers_extracted": 200,
     "discovery_elapsed_seconds": 658.0018909119999,
-    "sha256": "7590a682b167dbc68dc63049961158ac0680708a5988c92155108154425ff837"
+    "sha256": "7590a682b167dbc68dc63049961158ac0680708a5988c92155108154425ff837",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\92ec84a3-e507-4898-bd0e-c0c320bc4be0\\20261019T212154Z-d41d02b3\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\92ec84a3-e507-4898-bd0e-c0c320bc4be0\\20261019T212154Z-d41d02b3\\backup_receipt.json",
+        "bytes": 4608306,
+        "sha256": "7590a682b167dbc68dc63049961158ac0680708a5988c92155108154425ff837",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "98cdc9c6-bc91-4bb4-bd8c-ed4e31080878",
@@ -967,7 +2209,16 @@
     "zip_count": 1,
     "papers_extracted": 862,
     "discovery_elapsed_seconds": 2179.542374704,
-    "sha256": "e4e7e08feb03d35ba56a787059e7cf703d64554737d6c3c2895778a70d45908b"
+    "sha256": "e4e7e08feb03d35ba56a787059e7cf703d64554737d6c3c2895778a70d45908b",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\98cdc9c6-bc91-4bb4-bd8c-ed4e31080878\\20261021T111009Z-eae27f79\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\98cdc9c6-bc91-4bb4-bd8c-ed4e31080878\\20261021T111009Z-eae27f79\\backup_receipt.json",
+        "bytes": 17057291,
+        "sha256": "e4e7e08feb03d35ba56a787059e7cf703d64554737d6c3c2895778a70d45908b",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "d5daae35-e3c4-4166-a8b3-3a643190e226",
@@ -977,7 +2228,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 0.04791372900217539,
-    "sha256": "2aa8d459333ef56b600fc652190fddf1111fa01b0ac9d650a7aba1918061dd9f"
+    "sha256": "2aa8d459333ef56b600fc652190fddf1111fa01b0ac9d650a7aba1918061dd9f",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\d5daae35-e3c4-4166-a8b3-3a643190e226\\20261021T112504Z-e1cc1352\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\d5daae35-e3c4-4166-a8b3-3a643190e226\\20261021T112504Z-e1cc1352\\backup_receipt.json",
+        "bytes": 389960,
+        "sha256": "2aa8d459333ef56b600fc652190fddf1111fa01b0ac9d650a7aba1918061dd9f",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "f288c45b-c1f4-40c1-9961-750222daf8f5",
@@ -987,7 +2247,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 22.484060515002056,
-    "sha256": "93619325c0e0831684cc0f0001fac3b2aa6a2248aa0e308c91643534a0529109"
+    "sha256": "93619325c0e0831684cc0f0001fac3b2aa6a2248aa0e308c91643534a0529109",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\f288c45b-c1f4-40c1-9961-750222daf8f5\\20261021T111755Z-00663ffb\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\f288c45b-c1f4-40c1-9961-750222daf8f5\\20261021T111755Z-00663ffb\\backup_receipt.json",
+        "bytes": 590737,
+        "sha256": "93619325c0e0831684cc0f0001fac3b2aa6a2248aa0e308c91643534a0529109",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "f4f1df07-e14c-4af8-8b0b-5e81403d00ac",
@@ -997,7 +2266,149 @@
     "zip_count": 20,
     "papers_extracted": 604,
     "discovery_elapsed_seconds": 4682.045192325,
-    "sha256": "7c628c61dd4af86f5d47dc641550429af255b7597762abff5a8521a0a29b9d97"
+    "sha256": "7c628c61dd4af86f5d47dc641550429af255b7597762abff5a8521a0a29b9d97",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T121102Z-a9379782\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T121102Z-a9379782\\backup_receipt.json",
+        "bytes": 900966,
+        "sha256": "3e1f696209c6e2f36d1991add626e7b4e71e2ecf3b0683a269e393bf2f16045c",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T123056Z-fe1decbd\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T123056Z-fe1decbd\\backup_receipt.json",
+        "bytes": 857816,
+        "sha256": "199d41479ee721c21687322ed5952a4a613e7ae7f26d65d06481d4ab1e98004d",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T125334Z-021cea8a\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T125334Z-021cea8a\\backup_receipt.json",
+        "bytes": 817951,
+        "sha256": "22de5faf26f7940b0b1c0423a48cfca0d27b9fe0a47d1ef9ff2c0ae07f3fea55",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T131718Z-4bdfd8b1\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T131718Z-4bdfd8b1\\backup_receipt.json",
+        "bytes": 1104575,
+        "sha256": "699d304335d7845a2c5564c81a5cef95814e4237d517e578ba44c0a409ed41f0",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T134218Z-8ed16457\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T134218Z-8ed16457\\backup_receipt.json",
+        "bytes": 862954,
+        "sha256": "4b0852970fcaa7c8893c53abac79ed5b382ff7eed9fbcc4a87be23201ed8e26a",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T140902Z-ce1af6b3\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T140902Z-ce1af6b3\\backup_receipt.json",
+        "bytes": 787425,
+        "sha256": "9ab1f5306be6e35d8e696bc890a0725977230faeec8752d61363bfa1fef9307b",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T143808Z-aee87264\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T143808Z-aee87264\\backup_receipt.json",
+        "bytes": 606717,
+        "sha256": "346a742ed733e8f476a0b121c13a33cba7afc5dbc936f551b0a3b1447a7622be",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T150914Z-5c2d3f8e\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T150914Z-5c2d3f8e\\backup_receipt.json",
+        "bytes": 833911,
+        "sha256": "df688e111775c9bdb2dc1d2fa460f8728219d09f59c513ad581d7a8474b50a46",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T154109Z-5b0ff676\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T154109Z-5b0ff676\\backup_receipt.json",
+        "bytes": 567982,
+        "sha256": "dee719641d4c25eda9b82d1d9fbc55e77be7c5711b1620982927bcb6ee771d79",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T161358Z-788cbd98\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T161358Z-788cbd98\\backup_receipt.json",
+        "bytes": 760744,
+        "sha256": "b94a6ee5284561caba2869e46bad78d5df6348143021170c0047bccf4f25f7c0",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T164704Z-9613ce90\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T164704Z-9613ce90\\backup_receipt.json",
+        "bytes": 776238,
+        "sha256": "a85c28978e5710434247df9a38cce634ca95eac1832656593698e753ee7d52d7",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T172015Z-fea3aede\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T172015Z-fea3aede\\backup_receipt.json",
+        "bytes": 930489,
+        "sha256": "1415859a16869faaba70d390f2a8d1d8ee5088afb2e3156145e6e7e7cc81a714",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T175432Z-eb4f974f\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T175432Z-eb4f974f\\backup_receipt.json",
+        "bytes": 700113,
+        "sha256": "b0cfa23c37cc987963e45343932db268f73d9e4d3210a21453b46293547c4171",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T183029Z-05784c20\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T183029Z-05784c20\\backup_receipt.json",
+        "bytes": 711016,
+        "sha256": "2b82084600f62fe9663a20a270c58f1baada794adb5ff196fbf4a5e46ddd3d95",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T190415Z-e368a523\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T190415Z-e368a523\\backup_receipt.json",
+        "bytes": 924753,
+        "sha256": "e6c9d55b38f3b6a9f648ec2a6c7bd66f65e5598fd23f28695df8b956ddcfc276",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T193747Z-afebbe46\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T193747Z-afebbe46\\backup_receipt.json",
+        "bytes": 1035953,
+        "sha256": "48951e8823e6cb838a11ffec325769292d1777c0e6ee04d35446215e8fb9a6c6",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T201340Z-89ac1ebd\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T201340Z-89ac1ebd\\backup_receipt.json",
+        "bytes": 1039823,
+        "sha256": "25f6d457f1fc07125adf9eae4e33cd7c598e1b3ec120d40048656f08c6082b4c",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T205257Z-01957896\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T205257Z-01957896\\backup_receipt.json",
+        "bytes": 957131,
+        "sha256": "1b6b02245b271b3a7c65357b504ea93db69df254e4b5cb39d9277bdb46f0f1b2",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T213249Z-145f24e6\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T213249Z-145f24e6\\backup_receipt.json",
+        "bytes": 959420,
+        "sha256": "d58ba5d48d1dff98ebb3146f2cf15bd2e3a98714e4c6d58ac3b04c27ab61b44b",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T221158Z-af3a6918\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc2\\Milestone1\\checkpoints\\f4f1df07-e14c-4af8-8b0b-5e81403d00ac\\20261020T221158Z-af3a6918\\backup_receipt.json",
+        "bytes": 1140044,
+        "sha256": "7c628c61dd4af86f5d47dc641550429af255b7597762abff5a8521a0a29b9d97",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "05cc7ba0-d45e-4964-ba75-81c8e92abee6",
@@ -1007,7 +2418,16 @@
     "zip_count": 1,
     "papers_extracted": 140,
     "discovery_elapsed_seconds": 0.8268630099992151,
-    "sha256": "7e8351d9ff0e3d12038b96793e7cfafa02262af3776095bb9f95b85dd49fcc1a"
+    "sha256": "7e8351d9ff0e3d12038b96793e7cfafa02262af3776095bb9f95b85dd49fcc1a",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\05cc7ba0-d45e-4964-ba75-81c8e92abee6\\20261021T103223Z-f77b5b83\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\05cc7ba0-d45e-4964-ba75-81c8e92abee6\\20261021T103223Z-f77b5b83\\backup_receipt.json",
+        "bytes": 2835333,
+        "sha256": "7e8351d9ff0e3d12038b96793e7cfafa02262af3776095bb9f95b85dd49fcc1a",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "25174ba0-2f58-49d1-89ee-fd50b06179e4",
@@ -1017,7 +2437,16 @@
     "zip_count": 1,
     "papers_extracted": 629,
     "discovery_elapsed_seconds": 1941.093984719,
-    "sha256": "aad68045838cabf2efbcd5de3e847e098314ce1299945097b597636d370ed1c1"
+    "sha256": "aad68045838cabf2efbcd5de3e847e098314ce1299945097b597636d370ed1c1",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\25174ba0-2f58-49d1-89ee-fd50b06179e4\\20261021T090206Z-cd831b4e\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\25174ba0-2f58-49d1-89ee-fd50b06179e4\\20261021T090206Z-cd831b4e\\backup_receipt.json",
+        "bytes": 11981295,
+        "sha256": "aad68045838cabf2efbcd5de3e847e098314ce1299945097b597636d370ed1c1",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "44f46f3e-848c-4c6d-a381-28abee56b086",
@@ -1027,7 +2456,16 @@
     "zip_count": 1,
     "papers_extracted": 199,
     "discovery_elapsed_seconds": 668.4631182700001,
-    "sha256": "bec7cceefdf2c004624e0d6dcafa2d74fbafdd359987611aaed54d34a0f32e82"
+    "sha256": "bec7cceefdf2c004624e0d6dcafa2d74fbafdd359987611aaed54d34a0f32e82",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\44f46f3e-848c-4c6d-a381-28abee56b086\\20261019T213407Z-4795525b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\44f46f3e-848c-4c6d-a381-28abee56b086\\20261019T213407Z-4795525b\\backup_receipt.json",
+        "bytes": 4912361,
+        "sha256": "bec7cceefdf2c004624e0d6dcafa2d74fbafdd359987611aaed54d34a0f32e82",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "55a25ac4-c115-4a90-8227-3a35d41d7500",
@@ -1037,7 +2475,16 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 39.620325514995784,
-    "sha256": "efd6f9874cad5f79aacfe4b6e984cca9d28d40c5eec787082ee163abbb005fe3"
+    "sha256": "efd6f9874cad5f79aacfe4b6e984cca9d28d40c5eec787082ee163abbb005fe3",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\55a25ac4-c115-4a90-8227-3a35d41d7500\\20261021T112358Z-ddae4a8e\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\55a25ac4-c115-4a90-8227-3a35d41d7500\\20261021T112358Z-ddae4a8e\\backup_receipt.json",
+        "bytes": 729350,
+        "sha256": "efd6f9874cad5f79aacfe4b6e984cca9d28d40c5eec787082ee163abbb005fe3",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "c0329901-dfdb-44ff-9da2-79ef80e1b3b8",
@@ -1047,7 +2494,16 @@
     "zip_count": 1,
     "papers_extracted": 2,
     "discovery_elapsed_seconds": 6.549802294000017,
-    "sha256": "054013a7ce2c3b1a191bff68a62e2d0bf44530f24cec595a6a4cc3229c40c18c"
+    "sha256": "054013a7ce2c3b1a191bff68a62e2d0bf44530f24cec595a6a4cc3229c40c18c",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\c0329901-dfdb-44ff-9da2-79ef80e1b3b8\\20261019T162615Z-d26af888\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\c0329901-dfdb-44ff-9da2-79ef80e1b3b8\\20261019T162615Z-d26af888\\backup_receipt.json",
+        "bytes": 302097,
+        "sha256": "054013a7ce2c3b1a191bff68a62e2d0bf44530f24cec595a6a4cc3229c40c18c",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "2144c2fb-f29f-431c-bfa6-3dae00b50b00",
@@ -1057,7 +2513,163 @@
     "zip_count": 22,
     "papers_extracted": 697,
     "discovery_elapsed_seconds": 4668.307853399,
-    "sha256": "7f9b60ec9660058d1995b0b3aed755a46144d3b15c9ceacca1edf40b266e4523"
+    "sha256": "7f9b60ec9660058d1995b0b3aed755a46144d3b15c9ceacca1edf40b266e4523",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T121218Z-84b04234\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T121218Z-84b04234\\backup_receipt.json",
+        "bytes": 647394,
+        "sha256": "46a03f716de8f7f7ef7850ab97e013febe95a948645581f868b2d609d5569cb5",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T122910Z-a7d9a692\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T122910Z-a7d9a692\\backup_receipt.json",
+        "bytes": 709224,
+        "sha256": "9b5b979008710b50ea6721d8da9226daf9962520b33342ae5c1bff2e8c55cf92",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T124915Z-645f8f34\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T124915Z-645f8f34\\backup_receipt.json",
+        "bytes": 848987,
+        "sha256": "7881b5b9651e98d1b71a1505dc08ed371f3758bdaa414a38618fe722b6ad4a4f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T130627Z-a3736968\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T130627Z-a3736968\\backup_receipt.json",
+        "bytes": 738302,
+        "sha256": "dc172aabacc2ae1fced73f44c239a69daf081e3469a0070498e848a2572a486f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T132836Z-2d0d88e6\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T132836Z-2d0d88e6\\backup_receipt.json",
+        "bytes": 981190,
+        "sha256": "605a01a05fa0b0bc72eb6671ed0b1b1363b6f7e953416196f46676a930b198ba",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T135001Z-e3c26249\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T135001Z-e3c26249\\backup_receipt.json",
+        "bytes": 876507,
+        "sha256": "215523191d6af53a223b80baa298cdccb8aee700f0c88334465c742328bce9d3",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T141515Z-6797164c\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T141515Z-6797164c\\backup_receipt.json",
+        "bytes": 954545,
+        "sha256": "1f0fb7986528f1ed450ffdaadee952bafce5f1b63ec96397e576ea27c8bc9dc0",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T143811Z-e65990c1\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T143811Z-e65990c1\\backup_receipt.json",
+        "bytes": 907169,
+        "sha256": "fd3a6b1c3d40054a67b3d28e40e0e6cf6050207a5727f802aa3660358ce53a2f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T150446Z-9e589319\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T150446Z-9e589319\\backup_receipt.json",
+        "bytes": 1116615,
+        "sha256": "8c9a6a37030c3aaf1fc064801bea09d61d97306007503fe4e7585d640e23702f",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T152802Z-ebf002ab\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T152802Z-ebf002ab\\backup_receipt.json",
+        "bytes": 944762,
+        "sha256": "5000f8be2d4564bfa15a8c1fa7f388b7958af72add9a54e1835640b4e5f11dd2",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T155434Z-5594a8af\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T155434Z-5594a8af\\backup_receipt.json",
+        "bytes": 1009886,
+        "sha256": "563cfa69d52f501126de682f4b9e699ba0386f23be4117b15bcaf2e161d0ac6e",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T162155Z-34a8dc44\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T162155Z-34a8dc44\\backup_receipt.json",
+        "bytes": 1026450,
+        "sha256": "925636a484d4693cff88398fd08cf3f8eca708e4c33a4270bf5834a03fe5f487",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T165037Z-be2b04e8\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T165037Z-be2b04e8\\backup_receipt.json",
+        "bytes": 1168435,
+        "sha256": "d5e9cfe8b8cb40325c33a292c763a0cc6553060ebc9738c15fefe52de6db5276",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T172127Z-dc5be40b\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T172127Z-dc5be40b\\backup_receipt.json",
+        "bytes": 989732,
+        "sha256": "b77cbc5a94028bd06c8a5dc6ba38bc472c9e952b34dec8a9cdbefac48da42d58",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T175420Z-e18571af\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T175420Z-e18571af\\backup_receipt.json",
+        "bytes": 1017228,
+        "sha256": "e3551cf68b7a607e19ea25f92864afa8665c5a025dc3fbf571a9f8d45f15335b",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T183032Z-f11c697d\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T183032Z-f11c697d\\backup_receipt.json",
+        "bytes": 999226,
+        "sha256": "41b545e1acd937a365c9a071fab307eff82847b057428fd3030936bdf0888860",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T190407Z-81bdd0bb\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T190407Z-81bdd0bb\\backup_receipt.json",
+        "bytes": 974400,
+        "sha256": "dbd21016119e4ff4bdb97e17e4e3420c1374df52d6b0182661a44b6caa16f761",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T193736Z-062c21d6\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T193736Z-062c21d6\\backup_receipt.json",
+        "bytes": 1060922,
+        "sha256": "4f01ea798a27762219fe68453cbda641fbc0f935b2dba2d5ff74f11a7dfdc8ee",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T201259Z-5e001d22\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T201259Z-5e001d22\\backup_receipt.json",
+        "bytes": 977354,
+        "sha256": "bb0dc3f1224fe8cd62d2fa1011e73853bda735d6a6230e791f81c6e9b050b2d2",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T204825Z-dd9275da\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T204825Z-dd9275da\\backup_receipt.json",
+        "bytes": 1132976,
+        "sha256": "8fcaac3c0a50886f3c5909b1f2f542b6d3350e47736337447efa8bfa0c41080c",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T212810Z-1ee57701\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T212810Z-1ee57701\\backup_receipt.json",
+        "bytes": 918194,
+        "sha256": "8c8c24ae087305a01acab0b1d6bd0b629e880488263bc64a9b4b9bd7ac05f6ee",
+        "verified": true
+      },
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T221349Z-7c660318\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\2144c2fb-f29f-431c-bfa6-3dae00b50b00\\20261020T221349Z-7c660318\\backup_receipt.json",
+        "bytes": 1051497,
+        "sha256": "7f9b60ec9660058d1995b0b3aed755a46144d3b15c9ceacca1edf40b266e4523",
+        "verified": true
+      }
+    ]
   },
   {
     "run_id": "551a5289-e6d6-46fd-abac-4efb53b7c821",
@@ -1067,6 +2679,15 @@
     "zip_count": 1,
     "papers_extracted": 0,
     "discovery_elapsed_seconds": 326.195352078,
-    "sha256": "d055139e7c5e6d33f2be61bdf2caf977668162466ff700695a49c84bcd97f606"
+    "sha256": "d055139e7c5e6d33f2be61bdf2caf977668162466ff700695a49c84bcd97f606",
+    "verified_archives": [
+      {
+        "path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\551a5289-e6d6-46fd-abac-4efb53b7c821\\20261019T163627Z-730be0c0\\report.zip",
+        "receipt_path": "C:\\Users\\maida\\Code\\jupyter_book\\input\\nguyen\\acc3\\Milestone1\\checkpoints\\551a5289-e6d6-46fd-abac-4efb53b7c821\\20261019T163627Z-730be0c0\\backup_receipt.json",
+        "bytes": 1049165,
+        "sha256": "d055139e7c5e6d33f2be61bdf2caf977668162466ff700695a49c84bcd97f606",
+        "verified": true
+      }
+    ]
   }
 ]

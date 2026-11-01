@@ -125,5 +125,84 @@ class ReceiptTests(unittest.TestCase):
         self.assertFalse(self.target.exists())
 
 
+class CorpusInvariantTests(unittest.TestCase):
+    """Verify data invariants on the generated datasets in book/data/."""
+
+    def test_references_invariants(self):
+        import csv
+        csv_path = ROOT / "book/data/papers_detail.csv"
+        self.assertTrue(csv_path.is_file(), "papers_detail.csv must exist")
+        with open(csv_path, encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            partial_ids = {"2602.01405", "2602.00562", "2602.01397"}
+            for row in reader:
+                aid = row["arxiv_id"]
+                tot = row["total_references"]
+                kept = int(row["kept_references"])
+                if aid in partial_ids:
+                    self.assertEqual(row["reference_status"], "partial")
+                    self.assertEqual(tot, "", f"Partial paper {aid} must have empty total_references")
+                    self.assertGreater(kept, 0)
+                elif tot != "":
+                    self.assertLessEqual(kept, int(tot), f"Kept refs must not exceed total for {aid}")
+
+    def test_histogram_coverage_reaches_full_corpus(self):
+        import pandas as pd
+        csv_path = ROOT / "book/data/papers_detail.csv"
+        df = pd.read_csv(csv_path)
+        s_tot = pd.to_numeric(df["total_references"], errors="coerce")
+        ref_bins = pd.cut(
+            s_tot.dropna(),
+            bins=[-1, 0, 10, 25, 50, 100, float("inf")],
+            labels=["0 refs", "1-10 refs", "11-25 refs", "26-50 refs", "51-100 refs", ">100 refs"]
+        )
+        dist = ref_bins.value_counts()
+        partial_count = int(s_tot.isna().sum())
+        total_accounted = dist.sum() + partial_count
+        self.assertEqual(total_accounted, 20000, "Histogram bins plus partials must account for exactly 20,000 papers")
+        # Paper 2602.19887 with 1002 refs must be in >100 refs bin
+        self.assertGreater(dist[">100 refs"], 0)
+
+    def test_summary_schema_and_kpis(self):
+        summary_path = ROOT / "book/data/summary.json"
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        required_keys = [
+            "papers_discovered", "full_tex_papers", "full_tex_paper_rate",
+            "resolved_source_papers", "resolved_source_rate", "unresolved_source_papers",
+            "versions_expected", "versions_success", "versions_no_tex", "versions_failed",
+            "total_extracted_references_confirmed", "arxiv_reference_rows", "non_arxiv_reference_rows",
+            "selected_runs_total", "benchmark_runs_total", "member_breakdown"
+        ]
+        for k in required_keys:
+            self.assertIn(k, summary, f"summary.json missing required key: {k}")
+        self.assertEqual(summary["papers_discovered"], 20000)
+        self.assertEqual(summary["selected_runs_total"], 75)
+        self.assertEqual(summary["benchmark_runs_total"], 107)
+
+    def test_cpu_only_and_provenance_full_coverage(self):
+        bench_path = ROOT / "book/data/benchmark.json"
+        bench = json.loads(bench_path.read_text(encoding="utf-8"))
+        self.assertIs(bench["cpu_only"], True, "Top-level cpu_only must be True")
+        runs = bench["runs"]
+        self.assertEqual(len(runs), 107, "Must document 107 benchmark runs")
+        self.assertTrue(all(r.get("cpu_only") is True for r in runs), "All 107 runs must be CPU-only")
+
+        meta_path = ROOT / "book/data/run_metadata.json"
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        self.assertEqual(len(meta), 107, "Must document 107 metadata run entries")
+        for r in meta:
+            self.assertTrue(r.get("verified_archives"), f"Run {r['run_id']} must have verified_archives")
+            self.assertTrue(all(a.get("verified") is True for a in r["verified_archives"]))
+
+    def test_member_breakdown_alignment(self):
+        summary_path = ROOT / "book/data/summary.json"
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        mb = summary["member_breakdown"]
+        tot_selected = sum(data["selected_runs_count"] for data in mb.values())
+        tot_bench = sum(data["benchmark_runs_count"] for data in mb.values())
+        self.assertEqual(tot_selected, 75, "Sum of selected paper runs must be 75")
+        self.assertEqual(tot_bench, 107, "Sum of benchmark runs must be 107")
+
+
 if __name__ == "__main__":
     unittest.main()

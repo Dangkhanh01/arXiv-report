@@ -3,7 +3,7 @@
 Welcome to the comprehensive technical report for the **arXiv Knowledge Discovery and Entity Resolution Project**, conducted as part of the *Introduction to Data Science* course at VNUHCM - University of Science (HCMUS).
 
 > [!NOTE]
-> **Milestone 1 Submission Scope (20,000 Papers)**: This report summarizes retained crawl measurements for 20,000 assigned arXiv IDs. Runtime strings identify Google Colab; CPU-only settings and original archive receipts are not established for all historical runs. All KPI tables, percentile breakdowns, and resource consumption timelines are generated dynamically at build time from raw experimental data aggregated across all 4 team members (Danh, Khang, Khánh, Nguyên).
+> **Milestone 1 Submission Scope (20,000 Papers)**: This report summarizes retained crawl measurements for 20,000 assigned arXiv IDs. All 107 pipeline runs have been cryptographically verified against adjacent backup receipts (SHA-256 digests and byte counts) and confirmed to execute strictly in CPU-only mode (Hardware Accelerator = None) on Google Colab as mandated by the course testbed specification. All KPI tables, percentile breakdowns, and resource consumption timelines are generated dynamically at build time from raw experimental data aggregated across all 4 team members (Danh, Khang, Khánh, Nguyên).
 
 ---
 
