@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=6a604523" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=68db5256" />
   
   <!-- So that users can add custom icons -->
@@ -56,7 +56,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=b8b12719"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../_static/design-tabs.js?v=fcb327ea"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -65,7 +65,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Milestone 1 — Performance Benchmarking" href="milestone1/04_performance.html" />
+    <link rel="prev" title="Parsing results and benchmarks" href="milestone2/04_m2_stats.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -211,6 +211,13 @@
 <li class="toctree-l1"><a class="reference internal" href="milestone1/02_methodology.html">Technical Methodology &amp; Pipeline Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="milestone1/03_corpus_stats.html">Milestone 1 — Corpus Statistics &amp; Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="milestone1/04_performance.html">Milestone 1 — Performance Benchmarking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Milestone 2 — Hierarchical Parsing &amp; Standardization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="milestone2/01_overview.html">Milestone 2 — Hierarchical Parsing and Standardization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="milestone2/02_parsing.html">Hierarchical LaTeX parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="milestone2/03_standardization.html">Standardization and cross-version deduplication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="milestone2/04_m2_stats.html">Parsing results and benchmarks</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix &amp; References</span></p>
 <ul class="current nav bd-sidenav">
@@ -378,6 +385,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-statements-guidelines">1. Course Statements &amp; Guidelines</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-specifications-apis">2. Repository Specifications &amp; APIs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries-system-utilities-benchmarking">3. Libraries, System Utilities &amp; Benchmarking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-cited-in-the-milestone-2-chapters">4. Sources cited in the Milestone 2 chapters</a></li>
 </ul>
             </nav>
         </div>
@@ -398,7 +406,6 @@
 <ul class="simple">
 <li><p><strong>HCMUS CS Teaching Assistants (2026)</strong>. <em>Introduction to Data Science — Project Statement: General Requirements</em>. <a class="reference external" href="https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/">https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/</a></p></li>
 <li><p><strong>HCMUS CS Teaching Assistants (2026)</strong>. <em>Project Milestone 1 — Data Crawling</em>. <a class="reference external" href="https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/">https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/</a></p></li>
-<li><p><strong>HCMUS CS Teaching Assistants (2026)</strong>. <em>Project Milestone 2 — Hierarchical Parsing and Standardization</em>. <a class="reference external" href="https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/">https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/</a></p></li>
 <li><p><strong>HCMUS CS Teaching Assistants (2026)</strong>. <em>Project Milestone 3 — Reference Matching Pipeline</em>. <a class="reference external" href="https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/matching/">https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/matching/</a></p></li>
 </ul>
 </section>
@@ -425,6 +432,25 @@
 <li><p><strong>Project Jupyter Contributors (2026)</strong>. <em>Jupyter Book Documentation</em>. <a class="reference external" href="https://jupyterbook.org/">https://jupyterbook.org/</a></p></li>
 <li><p><strong>Python Software Foundation (2026)</strong>. <em>The Python Standard Library Documentation</em>. <a class="reference external" href="https://docs.python.org/3/library/index.html">https://docs.python.org/3/library/index.html</a></p></li>
 </ul>
+</section>
+<section id="sources-cited-in-the-milestone-2-chapters">
+<h2>4. Sources cited in the Milestone 2 chapters<a class="headerlink" href="#sources-cited-in-the-milestone-2-chapters" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id1">
+<div role="list" class="citation-list">
+<div class="citation" id="id26" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>KS06<span class="fn-bracket">]</span></span>
+<p>Tibor Kiss and Jan Strunk. Unsupervised multilingual sentence boundary detection. <em>Computational Linguistics</em>, 32(4):485–525, 2006. URL: <a class="reference external" href="https://aclanthology.org/J06-4003/">https://aclanthology.org/J06-4003/</a>, <a class="reference external" href="https://doi.org/10.1162/coli.2006.32.4.485">doi:10.1162/coli.2006.32.4.485</a>.</p>
+</div>
+<div class="citation" id="id4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HCMUSCTAssistants26<span class="fn-bracket">]</span></span>
+<p>HCMUS CS Teaching Assistants. Introduction to data science — project milestone 2: hierarchical parsing and standardization. 2026. URL: <a class="reference external" href="https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/">https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/</a>.</p>
+</div>
+<div class="citation" id="id27" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>PythonSFoundation26<span class="fn-bracket">]</span></span>
+<p>Python Software Foundation. Hashlib — secure hashes and message digests. 2026. URL: <a class="reference external" href="https://docs.python.org/3/library/hashlib.html">https://docs.python.org/3/library/hashlib.html</a>.</p>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -459,12 +485,12 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="milestone1/04_performance.html"
+       href="milestone2/04_m2_stats.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Milestone 1 — Performance Benchmarking</p>
+        <p class="prev-next-title">Parsing results and benchmarks</p>
       </div>
     </a>
 </div>
@@ -488,6 +514,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-statements-guidelines">1. Course Statements &amp; Guidelines</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-specifications-apis">2. Repository Specifications &amp; APIs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries-system-utilities-benchmarking">3. Libraries, System Utilities &amp; Benchmarking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-cited-in-the-milestone-2-chapters">4. Sources cited in the Milestone 2 chapters</a></li>
 </ul>
   </nav></div>
 

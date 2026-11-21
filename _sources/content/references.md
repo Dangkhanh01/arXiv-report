@@ -7,7 +7,6 @@ The methodology, protocols, libraries, and benchmarking standards across all pro
 ## 1. Course Statements & Guidelines
 - **HCMUS CS Teaching Assistants (2026)**. *Introduction to Data Science — Project Statement: General Requirements*. [https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/)
 - **HCMUS CS Teaching Assistants (2026)**. *Project Milestone 1 — Data Crawling*. [https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/)
-- **HCMUS CS Teaching Assistants (2026)**. *Project Milestone 2 — Hierarchical Parsing and Standardization*. [https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/)
 - **HCMUS CS Teaching Assistants (2026)**. *Project Milestone 3 — Reference Matching Pipeline*. [https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/matching/](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/matching/)
 
 ## 2. Repository Specifications & APIs
@@ -27,3 +26,8 @@ The methodology, protocols, libraries, and benchmarking standards across all pro
 - **Google LLC (2026)**. *Google Colaboratory Frequently Asked Questions*. [https://research.google.com/colaboratory/faq.html](https://research.google.com/colaboratory/faq.html)
 - **Project Jupyter Contributors (2026)**. *Jupyter Book Documentation*. [https://jupyterbook.org/](https://jupyterbook.org/)
 - **Python Software Foundation (2026)**. *The Python Standard Library Documentation*. [https://docs.python.org/3/library/index.html](https://docs.python.org/3/library/index.html)
+
+## 4. Sources cited in the Milestone 2 chapters
+
+```{bibliography}
+```
