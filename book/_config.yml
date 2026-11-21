@@ -6,6 +6,9 @@ author: "HCMUS Data Science Project — Group 04"
 copyright: "2026"
 logo: ""
 
+bibtex_bibfiles:
+  - references.bib
+
 # Execution settings
 execute:
   execute_notebooks: "force"
@@ -53,7 +56,6 @@ sphinx:
     exclude_patterns:
       - "_build"
       - "_build/*"
-      - "content/milestone2/*"
       - "content/milestone3/*"
     html_theme_options:
       repository_url: "https://github.com/Dangkhanh01/arXiv-report"

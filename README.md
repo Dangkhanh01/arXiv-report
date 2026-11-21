@@ -2,7 +2,7 @@
 
 This repository contains the Jupyter Book technical report for the **arXiv Knowledge Discovery and Entity Resolution Project** (HCMUS Introduction to Data Science).
 
-All figures, distributions, and performance tables in this report are generated dynamically at build time using Plotly and pandas from the aggregated measurement data in `book/data/`.
+The book compiles figures and performance tables from the checked-in M1 measurements in `book/data/` and M2 measurements in `book/data_m2/`.
 
 ---
 
@@ -17,11 +17,12 @@ The book is organized into 4 logical Parts across all milestones:
    - `03_corpus_stats.ipynb`: **Dynamic notebook** computing success rates, size reduction bar charts, and reference distributions.
    - `04_performance.ipynb`: **Dynamic notebook** reporting wall clock time, RAM/Disk timelines, and Google Colab CPU footprints.
 3. **Milestone 2 — Hierarchical Parsing & Standardization**:
-   - `01_overview.md`, `02_parsing.md`, `03_standardization.md`, `04_m2_stats.ipynb`: Architecture ready for LaTeX AST trees, math normalization, and cross-version deduplication.
+   - Parsing and standardization chapters trace publication 2606.15734 from TeX inputs to shared elements across two versions.
+   - The results notebook reports version coverage, export decisions, deduplication, storage and benchmarks. Its lookup accepts a dotted or hyphenated publication ID.
 4. **Milestone 3 — Reference Matching & Final Delivery**:
    - `01_overview.md`, `02_poster_preview.md`: Machine learning matching pipeline, MRR@5 ranking, Hugging Face Parquet dataset, and A2 poster session.
 5. **Appendix & Academic References (`content/references.md`, `references.bib`)**:
-   - 26 complete scholarly citations.
+   - Course statements, technical documentation and sources cited in the Milestone 2 chapters.
 
 ---
 
@@ -108,6 +109,19 @@ python -m unittest discover -s tests -v
 ```
 
 ---
+
+## Rebuild Milestone 2 measurements
+
+From the report repository, use the existing M1 inventory and twelve schema 21 full-corpus archives.
+
+```bash
+python scripts/aggregate_m2.py --source ../input
+jupyter-book build --all -W --keep-going book/
+```
+
+The aggregator streams each `member/account/Milestone2/dataset/snapshot/full/full.tar.gz` and checks its internal summary against the adjacent `m2_stats.json`. It reconciles per-paper outcomes with the export manifest, checks benchmark receipts, and matches the M1 publication and version keys. Account labels identify runs within their own milestone. Member assignment and publication ID connect the two inventories.
+
+The resulting `book/data_m2/` snapshot contains one row per publication, one per version, node-kind counts, and one provenance and benchmark row per run. Join `versions.csv` to `papers.csv` on the string `arxiv_id` and join papers to `runs.csv` on `run_id`. Run one ingestion at a time. An ordinary book build only needs the checked-in CSVs.
 
 ## 🌐 Automated GitHub Pages Deployment
 

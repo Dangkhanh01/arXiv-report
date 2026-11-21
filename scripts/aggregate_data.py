@@ -36,6 +36,7 @@ import subprocess
 import sys
 import zipfile
 from collections import defaultdict, Counter
+from contextlib import contextmanager
 from typing import Dict, List, Tuple, Any, Optional
 
 MEMBER_DISPLAY = {
@@ -263,6 +264,12 @@ def parse_json_from_zip(z, filename, required=False):
 
 
 def aggregate_corpus(source_dir, target_dir, assignment_path=None):
+    with staged_snapshot(target_dir) as staged:
+        return _aggregate_corpus(Path(source_dir), staged, assignment_path)
+
+
+@contextmanager
+def staged_snapshot(target_dir):
     """Build a complete snapshot off-target; roll back ordinary publication failures.
 
     The directory swap is not a lock for concurrent writers/readers. Run ingestion
@@ -274,7 +281,7 @@ def aggregate_corpus(source_dir, target_dir, assignment_path=None):
     target.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=f".{target.name}-stage-", dir=target.parent) as work:
         staged = Path(work) / "snapshot"
-        result = _aggregate_corpus(Path(source_dir), staged, assignment_path)
+        yield staged
         # Keep the backup outside TemporaryDirectory so an interrupted swap does
         # not destroy the previous snapshot during cleanup.
         backup = target.with_name(f".{target.name}-previous")
@@ -294,7 +301,6 @@ def aggregate_corpus(source_dir, target_dir, assignment_path=None):
                 shutil.rmtree(backup)
             except OSError:
                 warnings.warn(f"Snapshot published; old backup requires cleanup: {backup}", RuntimeWarning)
-        return result
 
 
 def _aggregate_corpus(source_dir, target_dir, assignment_path=None):
